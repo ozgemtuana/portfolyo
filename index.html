@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="tr">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="Kişisel portfolyo — Personal portfolio" />
+        <meta name="theme-color" content="#07070b" />
+        <title>Ana Sayfa</title>
+        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300..800&amp;family=Instrument+Serif:ital@0;1&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet" />
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css" rel="stylesheet" />
+        <!-- Şablonun çekirdek CSS'i (Bootstrap dahil) -->
+        <link href="css/styles.css" rel="stylesheet" />
+        <!-- Koyu tema ve animasyon katmanı -->
+        <link href="css/dark.css" rel="stylesheet" />
+        <script>
+            /* Perde/yükleme ekranı için: JS var mı, ilk ziyaret mi? */
+            document.documentElement.classList.add("js");
+            try { if (!sessionStorage.getItem("visited")) document.documentElement.classList.add("first-visit"); } catch (e) {}
+        </script>
+    </head>
+    <body id="top" class="d-flex flex-column h-100" data-page="home" data-title="meta.title.home">
+        <canvas id="bg3d" aria-hidden="true"></canvas>
+        <div class="grain" aria-hidden="true"></div>
+        <div class="scroll-progress" aria-hidden="true"></div>
+        <div class="cursor" aria-hidden="true"><span data-i18n="cursor.view">Gör</span></div>
+        <div class="curtain" aria-hidden="true"><div class="panel"></div><div class="panel"></div><div class="panel"></div><div class="panel"></div><div class="panel"></div></div>
+        <div class="loader" aria-hidden="true">
+            <div class="loader-name" data-profile="name">Tuana Davarcı</div>
+            <div>
+                <div class="loader-count">0</div>
+                <div class="loader-bar"><i></i></div>
+            </div>
+        </div>
+
+        <main class="flex-shrink-0">
+            <!-- Navigation-->
+            <nav class="navbar navbar-expand-lg navbar-dark py-3">
+                <div class="container px-5">
+                    <a class="navbar-brand" href="index.html"><span class="fw-bolder text-gradient" data-profile="name">Tuana Davarcı</span></a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" data-i18n-aria="nav.toggle" aria-label="Menüyü aç/kapat"><span class="navbar-toggler-icon"></span></button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav ms-auto mb-2 mb-lg-0 small fw-bolder align-items-lg-center gap-lg-2">
+                            <li class="nav-item"><a class="nav-link" data-nav="home" data-scramble href="index.html" data-i18n="nav.home">Ana Sayfa</a></li>
+                            <li class="nav-item"><a class="nav-link" data-nav="resume" data-scramble href="resume.html" data-i18n="nav.resume">Özgeçmiş</a></li>
+                            <li class="nav-item"><a class="nav-link" data-nav="projects" data-scramble href="projects.html" data-i18n="nav.projects">Projeler</a></li>
+                            <li class="nav-item"><a class="nav-link" data-nav="contact" data-scramble href="contact.html" data-i18n="nav.contact">İletişim</a></li>
+                            <li class="nav-item ms-lg-3 mt-2 mt-lg-0">
+                                <div class="lang-switch" role="group" aria-label="Dil / Language">
+                                    <button type="button" data-lang="tr">TR</button>
+                                    <button type="button" data-lang="en">EN</button>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+
+            <!-- Header-->
+            <header class="hero">
+                <div class="container px-5">
+                    <div class="row gx-5 align-items-center">
+                        <div class="col-xl-10 col-lg-11">
+                            <div class="eyebrow mb-4" data-reveal data-i18n="hero.status">Yeni projelere açığım</div>
+                            <h1 class="hero-title mb-5">
+                                <span class="line"><span data-i18n="hero.line1">Merhaba,</span></span>
+                                <span class="line"><span data-i18n-html="hero.line2">ben <em>Tuana</em></span></span>
+                            </h1>
+                            <div class="row gy-4 align-items-end">
+                                <div class="col-lg-6">
+                                    <p class="hero-sub mb-0" data-reveal data-i18n="hero.sub">Bilgisayar mühendisliği öğrencisi ve front-end geliştirici.</p>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="d-grid gap-3 d-sm-flex justify-content-lg-end" data-reveal>
+                                        <a class="btn btn-primary btn-lg px-5 py-3 fs-6 magnetic" href="projects.html" data-i18n="hero.cta1">Projelerimi Gör</a>
+                                        <a class="btn btn-outline-dark btn-lg px-5 py-3 fs-6 magnetic" href="resume.html" data-i18n="hero.cta2">Özgeçmiş</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="hero-meta mt-5" data-reveal>
+                                <span><span data-i18n="hero.based">Konum</span> — <b data-profile="location">İstanbul, TR</b></span>
+                                <span><span data-i18n="hero.local">Yerel saat</span> — <b class="local-time">--:--</b></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="scroll-hint" aria-hidden="true"><i></i><span data-i18n="hero.scroll">Kaydır</span></div>
+            </header>
+
+            <!-- Kayan yazı bantları -->
+            <div class="my-5 py-4" aria-hidden="true">
+                <div class="marquee">
+                    <div class="marquee-track">
+                        <span data-i18n="marquee.1">Tasarım</span><span class="star">✺</span>
+                        <span class="outline" data-i18n="marquee.2">Geliştirme</span><span class="star">✺</span>
+                        <span data-i18n="marquee.3">Animasyon</span><span class="star">✺</span>
+                        <span class="outline" data-i18n="marquee.4">3D Web</span><span class="star">✺</span>
+                    </div>
+                </div>
+                <div class="marquee alt">
+                    <div class="marquee-track" data-reverse>
+                        <span class="outline" data-i18n="marquee.5">Yaratıcı kod</span><span class="star">✦</span>
+                        <span data-i18n="marquee.6">Etkileşim</span><span class="star">✦</span>
+                        <span class="outline" data-i18n="marquee.7">Detay</span><span class="star">✦</span>
+                        <span data-i18n="marquee.8">Hareket</span><span class="star">✦</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- About Section-->
+            <section class="py-5 my-5">
+                <div class="container px-5">
+                    <div class="row gx-5">
+                        <div class="col-lg-3 mb-4">
+                            <div class="eyebrow" data-reveal data-i18n="about.eyebrow">Hakkımda</div>
+                        </div>
+                        <div class="col-lg-9">
+                            <p class="statement mb-5" data-i18n="about.statement">Detaylara takıntılı biriyim.</p>
+                            <div class="row g-4 mt-4">
+                                <div class="col-sm-4">
+                                    <span class="rule"></span>
+                                    <div class="stat">
+                                        <div class="num"><span data-count="4">4</span><sup>+</sup></div>
+                                        <div class="label" data-i18n="stats.1">Tamamlanan proje</div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <span class="rule"></span>
+                                    <div class="stat">
+                                        <div class="num"><span data-count="6">6</span></div>
+                                        <div class="label" data-i18n="stats.2">Öğrenilen teknoloji</div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <span class="rule"></span>
+                                    <div class="stat">
+                                        <div class="num"><span data-count="999">999</span><sup>+</sup></div>
+                                        <div class="label" data-i18n="stats.3">Fincan kahve</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Öne çıkan projeler: yatay kaydırma -->
+            <section class="h-scroll py-5">
+                <div class="container px-5 mb-5 d-flex flex-wrap justify-content-between align-items-end gap-3">
+                    <div>
+                        <div class="eyebrow mb-3" data-i18n="work.eyebrow">Seçili İşler</div>
+                        <h2 class="display-3 mb-0" data-i18n-html="work.title">Öne çıkan <em>projeler</em></h2>
+                    </div>
+                    <a class="btn btn-outline-dark px-4 py-2 magnetic" href="projects.html"><span data-i18n="work.all">Tüm projeler</span> <i class="bi bi-arrow-right"></i></a>
+                </div>
+                <div class="h-track">
+                    <a class="h-card" href="assets/projects/vanilla-cola.jpg" target="_blank" rel="noopener" data-cursor="view">
+                        <div class="thumb tilt"><div class="art-img" style="background-image: url(assets/projects/vanilla-cola.jpg)"></div><span class="glare"></span></div>
+                        <div class="meta"><div><h3 data-i18n="p.1.t">Nova Dashboard</h3><small data-i18n="p.1.tag">Web Uygulaması</small></div><span class="idx">(01)</span></div>
+                    </a>
+                    <a class="h-card" href="assets/projects/history-brush.jpg" target="_blank" rel="noopener" data-cursor="view">
+                        <div class="thumb tilt"><div class="art-img" style="background-image: url(assets/projects/history-brush.jpg)"></div><span class="glare"></span></div>
+                        <div class="meta"><div><h3 data-i18n="p.2.t">Aura Müzik</h3><small data-i18n="p.2.tag">UI / UX</small></div><span class="idx">(02)</span></div>
+                    </a>
+                    <a class="h-card" href="index.html" data-cursor="view">
+                        <div class="thumb tilt"><div class="art-3"></div><span class="glare"></span></div>
+                        <div class="meta"><div><h3 data-i18n="p.3.t">Kampüs Rehberi</h3><small data-i18n="p.3.tag">Responsive Site</small></div><span class="idx">(03)</span></div>
+                    </a>
+                    <a class="h-card" href="https://www.instagram.com/ozgemtuana/" target="_blank" rel="noopener" data-cursor="view">
+                        <div class="thumb tilt"><div class="art-4"></div><span class="glare"></span></div>
+                        <div class="meta"><div><h3 data-i18n="p.4.t">Orbit 3D</h3><small data-i18n="p.4.tag">3D / WebGL</small></div><span class="idx">(04)</span></div>
+                    </a>
+                </div>
+            </section>
+
+            <!-- Hizmetler -->
+            <section class="py-5 my-5">
+                <div class="container px-5">
+                    <div class="eyebrow mb-4" data-reveal data-i18n="services.eyebrow">Neler yapıyorum</div>
+                    <span class="rule"></span>
+                    <div class="service-row"><span class="no">01</span><h3 data-i18n="services.1.t">Web Tasarım</h3><p data-i18n="services.1.d"></p></div>
+                    <div class="service-row"><span class="no">02</span><h3 data-i18n="services.2.t">Front-End Geliştirme</h3><p data-i18n="services.2.d"></p></div>
+                    <div class="service-row"><span class="no">03</span><h3 data-i18n="services.3.t">Etkileşim &amp; Animasyon</h3><p data-i18n="services.3.d"></p></div>
+                    <div class="service-row"><span class="no">04</span><h3 data-i18n="services.4.t">Mobil Uyumluluk</h3><p data-i18n="services.4.d"></p></div>
+                </div>
+            </section>
+
+            <!-- CTA -->
+            <section class="py-5 my-5 text-center">
+                <div class="container px-5">
+                    <div class="eyebrow mb-4 justify-content-center" data-i18n="cta.eyebrow">Bir fikrin mi var?</div>
+                    <div><a class="cta-big" href="contact.html" data-i18n-html="cta.big" data-cursor="mail">Hadi <em>konuşalım</em></a></div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer-->
+        <footer class="site-footer pt-5 mt-auto">
+            <div class="container px-5">
+                <div class="row align-items-center justify-content-between flex-column flex-sm-row gap-3">
+                    <div class="col-auto d-flex gap-4">
+                        <a data-profile="github" data-profile-href href="#" data-scramble>GitHub</a>
+                        <a data-profile="instagram" data-profile-href href="#" data-scramble>Instagram</a>
+                    </div>
+                    <div class="col-auto d-flex gap-4">
+                        <a href="https://startbootstrap.com/theme/personal" target="_blank" rel="noopener" data-i18n="footer.template" data-scramble>Şablon</a>
+                        <a href="#top" class="to-top" data-i18n="footer.up" data-scramble>Yukarı ↑</a>
+                    </div>
+                </div>
+            </div>
+            <h2 class="footer-name text-center" aria-hidden="true" data-profile="name">Tuana Davarcı</h2>
+            <div class="container px-5 py-3">
+                <div class="small text-muted text-center" data-i18n="footer.copy">© 2026</div>
+            </div>
+        </footer>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+        <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+        <script src="js/i18n.js"></script>
+        <script src="js/main.js"></script>
+    </body>
+</html>

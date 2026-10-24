@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="tr">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="Kişisel portfolyo — Personal portfolio" />
+        <meta name="theme-color" content="#07070b" />
+        <title>İletişim</title>
+        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300..800&amp;family=Instrument+Serif:ital@0;1&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet" />
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css" rel="stylesheet" />
+        <!-- Şablonun çekirdek CSS'i (Bootstrap dahil) -->
+        <link href="css/styles.css" rel="stylesheet" />
+        <!-- Koyu tema ve animasyon katmanı -->
+        <link href="css/dark.css" rel="stylesheet" />
+        <script>
+            /* Perde/yükleme ekranı için: JS var mı, ilk ziyaret mi? */
+            document.documentElement.classList.add("js");
+            try { if (!sessionStorage.getItem("visited")) document.documentElement.classList.add("first-visit"); } catch (e) {}
+        </script>
+    </head>
+    <body id="top" class="d-flex flex-column h-100" data-page="contact" data-title="meta.title.contact">
+        <canvas id="bg3d" aria-hidden="true"></canvas>
+        <div class="grain" aria-hidden="true"></div>
+        <div class="scroll-progress" aria-hidden="true"></div>
+        <div class="cursor" aria-hidden="true"><span data-i18n="cursor.view">Gör</span></div>
+        <div class="curtain" aria-hidden="true"><div class="panel"></div><div class="panel"></div><div class="panel"></div><div class="panel"></div><div class="panel"></div></div>
+        <div class="loader" aria-hidden="true">
+            <div class="loader-name" data-profile="name">Tuana Davarcı</div>
+            <div>
+                <div class="loader-count">0</div>
+                <div class="loader-bar"><i></i></div>
+            </div>
+        </div>
+
+        <main class="flex-shrink-0">
+            <!-- Navigation-->
+            <nav class="navbar navbar-expand-lg navbar-dark py-3">
+                <div class="container px-5">
+                    <a class="navbar-brand" href="index.html"><span class="fw-bolder text-gradient" data-profile="name">Tuana Davarcı</span></a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" data-i18n-aria="nav.toggle" aria-label="Menüyü aç/kapat"><span class="navbar-toggler-icon"></span></button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav ms-auto mb-2 mb-lg-0 small fw-bolder align-items-lg-center gap-lg-2">
+                            <li class="nav-item"><a class="nav-link" data-nav="home" data-scramble href="index.html" data-i18n="nav.home">Ana Sayfa</a></li>
+                            <li class="nav-item"><a class="nav-link" data-nav="resume" data-scramble href="resume.html" data-i18n="nav.resume">Özgeçmiş</a></li>
+                            <li class="nav-item"><a class="nav-link" data-nav="projects" data-scramble href="projects.html" data-i18n="nav.projects">Projeler</a></li>
+                            <li class="nav-item"><a class="nav-link" data-nav="contact" data-scramble href="contact.html" data-i18n="nav.contact">İletişim</a></li>
+                            <li class="nav-item ms-lg-3 mt-2 mt-lg-0">
+                                <div class="lang-switch" role="group" aria-label="Dil / Language">
+                                    <button type="button" data-lang="tr">TR</button>
+                                    <button type="button" data-lang="en">EN</button>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+
+            <!-- Page content-->
+            <section class="page-offset py-5">
+                <div class="container px-5">
+                    <div class="mb-5 pt-4">
+                        <div class="eyebrow mb-3" data-reveal data-i18n="hero.status">Yeni projelere açığım</div>
+                        <h1 class="display-3 fw-bolder mb-3" data-reveal><span class="text-gradient d-inline" data-i18n-html="contact.title">Birlikte bir şeyler yapalım</span></h1>
+                        <p class="hero-sub" data-reveal data-i18n="contact.sub">Proje, staj veya sadece merhaba demek için formu doldurabilirsin.</p>
+                    </div>
+                    <div class="row gx-5 gy-5">
+                        <div class="col-lg-7" data-reveal>
+                            <!-- Contact form-->
+                            <div class="card rounded-4"><div class="card-body p-4 p-sm-5">
+                                <form id="contactForm" novalidate>
+                                    <div class="form-floating mb-3">
+                                        <input class="form-control" id="name" type="text" placeholder="Adın" data-i18n-ph="contact.name" required />
+                                        <label for="name" data-i18n="contact.name">Adın</label>
+                                    </div>
+                                    <div class="form-floating mb-3">
+                                        <input class="form-control" id="email" type="email" placeholder="ornek@mail.com" required />
+                                        <label for="email" data-i18n="contact.email">E-posta adresin</label>
+                                    </div>
+                                    <div class="form-floating mb-3">
+                                        <input class="form-control" id="phone" type="tel" placeholder="05xx" data-i18n-ph="contact.phone" />
+                                        <label for="phone" data-i18n="contact.phone">Telefon numaran</label>
+                                    </div>
+                                    <div class="form-floating mb-3">
+                                        <textarea class="form-control" id="message" placeholder="..." style="height: 10rem" required></textarea>
+                                        <label for="message" data-i18n="contact.message">Mesajın</label>
+                                    </div>
+                                    <div class="d-none" id="submitSuccessMessage"><div class="text-center mb-3 fw-bolder text-success" data-i18n="contact.success">Teşekkürler!</div></div>
+                                    <div class="d-none" id="submitErrorMessage"><div class="text-center text-danger mb-3" data-i18n="contact.error">Lütfen tüm alanları doğru doldur.</div></div>
+                                    <div class="d-grid"><button class="btn btn-primary btn-lg py-3 fw-bolder" id="submitButton" type="submit" data-i18n="contact.send">Gönder</button></div>
+                                </form>
+                            </div></div>
+                        </div>
+                        <div class="col-lg-5">
+                            <div class="d-flex flex-column gap-4">
+                                <div class="card rounded-4 p-4" data-reveal>
+                                    <div class="d-flex align-items-center gap-3">
+                                        <div class="feature bg-gradient-primary-to-secondary text-white rounded-3"><i class="bi bi-envelope"></i></div>
+                                        <div><div class="small text-muted" data-i18n="contact.mail">E-posta</div><a class="fw-bolder text-break" data-profile="email" data-profile-href href="mailto:ozgmtuana15@gmail.com">ozgmtuana15@gmail.com</a></div>
+                                    </div>
+                                </div>
+                                <div class="card rounded-4 p-4" data-reveal data-delay="0.05">
+                                    <div class="d-flex align-items-center gap-3">
+                                        <div class="feature bg-gradient-primary-to-secondary text-white rounded-3"><i class="bi bi-telephone"></i></div>
+                                        <div><div class="small text-muted" data-i18n="contact.tel">Telefon</div><a class="fw-bolder" data-profile="phone" data-profile-href href="tel:+905523110700">0552 311 07 00</a></div>
+                                    </div>
+                                </div>
+                                <div class="card rounded-4 p-4" data-reveal data-delay="0.1">
+                                    <div class="d-flex align-items-center gap-3">
+                                        <div class="feature bg-gradient-primary-to-secondary text-white rounded-3"><i class="bi bi-geo-alt"></i></div>
+                                        <div><div class="small text-muted" data-i18n="contact.loc">Konum</div><div class="fw-bolder" data-profile="location">İstanbul, TR</div></div>
+                                    </div>
+                                </div>
+                                <div class="card rounded-4 p-4" data-reveal data-delay="0.2">
+                                    <div class="small text-muted mb-3" data-i18n="contact.social">Sosyal</div>
+                                    <div class="d-flex fs-3 gap-4">
+                                        <a class="text-gradient magnetic" data-profile="github" data-profile-href href="#" aria-label="GitHub"><i class="bi bi-github"></i></a>
+                                        <a class="text-gradient magnetic" data-profile="instagram" data-profile-href href="#" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer-->
+        <footer class="site-footer pt-5 mt-auto">
+            <div class="container px-5">
+                <div class="row align-items-center justify-content-between flex-column flex-sm-row gap-3">
+                    <div class="col-auto d-flex gap-4">
+                        <a data-profile="github" data-profile-href href="#" data-scramble>GitHub</a>
+                        <a data-profile="instagram" data-profile-href href="#" data-scramble>Instagram</a>
+                    </div>
+                    <div class="col-auto d-flex gap-4">
+                        <a href="https://startbootstrap.com/theme/personal" target="_blank" rel="noopener" data-i18n="footer.template" data-scramble>Şablon</a>
+                        <a href="#top" class="to-top" data-i18n="footer.up" data-scramble>Yukarı ↑</a>
+                    </div>
+                </div>
+            </div>
+            <h2 class="footer-name text-center" aria-hidden="true" data-profile="name">Tuana Davarcı</h2>
+            <div class="container px-5 py-3">
+                <div class="small text-muted text-center" data-i18n="footer.copy">© 2026</div>
+            </div>
+        </footer>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+        <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+        <script src="js/i18n.js"></script>
+        <script src="js/main.js"></script>
+    </body>
+</html>
