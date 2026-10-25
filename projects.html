@@ -15,8 +15,10 @@
         <link href="css/styles.css" rel="stylesheet" />
         <!-- Koyu tema ve animasyon katmanı -->
         <link href="css/dark.css" rel="stylesheet" />
+        <!-- Sayfa geçişi + yükleme ekranı -->
+        <link href="css/transition.css" rel="stylesheet" />
         <script>
-            /* Perde/yükleme ekranı için: JS var mı, ilk ziyaret mi? */
+            /* Geçiş sahnesi/yükleme ekranı için: JS var mı, ilk ziyaret mi? */
             document.documentElement.classList.add("js");
             try { if (!sessionStorage.getItem("visited")) document.documentElement.classList.add("first-visit"); } catch (e) {}
         </script>
@@ -26,14 +28,41 @@
         <div class="grain" aria-hidden="true"></div>
         <div class="scroll-progress" aria-hidden="true"></div>
         <div class="cursor" aria-hidden="true"><span data-i18n="cursor.view">Gör</span></div>
-        <div class="curtain" aria-hidden="true"><div class="panel"></div><div class="panel"></div><div class="panel"></div><div class="panel"></div><div class="panel"></div></div>
-        <div class="loader" aria-hidden="true">
-            <div class="loader-name" data-profile="name">Tuana Davarcı</div>
-            <div>
-                <div class="loader-count">0</div>
-                <div class="loader-bar"><i></i></div>
+        <!-- Sayfa geçişi sahnesi (js/transition.js) -->
+        <div class="pt" aria-hidden="true">
+            <svg class="pt-svg" viewBox="0 0 100 100" preserveAspectRatio="none" focusable="false">
+                <path class="pt-path pt-path--accent" d="M0 0 L0 100 Q50 100 100 100 L100 0 Z" />
+                <path class="pt-path pt-path--mid" d="M0 0 L0 100 Q50 100 100 100 L100 0 Z" />
+                <path class="pt-path pt-path--base" d="M0 0 L0 100 Q50 100 100 100 L100 0 Z" />
+                <path class="pt-path pt-path--fill" d="" />
+            </svg>
+            <div class="pt-content">
+                <div class="pt-top"><span class="pt-label"></span><span class="pt-meta"></span></div>
+                <div class="pt-bottom">
+                    <div class="pt-stage">
+                        <em class="pt-word"><span class="pt-word-in"></span></em>
+                        <div class="pt-line"><span class="pt-name"></span><span class="pt-count"><b>0</b><em>%</em></span></div>
+                    </div>
+                    <span class="pt-rule"><i></i></span>
+                    <div class="pt-foot"><span data-profile="name">Tuana Davarcı</span><span class="pt-of"></span></div>
+                </div>
             </div>
         </div>
+        <script>
+            /* Geçişle gelindiyse hedef başlığı ilk karede yaz (boş kare görünmesin) */
+            (function () {
+                try {
+                    var d = JSON.parse(sessionStorage.getItem("pt-dest") || "null"), p = document.querySelector(".pt");
+                    if (!d || !p || d.page !== document.body.dataset.page || Date.now() - d.ts > 8000) return;
+                    p.classList.add("is-arrived");
+                    p.querySelector(".pt-name").textContent = d.name;
+                    p.querySelector(".pt-word-in").textContent = d.word;
+                    p.querySelector(".pt-label").textContent = d.label;
+                    p.querySelector(".pt-meta").textContent = d.meta;
+                    p.querySelector(".pt-of").textContent = d.of;
+                } catch (e) {}
+            })();
+        </script>
 
         <main class="flex-shrink-0">
             <!-- Navigation-->
@@ -66,48 +95,8 @@
                         <h1 class="display-2 fw-bolder mb-3" data-reveal><span class="text-gradient d-inline" data-i18n-html="projects.title">Projeler</span></h1>
                         <p class="hero-sub" data-reveal data-i18n="projects.sub">Okul, kişisel ve serbest çalışmalarımdan bir seçki.</p>
                     </div>
-                    <div class="row g-4">
-                        <div class="col-md-6" data-reveal data-delay="0.0">
-                            <a class="project-tile d-block text-decoration-none" href="assets/projects/vanilla-cola.jpg" target="_blank" rel="noopener" data-cursor="view">
-                                <div class="thumb tilt clip-reveal"><div class="art-img" style="background-image: url(assets/projects/vanilla-cola.jpg)"></div><span class="glare"></span></div>
-                                <div class="body">
-                                    <div class="tag mb-2" data-i18n="p.1.tag"></div>
-                                    <h3 class="fw-bolder" data-i18n="p.1.t"></h3>
-                                    <p class="text-muted mb-3" data-i18n="p.1.d"></p>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-md-6" data-reveal data-delay="0.1">
-                            <a class="project-tile d-block text-decoration-none" href="assets/projects/history-brush.jpg" target="_blank" rel="noopener" data-cursor="view">
-                                <div class="thumb tilt clip-reveal"><div class="art-img" style="background-image: url(assets/projects/history-brush.jpg)"></div><span class="glare"></span></div>
-                                <div class="body">
-                                    <div class="tag mb-2" data-i18n="p.2.tag"></div>
-                                    <h3 class="fw-bolder" data-i18n="p.2.t"></h3>
-                                    <p class="text-muted mb-3" data-i18n="p.2.d"></p>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-md-6" data-reveal data-delay="0.2">
-                            <a class="project-tile d-block text-decoration-none" href="index.html" data-cursor="view">
-                                <div class="thumb tilt clip-reveal"><div class="art-3"></div><span class="glare"></span></div>
-                                <div class="body">
-                                    <div class="tag mb-2" data-i18n="p.3.tag"></div>
-                                    <h3 class="fw-bolder" data-i18n="p.3.t"></h3>
-                                    <p class="text-muted mb-3" data-i18n="p.3.d"></p>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-md-6" data-reveal data-delay="0.0">
-                            <a class="project-tile d-block text-decoration-none" href="https://www.instagram.com/ozgemtuana/" target="_blank" rel="noopener" data-cursor="view">
-                                <div class="thumb tilt clip-reveal"><div class="art-4"></div><span class="glare"></span></div>
-                                <div class="body">
-                                    <div class="tag mb-2" data-i18n="p.4.tag"></div>
-                                    <h3 class="fw-bolder" data-i18n="p.4.t"></h3>
-                                    <p class="text-muted mb-3" data-i18n="p.4.d"></p>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
+                    <!-- Kutucuklar js/content.js > projects listesinden basılır -->
+                    <div class="row g-4" data-render="projects"></div>
                 </div>
             </section>
             <!-- Call to action section-->
@@ -128,6 +117,7 @@
                     <div class="col-auto d-flex gap-4">
                         <a data-profile="github" data-profile-href href="#" data-scramble>GitHub</a>
                         <a data-profile="instagram" data-profile-href href="#" data-scramble>Instagram</a>
+                        <a data-profile="linkedin" data-profile-href href="#" target="_blank" rel="noopener" data-scramble hidden>LinkedIn</a>
                     </div>
                     <div class="col-auto d-flex gap-4">
                         <a href="https://startbootstrap.com/theme/personal" target="_blank" rel="noopener" data-i18n="footer.template" data-scramble>Şablon</a>
@@ -146,7 +136,9 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
         <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+        <script src="js/content.js"></script>
         <script src="js/i18n.js"></script>
+        <script src="js/transition.js"></script>
         <script src="js/main.js"></script>
     </body>
 </html>

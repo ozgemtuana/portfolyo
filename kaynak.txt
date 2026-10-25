@@ -25,3 +25,16 @@ Kullanılan kütüphaneler (CDN):
   - Lenis 1.1.13 (yumuşak kaydırma)  https://github.com/darkroomengineering/lenis
   - Three.js r128 (3D arka plan)     https://threejs.org
   - Google Fonts: Bricolage Grotesque, Instrument Serif, JetBrains Mono
+
+Admin Paneli (içerik yönetimi):
+  - admin.html     : yönetim paneli (menüden bağlantı yok, /admin.html ile açılır; noindex)
+  - css/admin.css  : panelin koyu tema stilleri
+  - js/admin.js    : panelin mantığı (düzenleme, kaydetme, görsel yükleme, dışa/içe aktarma, şifre)
+  - js/content.js  : sitenin tüm içeriği (profil, TR/EN metinler, projeler, deneyim, eğitim,
+                     yetenekler, diller, istatistikler) — window.SITE_CONTENT
+  - js/i18n.js     : içeriği okur; panelde kaydedilen sürüm (localStorage
+                     "site-content-override") varsa onu kullanır ve listeleri sayfaya basar
+  Akış: Panelde "Kaydet" → değişiklik yalnızca o tarayıcıda görünür.
+        Kalıcı yapmak için "content.js indir" → dosyayı js/content.js yerine koy.
+  Not: Panel şifresi (varsayılan "admin") yalnızca tarayıcı tarafında kontrol edilir,
+       gerçek bir güvenlik sağlamaz (site statik, sunucu yok).

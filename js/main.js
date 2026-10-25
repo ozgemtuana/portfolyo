@@ -9,8 +9,6 @@
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const isTouch = window.matchMedia("(hover: none)").matches;
     const page = document.body.dataset.page;
-    const curtain = document.querySelector(".curtain");
-    const loader = document.querySelector(".loader");
 
     let lenis = null;
 
@@ -108,15 +106,10 @@
         });
     }
 
-    try { sessionStorage.setItem("visited", "1"); } catch (e) { /* yoksay */ }
-
+    // "visited" bayrağı ve perde/yükleme ekranı js/transition.js'de yönetilir
     initThree();
 
-    if (!hasGSAP || reduceMotion) {
-        if (curtain) curtain.style.display = "none";
-        if (loader) loader.style.display = "none";
-        return;
-    }
+    if (!hasGSAP || reduceMotion) return;
 
     gsap.registerPlugin(ScrollTrigger);
     root.classList.add("js-anim");
@@ -182,46 +175,15 @@
         heroIntro.to(heroReveals, { opacity: 1, y: 0, duration: 1.2, stagger: 0.08 }, 0.35);
     }
 
-    /* ---------- Yükleme ekranı + perde ---------- */
-    const panels = curtain ? curtain.querySelectorAll(".panel") : [];
-    const firstVisit = root.classList.contains("first-visit");
-    const intro = gsap.timeline({ onComplete: () => curtain && (curtain.style.visibility = "hidden") });
-    if (curtain) curtain.style.animation = "none";
-    if (loader) loader.style.animation = "none";
-
-    if (firstVisit && loader) {
-        const count = loader.querySelector(".loader-count");
-        const bar = loader.querySelector(".loader-bar i");
-        const obj = { v: 0 };
-        intro
-            .to(obj, {
-                v: 100, duration: 1.8, ease: "power2.inOut",
-                onUpdate: () => (count.textContent = Math.round(obj.v))
-            })
-            .to(bar, { scaleX: 1, duration: 1.8, ease: "power2.inOut" }, 0)
-            .to(loader, { yPercent: -10, opacity: 0, duration: 0.6, ease: "power2.in" }, "+=0.1")
-            .set(loader, { display: "none" });
-    }
-    intro
-        .to(panels, { scaleY: 0, transformOrigin: "top", duration: 0.9, ease: "power4.inOut", stagger: 0.07 })
-        .add(() => heroIntro.play(), "-=0.5");
-
-    // Sayfa geçişi: iç bağlantılarda perde kapanır, sonra sayfa değişir
-    document.addEventListener("click", (e) => {
-        const a = e.target.closest("a[href]");
-        if (!a || e.defaultPrevented || e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
-        const href = a.getAttribute("href");
-        if (a.target === "_blank" || a.hasAttribute("download") || !/\.html(\?|#|$)/.test(href) || /^[a-z]+:/i.test(href)) return;
-        e.preventDefault();
-        curtain.style.visibility = "visible";
-        gsap.fromTo(panels, { scaleY: 0, transformOrigin: "bottom" }, {
-            scaleY: 1, duration: 0.7, ease: "power4.inOut", stagger: 0.06,
-            onComplete: () => (window.location.href = href)
-        });
-    });
-    // Geri tuşuyla önbellekten dönülürse perdeyi aç
+    /* ---------- Sayfa geçişi (js/transition.js) ---------- */
+    // Perde açılırken (bitmeden ~0.5 sn önce) hero girişi başlar
+    const pt = window.PageTransition;
+    if (pt && pt.ready) pt.ready.then(() => heroIntro.play());
+    else heroIntro.play();
+    // Geçiş başlayınca kaydırmayı durdur; geri tuşuyla dönülünce yeniden aç
+    document.addEventListener("transition:start", () => lenis && lenis.stop());
     window.addEventListener("pageshow", (e) => {
-        if (e.persisted) gsap.set(panels, { scaleY: 0 });
+        if (e.persisted && lenis) lenis.start();
     });
 
     /* ---------- Kaydırma ilerleme çubuğu ---------- */

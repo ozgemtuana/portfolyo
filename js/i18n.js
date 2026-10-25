@@ -1,5 +1,10 @@
 /* ==========================================================================
-   Türkçe / İngilizce dil desteği
+   İçerik yükleme + Türkçe / İngilizce dil desteği
+   - İçerik js/content.js içindeki window.SITE_CONTENT'ten gelir.
+   - Admin panelinde kaydedilen sürüm localStorage'da ("site-content-override")
+     durur; varsa önce o kullanılır (aynı tarayıcıda anında önizleme için).
+   - Projeler, deneyim, eğitim, yetenekler, diller ve istatistikler
+     data-render="..." kutularına buradan basılır (main.js'den ÖNCE).
    - data-i18n="anahtar"       → elemanın metni
    - data-i18n-html="anahtar"  → elemanın HTML içeriği
    - data-i18n-ph="anahtar"    → placeholder
@@ -7,265 +12,210 @@
    Seçilen dil localStorage'da saklanır. Varsayılan: Türkçe.
    ========================================================================== */
 
-// Kişisel bilgilerini buradan değiştir (iki dilde ortak olanlar)
-const PROFILE = {
-    name: "Tuana Davarcı",
-    firstName: "Tuana",
-    email: "ozgmtuana15@gmail.com",
-    phone: "0552 311 07 00",
-    location: "Antalya, TR",
-    github: "https://github.com/ozgemtuana",
-    instagram: "https://www.instagram.com/ozgemtuana/"
-};
-
-const I18N = {
-    tr: {
-        "lang.py": "Python — Programlama dili",
-        "exp.3.desc": "Markaların ürün tanıtımı ve sosyal medya kampanyaları için çekimlerde yer alıyorum.",
-        "exp.3.company": "Serbest",
-        "exp.3.role": "Model",
-        "exp.3.date": "Güncel",
-        "meta.title.home": "Ana Sayfa — " + PROFILE.name,
-        "meta.title.resume": "Özgeçmiş — " + PROFILE.name,
-        "meta.title.projects": "Projeler — " + PROFILE.name,
-        "meta.title.contact": "İletişim — " + PROFILE.name,
-
-        "nav.home": "Ana Sayfa",
-        "nav.resume": "Özgeçmiş",
-        "nav.projects": "Projeler",
-        "nav.contact": "İletişim",
-        "nav.toggle": "Menüyü aç/kapat",
-
-        "hero.status": "Yeni projelere açığım",
-        "hero.line1": "Merhaba,",
-        "hero.line2": "ben <em>" + PROFILE.firstName + "</em>",
-        "hero.based": "Konum",
-        "hero.local": "Yerel saat",
-        "cursor.view": "Gör",
-        "cursor.mail": "Yaz",
-        "hero.sub": "Akdeniz Üniversitesi'nde Bilgisayar Programcılığı öğrencisiyim. Web tasarım, ürün tanıtımı ve sosyal medya yönetimiyle markalara akılda kalan bir görsel dil kazandırıyorum.",
-        "hero.cta1": "Projelerimi Gör",
-        "hero.cta2": "Özgeçmiş",
-        "hero.scroll": "Kaydır",
-
-        "marquee.1": "Web Tasarım",
-        "marquee.2": "Ürün Tanıtımı",
-        "marquee.3": "Sosyal Medya",
-        "marquee.4": "Modellik",
-        "marquee.5": "Python",
-        "marquee.6": "Photoshop",
-        "marquee.7": "Instagram",
-        "marquee.8": "HTML & CSS",
-
-        "about.eyebrow": "Hakkımda",
-        "about.statement": "Kod, tasarım ve kamera önü. Üçünü bir araya getirip markalar için hem güzel görünen hem de işe yarayan dijital deneyimler üretiyorum.",
-        "stats.1": "Tamamlanan proje",
-        "stats.2": "Kullandığım araç",
-        "stats.3": "Fincan kahve",
-
-        "work.eyebrow": "Seçili İşler",
-        "work.title": "Öne çıkan <em>projeler</em>",
-        "work.all": "Tüm projeler",
-
-        "services.eyebrow": "Neler yapıyorum",
-        "services.1.t": "Web Tasarım",
-        "services.1.d": "HTML5, CSS3 ve JavaScript ile modern, responsive siteler.",
-        "services.2.t": "Ürün Tanıtımı",
-        "services.2.d": "Ürünleri öne çıkaran tanıtım görselleri ve kampanya tasarımları.",
-        "services.3.t": "Sosyal Medya Yönetimi",
-        "services.3.d": "Instagram hesapları için içerik planı, paylaşım ve topluluk yönetimi.",
-        "services.4.t": "Modellik",
-        "services.4.d": "Markalar için kamera önü çekimler ve ürün tanıtım içerikleri.",
-
-        "cta.eyebrow": "Bir fikrin mi var?",
-        "cta.big": "Hadi <em>konuşalım</em>",
-
-        "footer.copy": "© 2026 " + PROFILE.name + ". Tüm hakları saklıdır.",
-        "footer.template": "Şablon: Start Bootstrap",
-        "footer.up": "Yukarı ↑",
-
-        "resume.title": "Özgeç<em>miş</em>",
-        "resume.sub": "Eğitimim, deneyimlerim ve kullandığım araçlar.",
-        "resume.download": "CV İndir",
-        "resume.exp": "Deneyim",
-        "resume.edu": "Eğitim",
-        "resume.skills": "Yetenekler",
-        "resume.langs": "Diller",
-        "resume.prof": "Uzmanlık",
-        "exp.1.date": "Güncel",
-        "exp.1.role": "Instagram Sosyal Medya Yöneticisi",
-        "exp.1.company": "Serbest",
-        "exp.1.desc": "Markaların Instagram hesapları için içerik planlıyor, paylaşımları hazırlıyor ve takipçi etkileşimini yönetiyorum.",
-        "exp.2.date": "Güncel",
-        "exp.2.role": "Web Tasarım & Ürün Tanıtımı",
-        "exp.2.company": "Serbest",
-        "exp.2.desc": "Ürünler için tanıtım görselleri tasarlıyor, küçük işletmeler için responsive web sayfaları hazırlıyorum.",
-        "edu.1.date": "2026 - Günümüz",
-        "edu.1.school": "Akdeniz Üniversitesi",
-        "edu.1.degree": "Teknik Bilimler MYO · 1. sınıf",
-        "edu.1.field": "Bilgisayar Programcılığı",
-        "edu.1.desc": "Web programlama, Python ve grafik tasarım derslerine odaklanıyorum; öğrendiklerimi kendi projelerimde uyguluyorum.",
-        "lang.tr": "Türkçe — Ana dil",
-        "lang.en": "İngilizce",
-
-        "projects.title": "Seçili <em>işler</em>",
-        "projects.sub": "Tasarım, ürün tanıtımı ve web çalışmalarımdan bir seçki.",
-        "p.1.t": "Vanilla Cola",
-        "p.1.d": "Vanilla Coca-Cola için hazırladığım ürün tanıtım görseli: akışkan çizgiler ve yansımalı sahne.",
-        "p.1.tag": "Ürün Tanıtımı",
-        "p.2.t": "History Brush",
-        "p.2.d": "Photoshop History Brush tekniğiyle siyah-beyaz sahnede tek karakteri renkle öne çıkaran çalışma.",
-        "p.2.tag": "Photoshop",
-        "p.3.t": "Kişisel Portfolyo",
-        "p.3.d": "Bu sitenin kendisi: HTML5, CSS3, GSAP ve Three.js ile kaydırma animasyonları.",
-        "p.3.tag": "Web Tasarım",
-        "p.4.t": "@ozgemtuana",
-        "p.4.d": "Instagram hesabım için içerik üretimi, çekim ve paylaşım planlaması.",
-        "p.4.tag": "Sosyal Medya",
-        "projects.view": "İncele",
-        "projects.cta": "Bir projede birlikte çalışmak ister misin?",
-        "projects.cta.btn": "İletişime geç",
-
-        "contact.title": "Birlikte bir şeyler <em>yapalım</em>",
-        "contact.sub": "Proje, staj veya sadece merhaba demek için formu doldurabilirsin.",
-        "contact.name": "Adın",
-        "contact.email": "E-posta adresin",
-        "contact.phone": "Telefon numaran",
-        "contact.message": "Mesajın",
-        "contact.send": "Gönder",
-        "contact.success": "Teşekkürler! Mesajın e-posta uygulamanda açıldı.",
-        "contact.error": "Lütfen tüm alanları doğru doldur.",
-        "contact.mail": "E-posta",
-        "contact.tel": "Telefon",
-        "contact.loc": "Konum",
-        "contact.social": "Sosyal"
-    },
-
-    en: {
-        "lang.py": "Python — Programming language",
-        "exp.3.desc": "I take part in shoots for brands' product promotions and social media campaigns.",
-        "exp.3.company": "Freelance",
-        "exp.3.role": "Model",
-        "exp.3.date": "Current",
-        "meta.title.home": "Home — " + PROFILE.name,
-        "meta.title.resume": "Resume — " + PROFILE.name,
-        "meta.title.projects": "Projects — " + PROFILE.name,
-        "meta.title.contact": "Contact — " + PROFILE.name,
-
-        "nav.home": "Home",
-        "nav.resume": "Resume",
-        "nav.projects": "Projects",
-        "nav.contact": "Contact",
-        "nav.toggle": "Toggle navigation",
-
-        "hero.status": "Available for new projects",
-        "hero.line1": "Hello,",
-        "hero.line2": "I'm <em>" + PROFILE.firstName + "</em>",
-        "hero.based": "Based in",
-        "hero.local": "Local time",
-        "cursor.view": "View",
-        "cursor.mail": "Write",
-        "hero.sub": "Computer Programming student at Akdeniz University. I give brands a memorable visual language through web design, product promotion and social media management.",
-        "hero.cta1": "See my work",
-        "hero.cta2": "Resume",
-        "hero.scroll": "Scroll",
-
-        "marquee.1": "Web Design",
-        "marquee.2": "Product Promo",
-        "marquee.3": "Social Media",
-        "marquee.4": "Modelling",
-        "marquee.5": "Python",
-        "marquee.6": "Photoshop",
-        "marquee.7": "Instagram",
-        "marquee.8": "HTML & CSS",
-
-        "about.eyebrow": "About me",
-        "about.statement": "Code, design and being in front of the camera. I bring all three together to create digital experiences for brands that look good and work well.",
-        "stats.1": "Projects completed",
-        "stats.2": "Tools I use",
-        "stats.3": "Cups of coffee",
-
-        "work.eyebrow": "Selected work",
-        "work.title": "Featured <em>projects</em>",
-        "work.all": "All projects",
-
-        "services.eyebrow": "What I do",
-        "services.1.t": "Web Design",
-        "services.1.d": "Modern, responsive websites with HTML5, CSS3 and JavaScript.",
-        "services.2.t": "Product Promotion",
-        "services.2.d": "Promotional visuals and campaign designs that make products stand out.",
-        "services.3.t": "Social Media Management",
-        "services.3.d": "Content planning, posting and community management for Instagram accounts.",
-        "services.4.t": "Modelling",
-        "services.4.d": "On-camera shoots and product promotion content for brands.",
-
-        "cta.eyebrow": "Got an idea?",
-        "cta.big": "Let's <em>talk</em>",
-
-        "footer.copy": "© 2026 " + PROFILE.name + ". All rights reserved.",
-        "footer.template": "Template: Start Bootstrap",
-        "footer.up": "Back to top ↑",
-
-        "resume.title": "Résu<em>mé</em>",
-        "resume.sub": "My education, experience and the tools I use.",
-        "resume.download": "Download CV",
-        "resume.exp": "Experience",
-        "resume.edu": "Education",
-        "resume.skills": "Skills",
-        "resume.langs": "Languages",
-        "resume.prof": "Proficiency",
-        "exp.1.date": "Current",
-        "exp.1.role": "Instagram Social Media Manager",
-        "exp.1.company": "Freelance",
-        "exp.1.desc": "I plan content, prepare posts and manage follower engagement for brands' Instagram accounts.",
-        "exp.2.date": "Current",
-        "exp.2.role": "Web Design & Product Promotion",
-        "exp.2.company": "Freelance",
-        "exp.2.desc": "I design promotional visuals for products and build responsive web pages for small businesses.",
-        "edu.1.date": "2026 - Present",
-        "edu.1.school": "Akdeniz University",
-        "edu.1.degree": "Vocational School of Technical Sciences · 1st year",
-        "edu.1.field": "Computer Programming",
-        "edu.1.desc": "Focusing on web programming, Python and graphic design, and applying what I learn in my own projects.",
-        "lang.tr": "Turkish — Native",
-        "lang.en": "English",
-
-        "projects.title": "Selected <em>work</em>",
-        "projects.sub": "A selection of my design, product promotion and web work.",
-        "p.1.t": "Vanilla Cola",
-        "p.1.d": "A product promotion visual for Vanilla Coca-Cola: flowing lines and a reflective stage.",
-        "p.1.tag": "Product Promo",
-        "p.2.t": "History Brush",
-        "p.2.d": "A Photoshop History Brush piece that brings one character to life in colour on a black-and-white scene.",
-        "p.2.tag": "Photoshop",
-        "p.3.t": "Personal Portfolio",
-        "p.3.d": "This very site: scroll animations with HTML5, CSS3, GSAP and Three.js.",
-        "p.3.tag": "Web Design",
-        "p.4.t": "@ozgemtuana",
-        "p.4.d": "Content creation, shooting and post planning for my Instagram account.",
-        "p.4.tag": "Social Media",
-        "projects.view": "View",
-        "projects.cta": "Want to work on a project together?",
-        "projects.cta.btn": "Get in touch",
-
-        "contact.title": "Let's make something <em>together</em>",
-        "contact.sub": "Fill in the form for a project, an internship or just to say hi.",
-        "contact.name": "Your name",
-        "contact.email": "Email address",
-        "contact.phone": "Phone number",
-        "contact.message": "Your message",
-        "contact.send": "Send",
-        "contact.success": "Thanks! Your message was opened in your email app.",
-        "contact.error": "Please fill in all fields correctly.",
-        "contact.mail": "Email",
-        "contact.tel": "Phone",
-        "contact.loc": "Location",
-        "contact.social": "Social"
-    }
-};
-
+const CONTENT_KEY = "site-content-override";
 const LANG_KEY = "site-lang";
 
+/* ---------- İçeriği oku: önce admin kaydı, yoksa dosyadaki varsayılan ---------- */
+function loadSiteContent() {
+    const def = window.SITE_CONTENT || {};
+    let ov = null;
+    try {
+        const raw = localStorage.getItem(CONTENT_KEY);
+        if (raw) ov = JSON.parse(raw);
+    } catch (e) { ov = null; /* bozuk kayıt ya da localStorage kapalı */ }
+    return mergeContent(def, ov);
+}
+
+// Kayıttaki alanlar dosyadakilerin üzerine yazılır; eksik metin anahtarları dosyadan tamamlanır
+function mergeContent(def, ov) {
+    const out = Object.assign({}, def);
+    if (ov && typeof ov === "object") {
+        Object.keys(ov).forEach((k) => {
+            if (Array.isArray(def[k]) && !Array.isArray(ov[k])) return; // şekli bozuk alanı alma
+            out[k] = ov[k];
+        });
+        out.profile = Object.assign({}, def.profile, ov.profile);
+        const dt = def.text || {}, ot = ov.text || {};
+        out.text = {
+            tr: Object.assign({}, dt.tr, ot.tr),
+            en: Object.assign({}, dt.en, ot.en)
+        };
+    }
+    out.profile = out.profile || {};
+    out.text = out.text || { tr: {}, en: {} };
+    ["projects", "experience", "education", "skills", "skillBars", "languages", "stats"].forEach((k) => {
+        if (!Array.isArray(out[k])) out[k] = [];
+    });
+    return out;
+}
+
+const SITE = loadSiteContent();
+
+// Kişisel bilgiler (iki dilde ortak) — main.js de kullanır
+const PROFILE = SITE.profile;
+
+/* ---------- Sözlükler: statik metinler + listelerden üretilen anahtarlar ---------- */
+function fillProfile(s) {
+    return typeof s === "string"
+        ? s.replace(/\{name\}/g, PROFILE.name || "").replace(/\{firstName\}/g, PROFILE.firstName || "")
+        : s;
+}
+
+function buildDictionaries(site) {
+    const dicts = { tr: {}, en: {} };
+    ["tr", "en"].forEach((lang) => {
+        const d = dicts[lang];
+        const txt = (site.text && site.text[lang]) || {};
+        Object.keys(txt).forEach((k) => (d[k] = fillProfile(txt[k])));
+        // Çok dilli alan: {tr, en} ya da düz metin olabilir
+        const pick = (v) => (v && typeof v === "object" ? (v[lang] !== undefined && v[lang] !== "" ? v[lang] : v.tr || v.en || "") : v || "");
+        site.projects.forEach((p, i) => {
+            d[`p.${i + 1}.t`] = pick(p.title);
+            d[`p.${i + 1}.tag`] = pick(p.tag);
+            d[`p.${i + 1}.d`] = pick(p.desc);
+        });
+        site.experience.forEach((x, i) => {
+            ["date", "role", "company", "desc"].forEach((f) => (d[`exp.${i + 1}.${f}`] = pick(x[f])));
+        });
+        site.education.forEach((x, i) => {
+            ["date", "school", "degree", "field", "desc"].forEach((f) => (d[`edu.${i + 1}.${f}`] = pick(x[f])));
+        });
+        site.skills.forEach((s, i) => (d[`skill.${i + 1}`] = pick(s)));
+        site.skillBars.forEach((s, i) => (d[`bar.${i + 1}`] = pick(s.name)));
+        site.languages.forEach((s, i) => (d[`langs.${i + 1}`] = pick(s)));
+        site.stats.forEach((s, i) => (d[`stats.${i + 1}`] = pick(s.label)));
+    });
+    return dicts;
+}
+
+const I18N = buildDictionaries(SITE);
+
+/* ---------- Listeleri sayfaya bas (şablonun orijinal işaretlemesiyle) ---------- */
+function escAttr(s) {
+    return String(s).replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+}
+
+// Bağlantı yoksa görselin kendisi açılır (yüklenen data: görselleri yeni sekmede açılamaz)
+function projectHref(p) {
+    if (p.link) return p.link;
+    if (p.image && !/^data:/i.test(p.image)) return p.image;
+    return "";
+}
+
+function linkAttrs(href) {
+    if (!href) return "";
+    const external = /^(https?:|mailto:|tel:)/i.test(href) || /\.(jpe?g|png|gif|webp|avif|svg)$/i.test(href);
+    return ` href="${escAttr(href)}"` + (external ? ' target="_blank" rel="noopener"' : "");
+}
+
+// Görsel varsa art-img, yoksa soyut desen (art-1 … art-6)
+function projectArt(p) {
+    if (p.image) return '<div class="art-img"></div>';
+    const art = /^art-[1-6]$/.test(p.art) ? p.art : "art-1";
+    return `<div class="${art}"></div>`;
+}
+
+function setArtImages(container, list) {
+    container.querySelectorAll("[data-pi]").forEach((el) => {
+        const p = list[+el.dataset.pi];
+        const img = el.querySelector(".art-img");
+        if (img && p && p.image) img.style.backgroundImage = 'url("' + String(p.image).replace(/"/g, "%22") + '")';
+        el.removeAttribute("data-pi");
+    });
+}
+
+function renderContent(site) {
+    const box = (name) => document.querySelector(`[data-render="${name}"]`);
+    const pad = (n) => String(n).padStart(2, "0");
+    let el;
+
+    // Ana sayfa: öne çıkan projeler (yatay kaydırma)
+    if ((el = box("projects-featured"))) {
+        const list = site.projects.map((p, i) => ({ p, i })).filter((x) => x.p.featured);
+        el.innerHTML = list.map(({ p, i }, n) =>
+            `<a class="h-card"${linkAttrs(projectHref(p))} data-cursor="view" data-pi="${i}">` +
+                `<div class="thumb tilt">${projectArt(p)}<span class="glare"></span></div>` +
+                `<div class="meta"><div><h3 data-i18n="p.${i + 1}.t"></h3><small data-i18n="p.${i + 1}.tag"></small></div><span class="idx">(${pad(n + 1)})</span></div>` +
+            `</a>`).join("");
+        setArtImages(el, site.projects);
+    }
+
+    // Projeler sayfası: tüm projeler
+    if ((el = box("projects"))) {
+        const delays = ["0.0", "0.1", "0.2"];
+        el.innerHTML = site.projects.map((p, i) =>
+            `<div class="col-md-6" data-reveal data-delay="${delays[i % 3]}">` +
+                `<a class="project-tile d-block text-decoration-none"${linkAttrs(projectHref(p))} data-cursor="view" data-pi="${i}">` +
+                    `<div class="thumb tilt clip-reveal">${projectArt(p)}<span class="glare"></span></div>` +
+                    `<div class="body">` +
+                        `<div class="tag mb-2" data-i18n="p.${i + 1}.tag"></div>` +
+                        `<h3 class="fw-bolder" data-i18n="p.${i + 1}.t"></h3>` +
+                        `<p class="text-muted mb-3" data-i18n="p.${i + 1}.d"></p>` +
+                    `</div>` +
+                `</a>` +
+            `</div>`).join("");
+        setArtImages(el, site.projects);
+    }
+
+    // Özgeçmiş: deneyim kartları
+    if ((el = box("experience"))) {
+        el.innerHTML = '<span class="tl-fill"></span>' + site.experience.map((x, i) =>
+            `<div class="card rounded-4 mb-4" data-reveal><div class="card-body p-5"><div class="row align-items-center gx-5">` +
+                `<div class="col text-center text-lg-start mb-4 mb-lg-0"><div class="inner-box p-4 rounded-4">` +
+                    `<div class="text-primary fw-bolder mb-2" data-i18n="exp.${i + 1}.date"></div>` +
+                    `<div class="small fw-bolder" data-i18n="exp.${i + 1}.role"></div>` +
+                    `<div class="small text-muted" data-i18n="exp.${i + 1}.company"></div>` +
+                `</div></div>` +
+                `<div class="col-lg-8"><div data-i18n="exp.${i + 1}.desc"></div></div>` +
+            `</div></div></div>`).join("");
+    }
+
+    // Özgeçmiş: eğitim kartları
+    if ((el = box("education"))) {
+        el.innerHTML = '<span class="tl-fill"></span>' + site.education.map((x, i) =>
+            `<div class="card rounded-4 mb-4" data-reveal><div class="card-body p-5"><div class="row align-items-center gx-5">` +
+                `<div class="col text-center text-lg-start mb-4 mb-lg-0"><div class="inner-box p-4 rounded-4">` +
+                    `<div class="text-secondary fw-bolder mb-2" data-i18n="edu.${i + 1}.date"></div>` +
+                    `<div class="mb-2"><div class="small fw-bolder" data-i18n="edu.${i + 1}.school"></div></div>` +
+                    `<div class="fst-italic">` +
+                        `<div class="small text-muted" data-i18n="edu.${i + 1}.degree"></div>` +
+                        `<div class="small text-muted" data-i18n="edu.${i + 1}.field"></div>` +
+                    `</div>` +
+                `</div></div>` +
+                `<div class="col-lg-8"><div data-i18n="edu.${i + 1}.desc"></div></div>` +
+            `</div></div></div>`).join("");
+    }
+
+    // Yetenek etiketleri, uzmanlık çubukları, diller
+    if ((el = box("skills"))) {
+        el.innerHTML = site.skills.map((s, i) => `<span class="skill-tag" data-i18n="skill.${i + 1}"></span>`).join("");
+    }
+    if ((el = box("skillbars"))) {
+        el.innerHTML = site.skillBars.map((s, i) => {
+            const w = Math.max(0, Math.min(100, parseInt(s.percent, 10) || 0));
+            return `<div class="col-md-6"><div class="d-flex justify-content-between small mb-2"><span data-i18n="bar.${i + 1}"></span><span class="text-muted">${w}%</span></div><div class="skill-bar"><i style="--w: ${w}%"></i></div></div>`;
+        }).join("");
+    }
+    if ((el = box("languages"))) {
+        el.innerHTML = site.languages.map((s, i) =>
+            `<div class="col"><div class="inner-box p-3 rounded-4 small fw-bolder h-100" data-i18n="langs.${i + 1}"></div></div>`).join("");
+    }
+
+    // Ana sayfa: sayaçlar
+    if ((el = box("stats"))) {
+        const col = { 1: 12, 2: 6, 3: 4, 4: 3 }[site.stats.length] || 4;
+        el.innerHTML = site.stats.map((s, i) => {
+            const n = parseInt(s.number, 10) || 0;
+            const sup = s.suffix ? `<sup>${escAttr(s.suffix)}</sup>` : "";
+            return `<div class="col-sm-${col}"><span class="rule"></span><div class="stat">` +
+                `<div class="num"><span data-count="${n}">${n}</span>${sup}</div>` +
+                `<div class="label" data-i18n="stats.${i + 1}"></div>` +
+            `</div></div>`;
+        }).join("");
+    }
+}
+
+/* ---------- Dil ---------- */
 function getLang() {
     try {
         const saved = localStorage.getItem(LANG_KEY);
@@ -309,12 +259,13 @@ function applyLang(lang) {
         b.setAttribute("aria-pressed", on);
     });
 
-    // Ortak profil alanları
+    // Ortak profil alanları (boş bırakılan sosyal bağlantılar gizlenir)
     document.querySelectorAll("[data-profile]").forEach((el) => {
         const v = PROFILE[el.dataset.profile];
         if (v === undefined) return;
         if (el.tagName === "A" && el.dataset.profileHref !== undefined) {
             const p = el.dataset.profile;
+            el.hidden = !v;
             el.href = p === "email" ? "mailto:" + v : p === "phone" ? "tel:+9" + v.replace(/\s/g, "") : v;
         } else {
             el.textContent = v;
@@ -334,4 +285,5 @@ document.addEventListener("click", (e) => {
     if (btn) setLang(btn.dataset.lang);
 });
 
+renderContent(SITE);
 applyLang(getLang());

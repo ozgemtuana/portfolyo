@@ -15,8 +15,10 @@
         <link href="css/styles.css" rel="stylesheet" />
         <!-- Koyu tema ve animasyon katmanı -->
         <link href="css/dark.css" rel="stylesheet" />
+        <!-- Sayfa geçişi + yükleme ekranı -->
+        <link href="css/transition.css" rel="stylesheet" />
         <script>
-            /* Perde/yükleme ekranı için: JS var mı, ilk ziyaret mi? */
+            /* Geçiş sahnesi/yükleme ekranı için: JS var mı, ilk ziyaret mi? */
             document.documentElement.classList.add("js");
             try { if (!sessionStorage.getItem("visited")) document.documentElement.classList.add("first-visit"); } catch (e) {}
         </script>
@@ -26,14 +28,41 @@
         <div class="grain" aria-hidden="true"></div>
         <div class="scroll-progress" aria-hidden="true"></div>
         <div class="cursor" aria-hidden="true"><span data-i18n="cursor.view">Gör</span></div>
-        <div class="curtain" aria-hidden="true"><div class="panel"></div><div class="panel"></div><div class="panel"></div><div class="panel"></div><div class="panel"></div></div>
-        <div class="loader" aria-hidden="true">
-            <div class="loader-name" data-profile="name">Tuana Davarcı</div>
-            <div>
-                <div class="loader-count">0</div>
-                <div class="loader-bar"><i></i></div>
+        <!-- Sayfa geçişi sahnesi (js/transition.js) -->
+        <div class="pt" aria-hidden="true">
+            <svg class="pt-svg" viewBox="0 0 100 100" preserveAspectRatio="none" focusable="false">
+                <path class="pt-path pt-path--accent" d="M0 0 L0 100 Q50 100 100 100 L100 0 Z" />
+                <path class="pt-path pt-path--mid" d="M0 0 L0 100 Q50 100 100 100 L100 0 Z" />
+                <path class="pt-path pt-path--base" d="M0 0 L0 100 Q50 100 100 100 L100 0 Z" />
+                <path class="pt-path pt-path--fill" d="" />
+            </svg>
+            <div class="pt-content">
+                <div class="pt-top"><span class="pt-label"></span><span class="pt-meta"></span></div>
+                <div class="pt-bottom">
+                    <div class="pt-stage">
+                        <em class="pt-word"><span class="pt-word-in"></span></em>
+                        <div class="pt-line"><span class="pt-name"></span><span class="pt-count"><b>0</b><em>%</em></span></div>
+                    </div>
+                    <span class="pt-rule"><i></i></span>
+                    <div class="pt-foot"><span data-profile="name">Tuana Davarcı</span><span class="pt-of"></span></div>
+                </div>
             </div>
         </div>
+        <script>
+            /* Geçişle gelindiyse hedef başlığı ilk karede yaz (boş kare görünmesin) */
+            (function () {
+                try {
+                    var d = JSON.parse(sessionStorage.getItem("pt-dest") || "null"), p = document.querySelector(".pt");
+                    if (!d || !p || d.page !== document.body.dataset.page || Date.now() - d.ts > 8000) return;
+                    p.classList.add("is-arrived");
+                    p.querySelector(".pt-name").textContent = d.name;
+                    p.querySelector(".pt-word-in").textContent = d.word;
+                    p.querySelector(".pt-label").textContent = d.label;
+                    p.querySelector(".pt-meta").textContent = d.meta;
+                    p.querySelector(".pt-of").textContent = d.of;
+                } catch (e) {}
+            })();
+        </script>
 
         <main class="flex-shrink-0">
             <!-- Navigation-->
@@ -77,80 +106,15 @@
                                     <span data-i18n="resume.download">CV İndir</span>
                                 </a>
                             </div>
-                            <div class="timeline">
-                                <span class="tl-fill"></span>
-                                <!-- Experience Card 1-->
-                                <div class="card rounded-4 mb-4" data-reveal>
-                                    <div class="card-body p-5">
-                                        <div class="row align-items-center gx-5">
-                                            <div class="col text-center text-lg-start mb-4 mb-lg-0">
-                                                <div class="inner-box p-4 rounded-4">
-                                                    <div class="text-primary fw-bolder mb-2" data-i18n="exp.1.date">2025 - Günümüz</div>
-                                                    <div class="small fw-bolder" data-i18n="exp.1.role">Front-End Geliştirici</div>
-                                                    <div class="small text-muted" data-i18n="exp.1.company">Şirket Adı</div>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-8"><div data-i18n="exp.1.desc"></div></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Experience Card 2-->
-                                <div class="card rounded-4 mb-4" data-reveal>
-                                    <div class="card-body p-5">
-                                        <div class="row align-items-center gx-5">
-                                            <div class="col text-center text-lg-start mb-4 mb-lg-0">
-                                                <div class="inner-box p-4 rounded-4">
-                                                    <div class="text-primary fw-bolder mb-2" data-i18n="exp.2.date">2024 - 2025</div>
-                                                    <div class="small fw-bolder" data-i18n="exp.2.role">Serbest Web Tasarımcı</div>
-                                                    <div class="small text-muted" data-i18n="exp.2.company">Freelance</div>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-8"><div data-i18n="exp.2.desc"></div></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Experience Card 3-->
-                                <div class="card rounded-4 mb-4" data-reveal>
-                                    <div class="card-body p-5">
-                                        <div class="row align-items-center gx-5">
-                                            <div class="col text-center text-lg-start mb-4 mb-lg-0">
-                                                <div class="inner-box p-4 rounded-4">
-                                                    <div class="text-primary fw-bolder mb-2" data-i18n="exp.3.date">2024 - 2025</div>
-                                                    <div class="small fw-bolder" data-i18n="exp.3.role">Serbest Web Tasarımcı</div>
-                                                    <div class="small text-muted" data-i18n="exp.3.company">Freelance</div>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-8"><div data-i18n="exp.3.desc"></div></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            <!-- Kartlar js/content.js > experience listesinden basılır -->
+                            <div class="timeline" data-render="experience"></div>
                         </section>
 
                         <!-- Education Section-->
                         <section class="mb-5">
                             <h2 class="text-secondary fw-bolder mb-4" data-reveal data-i18n="resume.edu">Eğitim</h2>
-                            <div class="timeline">
-                                <span class="tl-fill"></span>
-                                <!-- Education Card 1-->
-                                <div class="card rounded-4 mb-4" data-reveal>
-                                    <div class="card-body p-5">
-                                        <div class="row align-items-center gx-5">
-                                            <div class="col text-center text-lg-start mb-4 mb-lg-0">
-                                                <div class="inner-box p-4 rounded-4">
-                                                    <div class="text-secondary fw-bolder mb-2" data-i18n="edu.1.date">2023 - Günümüz</div>
-                                                    <div class="mb-2"><div class="small fw-bolder" data-i18n="edu.1.school">Üniversite Adı</div></div>
-                                                    <div class="fst-italic">
-                                                        <div class="small text-muted" data-i18n="edu.1.degree">Lisans</div>
-                                                        <div class="small text-muted" data-i18n="edu.1.field">Bilgisayar Mühendisliği</div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-8"><div data-i18n="edu.1.desc"></div></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            <!-- Kartlar js/content.js > education listesinden basılır -->
+                            <div class="timeline" data-render="education"></div>
                         </section>
 
                         <!-- Skills Section-->
@@ -162,32 +126,21 @@
                                             <div class="feature bg-primary bg-gradient-primary-to-secondary text-white rounded-3 me-3"><i class="bi bi-tools"></i></div>
                                             <h3 class="fw-bolder mb-0"><span class="text-gradient d-inline" data-i18n="resume.skills">Yetenekler</span></h3>
                                         </div>
-                                        <div>
-                                            <span class="skill-tag">HTML5</span><span class="skill-tag">CSS3</span><span class="skill-tag">JavaScript</span><span class="skill-tag">Python</span><span class="skill-tag">Bootstrap</span><span class="skill-tag">Adobe Photoshop</span><span class="skill-tag">Instagram</span><span class="skill-tag">İçerik Üretimi</span><span class="skill-tag">Ürün Fotoğrafçılığı</span>
-                                        </div>
+                                        <div data-render="skills"></div>
                                     </div>
                                     <div class="mb-5">
                                         <div class="d-flex align-items-center mb-4">
                                             <div class="feature bg-primary bg-gradient-primary-to-secondary text-white rounded-3 me-3"><i class="bi bi-bar-chart"></i></div>
                                             <h3 class="fw-bolder mb-0"><span class="text-gradient d-inline" data-i18n="resume.prof">Uzmanlık</span></h3>
                                         </div>
-                                        <div class="row g-4">
-                                            <div class="col-md-6"><div class="d-flex justify-content-between small mb-2"><span>HTML / CSS</span><span class="text-muted">80%</span></div><div class="skill-bar"><i style="--w: 80%"></i></div></div>
-                                            <div class="col-md-6"><div class="d-flex justify-content-between small mb-2"><span>Python</span><span class="text-muted">60%</span></div><div class="skill-bar"><i style="--w: 60%"></i></div></div>
-                                            <div class="col-md-6"><div class="d-flex justify-content-between small mb-2"><span>Photoshop</span><span class="text-muted">75%</span></div><div class="skill-bar"><i style="--w: 75%"></i></div></div>
-                                            <div class="col-md-6"><div class="d-flex justify-content-between small mb-2"><span>Sosyal Medya</span><span class="text-muted">85%</span></div><div class="skill-bar"><i style="--w: 85%"></i></div></div>
-                                        </div>
+                                        <div class="row g-4" data-render="skillbars"></div>
                                     </div>
                                     <div>
                                         <div class="d-flex align-items-center mb-4">
                                             <div class="feature bg-primary bg-gradient-primary-to-secondary text-white rounded-3 me-3"><i class="bi bi-translate"></i></div>
                                             <h3 class="fw-bolder mb-0"><span class="text-gradient d-inline" data-i18n="resume.langs">Diller</span></h3>
                                         </div>
-                                        <div class="row row-cols-1 row-cols-md-3 g-3">
-                                            <div class="col"><div class="inner-box p-3 rounded-4 small fw-bolder h-100" data-i18n="lang.tr">Türkçe</div></div>
-                                            <div class="col"><div class="inner-box p-3 rounded-4 small fw-bolder h-100" data-i18n="lang.en">İngilizce</div></div>
-                                            <div class="col"><div class="inner-box p-3 rounded-4 small fw-bolder h-100" data-i18n="lang.py">Python</div></div>
-                                        </div>
+                                        <div class="row row-cols-1 row-cols-md-3 g-3" data-render="languages"></div>
                                     </div>
                                 </div>
                             </div>
@@ -204,6 +157,7 @@
                     <div class="col-auto d-flex gap-4">
                         <a data-profile="github" data-profile-href href="#" data-scramble>GitHub</a>
                         <a data-profile="instagram" data-profile-href href="#" data-scramble>Instagram</a>
+                        <a data-profile="linkedin" data-profile-href href="#" target="_blank" rel="noopener" data-scramble hidden>LinkedIn</a>
                     </div>
                     <div class="col-auto d-flex gap-4">
                         <a href="https://startbootstrap.com/theme/personal" target="_blank" rel="noopener" data-i18n="footer.template" data-scramble>Şablon</a>
@@ -222,7 +176,9 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
         <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+        <script src="js/content.js"></script>
         <script src="js/i18n.js"></script>
+        <script src="js/transition.js"></script>
         <script src="js/main.js"></script>
     </body>
 </html>

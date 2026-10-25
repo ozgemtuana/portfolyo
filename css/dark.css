@@ -197,44 +197,7 @@ a:hover { color: var(--bone); }
 }
 .lang-switch button.active { background: var(--bone); color: var(--bg); }
 
-/* --- Yükleme ekranı + sayfa geçişi --- */
-.curtain {
-    position: fixed; inset: 0;
-    z-index: 200;
-    pointer-events: none;
-    display: flex;
-}
-.curtain .panel {
-    flex: 1;
-    background: var(--olive-deep);
-    transform: scaleY(0);
-    transform-origin: bottom;
-}
-.curtain .panel:nth-child(2n) { background: var(--olive); }
-.curtain .panel:last-child { background: var(--orange); }
-html.js .curtain .panel { transform: scaleY(1); }
-/* JS çalışmazsa perde kendiliğinden açılır */
-html.js .curtain, html.js .loader { animation: curtainFallback .01s 4s forwards; }
-@keyframes curtainFallback { to { visibility: hidden; } }
-
-.loader {
-    position: fixed; inset: 0; z-index: 201;
-    display: none;
-    flex-direction: column; justify-content: space-between;
-    padding: 2rem;
-    pointer-events: none;
-    color: var(--bone);
-}
-html.js.first-visit .loader { display: flex; }
-.loader .loader-name { font-family: var(--font-mono); font-size: .8rem; letter-spacing: .14em; text-transform: uppercase; color: var(--sage); }
-.loader .loader-count {
-    font-family: var(--font-display);
-    font-size: clamp(5rem, 22vw, 18rem);
-    font-weight: 800; line-height: .8; letter-spacing: -0.06em;
-    align-self: flex-end;
-}
-.loader .loader-bar { height: 1px; background: rgba(234, 228, 214, .2); }
-.loader .loader-bar i { display: block; height: 100%; width: 100%; background: var(--orange); transform: scaleX(0); transform-origin: left; }
+/* Yükleme ekranı + sayfa geçişi: css/transition.css */
 
 /* --- 3D arka plan ve gürültü --- */
 #bg3d {
@@ -518,7 +481,6 @@ html.js-anim .clip-reveal { clip-path: inset(100% 0 0 0); }
     html.js-anim .skill-bar > i { width: var(--w); }
     html.js-anim .clip-reveal { clip-path: none; }
     .grain, .scroll-hint i, .eyebrow::before { animation: none; }
-    html.js .curtain, html.js .loader { display: none; }
 }
 
 /* --- Responsive --- */
@@ -535,5 +497,4 @@ html.js-anim .clip-reveal { clip-path: inset(100% 0 0 0); }
     .service-row { grid-template-columns: auto 1fr; gap: .5rem 1rem; }
     .service-row p { grid-column: 2; }
     .scroll-hint { display: none; }
-    .loader { padding: 1.25rem; }
 }
