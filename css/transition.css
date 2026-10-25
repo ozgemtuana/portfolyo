@@ -1,6 +1,6 @@
 /* ==========================================================================
    Sayfa geçişi: "sıvı perde" sahnesi + ilk ziyaret yükleme ekranı
-   Üç SVG katmanı (turuncu → zeytin → koyu) kavisli bir dalga hâlinde aşağıdan
+   Üç SVG katmanı (tik altını → yosun → kahve-deri) kavisli bir dalga hâlinde aşağıdan
    yükselip ekranı kaplar; ortada hedef sayfanın adı harf harf belirir.
    Yeni sayfada aynı başlık yukarı kayıp çıkar, katmanlar yukarı çekilir.
    Mantık: js/transition.js
@@ -26,10 +26,10 @@ html.js .pt { animation: ptFallback .01s 4s forwards; }
     width: 100%; height: 100%;
     display: block;
 }
-.pt-path--accent { fill: var(--orange); }
-.pt-path--mid { fill: var(--olive); }
-.pt-path--base { fill: #151611; }
-.pt-path--fill { fill: var(--olive); }
+.pt-path--accent { fill: var(--accent); }
+.pt-path--mid { fill: var(--moss); }
+.pt-path--base { fill: var(--leather); }
+.pt-path--fill { fill: var(--olive-deep); }
 
 /* --- İçerik katmanı --- */
 .pt-content {
@@ -58,10 +58,10 @@ html.first-visit .pt-content,
     display: block;
     overflow: hidden;
     padding-bottom: .08em;
-    font-family: var(--font-serif); font-style: italic; font-weight: 400;
-    font-size: clamp(1.6rem, 4.2vw, 3.6rem);
-    line-height: 1; letter-spacing: -0.01em;
-    color: var(--orange);
+    font-family: var(--font-script); font-style: normal; font-weight: 400;
+    font-size: clamp(2.2rem, 5.6vw, 4.8rem);
+    line-height: 1.15; letter-spacing: 0;
+    color: var(--tan);
     margin: 0 0 .1em .08em;
 }
 .pt-word-in { display: inline-block; }
@@ -78,9 +78,9 @@ html.first-visit .pt-content,
 .pt-name, .pt-count {
     display: block;
     font-family: var(--font-display);
-    font-weight: 800;
+    font-weight: 500;
     font-size: 1em;
-    line-height: .92; letter-spacing: -0.055em;
+    line-height: .92; letter-spacing: -0.03em;
     white-space: nowrap;
 }
 .pt-name:empty::before { content: "\00a0"; }
@@ -91,7 +91,7 @@ html.first-visit .pt-content,
     font-variant-numeric: tabular-nums;
 }
 .pt-count b { font-weight: inherit; }
-.pt-count em { font-size: .42em; color: var(--orange); margin-left: .06em; letter-spacing: 0; vertical-align: .9em; }
+.pt-count em { font-family: var(--font-script); font-style: normal; font-size: .42em; color: var(--accent); margin-left: .06em; letter-spacing: 0; vertical-align: .9em; }
 html.first-visit .pt-count { display: block; }
 html.first-visit .pt:not(.is-named) .pt-name,
 html.first-visit .pt:not(.is-named) .pt-word-in { visibility: hidden; }
@@ -100,11 +100,11 @@ html.first-visit .pt:not(.is-named) .pt-word-in { visibility: hidden; }
 .pt-rule {
     position: relative; display: block;
     height: 1px; margin: clamp(1rem, 2.5vw, 1.75rem) 0 .9rem;
-    background: rgba(234, 228, 214, .16);
+    background: rgba(229, 215, 196, .16);
 }
 .pt-rule i {
     position: absolute; inset: 0;
-    background: var(--orange);
+    background: var(--accent);
     transform: scaleX(0); transform-origin: left;
 }
 .pt.is-arrived .pt-rule i { transform: scaleX(1); }

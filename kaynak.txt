@@ -24,7 +24,7 @@ Kullanılan kütüphaneler (CDN):
   - GSAP 3.12.5 + ScrollTrigger  https://gsap.com
   - Lenis 1.1.13 (yumuşak kaydırma)  https://github.com/darkroomengineering/lenis
   - Three.js r128 (3D arka plan)     https://threejs.org
-  - Google Fonts: Bricolage Grotesque, Instrument Serif, JetBrains Mono
+  - Google Fonts: Bodoni Moda, Pinyon Script, Cormorant Garamond, Jost, IBM Plex Mono
 
 Admin Paneli (içerik yönetimi):
   - admin.html     : yönetim paneli (menüden bağlantı yok, /admin.html ile açılır; noindex)

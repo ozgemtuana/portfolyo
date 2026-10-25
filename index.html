@@ -4,12 +4,12 @@
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="Kişisel portfolyo — Personal portfolio" />
-        <meta name="theme-color" content="#07070b" />
+        <meta name="theme-color" content="#191c12" />
         <title>Ana Sayfa</title>
         <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-        <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300..800&amp;family=Instrument+Serif:ital@0;1&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&amp;family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&amp;family=Pinyon+Script&amp;family=Jost:wght@300;400;500&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap" rel="stylesheet" />
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css" rel="stylesheet" />
         <!-- Şablonun çekirdek CSS'i (Bootstrap dahil) -->
         <link href="css/styles.css" rel="stylesheet" />
@@ -115,6 +115,7 @@
                         </div>
                     </div>
                 </div>
+                <div class="breath" aria-hidden="true"><i></i><span class="in" data-i18n="hero.inhale">nefes al</span><span class="out" data-i18n="hero.exhale">nefes ver</span></div>
                 <div class="scroll-hint" aria-hidden="true"><i></i><span data-i18n="hero.scroll">Kaydır</span></div>
             </header>
 
@@ -122,10 +123,10 @@
             <div class="my-5 py-4" aria-hidden="true">
                 <div class="marquee">
                     <div class="marquee-track">
-                        <span data-i18n="marquee.1">Tasarım</span><span class="star">✺</span>
-                        <span class="outline" data-i18n="marquee.2">Geliştirme</span><span class="star">✺</span>
-                        <span data-i18n="marquee.3">Animasyon</span><span class="star">✺</span>
-                        <span class="outline" data-i18n="marquee.4">3D Web</span><span class="star">✺</span>
+                        <span data-i18n="marquee.1">Tasarım</span><span class="star">✦</span>
+                        <span class="outline" data-i18n="marquee.2">Geliştirme</span><span class="star">✦</span>
+                        <span data-i18n="marquee.3">Animasyon</span><span class="star">✦</span>
+                        <span class="outline" data-i18n="marquee.4">3D Web</span><span class="star">✦</span>
                     </div>
                 </div>
                 <div class="marquee alt">
@@ -177,6 +178,79 @@
                     <div class="service-row"><span class="no">02</span><h3 data-i18n="services.2.t">Front-End Geliştirme</h3><p data-i18n="services.2.d"></p></div>
                     <div class="service-row"><span class="no">03</span><h3 data-i18n="services.3.t">Etkileşim &amp; Animasyon</h3><p data-i18n="services.3.d"></p></div>
                     <div class="service-row"><span class="no">04</span><h3 data-i18n="services.4.t">Mobil Uyumluluk</h3><p data-i18n="services.4.d"></p></div>
+                </div>
+            </section>
+
+            <!-- Podyum: deri dosyalardan çıkan kâğıt kesimler -->
+            <section class="runway py-5 my-5">
+                <div class="container px-5">
+                    <div class="row gx-5 mb-5 align-items-end">
+                        <div class="col-lg-7">
+                            <div class="eyebrow mb-3" data-reveal data-i18n="runway.eyebrow">Podyum</div>
+                            <h2 class="display-3 mb-0" data-reveal data-i18n-html="runway.title">Podyumdan <em>kareler</em></h2>
+                        </div>
+                        <div class="col-lg-5">
+                            <p class="text-muted mb-0 mt-3" data-reveal data-i18n="runway.sub"></p>
+                        </div>
+                    </div>
+                    <div class="row gx-5 gy-5">
+                        <div class="col-lg-6">
+                            <article class="folder" data-folder>
+                                <div class="folder-back">
+                                    <!-- Defile çizim kâğıdı: kalem notları -->
+                                    <div class="sheet" aria-hidden="true">
+                                        <span class="sheet-no">N° 01</span>
+                                        <span class="note n1" data-i18n="runway.1.note1"></span>
+                                        <span class="note n2" data-i18n="runway.1.note2"></span>
+                                        <span class="note n3" data-i18n="runway.1.note3"></span>
+                                        <svg class="sketch" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M8 22 Q30 16 46 30" /><path d="M92 46 Q74 44 62 54" /><path d="M10 70 Q26 76 38 66" /><path d="M50 6 L50 96" class="dash" /></svg>
+                                    </div>
+                                    <ul class="folder-tabs" aria-hidden="true">
+                                        <li data-i18n="runway.1.tab1">Look 01</li>
+                                        <li data-i18n="runway.1.tab2"></li>
+                                        <li data-i18n="runway.1.tab3"></li>
+                                    </ul>
+                                </div>
+                                <div class="folder-papers">
+                                    <figure class="cut c-left" style="--r: -7deg"><img src="assets/runway/altin-etek.png" alt="Altın saten elbiseyle podyumda" loading="lazy" decoding="async" /></figure>
+                                    <figure class="cut c-right" style="--r: 6deg"><img src="assets/runway/altin-on.png" alt="Altın saten elbise, önden" loading="lazy" decoding="async" /></figure>
+                                    <figure class="cut c-mid c-wide" style="--r: -1deg"><img src="assets/runway/altin-yuruyus.png" alt="Altın saten elbiseyle yürüyüş" loading="lazy" decoding="async" /></figure>
+                                </div>
+                                <div class="folder-front">
+                                    <h3 class="folder-title">Look <em>01</em></h3>
+                                    <p class="folder-meta" data-i18n="runway.1.event"></p>
+                                </div>
+                            </article>
+                        </div>
+                        <div class="col-lg-6">
+                            <article class="folder" data-folder>
+                                <div class="folder-back">
+                                    <!-- Defile çizim kâğıdı: kalem notları -->
+                                    <div class="sheet" aria-hidden="true">
+                                        <span class="sheet-no">N° 02</span>
+                                        <span class="note n1" data-i18n="runway.2.note1"></span>
+                                        <span class="note n2" data-i18n="runway.2.note2"></span>
+                                        <span class="note n3" data-i18n="runway.2.note3"></span>
+                                        <svg class="sketch" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M8 22 Q30 16 46 30" /><path d="M92 46 Q74 44 62 54" /><path d="M10 70 Q26 76 38 66" /><path d="M50 6 L50 96" class="dash" /></svg>
+                                    </div>
+                                    <ul class="folder-tabs" aria-hidden="true">
+                                        <li data-i18n="runway.2.tab1">Look 02</li>
+                                        <li data-i18n="runway.2.tab2"></li>
+                                        <li data-i18n="runway.2.tab3"></li>
+                                    </ul>
+                                </div>
+                                <div class="folder-papers">
+                                    <figure class="cut c-left" style="--r: -6deg"><img src="assets/runway/siyah-podyum.png" alt="Siyah kombinle podyumda" loading="lazy" decoding="async" /></figure>
+                                    <figure class="cut c-right" style="--r: 7deg"><img src="assets/runway/siyah-kemer.png" alt="Siyah kemer detaylı kombin" loading="lazy" decoding="async" /></figure>
+                                    <figure class="cut c-mid" style="--r: 1deg"><img src="assets/runway/siyah-elbise.png" alt="Siyah elbise ve uzun eldivenler" loading="lazy" decoding="async" /></figure>
+                                </div>
+                                <div class="folder-front">
+                                    <h3 class="folder-title">Look <em>02</em></h3>
+                                    <p class="folder-meta" data-i18n="runway.2.event"></p>
+                                </div>
+                            </article>
+                        </div>
+                    </div>
                 </div>
             </section>
 

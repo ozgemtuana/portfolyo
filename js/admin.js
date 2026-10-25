@@ -569,7 +569,7 @@
                 const c = document.createElement("canvas");
                 c.width = w; c.height = h;
                 const ctx = c.getContext("2d");
-                ctx.fillStyle = "#121210"; // saydam PNG'ler için koyu zemin
+                ctx.fillStyle = "#212518"; // saydam PNG'ler için koyu zemin
                 ctx.fillRect(0, 0, w, h);
                 ctx.drawImage(img, 0, 0, w, h);
                 state.projects[i].image = c.toDataURL("image/jpeg", IMG_QUALITY);
