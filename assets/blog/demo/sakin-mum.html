@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Sakin Mum — örnek web sitesi konsepti</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..700;1,400..700&family=Montserrat:wght@300..600&family=Great+Vibes&display=swap" rel="stylesheet" />
+    <style>
+        :root { --forest: #2f3a22; --sage: #dfe3b8; --moss: #7b8a4c; --cream: #f6f1e4; --lav: #9a86c4; --tan: #b8955a; }
+        * { box-sizing: border-box; }
+        body { margin: 0; font-family: "Montserrat", system-ui, sans-serif; color: var(--forest); background: var(--cream); }
+        .concept { background: var(--forest); color: #e5d7c4; text-align: center; padding: 9px 16px; font-size: .68rem; font-weight: 500; letter-spacing: .16em; text-transform: uppercase; }
+        header.nav { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; padding: 22px clamp(20px, 5vw, 64px); }
+        .logo { font: italic 400 1.7rem "Playfair Display", serif; }
+        .logo b { font: 400 2rem "Great Vibes", cursive; font-style: normal; color: var(--moss); margin-left: .1em; }
+        nav a { margin-left: 26px; font-size: .72rem; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; color: var(--forest); text-decoration: none; }
+        nav a:hover { color: var(--moss); }
+        .hero { display: grid; grid-template-columns: 1.1fr .9fr; gap: 24px; align-items: center; padding: clamp(16px, 4vw, 40px) clamp(20px, 5vw, 64px) 40px; background: radial-gradient(60% 80% at 80% 40%, var(--sage), transparent 70%); }
+        .kicker { font-size: .72rem; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; color: var(--moss); }
+        h1 { margin: .5rem 0 1rem; font: 400 clamp(2.6rem, 6vw, 5.2rem)/1 "Playfair Display", serif; letter-spacing: -.01em; }
+        h1 em { font: 400 1.15em "Great Vibes", cursive; color: var(--moss); }
+        .hero p { max-width: 34rem; font-size: 1.05rem; line-height: 1.75; color: #4a5636; }
+        .cta { display: inline-block; margin-top: 12px; padding: 16px 32px; border-radius: 999px; background: var(--forest); color: var(--cream); font-size: .74rem; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; text-decoration: none; }
+        .cta.ghost { background: none; color: var(--forest); border: 1px solid var(--forest); margin-left: 10px; }
+        .hero img { width: min(100%, 440px); justify-self: center; filter: drop-shadow(0 30px 30px rgba(47, 58, 34, .25)); }
+        .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; padding: 10px clamp(20px, 5vw, 64px) 56px; }
+        .card { padding: 22px; border-radius: 22px; background: #fff9ec; border: 1px solid rgba(47, 58, 34, .12); text-align: center; }
+        .card img { height: 150px; margin-bottom: 8px; }
+        .card:nth-child(2) img { filter: sepia(.7) saturate(1.7) hue-rotate(-18deg); }
+        .card:nth-child(3) img { filter: hue-rotate(60deg) saturate(.8); }
+        .card h3 { margin: 4px 0; font: 400 1.35rem "Playfair Display", serif; }
+        .card p { margin: 0; font-size: .85rem; line-height: 1.6; color: #5a6644; }
+        footer { padding: 22px clamp(20px, 5vw, 64px); text-align: center; font-size: .72rem; letter-spacing: .1em; color: #6b7552; border-top: 1px solid rgba(47, 58, 34, .12); }
+        @media (max-width: 760px) { .hero { grid-template-columns: 1fr; text-align: center; } .hero p { margin-inline: auto; } .cards { grid-template-columns: 1fr; } nav a { margin: 0 12px 0 0; } }
+    </style>
+</head>
+<body>
+    <div class="concept">Konsept tasarım · Sakin Mum kurgusal bir markadır, gerçek bir işletme değildir</div>
+    <header class="nav">
+        <div class="logo">Sakin <b>Mum</b></div>
+        <nav aria-label="Ana menü"><a href="#koleksiyon">Koleksiyon</a><a href="#hikaye">Hikâyemiz</a><a href="#iletisim">İletişim</a></nav>
+    </header>
+    <section class="hero">
+        <div>
+            <div class="kicker">El yapımı soya mumları</div>
+            <h1>Günün sesi <em>kısılsın.</em></h1>
+            <p>Lavanta ve ardıç kokusuyla akşamı yavaşlatan, küçük partilerde dökülen soya mumları. Pamuk fitil, geri dönüştürülebilir cam kavanoz.</p>
+            <a class="cta" href="#koleksiyon">Koleksiyonu keşfet</a><a class="cta ghost" href="#hikaye">Hikâyemiz</a>
+        </div>
+        <img src="../sakin-mum.svg" alt="Lavanta ve ardıç dalları arasında yanan cam kavanoz soya mumu çizimi" />
+    </section>
+    <section class="cards" id="koleksiyon" aria-label="Koleksiyon">
+        <article class="card"><img src="../sakin-mum.svg" alt="" /><h3>Lavanta &amp; Ardıç</h3><p>Sakinleştiren, odunsu ve ferah bir akşam kokusu.</p></article>
+        <article class="card"><img src="../sakin-mum.svg" alt="" /><h3>Portakal Çiçeği</h3><p>Sabahı aydınlatan hafif, ılık ve çiçeksi bir karışım.</p></article>
+        <article class="card"><img src="../sakin-mum.svg" alt="" /><h3>Sedir &amp; Vanilya</h3><p>Kışlık, sıcak ve yumuşak; kitap saatlerine uygun.</p></article>
+    </section>
+    <footer id="hikaye">Sakin Mum · örnek web sitesi konsepti · Tuana Davarcı tarafından tasarlandı</footer>
+</body>
+</html>

@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="tr">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="Yapay zekâ, dijital marka tanıtımı ve modellik üzerine üç uzun yazı — Tuana Davarcı'nın blogu." />
+        <meta name="theme-color" content="#191c12" />
+        <title>Blog</title>
+        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300..600;1,300..600&amp;family=DM+Sans:ital,opsz,wght@0,9..40,300..600;1,9..40,300..500&amp;display=swap" rel="stylesheet" />
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css" rel="stylesheet" />
+        <!-- Şablonun çekirdek CSS'i (Bootstrap dahil) -->
+        <link href="css/styles.css?v=32" rel="stylesheet" />
+        <!-- Koyu tema ve animasyon katmanı -->
+        <link href="css/dark.css?v=41" rel="stylesheet" />
+        <!-- Sayfa geçişi + yükleme ekranı -->
+        <link href="css/transition.css?v=32" rel="stylesheet" />
+        <script>
+            /* Geçiş sahnesi/yükleme ekranı için: JS var mı, ilk ziyaret mi? */
+            document.documentElement.classList.add("js");
+            try { if (!sessionStorage.getItem("visited")) document.documentElement.classList.add("first-visit"); } catch (e) {}
+        </script>
+    </head>
+    <body id="top" class="d-flex flex-column h-100" data-page="blog" data-title="meta.title.blog">
+        <canvas id="bg3d" aria-hidden="true"></canvas>
+        <div class="grain" aria-hidden="true"></div>
+        <div class="scroll-progress" aria-hidden="true"></div>
+        <div class="cursor" aria-hidden="true"><span data-i18n="cursor.view">Gör</span></div>
+        <!-- Sayfa geçişi sahnesi (js/transition.js) -->
+        <div class="pt" aria-hidden="true">
+            <svg class="pt-svg" viewBox="0 0 100 100" preserveAspectRatio="none" focusable="false">
+                <path class="pt-path pt-path--accent" d="M0 0 L0 100 Q50 100 100 100 L100 0 Z" />
+                <path class="pt-path pt-path--mid" d="M0 0 L0 100 Q50 100 100 100 L100 0 Z" />
+                <path class="pt-path pt-path--base" d="M0 0 L0 100 Q50 100 100 100 L100 0 Z" />
+                <path class="pt-path pt-path--fill" d="" />
+            </svg>
+            <div class="pt-content">
+                <div class="pt-top"><span class="pt-label"></span><span class="pt-meta"></span></div>
+                <div class="pt-bottom">
+                    <div class="pt-stage">
+                        <em class="pt-word"><span class="pt-word-in"></span></em>
+                        <div class="pt-line"><span class="pt-name"></span><span class="pt-count"><b>0</b><em>%</em></span></div>
+                    </div>
+                    <span class="pt-rule"><i></i></span>
+                    <div class="pt-foot"><span data-profile="name">Tuana Davarcı</span><span class="pt-of"></span></div>
+                </div>
+            </div>
+        </div>
+        <script>
+            /* Geçişle gelindiyse hedef başlığı ilk karede yaz (boş kare görünmesin) */
+            (function () {
+                try {
+                    var d = JSON.parse(sessionStorage.getItem("pt-dest") || "null"), p = document.querySelector(".pt");
+                    if (!d || !p || d.page !== document.body.dataset.page || Date.now() - d.ts > 8000) return;
+                    p.classList.add("is-arrived");
+                    p.querySelector(".pt-name").textContent = d.name;
+                    p.querySelector(".pt-word-in").textContent = d.word;
+                    p.querySelector(".pt-label").textContent = d.label;
+                    p.querySelector(".pt-meta").textContent = d.meta;
+                    p.querySelector(".pt-of").textContent = d.of;
+                } catch (e) {}
+            })();
+        </script>
+
+        <main class="flex-shrink-0">
+            <!-- Navigation-->
+            <nav class="navbar navbar-expand-lg navbar-dark py-3">
+                <div class="container px-5">
+                    <a class="navbar-brand" href="index.html"><span class="fw-bolder text-gradient" data-profile="name">Tuana Davarcı</span></a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" data-i18n-aria="nav.toggle" aria-label="Menüyü aç/kapat"><span class="navbar-toggler-icon"></span></button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav ms-auto mb-2 mb-lg-0 small fw-bolder align-items-lg-center gap-lg-2">
+                            <li class="nav-item"><a class="nav-link" data-nav="home" data-scramble href="index.html" data-i18n="nav.home">Ana Sayfa</a></li>
+                            <li class="nav-item"><a class="nav-link" data-nav="about" data-scramble href="hakkimda.html" data-i18n="nav.about">Hakkımda</a></li>
+                            <li class="nav-item"><a class="nav-link" data-nav="resume" data-scramble href="resume.html" data-i18n="nav.resume">Özgeçmiş</a></li>
+                            <li class="nav-item"><a class="nav-link" data-nav="projects" data-scramble href="projects.html" data-i18n="nav.projects">Projeler</a></li>
+                            <li class="nav-item"><a class="nav-link" data-nav="blog" data-scramble href="blog.html" data-i18n="nav.blog">Blog</a></li>
+                            <li class="nav-item"><a class="nav-link" data-nav="contact" data-scramble href="contact.html" data-i18n="nav.contact">İletişim</a></li>
+                            <li class="nav-item ms-lg-3 mt-2 mt-lg-0">
+                                <div class="lang-switch" role="group" aria-label="Dil / Language">
+                                    <button type="button" data-lang="tr">TR</button>
+                                    <button type="button" data-lang="en">EN</button>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+
+            <!-- Blog: üç uzun yazı, her biri kendi tasarım temasıyla (css/dark.css > "Blog sayfası") -->
+            <div class="container px-5 page-offset my-5 blog-page">
+                <header class="blog-head mb-5 pt-4">
+                    <div class="eyebrow mb-3" data-reveal data-i18n="blog.eyebrow">Yazılar</div>
+                    <h1 class="display-2 fw-bolder mb-3" data-reveal><span class="text-gradient d-inline" data-i18n-html="blog.title">Blog</span></h1>
+                    <p class="hero-sub" data-reveal data-i18n="blog.sub"></p>
+                    <p class="blog-note" data-reveal data-i18n="blog.note"></p>
+                </header>
+
+                <!-- Yazı dizini -->
+                <nav class="blog-index" aria-label="Blog yazıları">
+                    <a class="bx bx--tech" href="#yazi-yapay-zeka" data-reveal>
+                        <span class="bx-no">01</span>
+                        <span class="bx-cat">Teknoloji · Yapay Zekâ</span>
+                        <strong class="bx-title">Yapay Zekâ ile Dijital Dünyanın Geleceği</strong>
+                        <span class="bx-ex">Yapay zekâ nasıl çalışır, kod yazarken nasıl yardım eder, nerede yanılır? Çalışan bir kod örneğiyle.</span>
+                        <span class="bx-meta"><span data-read="yazi-yapay-zeka"></span><span class="bx-go" data-i18n="blog.read">Yazıyı oku</span></span>
+                    </a>
+                    <a class="bx bx--brand" href="#yazi-dijital-vitrin" data-reveal data-delay="0.1">
+                        <span class="bx-no">02</span>
+                        <span class="bx-cat">Dijital Tanıtım · Web Tasarım</span>
+                        <strong class="bx-title">Fikirden Dijital Vitrine: Markalar İnternette Nasıl Tanıtılır?</strong>
+                        <span class="bx-ex">Kurgusal bir marka için görselden web sitesine uzanan örnek bir tanıtım çalışması ve hizmetlerim.</span>
+                        <span class="bx-meta"><span data-read="yazi-dijital-vitrin"></span><span class="bx-go" data-i18n="blog.read">Yazıyı oku</span></span>
+                    </a>
+                    <a class="bx bx--fashion" href="#yazi-moda-kisisel-marka" data-reveal data-delay="0.2">
+                        <span class="bx-no">03</span>
+                        <span class="bx-cat">Moda · Modellik · Kişisel Marka</span>
+                        <strong class="bx-title">Moda, Modellik ve Dijital Dünyada Kişisel Marka Oluşturmak</strong>
+                        <span class="bx-ex">Portföy, çekim türleri, marka iş birlikleri ve kendini dijitalde tanıtmanın yolları.</span>
+                        <span class="bx-meta"><span data-read="yazi-moda-kisisel-marka"></span><span class="bx-go" data-i18n="blog.read">Yazıyı oku</span></span>
+                    </a>
+                </nav>
+
+                <!-- ============ 01 · TEKNOLOJİ ============ -->
+                <article class="post post--tech" id="yazi-yapay-zeka" lang="tr" aria-labelledby="t-ai">
+                    <header class="post-head">
+                        <span class="post-ghost" aria-hidden="true">01</span>
+                        <div class="post-meta"><span class="post-cat">Teknoloji · Yapay Zekâ</span><span class="post-read" data-read="yazi-yapay-zeka"></span></div>
+                        <h2 class="post-title" id="t-ai">Yapay Zekâ ile <em>Dijital Dünyanın</em> Geleceği</h2>
+                        <p class="post-lede">Yapay zekâ artık bilim kurgu filmlerinde değil; telefonumuzda, tarayıcımızda ve kod editörümüzde. Bilgisayar programcılığı okuyan biri olarak onu hem güçlü bir yardımcı hem de dikkatle kullanılması gereken bir araç olarak görüyorum. Bu yazıda nasıl çalıştığını, nerede işe yaradığını ve nerede yanıldığını anlatıyorum.</p>
+                        <p class="post-by"><span>Tuana Davarcı</span><time datetime="2026-10-26">26 Ekim 2026</time></p>
+                    </header>
+
+                    <figure class="post-hero ai-diagram" data-reveal>
+                        <svg viewBox="0 0 1200 396" role="img" aria-labelledby="aiSvgT aiSvgD">
+                            <title id="aiSvgT">Yapay zekânın çalışma döngüsü</title>
+                            <desc id="aiSvgD">Dört adım: veri toplanır, model eğitilir, model tahmin üretir, insan sonucu kontrol eder. İnsandan gelen geri bildirim yeniden veriye döner.</desc>
+                            <defs>
+                                <marker id="aiArrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M1 1 L9 5 L1 9 Z" fill="#c9c88f" /></marker>
+                                <pattern id="aiGrid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M40 0H0V40" fill="none" stroke="#c9c88f" stroke-opacity=".08" /></pattern>
+                            </defs>
+                            <rect width="1200" height="396" fill="url(#aiGrid)" />
+                            <g class="ai-node">
+                                <rect x="40" y="60" width="250" height="200" rx="22" /><text class="ai-n" x="64" y="94">01</text>
+                                <g class="ai-ic" transform="translate(165 140)"><rect x="-26" y="-26" width="52" height="14" rx="4" /><rect x="-26" y="-7" width="52" height="14" rx="4" /><rect x="-26" y="12" width="52" height="14" rx="4" /></g>
+                                <text class="ai-t" x="165" y="205" text-anchor="middle">Veri</text><text class="ai-s" x="165" y="231" text-anchor="middle">Metin, görsel, ses örnekleri</text>
+                            </g>
+                            <g class="ai-node">
+                                <rect x="330" y="60" width="250" height="200" rx="22" /><text class="ai-n" x="354" y="94">02</text>
+                                <g class="ai-ic" transform="translate(455 140)"><line x1="-24" y1="-14" x2="0" y2="-20" /><line x1="-24" y1="-14" x2="0" y2="2" /><line x1="-24" y1="14" x2="0" y2="2" /><line x1="-24" y1="14" x2="0" y2="20" /><line x1="0" y1="-20" x2="24" y2="0" /><line x1="0" y1="2" x2="24" y2="0" /><line x1="0" y1="20" x2="24" y2="0" /><circle cx="-24" cy="-14" r="7" /><circle cx="-24" cy="14" r="7" /><circle cx="0" cy="-20" r="7" /><circle cx="0" cy="2" r="7" /><circle cx="0" cy="20" r="7" /><circle cx="24" cy="0" r="7" /></g>
+                                <text class="ai-t" x="455" y="205" text-anchor="middle">Eğitim</text><text class="ai-s" x="455" y="231" text-anchor="middle">Model kalıpları öğrenir</text>
+                            </g>
+                            <g class="ai-node">
+                                <rect x="620" y="60" width="250" height="200" rx="22" /><text class="ai-n" x="644" y="94">03</text>
+                                <g class="ai-ic" transform="translate(745 140)"><rect x="-26" y="2" width="12" height="22" rx="3" /><rect x="-6" y="-10" width="12" height="34" rx="3" /><rect x="14" y="-24" width="12" height="48" rx="3" /></g>
+                                <text class="ai-t" x="745" y="205" text-anchor="middle">Tahmin</text><text class="ai-s" x="745" y="231" text-anchor="middle">En olası cevabı üretir</text>
+                            </g>
+                            <g class="ai-node ai-node--human">
+                                <rect x="910" y="60" width="250" height="200" rx="22" /><text class="ai-n" x="934" y="94">04</text>
+                                <g class="ai-ic" transform="translate(1035 140)"><circle cx="0" cy="-14" r="11" /><path d="M-24 24c0-14 11-22 24-22s24 8 24 22" /><path d="M10 -2l6 6 12-14" class="ai-ok" /></g>
+                                <text class="ai-t" x="1035" y="205" text-anchor="middle">İnsan kontrolü</text><text class="ai-s" x="1035" y="231" text-anchor="middle">Doğrular, düzeltir, karar verir</text>
+                            </g>
+                            <g class="ai-arrows" marker-end="url(#aiArrow)"><line x1="296" y1="160" x2="324" y2="160" /><line x1="586" y1="160" x2="614" y2="160" /><line x1="876" y1="160" x2="904" y2="160" /></g>
+                            <path class="ai-loop" d="M1035 270 C1035 372 165 372 165 270" marker-end="url(#aiArrow)" />
+                            <text class="ai-s ai-loop-t" x="600" y="368" text-anchor="middle">geri bildirim: hatalar düzeltilir, veri iyileşir</text>
+                        </svg>
+                        <figcaption><b>Görsel 1.1</b> Yapay zekânın çalışma döngüsü. Veriden kontrole kadar dört adımı ve en sağdaki insanın döngüyü nasıl yeniden başlattığını gösteren, bu yazı için hazırlanmış şema. Son adımın insanda olması, makinenin ürettiği sonucun sorumluluğunun bizde kaldığını anlatır.</figcaption>
+                    </figure>
+
+                    <div class="post-body">
+                        <aside class="post-toc" aria-label="Bu yazıda">
+                            <b>Bu yazıda</b>
+                            <ol>
+                                <li><a href="#ai-1">Yapay zekâ nedir?</a></li>
+                                <li><a href="#ai-2">Günlük hayatta</a></li>
+                                <li><a href="#ai-3">Eğitimde ve kodda</a></li>
+                                <li><a href="#ai-4">Çalışan bir örnek</a></li>
+                                <li><a href="#ai-5">Web tasarımı ve içerik</a></li>
+                                <li><a href="#ai-6">Doğruluk ve güvenlik</a></li>
+                                <li><a href="#ai-7">Gelecek</a></li>
+                            </ol>
+                        </aside>
+
+                        <div class="post-text">
+                            <section id="ai-1">
+                                <h3>Yapay zekâ nedir ve nasıl çalışır?</h3>
+                                <p>Yapay zekâ, bilgisayarların insana özgü sayılan işleri (dili anlamak, görüntü tanımak, bir sonraki adımı tahmin etmek) <strong>örneklerden öğrenerek</strong> yapabilmesidir. Klasik bir programda kuralları biz yazarız: “şu olursa bunu yap”. Yapay zekâda ise kuralları tek tek yazmak yerine çok sayıda örnek gösteririz ve sistem kalıpları kendisi çıkarır.</p>
+                                <p>Bir sohbet modeli yazarken aslında “bu cümlenin devamında en olası kelime hangisi?” sorusunu çok hızlı ve çok kez cevaplar. Bu yüzden akıcı konuşur; ama bir şeyi <em>bildiği</em> için değil, örüntüyü sürdürdüğü için konuşur. Bu ayrım, yazının geri kalanındaki tavsiyelerin temelidir.</p>
+                                <dl class="terms">
+                                    <div><dt>Model</dt><dd>Örneklerden öğrenmiş matematiksel yapı. Bir tür “öğrenilmiş tarif defteri”.</dd></div>
+                                    <div><dt>Veri seti</dt><dd>Modelin öğrenirken gördüğü örneklerin tamamı.</dd></div>
+                                    <div><dt><abbr title="İngilizce 'prompt': modele yazdığımız talimat">İstem</abbr></dt><dd>Modele yazdığımız soru ya da talimat. Ne kadar net olursa cevap o kadar işe yarar.</dd></div>
+                                    <div><dt>Halüsinasyon</dt><dd>Modelin doğru görünen ama uydurma bilgi üretmesi. Çok ikna edici olabilir.</dd></div>
+                                </dl>
+                            </section>
+
+                            <section id="ai-2">
+                                <h3>Günlük hayatta yapay zekâ</h3>
+                                <p>Çoğu zaman fark etmiyoruz, çünkü iyi çalışan teknoloji görünmez olur:</p>
+                                <ul class="ticks">
+                                    <li>Telefon kamerasındaki portre ve gece modları, fotoğraf düzeltme araçları,</li>
+                                    <li>Müzik ve video uygulamalarının “bunu da sevebilirsin” önerileri,</li>
+                                    <li>Çeviri uygulamaları ve yazarken çıkan sözcük tahminleri,</li>
+                                    <li>Harita uygulamalarının trafik ve varış süresi tahminleri.</li>
+                                </ul>
+                            </section>
+
+                            <section id="ai-3">
+                                <h3>Eğitimde ve yazılım geliştirmede</h3>
+                                <p>Eğitimde bir konuyu farklı anlatımlarla tekrar açıklatmak, örnek soru üretmek ya da uzun bir metni özetlemek mümkün. Yazılımda ise kod önerisi almak, bir hata mesajının ne dediğini öğrenmek, test yazmak ve belgelendirme hazırlamak en yaygın kullanımlar. Ben Akdeniz Üniversitesi’nde Bilgisayar Programcılığı okuyorum, ayrıca Anadolu Üniversitesi’nde <em>Yapay Zekâ Destekli Kodlama</em> programını takip ediyorum; yani konuya bir öğrenci olarak, merakla ve temkinle yaklaşıyorum.</p>
+                                <h4>Kod yazarken yapay zekâdan nasıl yararlanılır?</h4>
+                                <ol class="steps">
+                                    <li><b>Küçük ve net iste.</b> “Sitemi yap” yerine “bir hex rengin parlaklığını hesaplayan JavaScript fonksiyonu yaz” gibi tek parçalık bir iş tanımla.</li>
+                                    <li><b>Anlamadığın satırı sor.</b> Cevabı kopyalamak yerine, her satırın ne yaptığını açıklatıp kendi cümlelerinle tekrar etmeye çalış.</li>
+                                    <li><b>Çalıştır ve test et.</b> Sonucu, cevabını önceden bildiğin örneklerle karşılaştır.</li>
+                                    <li><b>Kodu sahiplen.</b> Anlamadığın bir kodu projene koyma; hata çıktığında düzeltecek kişi sensin.</li>
+                                </ol>
+                            </section>
+
+                            <section id="ai-4">
+                                <h3>Çalışan bir örnek: renk kontrast denetleyici</h3>
+                                <p>Bu yazı için yapay zekâ yardımıyla küçük bir araç hazırlattım: iki rengi karşılaştırıp yazının okunabilir olup olmadığını söyleyen bir <strong>renk kontrast denetleyici</strong>. Web tasarımında erişilebilirliğin temel kurallarından biri, yazı ile zemin arasındaki kontrast oranının <abbr title="Web İçeriği Erişilebilirlik Yönergeleri">WCAG</abbr> ölçütüne uymasıdır: normal metin için en az <code>4,5:1</code>.</p>
+                                <figure class="code-fig">
+                                    <figcaption class="code-cap"><span>kontrast.js</span><button type="button" class="copy-btn" data-copy aria-label="Kodu kopyala"><i class="bi bi-clipboard"></i><span>Kopyala</span></button></figcaption>
+<pre><code class="language-js">// Bir renk kanalını (0–255) göz algısına uygun "doğrusal" değere çevirir
+function kanal(c) {
+  c /= 255;
+  return c &lt;= 0.04045 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4);
+}
+
+// Rengin göreli parlaklığı (0 = siyah, 1 = beyaz)
+function parlaklik(hex) {
+  const [r, g, b] = hex.match(/\w\w/g).map((h) =&gt; parseInt(h, 16));
+  return 0.2126 * kanal(r) + 0.7152 * kanal(g) + 0.0722 * kanal(b);
+}
+
+// İki renk arasındaki WCAG kontrast oranı (1 ile 21 arası)
+function kontrast(renk1, renk2) {
+  const [acik, koyu] = [parlaklik(renk1), parlaklik(renk2)].sort((x, y) =&gt; y - x);
+  return (acik + 0.05) / (koyu + 0.05);
+}</code></pre>
+                                </figure>
+                                <p>Kod üç küçük parçadan oluşuyor. <code>kanal()</code> her renk kanalını insan gözünün algısına uygun hâle getirir; <code>parlaklik()</code> kırmızı, yeşil ve maviyi gözün duyarlılığına göre (en çok yeşile) ağırlıklandırarak tek bir parlaklık değeri üretir; <code>kontrast()</code> ise açık ve koyu rengin parlaklıklarını oranlar.</p>
+                                <h4>Doğruluk nasıl kontrol edildi?</h4>
+                                <p>Yapay zekâdan gelen koda güvenmeden önce, cevabı bilinen örneklerle denemek gerekir. Sık görülen bir hata, yukarıdaki <code>kanal()</code> adımını atlayıp doğrudan 0–255 değerleriyle hesap yapmaktır; böyle bir kod ilk bakışta çalışır ama yanlış sonuç verir. Bu yüzden bilinen değerlerle karşılaştırma şart:</p>
+                                <div class="tbl-wrap"><table class="tbl">
+                                    <caption>Kod Node.js ile çalıştırılarak alınan gerçek sonuçlar</caption>
+                                    <thead><tr><th scope="col">Yazı</th><th scope="col">Zemin</th><th scope="col">Hesaplanan</th><th scope="col">Beklenen / yorum</th></tr></thead>
+                                    <tbody>
+                                        <tr><td><code>#000000</code></td><td><code>#ffffff</code></td><td>21,00:1</td><td>Beklenen en yüksek değer (21:1) ✓</td></tr>
+                                        <tr><td><code>#ffffff</code></td><td><code>#ffffff</code></td><td>1,00:1</td><td>Aynı renk, kontrast yok (1:1) ✓</td></tr>
+                                        <tr><td><code>#777777</code></td><td><code>#ffffff</code></td><td>4,48:1</td><td>Eşiğin hemen altında: AA’yı geçemez ✓</td></tr>
+                                        <tr><td><code>#767676</code></td><td><code>#ffffff</code></td><td>4,54:1</td><td>Eşiği az farkla geçer ✓</td></tr>
+                                        <tr><td><code>#f2ead0</code></td><td><code>#3b4220</code></td><td>8,79:1</td><td>Bu sitedeki krem / yosun çifti: AAA düzeyinde ✓</td></tr>
+                                    </tbody>
+                                </table></div>
+                                <figure class="shot" data-reveal>
+                                    <a href="assets/blog/demo/kontrast.html" target="_blank" rel="noopener"><img src="assets/blog/kontrast-denetleyici.jpg" width="1554" height="885" loading="lazy" decoding="async" alt="Renk kontrast denetleyici arayüzünün ekran görüntüsü: krem yazı ve zeytin yeşili zemin seçili, sonuç 8,79 ’e 1 ve üç erişilebilirlik rozeti onaylı" /></a>
+                                    <figcaption><b>Görsel 1.2</b> Aracın gerçek ekran görüntüsü. Yazı ve zemin rengi seçildiğinde oran anında hesaplanıyor; yeşil rozetler hangi erişilebilirlik düzeyinin sağlandığını gösteriyor. Görsele tıklayarak <a href="assets/blog/demo/kontrast.html" target="_blank" rel="noopener">canlı aracı açabilirsin</a>: renkleri değiştir ve rozetlerin nasıl tepki verdiğine bak.</figcaption>
+                                </figure>
+                            </section>
+
+                            <section id="ai-5">
+                                <h3>Web tasarımı, içerik üretimi ve dijital pazarlamada rolü</h3>
+                                <p><strong>Web tasarımında</strong> yapay zekâ ilk taslak fikirleri, renk paleti önerilerini ve erişilebilirlik kontrollerini hızlandırır. <strong>İçerik üretiminde</strong> başlık alternatifleri, özet ve çeviri taslakları çıkarır. <strong>Dijital pazarlamada</strong> reklam metni varyasyonları ve hedef kitle fikirleri sunar. Hepsinde ortak risk, her şeyin birbirine benzemesidir: aynı araçtan çıkan ilk taslaklar genelde ortalama ve tanıdıktır. Markaya ruhunu veren kısım, taslağın üzerine yapılan insan düzenlemesidir.</p>
+                                <figure class="flow" data-reveal>
+                                    <div class="flow-grid">
+                                        <div class="flow-card"><span class="flow-step">1 · İstem</span><p class="flow-q">“Yosun yeşili bir mum markası için ana sayfa girişi öner: başlık, alt metin ve buton.”</p></div>
+                                        <div class="flow-arrow" aria-hidden="true">→</div>
+                                        <div class="flow-card flow-card--draft"><span class="flow-step">2 · Genel taslak</span><b>Mumlarla huzuru keşfedin</b><span>Kaliteli ve doğal ürünler</span><i>Hemen satın al</i></div>
+                                        <div class="flow-arrow" aria-hidden="true">→</div>
+                                        <div class="flow-card flow-card--final"><span class="flow-step">3 · İnsan düzenlemesi</span><b>Günün sesi kısılsın.</b><span>Lavanta ve ardıç kokulu, elde dökülen küçük seri mumlar.</span><i>Koleksiyonu keşfet</i></div>
+                                    </div>
+                                    <figcaption><b>Görsel 1.3</b> Yapay zekânın bir web tasarım sürecindeki yeri için <em>örnek iş akışı</em> (konsept çizim, belirli bir müşteri çalışması değil). Orta sütundaki genel taslak her markaya uyabilir; sağdaki versiyon marka sesine, duygusuna ve kontrast kontrolüne göre insan eliyle yeniden yazılmıştır. Bu kurgusal marka, 2. yazıdaki <a href="#yazi-dijital-vitrin">Sakin Mum</a> örneğidir.</figcaption>
+                                </figure>
+                            </section>
+
+                            <section id="ai-6">
+                                <h3>Doğruluk kontrolü ve veri güvenliği</h3>
+                                <blockquote class="pull">
+                                    <p>Yapay zekâ bir bilirkişi değil, çok hızlı çalışan bir stajyer gibidir: iş çıkarır, ama imzayı sen atarsın.</p>
+                                </blockquote>
+                                <ul class="ticks">
+                                    <li><b>Çıktıyı doğrula.</b> Tarih, sayı ve alıntıları ikinci bir kaynaktan kontrol et; kodu çalıştırmadan kullanma.</li>
+                                    <li><b>Kişisel veriyi paylaşma.</b> Şifre, kimlik, adres, API anahtarı ya da müşteriye ait bilgileri araçlara yazma.</li>
+                                    <li><b>Telif ve lisansa dikkat et.</b> Üretilen görsel ve metnin nerede, nasıl kullanılabileceğini kontrol et.</li>
+                                    <li><b>Dürüst ol.</b> Yapay zekâdan yardım aldıysan bunu saklama; ödevde ve işte şeffaflık güveni artırır.</li>
+                                </ul>
+                            </section>
+
+                            <section id="ai-7">
+                                <h3>Gelecekte hangi fırsatlar var?</h3>
+                                <p>Tekrarlayan işler hızlanırken fikir, tasarım ve kullanıcı deneyimi gibi insana özgü kısımlara daha çok zaman kalıyor. Bence önümüzdeki dönemin fırsatları şunlar: küçük işletmelerin de profesyonel görünen siteler kurabilmesi, hızlı prototiplerle fikirlerin erken denenmesi, erişilebilirliğin standart hâle gelmesi ve kişiye göre uyarlanan web deneyimleri. Riskler de gerçek; o yüzden öğrenmeyi bırakmamak gerekiyor.</p>
+                                <p>Hiçbir model bir markanın ruhunu, bir podyumda ne hissettiğimi ya da hangi rengin “bana göre” olduğunu bilmez. Benim için yapay zekâ bir yedek zihin değil, bir <em>hız ayarı</em>: yönü ben seçiyorum, yol daha kısa sürüyor. Bu yazı, bilgi teknolojileri alanına ilgimin ve öğrenme sürecimin bir notu. Nasıl bir yol izlediğimi <a href="hakkimda.html">Hakkımda</a> sayfasında, yaptığım işleri <a href="projects.html">Projeler</a> sayfasında görebilirsin.</p>
+                            </section>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- ============ 02 · DİJİTAL TANITIM ============ -->
+                <article class="post post--brand" id="yazi-dijital-vitrin" lang="tr" aria-labelledby="t-brand">
+                    <header class="post-head">
+                        <span class="post-ghost" aria-hidden="true">02</span>
+                        <div class="post-meta"><span class="post-cat">Dijital Tanıtım · Web Tasarım</span><span class="post-read" data-read="yazi-dijital-vitrin"></span></div>
+                        <h2 class="post-title" id="t-brand">Fikirden <em>Dijital Vitrine:</em> Markalar İnternette Nasıl Tanıtılır?</h2>
+                        <p class="post-lede">Ürün ne kadar iyi olursa olsun, görülmeyen ürün satılmaz. Bu yazıda bir fikrin dijital bir vitrine dönüşme yolunu adım adım anlatıyor, ardından “Sakin Mum” adlı kurgusal bir marka için örnek bir tanıtım çalışması gösteriyorum.</p>
+                        <p class="post-by"><span>Tuana Davarcı</span><time datetime="2026-10-26">26 Ekim 2026</time></p>
+                    </header>
+
+                    <figure class="post-hero" data-reveal>
+                        <img src="assets/blog/sakin-mum-tanitim.jpg" width="1600" height="1000" loading="lazy" decoding="async" alt="Lavanta ve ardıç dalları arasında yanan cam kavanoz soya mumu çizimi; solda “Sakin Mum” yazısı ve ürün özellikleri" />
+                        <figcaption><b>Görsel 2.1</b> “Sakin Mum” için hazırlanmış örnek ürün tanıtım görseli. <em>Örnek konsept çalışma:</em> marka, ürün ve çizim kurgusaldır; gerçek bir işletme ya da müşteri değildir. Ürünü, kullanıldığı atmosferle (akşam, ışık, doğal bitkiler) birlikte göstermek, yalnızca ürünün kendisini göstermekten daha akılda kalır.</figcaption>
+                    </figure>
+
+                    <div class="post-body">
+                        <aside class="post-toc" aria-label="Bu yazıda">
+                            <b>Bu yazıda</b>
+                            <ol>
+                                <li><a href="#vt-1">Neden görünür olmalı?</a></li>
+                                <li><a href="#vt-2">Web sitesi ve marka imajı</a></li>
+                                <li><a href="#vt-3">Görsel ve metin</a></li>
+                                <li><a href="#vt-4">Sosyal medya</a></li>
+                                <li><a href="#vt-5">Reklam ve gelir modelleri</a></li>
+                                <li><a href="#vt-6">Ölçmek</a></li>
+                                <li><a href="#vt-7">Örnek çalışma</a></li>
+                                <li><a href="#vt-8">Hizmetlerim</a></li>
+                            </ol>
+                        </aside>
+
+                        <div class="post-text">
+                            <section id="vt-1">
+                                <h3>Bir marka dijital dünyada neden görünür olmalı?</h3>
+                                <p>Bugün bir ürünü satın almadan önce çoğumuz önce arıyoruz, sosyal medyada bakıyoruz, yorumlara göz atıyoruz. Dijitalde yer almayan bir marka, bu yolculuğun en başında kayboluyor. Dijital vitrinin iki büyük avantajı var: <strong>gece gündüz açık olması</strong> ve <strong>küçük bir işletmenin de büyük bir markayla aynı sokakta durabilmesi</strong>. Önemli olan, dikkat çekmekle kalmayıp güven vermek.</p>
+                            </section>
+
+                            <section id="vt-2">
+                                <h3>Profesyonel bir web sitesi marka imajına ne katar?</h3>
+                                <p>Sosyal medya markanın sokaktaki vitrini, web sitesi ise kendi dükkânıdır. Vitrin dikkat çeker; dükkân güven verir ve satışı tamamlar. İyi bir site şu işleri yapar: ilk izlenimi belirler, tüm içeriği tek yerde toplar, telefonda sorunsuz açılır, hızlı yüklenir ve herkes için okunabilir olur (bkz. 1. yazıdaki kontrast örneği). Algoritmalar değişir, platformlar kapanır; kendi siten ise <em>sana</em> aittir.</p>
+                            </section>
+
+                            <section id="vt-3">
+                                <h3>Ürün görselleri ve tanıtım metinleri</h3>
+                                <div class="two-col">
+                                    <div class="mini-card"><h4>Görsel</h4><ul><li>Ürün tek başına değil, kullanıldığı ortamda görünsün.</li><li>Işık ve arka plan sade, renkler markaya özgü olsun.</li><li>Tüm görsellerde aynı ton ve çerçeve dili korunsun.</li></ul></div>
+                                    <div class="mini-card"><h4>Metin</h4><ul><li>Özelliği değil, insanın hayatındaki yerini anlat.</li><li>Kısa yaz; tek mesaj, tek çağrı kullan.</li><li>Marka sesini seç ve her yerde aynı tonda konuş.</li></ul></div>
+                                </div>
+                                <p>Ürün tanıtımı bana yabancı bir alan değil: Vanilla Cola için akışkan çizgili bir tanıtım görseli ve Photoshop History Brush tekniğiyle siyah-beyaz bir sahne çalıştım. Bunlara <a href="projects.html">Projeler</a> sayfasından bakabilirsin.</p>
+                            </section>
+
+                            <section id="vt-4">
+                                <h3>Sosyal medya: Instagram, TikTok ve web sitesi birlikte</h3>
+                                <p><strong>Instagram</strong> görsel bütünlüğün, hikâyelerin ve kısa videoların yeri; ben Instagram hesapları için içerik planlıyor, paylaşımları hazırlıyorum. <strong>TikTok</strong> ise daha doğal, üretim sürecini ve ürünün kullanımını gösteren kısa videoları ödüllendiriyor; bu alanda kendimi geliştiriyorum. İki platformun da amacı aynı: ilgiyi <em>web sitesine</em> taşımak. Bunun için profil bağlantısı, takip edilebilir adresler ve her platforma uygun içerik takvimi yeterli.</p>
+                            </section>
+
+                            <section id="vt-5">
+                                <h3>Dijital reklamlar ve gelir modelleri</h3>
+                                <p>Reklamın görevi, doğru kişiye doğru anda ulaşmak: konum, yaş aralığı ve ilgi alanlarına göre hedef kitle belirlenir, küçük bütçelerle farklı görseller ve metinler denenir, işe yarayan büyütülür. Bir markanın geliri yalnızca reklamdan gelmez:</p>
+                                <div class="tbl-wrap"><table class="tbl">
+                                    <caption>Başlıca dijital gelir modelleri</caption>
+                                    <thead><tr><th scope="col">Model</th><th scope="col">Nasıl çalışır?</th><th scope="col">Kime uygun?</th></tr></thead>
+                                    <tbody>
+                                        <tr><th scope="row">Doğrudan satış</th><td>Ürün kendi sitesinden ya da sosyal medya üzerinden satılır.</td><td>Kendi ürünü olan markalar</td></tr>
+                                        <tr><th scope="row">Sponsorlu içerik</th><td>Marka, bir içerik üreticisine ürününü tanıtması için ödeme yapar; içerik “reklam” diye belirtilir.</td><td>Yeni tanınan markalar</td></tr>
+                                        <tr><th scope="row">Marka iş birliği</th><td>İki marka ya da marka ve üretici, ortak bir koleksiyon veya kampanya yürütür.</td><td>Benzer hedef kitleli markalar</td></tr>
+                                        <tr><th scope="row">Satış ortaklığı</th><td>Özel bir bağlantı üzerinden gelen satışlardan ortağa komisyon ödenir.</td><td>Blog ve içerik siteleri</td></tr>
+                                    </tbody>
+                                </table></div>
+                            </section>
+
+                            <section id="vt-6">
+                                <h3>Başarı nasıl ölçülür?</h3>
+                                <p>Önce hedef konur (örneğin “bir ayda siteye gelen ziyaretçiyi artırmak”), sonra o hedefi gösteren birkaç ölçüt seçilir ve haftalık bakılır. Çok sayıda rakam yerine, karar vermeye yarayan az sayıda rakam tutulur. Örnek çalışmanın sonunda temel ölçütleri formülleriyle bir arada veriyorum.</p>
+                            </section>
+
+                            <section id="vt-7" class="study">
+                                <div class="study-head"><span class="study-tag">Örnek konsept çalışma</span><h3>Sakin Mum için dijital tanıtım paketi</h3><p>“Sakin Mum”, bu yazı için <strong>kurgusal</strong> olarak oluşturulmuş bir el yapımı soya mumu markası. Aşağıdaki altı parça gerçek bir müşteriye ait değil; bir markanın dijital tanıtımının nasıl kurgulanabileceğini göstermek için yapay zekâ desteğiyle hazırlandı.</p></div>
+
+                                <h4 class="study-n"><span>1</span> Ürüne uygun tanıtım görseli</h4>
+                                <p>Yukarıdaki <a href="#yazi-dijital-vitrin">Görsel 2.1</a>, paketin ana görselidir: sakin bir yeşil zemin, ürünün yanında lavanta ve ardıç dalları ve tek bir yanan alev. Renkler ürünün kokusunu (bitkisel, sakinleştirici) hatırlatır.</p>
+
+                                <h4 class="study-n"><span>2</span> Örnek sosyal medya paylaşımı</h4>
+                                <div class="post-split">
+                                    <figure class="shot shot--tall" data-reveal>
+                                        <img src="assets/blog/sakin-mum-sosyal.jpg" width="1080" height="1350" loading="lazy" decoding="async" alt="Koyu yeşil zeminde yanan mum çizimi; üstte “Günün sesi kısılsın.” başlığı, altta “Lavanta ve ardıç, yeni koleksiyon” ve sipariş çağrısı" />
+                                        <figcaption><b>Görsel 2.2</b> Sosyal medya için 4:5 oranında hazırlanmış örnek gönderi. Tek mesaj, tek görsel, tek çağrı: başlık okunur, ürün ortada, eylem çağrısı altta. Koyu zemin, akşam atmosferini ve alevin parıltısını öne çıkarır.</figcaption>
+                                    </figure>
+                                    <div class="caption-box">
+                                        <span class="caption-label">Örnek gönderi metni</span>
+                                        <p>Günün sesi kısılsın. 🕯️</p>
+                                        <p>Lavanta ve ardıç kokulu yeni mumumuz, akşamı yavaşlatmak isteyenler için küçük bir mola. Elde döküldü, pamuk fitilli, cam kavanozu yeniden kullanılabilir.</p>
+                                        <p>Sipariş için biyografideki bağlantıya bak.</p>
+                                        <p class="hash">#sakinmum #soyamumu #elyapımı #akşamritüeli</p>
+                                    </div>
+                                </div>
+
+                                <h4 class="study-n"><span>3</span> Ürün için kısa reklam metni</h4>
+                                <div class="ad-copy">
+                                    <div><span>Başlık</span><b>Günün sesi kısılsın.</b></div>
+                                    <div><span>Alt metin</span><b>Lavanta ve ardıç kokulu, elde dökülen küçük seri soya mumu.</b></div>
+                                    <div><span>Çağrı</span><b>Koleksiyonu keşfet</b></div>
+                                </div>
+
+                                <h4 class="study-n"><span>4</span> Örnek web sitesi tanıtım bölümü</h4>
+                                <figure class="shot" data-reveal>
+                                    <a href="assets/blog/demo/sakin-mum.html" target="_blank" rel="noopener"><img src="assets/blog/sakin-mum-web.jpg" width="1440" height="1180" loading="lazy" decoding="async" alt="Sakin Mum örnek web sitesinin ekran görüntüsü: krem zeminde “Günün sesi kısılsın.” başlığı, sağda yanan mum çizimi ve altında üç koku kartı" /></a>
+                                    <figcaption><b>Görsel 2.3</b> Çalışan bir örnek web sitesi bölümünün ekran görüntüsü: net başlık, kısa açıklama, iki düğme ve ürün kartları. Sayfanın en üstünde bunun kurgusal bir konsept olduğu yazıyor. <a href="assets/blog/demo/sakin-mum.html" target="_blank" rel="noopener">Canlı örneği aç</a> ve pencereyi küçülterek mobil düzenini dene.</figcaption>
+                                </figure>
+
+                                <h4 class="study-n"><span>5</span> Hedef kitleye ulaşma yolu</h4>
+                                <ol class="path">
+                                    <li><b>Keşfet</b><span>Instagram ve TikTok’ta mum dökümü ve akşam ritüeli videoları; konuma göre küçük bütçeli reklam.</span></li>
+                                    <li><b>İlgilen</b><span>Profilde tutarlı görseller, biyografide net bağlantı.</span></li>
+                                    <li><b>Düşün</b><span>Web sitesinde koku kartları, içerik bilgisi ve hikâye bölümü.</span></li>
+                                    <li><b>Satın al</b><span>Basit sipariş akışı; mobilde tek elle tamamlanabilir.</span></li>
+                                    <li><b>Geri dön</b><span>Paketleme notu, e-posta ve yeni koku duyuruları.</span></li>
+                                </ol>
+
+                                <h4 class="study-n"><span>6</span> Başarı ölçümü için temel metrikler</h4>
+                                <div class="tbl-wrap"><table class="tbl">
+                                    <caption>Hedef kitleye ulaşıp ulaşılmadığını gösteren altı ölçüt</caption>
+                                    <thead><tr><th scope="col">Metrik</th><th scope="col">Ne anlatır?</th><th scope="col">Nasıl hesaplanır?</th></tr></thead>
+                                    <tbody>
+                                        <tr><th scope="row">Erişim</th><td>İçeriği kaç farklı kişinin gördüğü</td><td>Platformun verdiği tekil görüntülenme sayısı</td></tr>
+                                        <tr><th scope="row">Etkileşim oranı</th><td>İçeriğin ilgi çekip çekmediği</td><td>(Beğeni + yorum + kaydetme + paylaşım) ÷ erişim × 100</td></tr>
+                                        <tr><th scope="row">Tıklama oranı (<abbr title="Click-through rate">CTR</abbr>)</th><td>Reklam ya da gönderinin ziyaretçi getirmesi</td><td>Tıklama ÷ gösterim × 100</td></tr>
+                                        <tr><th scope="row">Dönüşüm oranı</th><td>Ziyaretçinin siparişe dönmesi</td><td>Sipariş ÷ ziyaretçi × 100</td></tr>
+                                        <tr><th scope="row">Müşteri edinme maliyeti</th><td>Bir yeni müşterinin maliyeti</td><td>Reklam ve içerik gideri ÷ yeni müşteri sayısı</td></tr>
+                                        <tr><th scope="row">Tekrar sipariş oranı</th><td>Müşterinin geri dönüp dönmediği</td><td>Tekrar sipariş veren müşteri ÷ tüm müşteri × 100</td></tr>
+                                    </tbody>
+                                </table></div>
+                                <p class="study-note">Bu çalışma konsepttir; burada gerçek bir kampanya sonucu paylaşmıyorum. Rakam yerine ölçütlerin kendisini ve hesaplanış biçimini gösteriyorum.</p>
+                            </section>
+
+                            <section id="vt-8" class="services">
+                                <h3>Birlikte neler yapabiliriz?</h3>
+                                <p>Dijital tanıtım alanında sunabildiklerim ve geliştirmekte olduklarım aşağıda; hangisinin hangi aşamada olduğunu açıkça belirtiyorum.</p>
+                                <ul class="svc">
+                                    <li><span class="svc-chip svc-chip--ok">Sunuyorum</span><b>Markalar için web sitesi tasarımı</b><span>HTML, CSS ve JavaScript ile mobil uyumlu, küçük işletme sayfaları.</span></li>
+                                    <li><span class="svc-chip svc-chip--ok">Sunuyorum</span><b>Ürün tanıtım sayfalarının hazırlanması</b><span>Ürünü öne çıkaran, tek sayfalık tanıtım düzenleri.</span></li>
+                                    <li><span class="svc-chip svc-chip--ok">Sunuyorum</span><b>Dijital ürün sunumları ve görsel içerikler</b><span>Photoshop ile ürün tanıtım görselleri (Vanilla Cola, History Brush çalışmalarım).</span></li>
+                                    <li><span class="svc-chip svc-chip--grow">Gelişiyor</span><b>Sosyal medya için ürün tanıtım konseptleri</b><span>Instagram içerik planı ve paylaşımları hazırlıyorum; TikTok içeriklerini öğreniyorum.</span></li>
+                                    <li><span class="svc-chip svc-chip--grow">Gelişiyor</span><b>Dijital görünürlüğü destekleyen tasarım çalışmaları</b><span>Tutarlı görsel dil ve erişilebilir tasarım; reklam yönetimini öğreniyorum.</span></li>
+                                </ul>
+                                <p class="study-note"><b>Dürüst bir not:</b> Henüz büyük ölçekli bir marka kampanyam yok. Bu yazıdaki Sakin Mum örneği kurgusaldır; gerçek işlerim küçük ölçekli (Instagram hesap yönetimi, ürün tanıtım görselleri, küçük web sayfaları).</p>
+                                <aside class="cta-band">
+                                    <p>Markanı dijital ortamda tanıtmak ya da bir web sitesi projesi hakkında konuşmak ister misin?</p>
+                                    <div><a class="btn btn-primary px-4 py-3" href="contact.html">Benimle iletişime geç</a><a class="btn btn-outline-dark px-4 py-3" href="projects.html">Çalışmalarıma bak</a></div>
+                                </aside>
+                            </section>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- ============ 03 · MODA ============ -->
+                <article class="post post--fashion" id="yazi-moda-kisisel-marka" lang="tr" aria-labelledby="t-fashion">
+                    <header class="post-head">
+                        <span class="post-ghost" aria-hidden="true">03</span>
+                        <div class="post-meta"><span class="post-cat">Moda · Modellik · Kişisel Marka</span><span class="post-read" data-read="yazi-moda-kisisel-marka"></span></div>
+                        <h2 class="post-title" id="t-fashion">Moda, Modellik ve <em>Dijital Dünyada</em> Kişisel Marka Oluşturmak</h2>
+                        <p class="post-lede">Podyumda yürümek, kameranın önünde durmak ve bir ürünü anlatmak aynı iş değil; ama üçünün ortak noktası görünür olmak ve güven vermek. Üç podyum etkinliğinde yürümüş ve yıllarca sahnede bulunmuş biri olarak, şimdi kod öğrenirken bu iki dünyayı nasıl birleştirdiğimi anlatıyorum.</p>
+                        <p class="post-by"><span>Tuana Davarcı</span><time datetime="2026-10-26">26 Ekim 2026</time></p>
+                    </header>
+
+                    <figure class="post-hero fashion-collage" data-reveal>
+                        <div class="collage" role="img" aria-label="Dört podyum ve kulis karesi kâğıt kesim olarak yan yana: pembe uzun elbise, altın saten elbise, siyah kombin ve şapkalı beyaz koleksiyon">
+                            <img src="assets/runway/siyah-elbise.png" alt="" class="c1" loading="lazy" decoding="async" />
+                            <img src="assets/runway/altin-yuruyus.png" alt="" class="c2" loading="lazy" decoding="async" />
+                            <img src="assets/runway/pembe-elbise.png" alt="" class="c3" loading="lazy" decoding="async" />
+                            <img src="assets/runway/beyaz-sapka.png" alt="" class="c4" loading="lazy" decoding="async" />
+                        </div>
+                        <figcaption><b>Görsel 3.1</b> Kendi arşivimden dört podyum ve kulis karesi: siyah kombin, altın saten elbise, pembe uzun elbise ve şapkalı beyaz koleksiyon. Arka planları kâğıt kesim tarzında ayrılmış; böylece farklı etkinliklerden gelen fotoğraflar tek bir görsel dilde birleşiyor. Bu birlik, bir portföyün profesyonel görünmesinin ilk koşuludur.</figcaption>
+                    </figure>
+
+                    <div class="post-body">
+                        <aside class="post-toc" aria-label="Bu yazıda">
+                            <b>Bu yazıda</b>
+                            <ol>
+                                <li><a href="#md-1">Model portföyü</a></li>
+                                <li><a href="#md-2">Moda çekimi ve ürün çekimi</a></li>
+                                <li><a href="#md-3">Kampanyada modelin rolü</a></li>
+                                <li><a href="#md-4">Web sitesi ve sosyal medya</a></li>
+                                <li><a href="#md-5">Fotoğraf seçimi</a></li>
+                                <li><a href="#md-6">Marka iş birliği süreci</a></li>
+                                <li><a href="#md-7">Dijital pazarlama</a></li>
+                                <li><a href="#md-8">Örnek çalışmalar</a></li>
+                                <li><a href="#md-9">İş birliği</a></li>
+                            </ol>
+                        </aside>
+
+                        <div class="post-text">
+                            <section id="md-1">
+                                <h3>Model portföyü nedir, nasıl hazırlanır?</h3>
+                                <p>Portföy, bir modelin “iş başvurusu dosyası”dır: markaya, ajansa ya da fotoğrafçıya <em>“ben şu tarzda, şu kalitede çalışırım”</em> diyen kısa ve seçilmiş bir sunum. Dijital olabilir (web sitesi, PDF) ya da basılı. İçinde genellikle şunlar bulunur:</p>
+                                <ul class="ticks">
+                                    <li>Yüze odaklanan bir <b>portre</b> ve sade bir <b>tam boy</b> kare,</li>
+                                    <li>Hareketi ve duruşu gösteren podyum ya da çekim kareleri,</li>
+                                    <li>Kısa bir <b>deneyim listesi</b> (etkinlik, yıl, yer),</li>
+                                    <li>Net bir <b>iletişim yolu</b>.</li>
+                                </ul>
+                                <p>İyi bir portföy çok fotoğraf içermez; <strong>az ama güçlü</strong> fotoğraf içerir. Her kare, portföye başka bir şey katmalı.</p>
+                            </section>
+
+                            <section id="md-2">
+                                <h3>Moda çekimi ile ürün tanıtım çekimi arasındaki fark</h3>
+                                <div class="two-col">
+                                    <div class="mini-card"><h4>Moda çekimi (editoryal)</h4><ul><li>Bir <b>hikâye ve atmosfer</b> anlatır; ürün hikâyenin parçasıdır.</li><li>Stil, mekân ve ışık sanatsal bir bütündür.</li><li>Dergi, lookbook ve imaj kampanyalarında kullanılır.</li></ul></div>
+                                    <div class="mini-card"><h4>Ürün tanıtım çekimi (ticari)</h4><ul><li><b>Ürün</b> merkezdedir; özellikleri net görünmelidir.</li><li>Model ürünü taşır, kullanır ya da gösterir.</li><li>E-ticaret, reklam ve sosyal medya için kullanılır.</li></ul></div>
+                                </div>
+                                <p>Kısaca: moda çekimi “nasıl hissettirdiğini”, ürün çekimi “ne işe yaradığını ve nasıl göründüğünü” anlatır. İyi bir model ikisinde de ifadesini ve duruşunu buna göre ayarlayabilir.</p>
+                            </section>
+
+                            <section id="md-3">
+                                <h3>Modelin reklam kampanyasındaki rolü</h3>
+                                <p>Model, markanın sesini yüzüne ve duruşuna taşıyan kişidir; ürünle hedef kitle arasında bir köprü kurar. Bunun için kampanyanın fikrini anlamak, yönetmenin ve fotoğrafçının isteğine uyum sağlamak ve çekim günü tutarlı kalmak gerekir. Bir de sözleşme tarafı var: görüntülerin <b>nerede</b> (mecra), <b>ne kadar süre</b> ve <b>hangi bölgede</b> kullanılacağı baştan yazılı olmalı.</p>
+                            </section>
+
+                            <section id="md-4">
+                                <h3>Kişisel web sitesi ve sosyal medya modelliğe nasıl katkı sağlar?</h3>
+                                <p>Sosyal medya güncel kalmanızı ve kişiliğinizi göstermenizi sağlar; web sitesi ise <strong>vitrini sizin kontrolünüzde</strong> tutar: sıra, tasarım ve içerik size aittir, tek bir bağlantıyla ajansa ya da markaya gönderilebilir. İkisi birbirine bağlanmalı, aynı isim ve aynı görsel dil kullanılmalı. Bu sitedeki <a href="index.html#podyum">Podyum bölümü</a>, kendi portföy yaklaşımımın bir örneği: her look kendi deri dosyasında, tıklayınca kareler açılıyor.</p>
+                            </section>
+
+                            <section id="md-5">
+                                <h3>Fotoğraf seçimi, görsel bütünlük ve profesyonel sunum</h3>
+                                <ul class="ticks">
+                                    <li><b>Kalite:</b> yüksek çözünürlüklü, net ve iyi ışıklı kareler.</li>
+                                    <li><b>Çeşitlilik:</b> her kare ayrı bir rol oynasın; aynı pozun tekrarı olmasın.</li>
+                                    <li><b>Tutarlılık:</b> renk tonu, kırpma ve arka plan dili birbirini desteklesin.</li>
+                                    <li><b>Güncellik:</b> görünüşünü yansıtan, yakın zamanlı fotoğraflar kullan.</li>
+                                    <li><b>İzin:</b> fotoğrafçının ve markanın kullanım iznini al, gerekirse kredi ver.</li>
+                                </ul>
+                            </section>
+
+                            <section id="md-6">
+                                <h3>Moda ve güzellik markalarıyla iş birliği süreci</h3>
+                                <ol class="path">
+                                    <li><b>Tanışma</b><span>Marka ya da ajansla ilk iletişim; portföy paylaşımı.</span></li>
+                                    <li><b>Brif</b><span>Kampanyanın fikri, hedef kitlesi ve çekim takvimi netleşir.</span></li>
+                                    <li><b>Anlaşma</b><span>Ücret, süre, kullanım alanı ve teslim şartları yazılı hâle gelir.</span></li>
+                                    <li><b>Çekim</b><span>Hazırlık, makyaj, saç ve stil; yönlendirmeye uyum.</span></li>
+                                    <li><b>Teslim ve paylaşım</b><span>Seçilen kareler, yayın planı ve geri bildirim.</span></li>
+                                </ol>
+                                <p class="study-note">Uyarı: Çekim öncesinde <b>ön ödeme isteyen</b> ya da sözleşmeyi atlayan teklifler genellikle risklidir. Teklifleri paylaşmadan önce markanın gerçek olduğunu araştır.</p>
+                            </section>
+
+                            <section id="md-7">
+                                <h3>Dijital pazarlama ile modellik nasıl buluşuyor?</h3>
+                                <p>Markalar artık kampanyayı yalnızca dergi sayfasına değil, sosyal medyaya, web sitesine ve reklam ağlarına da yayıyor. Bu yüzden modelin dijital tarafı da önemli: etkileşimi olan bir hesap, düzenli bir site ve markayla uyumlu bir imaj. Ben bu iki tarafı birlikte öğreniyorum: kamerasının önünü ve ekranın arkasını. Bir yandan Instagram içeriği planlıyor, bir yandan podyuma çıkıyorum; bu da bana markanın iki bakış açısını da gösteriyor.</p>
+                            </section>
+
+                            <section id="md-8" class="study">
+                                <div class="study-head"><span class="study-tag">Örnek konsept çalışmalar</span><h3>Üç görsel, üç kullanım</h3><p>Aşağıdaki görsellerde fotoğraflar bana aittir; <strong>markalar, reklamlar ve kapak kurgusaldır</strong>. Gerçekleşmiş bir çekimi ya da iş birliğini temsil etmezler; farklı sunum türlerini göstermek için hazırlanmış örneklerdir.</p></div>
+
+                                <figure class="shot shot--tall" data-reveal>
+                                    <img src="assets/blog/moda-kapak-konsepti.jpg" width="1200" height="1500" loading="lazy" decoding="async" alt="Pembe zeminde “STİL” başlıklı kurgusal dergi kapağı konsepti; ortada şapkalı, inci işlemeli beyaz elbiseli kâğıt kesim figür" />
+                                    <figcaption><b>Görsel 3.2</b> <em>Moda çekimi konsepti.</em> Kurgusal bir dergi kapağı düzeni: dev başlık, ortada kâğıt kesim figür ve tek bir cümlelik başlık (“Beyaz üzerine beyaz”). Bu tür bir kare bir lookbook ya da imaj kampanyasında, ürünü değil bir duyguyu satmak için kullanılır. Profesyonel sunum açısından önemli olan, yazı, renk ve fotoğrafın aynı hikâyeyi anlatmasıdır.</figcaption>
+                                </figure>
+
+                                <figure class="shot" data-reveal>
+                                    <img src="assets/blog/kozmetik-reklam-konsepti.jpg" width="1600" height="1000" loading="lazy" decoding="async" alt="Koyu mavi zeminde kurgusal bir kozmetik reklamı: solda buz mavisi dudak makyajlı portre, sağda “Buz mavisi dudak.” başlığı ve koleksiyon düğmesi" />
+                                    <figcaption><b>Görsel 3.3</b> <em>Kozmetik ürün için örnek reklam konsepti</em> (kurgusal marka). Yakın çekim portre ürünün rengini öne çıkarıyor; metin tek mesajla (“Dudağında bir kış sabahı”) ve tek çağrıyla yetiniyor. Ürün tanıtım çekiminde model ürünün <em>taşıyıcısıdır</em>: renk, doku ve bitiş net görünmeli ve ürün ismi okunmalıdır.</figcaption>
+                                </figure>
+
+                                <figure class="portfolio-fig" data-reveal>
+                                    <div class="pf-browser">
+                                        <div class="pf-bar" aria-hidden="true"><i></i><i></i><i></i><span>Model portföyü · örnek sayfa düzeni</span></div>
+                                        <div class="pf-body">
+                                            <div class="pf-info">
+                                                <span class="mc-tag">Örnek dijital portföy düzeni</span>
+                                                <b class="mc-name">Tuana Davarcı</b>
+                                                <span class="mc-role">Model · Antalya</span>
+                                                <dl>
+                                                    <div><dt>Deneyim</dt><dd>3 podyum etkinliği</dd></div>
+                                                    <div><dt>Etkinlik</dt><dd>Yeni Jenerasyon Moda Haftası, Antalya (2023)</dd></div>
+                                                    <div><dt>Sahne</dt><dd>Devlet Opera ve Balesi koro sanatçılığı (2016–2021)</dd></div>
+                                                </dl>
+                                                <a class="mc-link" href="contact.html">İletişime geç →</a>
+                                            </div>
+                                            <div class="pf-grid">
+                                                <figure class="pf-tile"><img src="assets/runway/pembe-elbise.png" alt="Pembe uzun elbiseyle podyumda yürüyüş, kâğıt kesim" loading="lazy" decoding="async" /><span class="pf-chip">Podyum</span></figure>
+                                                <figure class="pf-tile"><img src="assets/runway/altin-yuruyus.png" alt="Altın saten elbiseyle podyumda yürüyüş, kâğıt kesim" loading="lazy" decoding="async" /><span class="pf-chip">Podyum</span></figure>
+                                                <figure class="pf-tile"><img src="assets/runway/beyaz-sapka.png" alt="Şapka ve inci işlemeli beyaz tülle kulis karesi, kâğıt kesim" loading="lazy" decoding="async" /><span class="pf-chip">Kulis</span></figure>
+                                                <figure class="pf-tile pf-tile--photo"><img src="assets/blog/yuz-yakin-cekim.jpg" alt="Kulis ortamında, inci süslemeli makyaj ve beyaz tülle yakın portre" loading="lazy" decoding="async" /><span class="pf-chip">Portre</span></figure>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <figcaption><b>Görsel 3.4</b> <em>Örnek dijital model portföyü.</em> Kendi bilgilerimle hazırlanmış örnek bir sayfa düzeni: solda kısa ve doğrulanabilir bilgiler, sağda Podyum, Kulis ve Portre kategorilerine ayrılmış, eşit boyutlu fotoğraf kartları, altta tek bir iletişim bağlantısı. İyi bir portföy, bir bakışta “kim, ne yapıyor, nasıl ulaşılır” sorularını cevaplar. Ölçü, fiyat ya da gerçekleşmemiş iş birlikleri burada bilerek yoktur.</figcaption>
+                                </figure>
+                            </section>
+
+                            <section id="md-9">
+                                <h3>Kendini dijital ortamda nasıl tanıtır?</h3>
+                                <ol class="steps">
+                                    <li><b>Net bir kimlik seç:</b> hangi tarzda ve hangi markalarla çalışmak istediğini belirle.</li>
+                                    <li><b>Tek bir ana adres kur:</b> kişisel web siten, sosyal medya hesapların oraya bağlansın.</li>
+                                    <li><b>Seçici paylaş:</b> az ama kaliteli, tutarlı ve güncel.</li>
+                                    <li><b>Dürüst ol:</b> yaptığın işleri olduğu gibi anlat, yapmadıklarını yapmış gibi gösterme.</li>
+                                    <li><b>Ulaşılabilir ol:</b> e-posta ya da form gibi net bir iletişim yolu bırak.</li>
+                                </ol>
+                                <aside class="cta-band cta-band--fashion">
+                                    <p>Model portföyü, moda çekimleri ve ürün tanıtımı için markalarla iş birliğine <em>açığım.</em> Buradaki örnekler konsept çalışmadır; henüz gerçekleşmemiş bir iş birliğini sahiplenmiyorum.</p>
+                                    <div><a class="btn btn-primary px-4 py-3" href="contact.html">İş birliği için yaz</a><a class="btn btn-outline-dark px-4 py-3" href="hakkimda.html">Beni tanı</a></div>
+                                </aside>
+                            </section>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Yazıların sonu: bağlantılar -->
+                <section class="blog-end" aria-labelledby="blogEndT">
+                    <h2 id="blogEndT" data-i18n-html="blog.end.title">Daha fazlası için</h2>
+                    <div class="blog-links">
+                        <a href="hakkimda.html"><b data-i18n="nav.about">Hakkımda</b><span data-i18n="blog.end.about">Kimim, nelerle ilgileniyorum?</span></a>
+                        <a href="resume.html"><b data-i18n="nav.resume">Özgeçmiş</b><span data-i18n="blog.end.resume">Eğitim, deneyim ve ders programım.</span></a>
+                        <a href="projects.html"><b data-i18n="nav.projects">Projeler</b><span data-i18n="blog.end.projects">Ürün tanıtımı ve web çalışmalarım.</span></a>
+                        <a href="contact.html"><b data-i18n="nav.contact">İletişim</b><span data-i18n="blog.end.contact">Proje ya da iş birliği için yaz.</span></a>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Sayfa sonu: sıradaki sayfaya geçiş (js/i18n.js > pagenav) -->
+            <nav class="pagenav" data-render="pagenav" aria-label="Sayfalar"></nav>
+        </main>
+
+        <!-- Footer-->
+        <footer class="site-footer pt-5 mt-auto">
+            <div class="container px-5">
+                <div class="row align-items-center justify-content-between flex-column flex-sm-row gap-3">
+                    <div class="col-auto d-flex gap-4">
+                        <a data-profile="github" data-profile-href href="#" data-scramble>GitHub</a>
+                        <a data-profile="instagram" data-profile-href href="#" data-scramble>Instagram</a>
+                        <a data-profile="linkedin" data-profile-href href="#" target="_blank" rel="noopener" data-scramble hidden>LinkedIn</a>
+                    </div>
+                    <div class="col-auto d-flex gap-4">
+                        <a href="https://startbootstrap.com/theme/personal" target="_blank" rel="noopener" data-i18n="footer.template" data-scramble>Şablon</a>
+                        <a href="#top" class="to-top" data-i18n="footer.up" data-scramble>Yukarı ↑</a>
+                    </div>
+                </div>
+            </div>
+            <h2 class="footer-name text-center" aria-hidden="true" data-profile="name">Tuana Davarcı</h2>
+            <div class="container px-5 py-3">
+                <div class="small text-muted text-center" data-i18n="footer.copy">© 2026</div>
+            </div>
+        </footer>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+        <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+        <script src="js/content.js?v=41"></script>
+        <script src="js/i18n.js?v=42"></script>
+        <script src="js/transition.js?v=32"></script>
+        <script src="js/main.js?v=40"></script>
+        <script src="js/world.js?v=32"></script>
+        <script src="js/player.js?v=32"></script>
+        <script src="js/folders.js?v=32"></script>
+        <script src="js/music.js?v=32"></script>
+        <script src="js/blog.js?v=32"></script>
+        <script src="js/router.js?v=40"></script>
+    </body>
+</html>

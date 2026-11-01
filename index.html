@@ -9,14 +9,14 @@
         <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-        <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&amp;family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&amp;family=Pinyon+Script&amp;family=Jost:wght@300;400;500&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300..600;1,300..600&amp;family=DM+Sans:ital,opsz,wght@0,9..40,300..600;1,9..40,300..500&amp;display=swap" rel="stylesheet" />
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css" rel="stylesheet" />
         <!-- Şablonun çekirdek CSS'i (Bootstrap dahil) -->
-        <link href="css/styles.css" rel="stylesheet" />
+        <link href="css/styles.css?v=32" rel="stylesheet" />
         <!-- Koyu tema ve animasyon katmanı -->
-        <link href="css/dark.css" rel="stylesheet" />
+        <link href="css/dark.css?v=41" rel="stylesheet" />
         <!-- Sayfa geçişi + yükleme ekranı -->
-        <link href="css/transition.css" rel="stylesheet" />
+        <link href="css/transition.css?v=32" rel="stylesheet" />
         <script>
             /* Geçiş sahnesi/yükleme ekranı için: JS var mı, ilk ziyaret mi? */
             document.documentElement.classList.add("js");
@@ -73,8 +73,10 @@
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav ms-auto mb-2 mb-lg-0 small fw-bolder align-items-lg-center gap-lg-2">
                             <li class="nav-item"><a class="nav-link" data-nav="home" data-scramble href="index.html" data-i18n="nav.home">Ana Sayfa</a></li>
+                            <li class="nav-item"><a class="nav-link" data-nav="about" data-scramble href="hakkimda.html" data-i18n="nav.about">Hakkımda</a></li>
                             <li class="nav-item"><a class="nav-link" data-nav="resume" data-scramble href="resume.html" data-i18n="nav.resume">Özgeçmiş</a></li>
                             <li class="nav-item"><a class="nav-link" data-nav="projects" data-scramble href="projects.html" data-i18n="nav.projects">Projeler</a></li>
+                            <li class="nav-item"><a class="nav-link" data-nav="blog" data-scramble href="blog.html" data-i18n="nav.blog">Blog</a></li>
                             <li class="nav-item"><a class="nav-link" data-nav="contact" data-scramble href="contact.html" data-i18n="nav.contact">İletişim</a></li>
                             <li class="nav-item ms-lg-3 mt-2 mt-lg-0">
                                 <div class="lang-switch" role="group" aria-label="Dil / Language">
@@ -115,9 +117,72 @@
                         </div>
                     </div>
                 </div>
-                <div class="breath" aria-hidden="true"><i></i><span class="in" data-i18n="hero.inhale">nefes al</span><span class="out" data-i18n="hero.exhale">nefes ver</span></div>
                 <div class="scroll-hint" aria-hidden="true"><i></i><span data-i18n="hero.scroll">Kaydır</span></div>
             </header>
+
+            <!-- Dinlediklerim: dönen plak rafı + vintage pikap (js/music.js) -->
+            <section class="music py-5 my-5" id="music">
+                <div class="container px-5">
+                    <div class="row gx-5 mb-4 align-items-end">
+                        <div class="col-lg-7">
+                            <div class="eyebrow mb-3" data-reveal data-i18n="music.eyebrow">Dinlediklerim</div>
+                            <h2 class="display-3 mb-0" data-reveal data-i18n-html="music.title">Plak <em>rafım</em></h2>
+                        </div>
+                        <div class="col-lg-5">
+                            <p class="glass-note mb-0 mt-3" data-reveal data-i18n="music.sub"></p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Raf: plak kılıfları 3D bir çember üzerinde döner -->
+                <div class="shelf" data-shelf tabindex="0" role="listbox" aria-label="Plak rafı" data-i18n-aria="music.shelf">
+                    <div class="shelf-ring" data-ring></div>
+                </div>
+                <div class="container px-5">
+                    <div class="deck" data-deck>
+                        <div class="turntable" data-turntable>
+                            <div class="tt-plinth">
+                                <span class="tt-brand">Tuana · <em>Hi-Fi</em></span>
+                                <div class="tt-platter">
+                                    <div class="tt-mat"></div>
+                                    <div class="tt-record vinyl" data-record></div>
+                                    <span class="tt-spindle"></span>
+                                    <span class="tt-drop" data-i18n="music.drop">Buraya bırak</span>
+                                </div>
+                                <div class="tt-arm" data-arm aria-hidden="true">
+                                    <span class="tt-arm-base"></span>
+                                    <span class="tt-arm-weight"></span>
+                                    <span class="tt-arm-rod"></span>
+                                    <span class="tt-arm-head"></span>
+                                </div>
+                                <div class="tt-knobs" aria-hidden="true">
+                                    <span class="tt-knob"></span><span class="tt-speed"><b>33</b> 45</span><span class="tt-led" data-led></span>
+                                </div>
+                            </div>
+                            <span class="tt-foot l"></span><span class="tt-foot r"></span>
+                        </div>
+                        <div class="deck-panel">
+                            <div class="np">
+                                <span class="np-cover" data-np-cover></span>
+                                <div class="np-text">
+                                    <b data-np-title data-i18n="music.idle">Pikap boş. Raftan bir plak seç.</b>
+                                    <span data-np-artist></span>
+                                </div>
+                            </div>
+                            <div class="np-progress"><span class="np-time" data-np-cur>0:00</span><div class="np-bar" data-np-bar><i></i></div><span class="np-time" data-np-dur>0:00</span></div>
+                            <div class="deck-ctrls">
+                                <button type="button" class="brass" data-act="restart" disabled aria-label="Baştan çal" data-i18n-aria="music.restart"><i class="bi bi-skip-backward-fill"></i></button>
+                                <button type="button" class="brass brass--big" data-act="toggle" disabled aria-label="Çal" data-i18n-aria="music.play"><i class="bi bi-play-fill"></i></button>
+                                <button type="button" class="brass" data-act="eject" disabled aria-label="Çıkar" data-i18n-aria="music.eject"><i class="bi bi-eject-fill"></i></button>
+                            </div>
+                            <label class="deck-vol"><i class="bi bi-volume-down"></i><input type="range" min="0" max="100" value="70" data-vol aria-label="Ses" data-i18n-aria="music.volume" /><i class="bi bi-volume-up"></i></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="container px-5">
+                    <p class="music-invite" data-reveal data-i18n-html="music.invite"></p>
+                </div>
+                
+            </section>
 
             <!-- Kayan yazı bantları -->
             <div class="my-5 py-4" aria-hidden="true">
@@ -147,12 +212,25 @@
                             <div class="eyebrow" data-reveal data-i18n="about.eyebrow">Hakkımda</div>
                         </div>
                         <div class="col-lg-9">
-                            <p class="statement mb-5" data-i18n="about.statement">Detaylara takıntılı biriyim.</p>
-                            <!-- Sayaçlar js/content.js > stats listesinden basılır -->
-                            <div class="row g-4 mt-4" data-render="stats"></div>
+                            <div class="glass about-glass">
+                                <p class="statement mb-5" data-i18n="about.statement">Detaylara takıntılı biriyim.</p>
+                                <!-- Sayaçlar js/content.js > stats listesinden basılır -->
+                                <div class="row g-4 mt-4" data-render="stats"></div>
+                                <a class="btn btn-outline-dark px-4 py-2 mt-5 magnetic" href="hakkimda.html"><span data-i18n="about.more">Hakkımda daha fazlası</span> <i class="bi bi-arrow-right"></i></a>
                             </div>
                         </div>
                     </div>
+                </div>
+            </section>
+
+            <!-- Güzel söz -->
+            <section class="quote-wrap py-5" data-quote>
+                <div class="container px-5">
+                    <figure class="quote quote--sage">
+                        <svg class="quote-lily" viewBox="0 0 64 64" aria-hidden="true"><path d="M32 58V34M32 34c-3-9-3-18 0-26 3 8 3 17 0 26zM32 34c-8-4-14-11-16-20 8 2 14 9 16 20zM32 34c8-4 14-11 16-20-8 2-14 9-16 20zM32 34c-9 1-17-2-22-8 8-1 16 2 22 8zM32 34c9 1 17-2 22-8-8-1-16 2-22 8z" /></svg>
+                        <blockquote class="quote-text" data-i18n="quote.1.text"></blockquote>
+                        <figcaption class="quote-by">— <span data-i18n="quote.1.by"></span></figcaption>
+                    </figure>
                 </div>
             </section>
 
@@ -173,16 +251,28 @@
             <section class="py-5 my-5">
                 <div class="container px-5">
                     <div class="eyebrow mb-4" data-reveal data-i18n="services.eyebrow">Neler yapıyorum</div>
-                    <span class="rule"></span>
-                    <div class="service-row"><span class="no">01</span><h3 data-i18n="services.1.t">Web Tasarım</h3><p data-i18n="services.1.d"></p></div>
-                    <div class="service-row"><span class="no">02</span><h3 data-i18n="services.2.t">Front-End Geliştirme</h3><p data-i18n="services.2.d"></p></div>
-                    <div class="service-row"><span class="no">03</span><h3 data-i18n="services.3.t">Etkileşim &amp; Animasyon</h3><p data-i18n="services.3.d"></p></div>
-                    <div class="service-row"><span class="no">04</span><h3 data-i18n="services.4.t">Mobil Uyumluluk</h3><p data-i18n="services.4.d"></p></div>
+                    <div class="glass services-glass">
+                        <div class="service-row"><span class="no">01</span><h3 data-i18n="services.1.t">Web Tasarım</h3><p data-i18n="services.1.d"></p></div>
+                        <div class="service-row"><span class="no">02</span><h3 data-i18n="services.2.t">Front-End Geliştirme</h3><p data-i18n="services.2.d"></p></div>
+                        <div class="service-row"><span class="no">03</span><h3 data-i18n="services.3.t">Etkileşim &amp; Animasyon</h3><p data-i18n="services.3.d"></p></div>
+                        <div class="service-row"><span class="no">04</span><h3 data-i18n="services.4.t">Mobil Uyumluluk</h3><p data-i18n="services.4.d"></p></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Güzel söz -->
+            <section class="quote-wrap py-5" data-quote>
+                <div class="container px-5">
+                    <figure class="quote quote--rose">
+                        <svg class="quote-lily" viewBox="0 0 64 64" aria-hidden="true"><path d="M32 58V34M32 34c-3-9-3-18 0-26 3 8 3 17 0 26zM32 34c-8-4-14-11-16-20 8 2 14 9 16 20zM32 34c8-4 14-11 16-20-8 2-14 9-16 20zM32 34c-9 1-17-2-22-8 8-1 16 2 22 8zM32 34c9 1 17-2 22-8-8-1-16 2-22 8z" /></svg>
+                        <blockquote class="quote-text" data-i18n="quote.2.text"></blockquote>
+                        <figcaption class="quote-by">— <span data-i18n="quote.2.by"></span></figcaption>
+                    </figure>
                 </div>
             </section>
 
             <!-- Podyum: deri dosyalardan çıkan kâğıt kesimler -->
-            <section class="runway py-5 my-5">
+            <section class="runway py-5 my-5" id="podyum">
                 <div class="container px-5">
                     <div class="row gx-5 mb-5 align-items-end">
                         <div class="col-lg-7">
@@ -190,67 +280,22 @@
                             <h2 class="display-3 mb-0" data-reveal data-i18n-html="runway.title">Podyumdan <em>kareler</em></h2>
                         </div>
                         <div class="col-lg-5">
-                            <p class="text-muted mb-0 mt-3" data-reveal data-i18n="runway.sub"></p>
+                            <p class="glass-note mb-0 mt-3" data-reveal data-i18n="runway.sub"></p>
                         </div>
                     </div>
-                    <div class="row gx-5 gy-5">
-                        <div class="col-lg-6">
-                            <article class="folder" data-folder>
-                                <div class="folder-back">
-                                    <!-- Defile çizim kâğıdı: kalem notları -->
-                                    <div class="sheet" aria-hidden="true">
-                                        <span class="sheet-no">N° 01</span>
-                                        <span class="note n1" data-i18n="runway.1.note1"></span>
-                                        <span class="note n2" data-i18n="runway.1.note2"></span>
-                                        <span class="note n3" data-i18n="runway.1.note3"></span>
-                                        <svg class="sketch" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M8 22 Q30 16 46 30" /><path d="M92 46 Q74 44 62 54" /><path d="M10 70 Q26 76 38 66" /><path d="M50 6 L50 96" class="dash" /></svg>
-                                    </div>
-                                    <ul class="folder-tabs" aria-hidden="true">
-                                        <li data-i18n="runway.1.tab1">Look 01</li>
-                                        <li data-i18n="runway.1.tab2"></li>
-                                        <li data-i18n="runway.1.tab3"></li>
-                                    </ul>
-                                </div>
-                                <div class="folder-papers">
-                                    <figure class="cut c-left" style="--r: -7deg"><img src="assets/runway/altin-etek.png" alt="Altın saten elbiseyle podyumda" loading="lazy" decoding="async" /></figure>
-                                    <figure class="cut c-right" style="--r: 6deg"><img src="assets/runway/altin-on.png" alt="Altın saten elbise, önden" loading="lazy" decoding="async" /></figure>
-                                    <figure class="cut c-mid c-wide" style="--r: -1deg"><img src="assets/runway/altin-yuruyus.png" alt="Altın saten elbiseyle yürüyüş" loading="lazy" decoding="async" /></figure>
-                                </div>
-                                <div class="folder-front">
-                                    <h3 class="folder-title">Look <em>01</em></h3>
-                                    <p class="folder-meta" data-i18n="runway.1.event"></p>
-                                </div>
-                            </article>
-                        </div>
-                        <div class="col-lg-6">
-                            <article class="folder" data-folder>
-                                <div class="folder-back">
-                                    <!-- Defile çizim kâğıdı: kalem notları -->
-                                    <div class="sheet" aria-hidden="true">
-                                        <span class="sheet-no">N° 02</span>
-                                        <span class="note n1" data-i18n="runway.2.note1"></span>
-                                        <span class="note n2" data-i18n="runway.2.note2"></span>
-                                        <span class="note n3" data-i18n="runway.2.note3"></span>
-                                        <svg class="sketch" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M8 22 Q30 16 46 30" /><path d="M92 46 Q74 44 62 54" /><path d="M10 70 Q26 76 38 66" /><path d="M50 6 L50 96" class="dash" /></svg>
-                                    </div>
-                                    <ul class="folder-tabs" aria-hidden="true">
-                                        <li data-i18n="runway.2.tab1">Look 02</li>
-                                        <li data-i18n="runway.2.tab2"></li>
-                                        <li data-i18n="runway.2.tab3"></li>
-                                    </ul>
-                                </div>
-                                <div class="folder-papers">
-                                    <figure class="cut c-left" style="--r: -6deg"><img src="assets/runway/siyah-podyum.png" alt="Siyah kombinle podyumda" loading="lazy" decoding="async" /></figure>
-                                    <figure class="cut c-right" style="--r: 7deg"><img src="assets/runway/siyah-kemer.png" alt="Siyah kemer detaylı kombin" loading="lazy" decoding="async" /></figure>
-                                    <figure class="cut c-mid" style="--r: 1deg"><img src="assets/runway/siyah-elbise.png" alt="Siyah elbise ve uzun eldivenler" loading="lazy" decoding="async" /></figure>
-                                </div>
-                                <div class="folder-front">
-                                    <h3 class="folder-title">Look <em>02</em></h3>
-                                    <p class="folder-meta" data-i18n="runway.2.event"></p>
-                                </div>
-                            </article>
-                        </div>
-                    </div>
+                    <!-- Dosyalar js/content.js > folders listesinden basılır -->
+                    <div class="row gx-5 gy-5" data-render="folders"></div>
+                </div>
+            </section>
+
+            <!-- Güzel söz -->
+            <section class="quote-wrap py-5" data-quote>
+                <div class="container px-5">
+                    <figure class="quote quote--cream">
+                        <svg class="quote-lily" viewBox="0 0 64 64" aria-hidden="true"><path d="M32 58V34M32 34c-3-9-3-18 0-26 3 8 3 17 0 26zM32 34c-8-4-14-11-16-20 8 2 14 9 16 20zM32 34c8-4 14-11 16-20-8 2-14 9-16 20zM32 34c-9 1-17-2-22-8 8-1 16 2 22 8zM32 34c9 1 17-2 22-8-8-1-16 2-22 8z" /></svg>
+                        <blockquote class="quote-text" data-i18n="quote.3.text"></blockquote>
+                        <figcaption class="quote-by">— <span data-i18n="quote.3.by"></span></figcaption>
+                    </figure>
                 </div>
             </section>
 
@@ -261,7 +306,34 @@
                     <div><a class="cta-big" href="contact.html" data-i18n-html="cta.big" data-cursor="mail">Hadi <em>konuşalım</em></a></div>
                 </div>
             </section>
+
+            <!-- Sayfa sonu: sıradaki sayfaya geçiş (js/i18n.js > pagenav) -->
+            <nav class="pagenav" data-render="pagenav" aria-label="Sayfalar"></nav>
         </main>
+
+        <!-- Deri dosya penceresi (js/folders.js) -->
+        <div class="fmodal" data-fmodal data-lenis-prevent hidden role="dialog" aria-modal="true" aria-labelledby="fmodalTitle">
+            <div class="fmodal-bg" data-fclose></div>
+            <div class="fmodal-head">
+                <div>
+                    <span class="eyebrow" data-fmodal-meta></span>
+                    <h3 class="fmodal-title" id="fmodalTitle" data-fmodal-title></h3>
+                </div>
+                <button type="button" class="fmodal-x" data-fclose aria-label="Kapat" data-i18n-aria="runway.close"><i class="bi bi-x-lg"></i></button>
+            </div>
+            <div class="fmodal-stage" data-fstage>
+                <div class="fm-folder" data-ffolder>
+                    <div class="fm-back"></div>
+                    <div class="fm-cover"><span class="fm-cover-title" data-fcover-title></span></div>
+                </div>
+                <div class="fm-papers" data-fpapers></div>
+            </div>
+            <div class="fmodal-foot">
+                <button type="button" class="fm-nav" data-fprev aria-label="Önceki" data-i18n-aria="runway.prev"><i class="bi bi-arrow-left"></i></button>
+                <span class="fm-hint" data-i18n="runway.hint">Bir kareye tıkla, büyüsün</span>
+                <button type="button" class="fm-nav" data-fnext aria-label="Sonraki" data-i18n-aria="runway.next"><i class="bi bi-arrow-right"></i></button>
+            </div>
+        </div>
 
         <!-- Footer-->
         <footer class="site-footer pt-5 mt-auto">
@@ -289,9 +361,15 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
         <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-        <script src="js/content.js"></script>
-        <script src="js/i18n.js"></script>
-        <script src="js/transition.js"></script>
-        <script src="js/main.js"></script>
+        <script src="js/content.js?v=41"></script>
+        <script src="js/i18n.js?v=42"></script>
+        <script src="js/transition.js?v=32"></script>
+        <script src="js/main.js?v=40"></script>
+        <script src="js/world.js?v=32"></script>
+        <script src="js/player.js?v=32"></script>
+        <script src="js/folders.js?v=32"></script>
+        <script src="js/music.js?v=32"></script>
+        <script src="js/blog.js?v=32"></script>
+        <script src="js/router.js?v=40"></script>
     </body>
 </html>

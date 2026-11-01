@@ -1,24 +1,31 @@
 /* ==========================================================================
-   Yönetim paneli (admin.html) — sitenin koyu teması ve yazı tipleriyle
+   Yönetim paneli (/admin) — sitenin "beyaz zambak & yosun" teması
+   Playfair Display (başlık) + Great Vibes (vurgu) + Montserrat (metin/etiket),
+   yosun-zeytin zemin, buzlu cam kartlar, pirinç vurgular.
    Bootstrap kullanılmaz; panel bağımsız ve hafif kalsın diye.
    ========================================================================== */
 
 :root {
-    --bg: #191c12;
-    --surface: #212518;
-    --surface-2: #2a2f1f;
+    --bg: #172014;
+    --surface: #243020;
+    --surface-2: #2f3d2a;
     --olive: #354024;
     --olive-deep: #252b19;
     --sage: #a3a878;
     --bone: #e5d7c4;
-    --muted: #a0977f;
-    --accent: #b8955a;
+    --muted: #bdb398;
+    --accent: #cfa96a;
     --danger: #e0664f;
-    --border: rgba(229, 215, 196, 0.1);
-    --border-strong: rgba(229, 215, 196, 0.2);
-    --font-display: "Jost", system-ui, sans-serif;
-    --font-serif: "Cormorant Garamond", Georgia, serif;
-    --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+    --border: rgba(241,232,212, 0.1);
+    --border-strong: rgba(241,232,212, 0.2);
+    --font-display: "DM Sans", system-ui, sans-serif;      /* metin */
+    --font-title: "Cormorant", Georgia, serif;             /* başlık */
+    --font-serif: "Cormorant", Georgia, serif;             /* <em> vurgusu (italik) */
+    --font-mono: "DM Sans", system-ui, sans-serif;         /* etiketler: aralıklı büyük harf */
+    --tan: #d7bf98;
+    --cream: #f4efe2;
+    --glass: linear-gradient(140deg, rgba(244, 239, 226, .09), rgba(25, 30, 17, .42) 70%);
+    --glass-border: rgba(244, 239, 226, .14);
     --ease-out: cubic-bezier(.16, 1, .3, 1);
     --radius: 1rem;
     --side: 232px;
@@ -206,7 +213,7 @@ input[type="password"], input[type="search"], textarea, select {
     transition: border-color .2s, background .2s;
 }
 textarea { resize: vertical; overflow: hidden; }
-input:hover, textarea:hover, select:hover { border-color: rgba(229, 215, 196, .32); }
+input:hover, textarea:hover, select:hover { border-color: rgba(241,232,212, .32); }
 input:focus, textarea:focus, select:focus { outline: none; border-color: var(--sage); background: #15170f; }
 input::placeholder, textarea::placeholder { color: #6d6855; }
 select { appearance: none; background-image: linear-gradient(45deg, transparent 50%, var(--muted) 50%), linear-gradient(135deg, var(--muted) 50%, transparent 50%); background-position: calc(100% - 18px) 50%, calc(100% - 13px) 50%; background-size: 5px 5px; background-repeat: no-repeat; padding-right: 2rem; }
@@ -352,3 +359,115 @@ input[type="range"] { width: 100%; accent-color: var(--accent); }
     .item-head h2 { font-size: 1rem; }
     .login-card { padding: 1.5rem; }
 }
+
+/* ==========================================================================
+   Site teması (yukarıdaki temel stillerin üzerine)
+   ========================================================================== */
+body {
+    font-weight: 400;
+    background:
+        radial-gradient(60% 50% at 85% 10%, rgba(201, 200, 143, .16), transparent 70%),
+        radial-gradient(50% 45% at 10% 90%, rgba(201,165,129, .1), transparent 70%),
+        radial-gradient(70% 60% at 50% 50%, rgba(119, 116, 74, .25), transparent 75%),
+        linear-gradient(170deg, #20261a, #15190d 70%);
+    background-attachment: fixed;
+}
+/* film greni */
+body::before {
+    content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none; opacity: .06;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+h1, h2, .brand-name, .login-title { font-family: var(--font-title); font-weight: 300; letter-spacing: -0.01em; }
+em { font-family: var(--font-serif); font-style: italic; font-weight: 300; color: var(--tan); letter-spacing: 0; padding: 0 .04em; }
+.eyebrow, .field-label, .brand-sub, .status, .idx, .pill, .bi-col .lang { font-family: var(--font-mono); letter-spacing: .16em; }
+.eyebrow::before { background: transparent; border: 1px solid var(--tan); box-shadow: none; width: 9px; height: 9px; }
+
+/* Buzlu cam kartlar */
+.card, .login-card {
+    background: var(--glass);
+    -webkit-backdrop-filter: blur(20px) saturate(140%); backdrop-filter: blur(20px) saturate(140%);
+    border: 1px solid var(--glass-border);
+    border-radius: 22px;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, .08), 0 24px 60px rgba(8, 12, 5, .3);
+}
+.card > h2 { font-size: 1.35rem; }
+.note-card, .note { background: rgba(53, 64, 36, .45); }
+
+/* Butonlar: sitedeki gibi büyük harfli, aralıklı */
+.btn { font: 500 .74rem/1 var(--font-mono); letter-spacing: .14em; text-transform: uppercase; }
+.btn-icon { letter-spacing: 0; }
+.btn-primary { background: var(--cream); border-color: var(--cream); color: #1b2012; }
+.btn-primary:hover { background: var(--tan); border-color: var(--tan); }
+.btn-ghost { background: rgba(244, 239, 226, .06); border-color: var(--glass-border); }
+.btn-ghost:hover { background: rgba(244, 239, 226, .14); }
+.btn-add { font-size: .74rem; border-color: rgba(207, 187, 153, .35); }
+.btn-add:hover { background: rgba(244, 239, 226, .06); border-color: var(--tan); }
+
+/* Form alanları */
+input[type="text"], input[type="email"], input[type="url"], input[type="number"],
+input[type="password"], input[type="search"], textarea, select {
+    background: rgba(12, 15, 8, .45); border-color: rgba(244, 239, 226, .14); border-radius: .8rem;
+    font-family: var(--font-display); font-size: .92rem;
+}
+input:focus, textarea:focus, select:focus { background: rgba(12, 15, 8, .65); border-color: var(--tan); }
+
+/* Giriş ekranı */
+.login { background: transparent; }
+.login-card { padding: 2.4rem; gap: 1.1rem; }
+.login-title { font-size: clamp(2.6rem, 8vw, 3.6rem); }
+.login-title em { font-size: 1em; }
+.login-card::before {
+    content: ""; align-self: center; width: 54px; height: 54px; margin-bottom: -.3rem;
+    background: no-repeat center / contain url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64' fill='none' stroke='%23cfbb99' stroke-width='1.3' stroke-linejoin='round'%3E%3Cpath d='M32 58V34M32 34c-3-9-3-18 0-26 3 8 3 17 0 26zM32 34c-8-4-14-11-16-20 8 2 14 9 16 20zM32 34c8-4 14-11 16-20-8 2-14 9-16 20zM32 34c-9 1-17-2-22-8 8-1 16 2 22 8zM32 34c9 1 17-2 22-8-8-1-16 2-22 8z'/%3E%3C/svg%3E");
+}
+
+/* Üst bar ve menü */
+.topbar { background: rgba(21, 25, 13, .72); border-bottom-color: var(--glass-border); }
+.brand-name { font-size: 1.25rem; font-style: italic; }
+.tabs { background: rgba(21, 25, 13, .35); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); border-right-color: var(--glass-border); }
+.tabs button { font: 500 .8rem/1.2 var(--font-mono); letter-spacing: .08em; text-transform: uppercase; }
+.tabs button.active { background: rgba(244, 239, 226, .08); box-shadow: inset 3px 0 0 var(--tan); }
+.page-head h1 { font-size: clamp(2.2rem, 5vw, 3.4rem); }
+.page-head h1::after { content: ""; display: block; width: 64px; height: 1px; margin-top: .9rem; background: var(--tan); opacity: .6; }
+.toast { background: var(--cream); color: #1b2012; font-family: var(--font-display); }
+
+/* ---------- Deri dosyalar ---------- */
+.folder-card { border-left: 3px solid rgba(122, 77, 44, .8); }
+.sub-title { margin: .4rem 0 0; font: 400 1.15rem/1.2 var(--font-title); display: flex; align-items: center; gap: .6rem; }
+.sub-title small { font: 500 .66rem/1 var(--font-mono); letter-spacing: .12em; color: var(--muted); border: 1px solid var(--glass-border); border-radius: 999px; padding: .3rem .55rem; }
+details.sub { border: 1px solid var(--glass-border); border-radius: 14px; padding: .2rem 1rem; background: rgba(12, 15, 8, .2); }
+details.sub[open] { padding-bottom: 1rem; }
+details.sub summary { cursor: pointer; padding: .7rem 0; font: 500 .72rem/1.2 var(--font-mono); letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+details.sub summary:hover { color: var(--bone); }
+.fitems { display: flex; flex-direction: column; gap: .8rem; }
+.fitem {
+    display: grid; grid-template-columns: 170px minmax(0, 1fr) auto; gap: 1rem; align-items: start;
+    padding: 1rem; border-radius: 16px; background: rgba(12, 15, 8, .28); border: 1px solid var(--glass-border);
+}
+.fitem-media { display: flex; flex-direction: column; gap: .6rem; }
+.fitem-thumb {
+    aspect-ratio: 3 / 4; border-radius: 12px; display: grid; place-items: center; overflow: hidden;
+    background: repeating-linear-gradient(0deg, rgba(90, 82, 70, .12) 0 1px, transparent 1px 16px), #efe6d4;
+    color: #8a7e6a; font-size: 1.6rem;
+}
+.fitem-thumb img { width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 6px 10px rgba(0, 0, 0, .35)); }
+.fitem-thumb.print img { object-fit: contain; padding: 10%; }
+.fitem .item-tools { flex-direction: column; }
+.cover-row { display: grid; grid-template-columns: 56px minmax(0, 1fr) auto; gap: .6rem; align-items: center; }
+.cover-thumb { width: 56px; height: 56px; border-radius: 8px; overflow: hidden; display: grid; place-items: center; background: rgba(12, 15, 8, .45); border: 1px solid var(--glass-border); color: var(--muted); font-size: 1.3rem; }
+.cover-thumb img { width: 100%; height: 100%; object-fit: cover; }
+@media (max-width: 900px) {
+    .fitem { grid-template-columns: 120px minmax(0, 1fr); }
+    .fitem .item-tools { grid-column: 1 / -1; flex-direction: row; justify-content: flex-end; }
+}
+@media (max-width: 640px) {
+    .fitem { grid-template-columns: 1fr; }
+    .fitem-media { display: grid; grid-template-columns: 110px 1fr; align-items: center; }
+    .cover-row { grid-template-columns: 48px minmax(0, 1fr); }
+    .cover-row > label.btn { grid-column: 1 / -1; }
+}
+
+.field-label { line-height: 1.5; }
+.grid.two { grid-template-columns: 1fr 1fr; gap: .6rem; }
+.group-title { margin: 1.6rem 0 -.2rem; font: 400 1.5rem/1.2 var(--font-title); display: flex; align-items: baseline; gap: .8rem; flex-wrap: wrap; }
+.group-title small { font: 500 .66rem/1 var(--font-mono); letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }

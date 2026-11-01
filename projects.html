@@ -9,14 +9,14 @@
         <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-        <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&amp;family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&amp;family=Pinyon+Script&amp;family=Jost:wght@300;400;500&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300..600;1,300..600&amp;family=DM+Sans:ital,opsz,wght@0,9..40,300..600;1,9..40,300..500&amp;display=swap" rel="stylesheet" />
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css" rel="stylesheet" />
         <!-- Şablonun çekirdek CSS'i (Bootstrap dahil) -->
-        <link href="css/styles.css" rel="stylesheet" />
+        <link href="css/styles.css?v=32" rel="stylesheet" />
         <!-- Koyu tema ve animasyon katmanı -->
-        <link href="css/dark.css" rel="stylesheet" />
+        <link href="css/dark.css?v=41" rel="stylesheet" />
         <!-- Sayfa geçişi + yükleme ekranı -->
-        <link href="css/transition.css" rel="stylesheet" />
+        <link href="css/transition.css?v=32" rel="stylesheet" />
         <script>
             /* Geçiş sahnesi/yükleme ekranı için: JS var mı, ilk ziyaret mi? */
             document.documentElement.classList.add("js");
@@ -73,8 +73,10 @@
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav ms-auto mb-2 mb-lg-0 small fw-bolder align-items-lg-center gap-lg-2">
                             <li class="nav-item"><a class="nav-link" data-nav="home" data-scramble href="index.html" data-i18n="nav.home">Ana Sayfa</a></li>
+                            <li class="nav-item"><a class="nav-link" data-nav="about" data-scramble href="hakkimda.html" data-i18n="nav.about">Hakkımda</a></li>
                             <li class="nav-item"><a class="nav-link" data-nav="resume" data-scramble href="resume.html" data-i18n="nav.resume">Özgeçmiş</a></li>
                             <li class="nav-item"><a class="nav-link" data-nav="projects" data-scramble href="projects.html" data-i18n="nav.projects">Projeler</a></li>
+                            <li class="nav-item"><a class="nav-link" data-nav="blog" data-scramble href="blog.html" data-i18n="nav.blog">Blog</a></li>
                             <li class="nav-item"><a class="nav-link" data-nav="contact" data-scramble href="contact.html" data-i18n="nav.contact">İletişim</a></li>
                             <li class="nav-item ms-lg-3 mt-2 mt-lg-0">
                                 <div class="lang-switch" role="group" aria-label="Dil / Language">
@@ -108,6 +110,9 @@
                     </div>
                 </div>
             </section>
+
+            <!-- Sayfa sonu: sıradaki sayfaya geçiş (js/i18n.js > pagenav) -->
+            <nav class="pagenav" data-render="pagenav" aria-label="Sayfalar"></nav>
         </main>
 
         <!-- Footer-->
@@ -136,9 +141,15 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
         <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-        <script src="js/content.js"></script>
-        <script src="js/i18n.js"></script>
-        <script src="js/transition.js"></script>
-        <script src="js/main.js"></script>
+        <script src="js/content.js?v=41"></script>
+        <script src="js/i18n.js?v=42"></script>
+        <script src="js/transition.js?v=32"></script>
+        <script src="js/main.js?v=40"></script>
+        <script src="js/world.js?v=32"></script>
+        <script src="js/player.js?v=32"></script>
+        <script src="js/folders.js?v=32"></script>
+        <script src="js/music.js?v=32"></script>
+        <script src="js/blog.js?v=32"></script>
+        <script src="js/router.js?v=40"></script>
     </body>
 </html>

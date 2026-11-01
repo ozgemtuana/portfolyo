@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="tr">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="Kişisel portfolyo — Personal portfolio" />
+        <meta name="theme-color" content="#191c12" />
+        <title>Hakkımda</title>
+        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300..600;1,300..600&amp;family=DM+Sans:ital,opsz,wght@0,9..40,300..600;1,9..40,300..500&amp;display=swap" rel="stylesheet" />
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css" rel="stylesheet" />
+        <!-- Şablonun çekirdek CSS'i (Bootstrap dahil) -->
+        <link href="css/styles.css?v=32" rel="stylesheet" />
+        <!-- Koyu tema ve animasyon katmanı -->
+        <link href="css/dark.css?v=41" rel="stylesheet" />
+        <!-- Sayfa geçişi + yükleme ekranı -->
+        <link href="css/transition.css?v=32" rel="stylesheet" />
+        <script>
+            /* Geçiş sahnesi/yükleme ekranı için: JS var mı, ilk ziyaret mi? */
+            document.documentElement.classList.add("js");
+            try { if (!sessionStorage.getItem("visited")) document.documentElement.classList.add("first-visit"); } catch (e) {}
+        </script>
+    </head>
+    <body id="top" class="d-flex flex-column h-100" data-page="about" data-title="meta.title.about">
+        <canvas id="bg3d" aria-hidden="true"></canvas>
+        <div class="grain" aria-hidden="true"></div>
+        <div class="scroll-progress" aria-hidden="true"></div>
+        <div class="cursor" aria-hidden="true"><span data-i18n="cursor.view">Gör</span></div>
+        <!-- Sayfa geçişi sahnesi (js/transition.js) -->
+        <div class="pt" aria-hidden="true">
+            <svg class="pt-svg" viewBox="0 0 100 100" preserveAspectRatio="none" focusable="false">
+                <path class="pt-path pt-path--accent" d="M0 0 L0 100 Q50 100 100 100 L100 0 Z" />
+                <path class="pt-path pt-path--mid" d="M0 0 L0 100 Q50 100 100 100 L100 0 Z" />
+                <path class="pt-path pt-path--base" d="M0 0 L0 100 Q50 100 100 100 L100 0 Z" />
+                <path class="pt-path pt-path--fill" d="" />
+            </svg>
+            <div class="pt-content">
+                <div class="pt-top"><span class="pt-label"></span><span class="pt-meta"></span></div>
+                <div class="pt-bottom">
+                    <div class="pt-stage">
+                        <em class="pt-word"><span class="pt-word-in"></span></em>
+                        <div class="pt-line"><span class="pt-name"></span><span class="pt-count"><b>0</b><em>%</em></span></div>
+                    </div>
+                    <span class="pt-rule"><i></i></span>
+                    <div class="pt-foot"><span data-profile="name">Tuana Davarcı</span><span class="pt-of"></span></div>
+                </div>
+            </div>
+        </div>
+        <script>
+            /* Geçişle gelindiyse hedef başlığı ilk karede yaz (boş kare görünmesin) */
+            (function () {
+                try {
+                    var d = JSON.parse(sessionStorage.getItem("pt-dest") || "null"), p = document.querySelector(".pt");
+                    if (!d || !p || d.page !== document.body.dataset.page || Date.now() - d.ts > 8000) return;
+                    p.classList.add("is-arrived");
+                    p.querySelector(".pt-name").textContent = d.name;
+                    p.querySelector(".pt-word-in").textContent = d.word;
+                    p.querySelector(".pt-label").textContent = d.label;
+                    p.querySelector(".pt-meta").textContent = d.meta;
+                    p.querySelector(".pt-of").textContent = d.of;
+                } catch (e) {}
+            })();
+        </script>
+
+        <main class="flex-shrink-0">
+            <!-- Navigation-->
+            <nav class="navbar navbar-expand-lg navbar-dark py-3">
+                <div class="container px-5">
+                    <a class="navbar-brand" href="index.html"><span class="fw-bolder text-gradient" data-profile="name">Tuana Davarcı</span></a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" data-i18n-aria="nav.toggle" aria-label="Menüyü aç/kapat"><span class="navbar-toggler-icon"></span></button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav ms-auto mb-2 mb-lg-0 small fw-bolder align-items-lg-center gap-lg-2">
+                            <li class="nav-item"><a class="nav-link" data-nav="home" data-scramble href="index.html" data-i18n="nav.home">Ana Sayfa</a></li>
+                            <li class="nav-item"><a class="nav-link" data-nav="about" data-scramble href="hakkimda.html" data-i18n="nav.about">Hakkımda</a></li>
+                            <li class="nav-item"><a class="nav-link" data-nav="resume" data-scramble href="resume.html" data-i18n="nav.resume">Özgeçmiş</a></li>
+                            <li class="nav-item"><a class="nav-link" data-nav="projects" data-scramble href="projects.html" data-i18n="nav.projects">Projeler</a></li>
+                            <li class="nav-item"><a class="nav-link" data-nav="blog" data-scramble href="blog.html" data-i18n="nav.blog">Blog</a></li>
+                            <li class="nav-item"><a class="nav-link" data-nav="contact" data-scramble href="contact.html" data-i18n="nav.contact">İletişim</a></li>
+                            <li class="nav-item ms-lg-3 mt-2 mt-lg-0">
+                                <div class="lang-switch" role="group" aria-label="Dil / Language">
+                                    <button type="button" data-lang="tr">TR</button>
+                                    <button type="button" data-lang="en">EN</button>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+
+            <!-- Hakkımda: abbr, code, pre, blockquote, mark, cite, dl, time etiketleri kullanılır -->
+            <div class="container px-5 page-offset my-5 about-page">
+                <header class="mb-5 pt-4">
+                    <div class="eyebrow mb-3" data-reveal data-i18n="nav.about">Hakkımda</div>
+                    <h1 class="display-2 fw-bolder mb-3" data-reveal><span class="text-gradient d-inline" data-i18n-html="aboutpage.title">Ben <em>kimim?</em></span></h1>
+                    <p class="hero-sub" data-reveal data-i18n="aboutpage.sub"></p>
+                </header>
+
+                <!-- Kısaca ben + kod kartı -->
+                <section class="row gx-5 gy-5 align-items-center mb-5">
+                    <div class="col-lg-6">
+                        <div class="glass about-text" data-reveal>
+                            <h2 class="h1 mb-4" data-i18n-html="aboutpage.intro.h">Kısaca <em>ben</em></h2>
+                            <p data-i18n-html="aboutpage.intro.p1"></p>
+                            <p data-i18n-html="aboutpage.intro.p2"></p>
+                            <p class="mb-0" data-i18n-html="aboutpage.intro.p3"></p>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <figure class="code-card" data-reveal>
+                            <div class="code-bar" aria-hidden="true"><i></i><i></i><i></i><span>tuana.js</span></div>
+                            <pre><code data-i18n="aboutpage.code"></code></pre>
+                        </figure>
+                    </div>
+                </section>
+
+                <!-- Söz -->
+                <section class="mb-5 py-4">
+                    <figure class="quote quote--sage about-quote" data-reveal>
+                        <svg class="quote-lily" viewBox="0 0 64 64" aria-hidden="true"><path d="M32 58V34M32 34c-3-9-3-18 0-26 3 8 3 17 0 26zM32 34c-8-4-14-11-16-20 8 2 14 9 16 20zM32 34c8-4 14-11 16-20-8 2-14 9-16 20zM32 34c-9 1-17-2-22-8 8-1 16 2 22 8zM32 34c9 1 17-2 22-8-8-1-16 2-22 8z" /></svg>
+                        <blockquote class="quote-text" data-i18n="aboutpage.quote"></blockquote>
+                        <figcaption class="quote-by">— <cite data-i18n="aboutpage.quote.by"></cite></figcaption>
+                    </figure>
+                </section>
+
+                <!-- İlgi alanları -->
+                <section class="mb-5">
+                    <div class="eyebrow mb-3" data-reveal data-i18n="aboutpage.int.eyebrow"></div>
+                    <h2 class="display-4 mb-5" data-reveal data-i18n-html="aboutpage.int.title"></h2>
+                    <div class="int-grid">
+                        <article class="int-card" data-reveal>
+                            <div class="int-head">
+                                <span class="int-icon" aria-hidden="true"><i class="bi bi-trophy"></i></span>
+                                <div>
+                                    <h3 data-i18n="aboutpage.chess.t"></h3>
+                                    <p class="int-meta" data-i18n="aboutpage.chess.meta"></p>
+                                </div>
+                            </div>
+                            <ul class="int-list" data-i18n-html="aboutpage.chess.list"></ul>
+                            <p class="int-tags" data-i18n="aboutpage.chess.tags"></p>
+                        </article>
+                        <article class="int-card" data-reveal>
+                            <div class="int-head">
+                                <span class="int-icon" aria-hidden="true"><i class="bi bi-music-note-beamed"></i></span>
+                                <div>
+                                    <h3 data-i18n="aboutpage.stage.t"></h3>
+                                    <p class="int-meta" data-i18n="aboutpage.stage.meta"></p>
+                                </div>
+                            </div>
+                            <ul class="int-list" data-i18n-html="aboutpage.stage.list"></ul>
+                            <p class="int-tags" data-i18n="aboutpage.stage.tags"></p>
+                        </article>
+                        <article class="int-card" data-reveal>
+                            <div class="int-head">
+                                <span class="int-icon" aria-hidden="true"><i class="bi bi-dribbble"></i></span>
+                                <div>
+                                    <h3 data-i18n="aboutpage.sport.t"></h3>
+                                    <p class="int-meta" data-i18n="aboutpage.sport.meta"></p>
+                                </div>
+                            </div>
+                            <ul class="int-list" data-i18n-html="aboutpage.sport.list"></ul>
+                            <p class="int-tags" data-i18n="aboutpage.sport.tags"></p>
+                        </article>
+                        <article class="int-card" data-reveal>
+                            <div class="int-head">
+                                <span class="int-icon" aria-hidden="true"><i class="bi bi-stars"></i></span>
+                                <div>
+                                    <h3 data-i18n="aboutpage.runway.t"></h3>
+                                    <p class="int-meta" data-i18n="aboutpage.runway.meta"></p>
+                                </div>
+                            </div>
+                            <ul class="int-list" data-i18n-html="aboutpage.runway.list"></ul>
+                            <p class="int-tags" data-i18n="aboutpage.runway.tags"></p>
+                        </article>
+                        <article class="int-card int-card--wide" data-reveal>
+                            <div class="int-head">
+                                <span class="int-icon" aria-hidden="true"><i class="bi bi-palette"></i></span>
+                                <div>
+                                    <h3 data-i18n="aboutpage.style.t"></h3>
+                                    <p class="int-meta" data-i18n="aboutpage.style.meta"></p>
+                                </div>
+                            </div>
+                            <ul class="int-list" data-i18n-html="aboutpage.style.list"></ul>
+                            <p class="int-tags" data-i18n="aboutpage.style.tags"></p>
+                        </article>
+                    </div>
+
+                    <!-- Hobi albümü: deri dosya, tıklayınca fotoğraflar açılır (js/content.js > hobbyFolders) -->
+                    <div class="row gx-5 gy-5 align-items-center mt-5 pt-3">
+                        <div class="col-lg-5">
+                            <div class="glass hobby-intro" data-reveal>
+                                <h3 data-i18n-html="aboutpage.hobbies.title"></h3>
+                                <p data-i18n="aboutpage.hobbies.sub"></p>
+                                <span class="hobby-click"><i class="bi bi-arrow-right"></i><span data-i18n="aboutpage.hobbies.click"></span></span>
+                            </div>
+                        </div>
+                        <div class="col-lg-7">
+                            <div class="row justify-content-center" data-render="hobbyfolders" data-col="col-sm-9 col-md-8 col-lg-10 col-xl-8"></div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Yetenekler: yüzdeler -->
+                <section class="mb-5" id="yetenekler">
+                    <div class="eyebrow mb-3" data-reveal data-i18n="aboutpage.skills.eyebrow"></div>
+                    <h2 class="display-4 mb-5" data-reveal data-i18n-html="aboutpage.skills.title"></h2>
+                    <div class="row gx-5 gy-5">
+                        <div class="col-lg-7">
+                            <div class="glass skills-panel" data-reveal>
+                                <h3 class="h4 mb-4" data-i18n="aboutpage.skills.tech"></h3>
+                                <!-- js/content.js > skillBars -->
+                                <div class="row g-4" data-render="skillbars"></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-5">
+                            <div class="glass skills-panel" data-reveal>
+                                <h3 class="h4 mb-4" data-i18n="aboutpage.skills.soft"></h3>
+                                <!-- js/content.js > softSkills -->
+                                <div class="rings" data-render="softskills"></div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Eğitim -->
+                <section class="mb-5">
+                    <h2 class="display-5 mb-4" data-reveal data-i18n="aboutpage.edu.title">Eğitim</h2>
+                    <dl class="edu-list glass" data-reveal>
+                        <div><dt data-i18n="aboutpage.edu.1.t"></dt><dd data-i18n-html="aboutpage.edu.1.d"></dd></div>
+                        <div><dt data-i18n="aboutpage.edu.2.t"></dt><dd data-i18n-html="aboutpage.edu.2.d"></dd></div>
+                    </dl>
+                </section>
+
+                <!-- Kapanış -->
+                <section class="text-center py-5">
+                    <a class="cta-big" href="contact.html" data-i18n-html="aboutpage.cta" data-cursor="mail"></a>
+                    <div class="mt-4"><a class="btn btn-primary btn-lg px-5 py-3 magnetic" href="contact.html" data-i18n="aboutpage.cta.btn"></a></div>
+                </section>
+            </div>
+
+            <!-- Sayfa sonu: sıradaki sayfaya geçiş (js/i18n.js > pagenav) -->
+            <nav class="pagenav" data-render="pagenav" aria-label="Sayfalar"></nav>
+        </main>
+
+        <!-- Deri dosya penceresi (js/folders.js) -->
+        <div class="fmodal" data-fmodal data-lenis-prevent hidden role="dialog" aria-modal="true" aria-labelledby="fmodalTitle">
+            <div class="fmodal-bg" data-fclose></div>
+            <div class="fmodal-head">
+                <div>
+                    <span class="eyebrow" data-fmodal-meta></span>
+                    <h3 class="fmodal-title" id="fmodalTitle" data-fmodal-title></h3>
+                </div>
+                <button type="button" class="fmodal-x" data-fclose aria-label="Kapat" data-i18n-aria="runway.close"><i class="bi bi-x-lg"></i></button>
+            </div>
+            <div class="fmodal-stage" data-fstage>
+                <div class="fm-folder" data-ffolder>
+                    <div class="fm-back"></div>
+                    <div class="fm-cover"><span class="fm-cover-title" data-fcover-title></span></div>
+                </div>
+                <div class="fm-papers" data-fpapers></div>
+            </div>
+            <div class="fmodal-foot">
+                <button type="button" class="fm-nav" data-fprev aria-label="Önceki" data-i18n-aria="runway.prev"><i class="bi bi-arrow-left"></i></button>
+                <span class="fm-hint" data-i18n="runway.hint">Bir kareye tıkla, büyüsün</span>
+                <button type="button" class="fm-nav" data-fnext aria-label="Sonraki" data-i18n-aria="runway.next"><i class="bi bi-arrow-right"></i></button>
+            </div>
+        </div>
+
+        <!-- Footer-->
+        <footer class="site-footer pt-5 mt-auto">
+            <div class="container px-5">
+                <div class="row align-items-center justify-content-between flex-column flex-sm-row gap-3">
+                    <div class="col-auto d-flex gap-4">
+                        <a data-profile="github" data-profile-href href="#" data-scramble>GitHub</a>
+                        <a data-profile="instagram" data-profile-href href="#" data-scramble>Instagram</a>
+                        <a data-profile="linkedin" data-profile-href href="#" target="_blank" rel="noopener" data-scramble hidden>LinkedIn</a>
+                    </div>
+                    <div class="col-auto d-flex gap-4">
+                        <a href="https://startbootstrap.com/theme/personal" target="_blank" rel="noopener" data-i18n="footer.template" data-scramble>Şablon</a>
+                        <a href="#top" class="to-top" data-i18n="footer.up" data-scramble>Yukarı ↑</a>
+                    </div>
+                </div>
+            </div>
+            <h2 class="footer-name text-center" aria-hidden="true" data-profile="name">Tuana Davarcı</h2>
+            <div class="container px-5 py-3">
+                <div class="small text-muted text-center" data-i18n="footer.copy">© 2026</div>
+            </div>
+        </footer>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+        <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+        <script src="js/content.js?v=41"></script>
+        <script src="js/i18n.js?v=42"></script>
+        <script src="js/transition.js?v=32"></script>
+        <script src="js/main.js?v=40"></script>
+        <script src="js/world.js?v=32"></script>
+        <script src="js/player.js?v=32"></script>
+        <script src="js/folders.js?v=32"></script>
+        <script src="js/music.js?v=32"></script>
+        <script src="js/blog.js?v=32"></script>
+        <script src="js/router.js?v=40"></script>
+    </body>
+</html>

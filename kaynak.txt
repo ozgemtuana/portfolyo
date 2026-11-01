@@ -16,7 +16,15 @@ Kullanılan şablon (Template):
 Şablon üzerine yapılan değişiklikler:
   - css/dark.css : koyu tema, tipografi, responsive düzenlemeler
   - js/i18n.js   : Türkçe / İngilizce dil desteği
-  - js/main.js   : kaydırma animasyonları ve 3D arka plan
+  - js/main.js   : kaydırma animasyonları, imleç, mıknatıs butonlar
+  - js/world.js  : 3D dünya ("Ormanda kemer"): ahşap kemerler ve halka, ağaç, asmalar, zambaklar,
+                   göl, ay, ışık huzmeleri; kamera kaydırmayla sahnenin içinde ilerler (Three.js r128)
+  - js/folders.js: deri dosyalar ve açılan görsel penceresi
+  - js/player.js : KALICI müzik motoru (YouTube oynatıcısı) ve her sayfada sol altta görünen müzik ikonu
+  - js/music.js  : ana sayfadaki plak rafı ve vintage pikap arayüzü (motoru player.js yönetir)
+  - js/router.js : sayfa yenilemeden gezinme: içerik değişir, 3D dünya ve müzik kesilmez
+  - blog.html + js/blog.js : blog sayfası (üç yazı, okuma süresi, içindekiler, kod kopyalama)
+  - hakkimda.html : hakkımda sayfası
 
 Kullanılan kütüphaneler (CDN):
   - Bootstrap 5.2.3        https://getbootstrap.com
@@ -24,10 +32,12 @@ Kullanılan kütüphaneler (CDN):
   - GSAP 3.12.5 + ScrollTrigger  https://gsap.com
   - Lenis 1.1.13 (yumuşak kaydırma)  https://github.com/darkroomengineering/lenis
   - Three.js r128 (3D arka plan)     https://threejs.org
-  - Google Fonts: Bodoni Moda, Pinyon Script, Cormorant Garamond, Jost, IBM Plex Mono
+  - Google Fonts: Cormorant (başlıklar), DM Sans (gövde ve etiketler)
+  - YouTube IFrame Player API (plak rafındaki şarkılar)  https://developers.google.com/youtube/iframe_api_reference
 
 Admin Paneli (içerik yönetimi):
-  - admin.html     : yönetim paneli (menüden bağlantı yok, /admin.html ile açılır; noindex)
+  - admin/index.html : yönetim paneli (menüden bağlantı yok, /admin adresinden açılır; noindex)
+  - admin.html       : eski adres, /admin/ a yönlendirir
   - css/admin.css  : panelin koyu tema stilleri
   - js/admin.js    : panelin mantığı (düzenleme, kaydetme, görsel yükleme, dışa/içe aktarma, şifre)
   - js/content.js  : sitenin tüm içeriği (profil, TR/EN metinler, projeler, deneyim, eğitim,
@@ -38,3 +48,21 @@ Admin Paneli (içerik yönetimi):
         Kalıcı yapmak için "content.js indir" → dosyayı js/content.js yerine koy.
   Not: Panel şifresi (varsayılan "admin") yalnızca tarayıcı tarafında kontrol edilir,
        gerçek bir güvenlik sağlamaz (site statik, sunucu yok).
+
+Plak kapakları (assets/music/):
+  Albüm kapakları Apple iTunes Search API'den alındı; telif hakları ilgili
+  sanatçı ve plak şirketlerine aittir. Şarkılar siteye dosya olarak konmadı,
+  YouTube'daki resmî videolardan çalar.
+
+Blog görselleri (assets/blog/):
+  - kontrast-denetleyici.jpg : assets/blog/demo/kontrast.html sayfasının gerçek ekran görüntüsü
+  - sakin-mum-*.jpg, sakin-mum.svg, demo/sakin-mum.html : "Sakin Mum" kurgusal marka konsepti
+    (gerçek bir işletme değildir; yapay zekâ desteğiyle hazırlanmış örnek çalışma)
+  - moda-kapak-konsepti.jpg, kozmetik-reklam-konsepti.jpg, yuz-yakin-cekim.jpg : kendi fotoğraflarımla
+    hazırlanmış konsept çalışmalar (kurgusal dergi kapağı ve marka)
+
+Tasarım sistemi (css/dark.css başı):
+  Renkler ve yazı tipleri tek yerde (:root) tanımlıdır; bileşenler --değişkenleri kullanır.
+  Palet: adaçayı, zeytin, derin orman yeşili, doğal ahşap, sıcak toprak/bej, krem, lilyum beyazı, sıcak altın.
+  3D sahne parametreleri (renk, sis, ışık anahtarları) js/world.js içinde ENV listesindedir.
+  Test için tarayıcı konsolunda: __world.setT(0..1) kamerayı sahnenin istenen yerine götürür.

@@ -1,11 +1,12 @@
 /* ==========================================================================
    Sayfa geçişi: "sıvı perde" sahnesi + ilk ziyaret yükleme ekranı
-   - İç bir .html bağlantısına tıklanınca üç katman (turuncu → zeytin → koyu)
-     kavisli bir dalga hâlinde yükselir, hedef sayfanın adı harf harf belirir,
-     sonra sayfa değişir. Hedef bilgisi sessionStorage ile yeni sayfaya geçer.
-   - Yeni sayfada başlık yukarı kayıp çıkar, katmanlar yukarı çekilir.
+   - js/router.js bir iç bağlantıya tıklanınca Transition.leave() çağırır: üç
+     katman (altın → zeytin → koyu) kavisli bir dalga hâlinde yükselir, hedef
+     sayfanın adı harf harf belirir. Perde tam kapalıyken içerik değiştirilir,
+     ardından Transition.reveal() başlığı yukarı kaydırıp katmanları çeker.
+     (Sayfa baştan yüklenmez; bu yüzden müzik ve 3D dünya kesilmez.)
    - İlk ziyarette 0→100 sayacı ile zeytin rengi "sıvı" ekranı doldurur.
-   main.js, hero girişini başlatmak için window.PageTransition.ready sözünü bekler.
+   main.js, hero girişini başlatmak için hazır sözünü (ready) bekler.
    GSAP yoksa veya hareket azaltılmışsa perde hemen kaldırılır.
    ========================================================================== */
 
@@ -15,14 +16,15 @@
     const hasGSAP = typeof window.gsap !== "undefined";
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const page = document.body.dataset.page;
-    const STORE = "pt-dest";
 
     // Sayfa sırası ve nav anahtarları (i18n.js'deki t() ile çevrilir)
     const PAGES = {
         home: { file: "index.html", key: "nav.home", no: "01", fb: "Ana Sayfa" },
-        resume: { file: "resume.html", key: "nav.resume", no: "02", fb: "Özgeçmiş" },
-        projects: { file: "projects.html", key: "nav.projects", no: "03", fb: "Projeler" },
-        contact: { file: "contact.html", key: "nav.contact", no: "04", fb: "İletişim" }
+        about: { file: "hakkimda.html", key: "nav.about", no: "02", fb: "Hakkımda" },
+        resume: { file: "resume.html", key: "nav.resume", no: "03", fb: "Özgeçmiş" },
+        projects: { file: "projects.html", key: "nav.projects", no: "04", fb: "Projeler" },
+        blog: { file: "blog.html", key: "nav.blog", no: "05", fb: "Blog" },
+        contact: { file: "contact.html", key: "nav.contact", no: "06", fb: "İletişim" }
     };
     const TOTAL = "0" + Object.keys(PAGES).length;
     const WORDS = {
@@ -30,17 +32,21 @@
         en: { next: "up next", now: "now", hello: "welcome", meta: "Portfolio ©" }
     };
 
-    // Hazır sözü: perde yeterince açıldığında (bitmeden ~0.5 sn önce) çözülür
-    let resolveReady;
-    const ready = new Promise((r) => (resolveReady = r));
-    let readyDone = false;
+    // Hazır sözü: perde yeterince açıldığında (bitmeden ~0.5 sn önce) çözülür.
+    // Her açılış (ilk yükleme ve her sayfa geçişi) için yeni bir söz üretilir.
+    let resolveReady = null;
+    const makeReady = () => new Promise((r) => (resolveReady = r));
     const markReady = () => {
-        if (readyDone) return;
-        readyDone = true;
-        resolveReady();
+        if (!resolveReady) return;
+        const r = resolveReady;
+        resolveReady = null;
+        r();
         document.dispatchEvent(new CustomEvent("transition:revealed"));
     };
+    const ready = makeReady();
     window.PageTransition = { ready };
+    // API: js/router.js kullanır. Perde yoksa / hareket azaltılmışsa anında çözülür.
+    window.Transition = { leave: () => Promise.resolve(), reveal: () => Promise.resolve() };
 
     try { sessionStorage.setItem("visited", "1"); } catch (e) { /* yoksay */ }
 
@@ -56,26 +62,19 @@
         return fb;
     };
 
-    const readStore = () => {
-        try {
-            const d = JSON.parse(sessionStorage.getItem(STORE) || "null");
-            sessionStorage.removeItem(STORE);
-            return d && d.page === page && Date.now() - d.ts < 8000 ? d : null;
-        } catch (e) { return null; }
-    };
-
     const hide = () => {
         if (!el) return;
         el.style.animation = "none";
         el.style.visibility = "hidden";
-        el.classList.remove("is-busy", "is-live");
+        el.classList.remove("is-busy", "is-live", "is-arrived");
+        // .pt-content bu sınıflarla kendi görünürlüğünü açar; perdeyle birlikte kapansın
+        root.classList.remove("first-visit");
     };
 
     if (!el) { markReady(); return; }
 
     // GSAP yok / hareket azaltılmış: perdeyi kaldır, bağlantılar normal çalışsın
     if (!hasGSAP || reduceMotion) {
-        readStore();
         hide();
         markReady();
         return;
@@ -165,20 +164,12 @@
     }
 
     let current = null;
-    const arrived = readStore();
     const firstVisit = root.classList.contains("first-visit");
 
     // Betikler çok geç geldiyse (CDN yavaş) sahneyi atla, sayfayı hemen göster
     if (performance.now() > 3500) {
         hide();
         markReady();
-    } else if (arrived) {
-        // Geçişle gelindi: başlık zaten yerinde (satır içi betik doldurdu)
-        setText(arrived, arrived.word || words().next);
-        el.classList.add("is-arrived", "is-live");
-        gsap.set([wordIn, chars], { yPercent: 0 });
-        gsap.set(rule, { scaleX: 1 });
-        current = buildReveal(false).delay(0.05);
     } else if (firstVisit) {
         /* ---------- İlk ziyaret: sayaç + yükselen sıvı ---------- */
         setText(info(page), words().hello);
@@ -215,64 +206,54 @@
         current = tl;
     }
 
-    /* ---------- Kapanış: iç bağlantıya tıklanınca ---------- */
-    let busy = false;
-    function go(href, key, fallbackName) {
-        if (busy) return;
-        busy = true;
-        if (current) current.progress(1); // önceki sahne bitsin
-        const d = info(key, fallbackName);
-        const word = words().next;
-        try { sessionStorage.setItem(STORE, JSON.stringify(Object.assign({ word, ts: Date.now() }, d))); } catch (e) { /* yoksay */ }
-        document.dispatchEvent(new CustomEvent("transition:start", { detail: { href } }));
+    /* ---------- Kapanış: iç bağlantıya tıklanınca (sayfa yüklenmez; içerik router'da değişir) ---------- */
+    // Perde tam kapanınca çözülen söz döner
+    function leave(key, fallbackName) {
+        return new Promise((resolve) => {
+            if (current) current.progress(1); // önceki sahne bitsin
+            const d = info(key, fallbackName);
+            const word = words().next;
+            document.dispatchEvent(new CustomEvent("transition:start", { detail: { key } }));
 
-        setText(d, word);
-        el.classList.remove("is-arrived");
-        el.classList.add("is-live", "is-busy", "is-named");
-        countWrap.style.display = "none";
-        el.style.visibility = "visible";
-        gsap.set(layers, { attr: { d: P.coverStart } });
-        fill.setAttribute("d", "");
-        gsap.set(texts, { opacity: 0, y: 12 });
-        gsap.set(rule, { scaleX: 0, transformOrigin: "left" });
+            setText(d, word);
+            el.classList.remove("is-arrived");
+            el.classList.add("is-live", "is-busy", "is-named");
+            countWrap.style.display = "none";
+            el.style.visibility = "visible";
+            gsap.set(layers, { attr: { d: P.coverStart } });
+            fill.setAttribute("d", "");
+            gsap.set(texts, { opacity: 0, y: 12 });
+            gsap.set(rule, { scaleX: 0, transformOrigin: "left" });
 
-        const tl = gsap.timeline();
-        // Çıkan sayfa hafifçe yukarı itilir ve söner
-        tl.to(outgoing(), { y: -60, opacity: 0.2, duration: 0.95, ease: "power3.in" }, 0);
-        layers.forEach((p, i) => {
-            const at = i * 0.1;
-            tl.to(p, { attr: { d: P.coverMid }, duration: 0.42, ease: "power3.in" }, at)
-                .to(p, { attr: { d: P.coverEnd }, duration: 0.38, ease: "power2.out" }, at + 0.42);
+            const tl = gsap.timeline();
+            // Çıkan sayfa hafifçe yukarı itilir ve söner
+            tl.to(outgoing(), { y: -60, opacity: 0.2, duration: 0.95, ease: "power3.in" }, 0);
+            layers.forEach((p, i) => {
+                const at = i * 0.1;
+                tl.to(p, { attr: { d: P.coverMid }, duration: 0.42, ease: "power3.in" }, at)
+                    .to(p, { attr: { d: P.coverEnd }, duration: 0.38, ease: "power2.out" }, at + 0.42);
+            });
+            tl.to(rule, { scaleX: 1, duration: 0.7, ease: "expo.inOut" }, 0.4)
+                .to(texts, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out", stagger: 0.05 }, 0.5);
+            textIn(tl, 0.45);
+            tl.call(resolve, null, 1.08);
+            current = tl;
         });
-        tl.to(rule, { scaleX: 1, duration: 0.7, ease: "expo.inOut" }, 0.4)
-            .to(texts, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out", stagger: 0.05 }, 0.5);
-        textIn(tl, 0.45);
-        tl.call(() => (window.location.href = href), null, 1.08);
-        current = tl;
     }
 
-    document.addEventListener("click", (e) => {
-        const a = e.target.closest("a[href]");
-        if (!a || e.defaultPrevented || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
-        const href = a.getAttribute("href");
-        if (a.target === "_blank" || a.hasAttribute("download") || !/\.html(\?|#|$)/.test(href) || /^[a-z]+:/i.test(href)) return;
-        let url;
-        try { url = new URL(a.href, window.location.href); } catch (err) { return; }
-        if (url.origin !== window.location.origin) return;
-        e.preventDefault();
-        const file = url.pathname.split("/").pop() || "index.html";
-        const key = Object.keys(PAGES).find((k) => PAGES[k].file === file) || file.replace(/\.html$/, "");
-        go(href, key, (a.textContent || "").trim() || key);
-    });
+    // Yeni içerik yerleştirildikten sonra: başlık yukarı kayar, katmanlar çekilir.
+    // Dönen söz, hero girişi başlayabileceği anda (perde bitmeden ~0.5 sn önce) çözülür.
+    function reveal(key, fallbackName) {
+        const p = makeReady();
+        const d = info(key, fallbackName);
+        setText(d, words().next);
+        el.classList.add("is-arrived", "is-live");
+        gsap.set([wordIn, chars], { yPercent: 0 });
+        gsap.set(rule, { scaleX: 1 });
+        gsap.set(texts, { opacity: 1, y: 0 });
+        current = buildReveal(false).delay(0.05);
+        return p;
+    }
 
-    // Geri tuşuyla önbellekten (bfcache) dönülürse perdeyi kaldır, sayfayı geri getir
-    window.addEventListener("pageshow", (e) => {
-        if (!e.persisted) return;
-        if (current) current.kill();
-        busy = false;
-        try { sessionStorage.removeItem(STORE); } catch (err) { /* yoksay */ }
-        gsap.set(outgoing(), { clearProps: "transform,opacity" });
-        hide();
-        markReady();
-    });
+    window.Transition = { leave, reveal, info: (k, n) => info(k, n), pages: PAGES };
 })();

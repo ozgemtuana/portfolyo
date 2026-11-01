@@ -58,8 +58,8 @@ html.first-visit .pt-content,
     display: block;
     overflow: hidden;
     padding-bottom: .08em;
-    font-family: var(--font-script); font-style: normal; font-weight: 400;
-    font-size: clamp(2.2rem, 5.6vw, 4.8rem);
+    font-family: var(--font-script); font-style: italic; font-weight: 300;
+    font-size: clamp(2.6rem, 6.4vw, 5.6rem);
     line-height: 1.15; letter-spacing: 0;
     color: var(--tan);
     margin: 0 0 .1em .08em;
@@ -78,7 +78,7 @@ html.first-visit .pt-content,
 .pt-name, .pt-count {
     display: block;
     font-family: var(--font-display);
-    font-weight: 500;
+    font-weight: 300;
     font-size: 1em;
     line-height: .92; letter-spacing: -0.03em;
     white-space: nowrap;
@@ -91,7 +91,7 @@ html.first-visit .pt-content,
     font-variant-numeric: tabular-nums;
 }
 .pt-count b { font-weight: inherit; }
-.pt-count em { font-family: var(--font-script); font-style: normal; font-size: .42em; color: var(--accent); margin-left: .06em; letter-spacing: 0; vertical-align: .9em; }
+.pt-count em { font-family: var(--font-script); font-style: italic; font-size: .42em; color: var(--accent); margin-left: .06em; letter-spacing: 0; vertical-align: .9em; }
 html.first-visit .pt-count { display: block; }
 html.first-visit .pt:not(.is-named) .pt-name,
 html.first-visit .pt:not(.is-named) .pt-word-in { visibility: hidden; }
@@ -100,7 +100,7 @@ html.first-visit .pt:not(.is-named) .pt-word-in { visibility: hidden; }
 .pt-rule {
     position: relative; display: block;
     height: 1px; margin: clamp(1rem, 2.5vw, 1.75rem) 0 .9rem;
-    background: rgba(229, 215, 196, .16);
+    background: rgba(241,232,212, .16);
 }
 .pt-rule i {
     position: absolute; inset: 0;

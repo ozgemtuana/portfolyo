@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Renk Kontrast Denetleyici — örnek çalışma</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..700;1,400..700&family=Montserrat:wght@300..600&family=Great+Vibes&display=swap" rel="stylesheet" />
+    <style>
+        :root { --bg: #191c12; --bone: #e5d7c4; --tan: #cfbb99; --muted: #a0977f; --ok: #a8b77a; --no: #d29e9e; }
+        * { box-sizing: border-box; }
+        body { margin: 0; min-height: 100vh; display: grid; place-items: center; padding: 24px; font-family: "Montserrat", system-ui, sans-serif; color: var(--bone);
+            background: radial-gradient(60% 50% at 85% 10%, rgba(201, 200, 143, .16), transparent 70%), radial-gradient(70% 60% at 50% 50%, rgba(119, 116, 74, .25), transparent 75%), linear-gradient(170deg, #20261a, #15190d 70%); }
+        main { width: min(980px, 100%); padding: clamp(20px, 4vw, 40px); border-radius: 28px; background: linear-gradient(140deg, rgba(244, 239, 226, .1), rgba(25, 30, 17, .5) 70%); border: 1px solid rgba(244, 239, 226, .16); box-shadow: 0 30px 80px rgba(5, 8, 3, .45); }
+        .tag { font-size: .7rem; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: var(--tan); }
+        h1 { margin: .4rem 0 1.6rem; font: 400 clamp(1.9rem, 4vw, 2.8rem)/1.1 "Playfair Display", serif; }
+        h1 em { font-family: "Great Vibes", cursive; font-style: normal; color: var(--tan); font-size: 1.2em; }
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+        .pick { display: grid; gap: 14px; align-content: start; }
+        label { display: grid; gap: 6px; font-size: .68rem; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+        .row { display: grid; grid-template-columns: 56px 1fr; gap: 10px; }
+        input[type="color"] { width: 56px; height: 46px; padding: 0; border: 1px solid rgba(244, 239, 226, .2); border-radius: 12px; background: none; cursor: pointer; }
+        input[type="text"] { min-height: 46px; padding: 0 14px; border-radius: 12px; border: 1px solid rgba(244, 239, 226, .2); background: rgba(12, 15, 8, .5); color: var(--bone); font: 500 1rem ui-monospace, Menlo, monospace; text-transform: lowercase; }
+        input:focus-visible { outline: 2px solid var(--tan); outline-offset: 2px; }
+        .preview { border-radius: 20px; padding: clamp(18px, 3vw, 30px); display: grid; gap: 10px; align-content: center; min-height: 230px; border: 1px solid rgba(244, 239, 226, .2); }
+        .preview b { font: 400 clamp(1.6rem, 3vw, 2.2rem)/1.15 "Playfair Display", serif; }
+        .preview span { font-size: .95rem; line-height: 1.5; }
+        .result { margin-top: 24px; display: grid; grid-template-columns: auto 1fr; gap: 20px; align-items: center; padding: 18px 22px; border-radius: 20px; background: rgba(12, 15, 8, .45); border: 1px solid rgba(244, 239, 226, .12); }
+        .ratio { font: 400 clamp(2.4rem, 5vw, 3.6rem)/1 "Playfair Display", serif; color: var(--tan); }
+        .ratio small { font-size: .45em; color: var(--muted); }
+        .badges { display: flex; flex-wrap: wrap; gap: 8px; }
+        .badge { padding: 7px 12px; border-radius: 999px; font-size: .66rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; border: 1px solid; }
+        .badge.ok { color: var(--ok); border-color: rgba(168, 183, 122, .55); }
+        .badge.no { color: var(--no); border-color: rgba(210, 158, 158, .55); }
+        .note { margin: 18px 0 0; font-size: .78rem; line-height: 1.6; color: var(--muted); }
+        code { font-family: ui-monospace, Menlo, monospace; color: #e3d2a6; }
+        @media (max-width: 720px) { .grid { grid-template-columns: 1fr; } .result { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+    <main>
+        <div class="tag">Örnek çalışma · Yapay zekâ destekli öğrenme notu</div>
+        <h1>Renk <em>kontrast</em> denetleyici</h1>
+        <div class="grid">
+            <div class="pick">
+                <label for="yazi">Yazı rengi
+                    <span class="row"><input type="color" id="yaziRenk" value="#f2ead0" aria-label="Yazı rengi seç" /><input type="text" id="yazi" value="#f2ead0" maxlength="7" spellcheck="false" /></span>
+                </label>
+                <label for="zemin">Zemin rengi
+                    <span class="row"><input type="color" id="zeminRenk" value="#3b4220" aria-label="Zemin rengi seç" /><input type="text" id="zemin" value="#3b4220" maxlength="7" spellcheck="false" /></span>
+                </label>
+                <p class="note">Hesap, <code>kontrast.js</code> dosyasındaki WCAG formülüyle yapılır. Sonuç 4,5:1 ve üzerindeyse normal metin için yeterlidir (AA).</p>
+            </div>
+            <div class="preview" id="onizleme"><b>Başlık yazısı örneği</b><span>Küçük metin okunabilir mi? Gün boyu ekrana bakan biri için kontrast, bir tasarım lüksü değil, ihtiyaçtır.</span></div>
+        </div>
+        <div class="result" role="status" aria-live="polite">
+            <div class="ratio" id="oran">0<small>:1</small></div>
+            <div class="badges" id="rozetler"></div>
+        </div>
+    </main>
+    <script src="kontrast.js"></script>
+    <script>
+        const $ = (id) => document.getElementById(id);
+        const gecerli = (v) => /^#[0-9a-f]{6}$/i.test(v);
+        function guncelle() {
+            const y = $("yazi").value, z = $("zemin").value;
+            if (!gecerli(y) || !gecerli(z)) return;
+            const o = kontrast(y.slice(1), z.slice(1));
+            $("onizleme").style.color = y; $("onizleme").style.background = z;
+            $("oran").innerHTML = o.toFixed(2).replace(".", ",") + "<small>:1</small>";
+            const r = (ad, ok) => `<span class="badge ${ok ? "ok" : "no"}">${ok ? "✓" : "✕"} ${ad}</span>`;
+            $("rozetler").innerHTML = r("AA · normal metin (4,5)", o >= 4.5) + r("AA · büyük metin (3)", o >= 3) + r("AAA · normal metin (7)", o >= 7);
+        }
+        [["yazi", "yaziRenk"], ["zemin", "zeminRenk"]].forEach(([t, c]) => {
+            $(c).addEventListener("input", () => { $(t).value = $(c).value; guncelle(); });
+            $(t).addEventListener("input", () => { if (gecerli($(t).value)) $(c).value = $(t).value; guncelle(); });
+        });
+        guncelle();
+    </script>
+</body>
+</html>

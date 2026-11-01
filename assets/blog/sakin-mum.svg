@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 520" role="img" aria-label="Lavanta ve ardıç dalları arasında duran, yanan küçük bir cam kavanoz soya mumu çizimi">
+  <defs>
+    <radialGradient id="glow" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#ffe9a8" stop-opacity=".75"/><stop offset=".45" stop-color="#ffd27a" stop-opacity=".22"/><stop offset="1" stop-color="#ffd27a" stop-opacity="0"/></radialGradient>
+    <radialGradient id="flame" cx="50%" cy="72%" r="60%"><stop offset="0" stop-color="#fffdf0"/><stop offset=".35" stop-color="#ffe08a"/><stop offset=".8" stop-color="#ff9f43"/><stop offset="1" stop-color="#ff9f43" stop-opacity="0"/></radialGradient>
+    <linearGradient id="glass" x1="0" x2="1"><stop offset="0" stop-color="#ffffff" stop-opacity=".55"/><stop offset=".25" stop-color="#e9efd2" stop-opacity=".35"/><stop offset=".75" stop-color="#cfd9b0" stop-opacity=".3"/><stop offset="1" stop-color="#ffffff" stop-opacity=".5"/></linearGradient>
+    <linearGradient id="wax" x1="0" x2="1"><stop offset="0" stop-color="#efe3c6"/><stop offset=".45" stop-color="#fbf4e2"/><stop offset="1" stop-color="#e3d4b0"/></linearGradient>
+    <filter id="blur" x="-20%" y="-50%" width="140%" height="200%"><feGaussianBlur stdDeviation="9"/></filter>
+  </defs>
+  <ellipse cx="200" cy="482" rx="132" ry="15" fill="#1a2010" opacity=".3" filter="url(#blur)"/>
+  <circle cx="200" cy="168" r="165" fill="url(#glow)"/>
+  <!-- ardıç dalı (sol) -->
+  <g stroke="#5c7a3a" stroke-width="3" fill="none" stroke-linecap="round">
+    <path d="M78 478 C 70 430 62 390 72 330"/>
+    <path d="M72 330 l-16 -10 M71 345 l16 -9 M69 360 l-17 -9 M70 376 l17 -8 M70 392 l-16 -9 M72 408 l16 -8"/>
+  </g>
+  <!-- lavanta dalları (sağ) -->
+  <g stroke="#6f8a4a" stroke-width="2.6" fill="none" stroke-linecap="round">
+    <path d="M318 478 C 322 430 330 380 338 318"/><path d="M336 478 C 342 440 352 400 366 350"/><path d="M300 478 C 300 440 304 400 306 352"/>
+  </g>
+  <g fill="#9a86c4">
+    <ellipse cx="338" cy="318" rx="5" ry="9"/><ellipse cx="336" cy="334" rx="6" ry="9"/><ellipse cx="334" cy="350" rx="6" ry="9"/><ellipse cx="332" cy="366" rx="6" ry="9"/>
+    <ellipse cx="366" cy="350" rx="5" ry="9"/><ellipse cx="363" cy="366" rx="6" ry="9"/><ellipse cx="360" cy="382" rx="6" ry="9"/>
+    <ellipse cx="306" cy="352" rx="5" ry="9"/><ellipse cx="305" cy="368" rx="6" ry="9"/><ellipse cx="303" cy="384" rx="6" ry="9"/>
+  </g>
+  <g fill="#b9a6de" opacity=".8"><ellipse cx="341" cy="326" rx="3" ry="6"/><ellipse cx="338" cy="342" rx="3" ry="6"/><ellipse cx="369" cy="358" rx="3" ry="6"/></g>
+  <!-- kavanoz -->
+  <rect x="113" y="238" width="174" height="226" rx="22" fill="url(#wax)"/>
+  <ellipse cx="200" cy="240" rx="87" ry="13" fill="#fffaf0"/>
+  <ellipse cx="200" cy="241" rx="30" ry="4.5" fill="#e3d4b0"/>
+  <rect x="104" y="226" width="192" height="246" rx="28" fill="url(#glass)" stroke="#ffffff" stroke-opacity=".6" stroke-width="2"/>
+  <rect x="121" y="248" width="12" height="190" rx="6" fill="#ffffff" opacity=".4"/>
+  <!-- etiket -->
+  <rect x="142" y="332" width="116" height="92" rx="7" fill="#f4efe2" stroke="#cfbb99" stroke-width="1.2"/>
+  <g fill="none" stroke="#5c7a3a" stroke-width="1.6" stroke-linecap="round"><path d="M200 372 v-24"/><path d="M200 358 c-7 -3 -9 -9 -8 -14 M200 358 c7 -3 9 -9 8 -14 M200 366 c-6 -2 -8 -7 -7 -11 M200 366 c6 -2 8 -7 7 -11"/></g>
+  <g stroke="#b8955a" stroke-width="1.6" stroke-linecap="round"><path d="M164 392 h72"/><path d="M174 402 h52" opacity=".6"/><path d="M182 411 h36" opacity=".4"/></g>
+  <!-- fitil ve alev -->
+  <path d="M200 240 q2 -16 -1 -30" stroke="#3a2a1c" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <path d="M200 148 C 181 178 183 208 200 212 C 217 208 219 178 200 148 Z" fill="url(#flame)"/>
+  <path d="M200 176 C 193 190 194 203 200 206 C 206 203 207 190 200 176 Z" fill="#fffdf2" opacity=".9"/>
+</svg>

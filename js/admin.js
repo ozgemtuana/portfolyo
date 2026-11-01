@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Yönetim paneli (admin.html)
+   Yönetim paneli (admin/index.html → /admin)
    - İçerik js/content.js'den (window.SITE_CONTENT) okunur; daha önce panelde
      kaydedilmiş bir sürüm varsa localStorage'dan ("site-content-override") gelir.
    - "Kaydet" içeriği localStorage'a yazar → aynı tarayıcıda site anında güncellenir.
@@ -34,7 +34,7 @@
 
     /* ---------- İçerik: dosyadaki varsayılan + varsa kayıt (i18n.js ile aynı mantık) ---------- */
     const FILE_DEFAULT = clone(window.SITE_CONTENT || {});
-    const LISTS = ["projects", "experience", "education", "skills", "skillBars", "languages", "stats"];
+    const LISTS = ["projects", "experience", "education", "skills", "skillBars", "languages", "stats", "music", "folders", "hobbyFolders", "courses", "softSkills"];
 
     function mergeContent(def, ov) {
         const out = Object.assign({}, clone(def));
@@ -177,7 +177,7 @@
     /* ---------- Form parçaları ---------- */
     function input(path, opts = {}) {
         const v = getPath(path);
-        const attrs = `data-path="${esc(path)}"` + (opts.type === "number" ? ' data-type="number"' : "") + (opts.ph ? ` placeholder="${esc(opts.ph)}"` : "");
+        const attrs = `data-path="${esc(path)}"` + (opts.type === "number" ? ' data-type="number"' : "") + (opts.ph ? ` placeholder="${esc(opts.ph)}"` : "") + (opts.rerender ? " data-rerender" : "");
         if (opts.area) return `<textarea rows="${opts.rows || 2}" ${attrs}>${esc(v)}</textarea>`;
         return `<input type="${opts.type === "number" ? "number" : opts.type || "text"}" ${opts.min !== undefined ? `min="${opts.min}" max="${opts.max}"` : ""} value="${esc(v)}" ${attrs} />`;
     }
@@ -193,6 +193,20 @@
             `<label class="bi-col"><span class="lang">EN</span>${input(base + "|en", opts)}</label>` +
             `</div>${opts.help ? `<span class="help">${opts.help}</span>` : ""}</div>`;
     }
+
+    function select(label, path, options, opts = {}) {
+        const v = getPath(path);
+        return `<label class="field${opts.wide ? " wide" : ""}"><span class="field-label">${label}</span><select data-path="${esc(path)}"${opts.rerender ? " data-rerender" : ""}>` +
+            options.map(([val, text]) => `<option value="${esc(val)}" ${String(v) === String(val) ? "selected" : ""}>${text}</option>`).join("") +
+            `</select>${opts.help ? `<span class="help">${opts.help}</span>` : ""}</label>`;
+    }
+
+    // Görsel yükle: dosyayı küçültüp data URL olarak path'e yazar (saydam PNG'ler saydam kalır)
+    function uploadBtn(path, label) {
+        return `<label class="btn btn-ghost btn-sm"><i class="bi bi-upload"></i> ${label || "Görsel yükle"}<input type="file" accept="image/*" data-upload-path="${esc(path)}" hidden /></label>`;
+    }
+    const plain = (html) => String(html || "").replace(/<[^>]*>/g, "");
+    const imgSrc = (v) => (v ? esc(v) : "");
 
     function itemTools(list, i, len) {
         return `<div class="item-tools">` +
@@ -214,7 +228,13 @@
         skills: () => bi(),
         skillBars: () => ({ name: bi(), percent: 50 }),
         languages: () => bi(),
-        stats: () => ({ number: 0, suffix: "", label: bi() })
+        stats: () => ({ number: 0, suffix: "", label: bi() }),
+        music: () => ({ title: "", artist: "", album: "", youtube: "", cover: "" }),
+        hobbyFolders: () => ({ title: { tr: "Yeni <em>albüm</em>", en: "New <em>album</em>" }, event: bi(), tabs: [bi(), bi(), bi()], notes: [bi(), bi(), bi()], leather: "kahve", items: [] }),
+        folders: () => ({ title: { tr: "Yeni <em>dosya</em>", en: "New <em>folder</em>" }, event: bi(), tabs: [bi(), bi(), bi()], notes: [bi(), bi(), bi()], leather: "kahve", items: [] }),
+        folderItem: () => ({ src: "", alt: bi(), pos: "mid", rot: 0, kind: "cut", wide: false }),
+        softSkills: () => ({ name: bi(), percent: 50 }),
+        courses: () => ({ day: 1, start: "08:30", end: "10:20", code: "", name: bi(), room: "", teacher: "", kind: "teori" })
     };
 
     /* ---------- Metin anahtarlarının grupları ---------- */
@@ -226,15 +246,22 @@
         ["about", "Ana sayfa · Hakkımda"],
         ["work", "Ana sayfa · Seçili işler"],
         ["services", "Ana sayfa · Hizmetler"],
+        ["quote", "Ana sayfa · Güzel sözler"],
+        ["runway", "Ana sayfa · Deri dosyalar (podyum)"],
+        ["music", "Ana sayfa · Plak rafı"],
         ["cta", "Ana sayfa · Kapanış çağrısı"],
+        ["aboutpage", "Hakkımda sayfası"],
+        ["blog", "Blog sayfası (üst bölüm ve alt bağlantılar)"],
         ["resume", "Özgeçmiş sayfası"],
+        ["schedule", "Özgeçmiş · Ders programı"],
         ["projects", "Projeler sayfası"],
         ["contact", "İletişim sayfası"],
+        ["pagenav", "Sayfa sonu: sıradaki sayfa bağlantısı"],
         ["footer", "Alt bilgi (tüm sayfalar)"],
         ["cursor", "İmleç etiketleri"]
     ];
     // Bu anahtarlar HTML olarak basılır (<em> ile italik vurgu)
-    const HTML_KEYS = ["hero.line2", "work.title", "cta.big", "resume.title", "projects.title", "contact.title"];
+    const HTML_KEYS = ["hero.line2", "work.title", "cta.big", "resume.title", "projects.title", "contact.title", "runway.title", "music.title", "music.invite", "schedule.title", "blog.end.title"];
 
     /* ---------- Sekmeler ---------- */
     const TABS = {
@@ -250,6 +277,7 @@
                 field("GitHub", p("github"), { type: "url", ph: "https://github.com/…" }) +
                 field("Instagram", p("instagram"), { type: "url", ph: "https://www.instagram.com/…" }) +
                 field("LinkedIn (isteğe bağlı)", p("linkedin"), { type: "url", ph: "https://www.linkedin.com/in/…", help: "Boş bırakılırsa sitede gösterilmez." }) +
+                field("CV dosyası (isteğe bağlı)", p("cv"), { ph: "assets/cv.pdf", help: "PDF'ini <code>assets/</code> klasörüne koyup yolunu yaz. Boş bırakılırsa Özgeçmiş sayfasındaki “CV İndir” düğmesi gizlenir." }) +
                 `</div></div>`;
         },
 
@@ -266,7 +294,7 @@
                     `<section class="card text-group"><h2>${g.label}</h2>` +
                     g.keys.map((k) => {
                         const long = Math.max(String(tr[k] || "").length, String(en[k] || "").length) > 70;
-                        const isHtml = HTML_KEYS.includes(k);
+                        const isHtml = HTML_KEYS.includes(k) || /<[a-z]/i.test(String(tr[k] || "") + String(en[k] || ""));
                         return `<div class="text-row" data-key="${esc(k)}">` +
                             `<div class="text-key"><code>${esc(k)}</code>${isHtml ? '<span class="pill">HTML · &lt;em&gt; italik</span>' : ""}</div>` +
                             `<div class="bi-row">` +
@@ -348,6 +376,13 @@
                     `<input type="number" min="0" max="100" value="${esc(s.percent)}" data-path="skillBars|${i}|percent" data-type="number" data-sync="pct-${i}" /></label></div>`)).join("") +
                 `<button type="button" class="btn btn-add" data-act="add" data-list="skillBars"><i class="bi bi-plus-lg"></i> Çubuk ekle</button></section>` +
 
+                `<section class="card"><h2>Kişisel yetkinlikler <small class="muted">(Hakkımda sayfasındaki yüzde halkaları)</small></h2>` +
+                state.softSkills.map((s, i) => row("softSkills", i, state.softSkills.length,
+                    `<div class="bar-edit">${biInline("softSkills|" + i + "|name")}` +
+                    `<label class="pct"><span class="lang">%</span><input type="range" min="0" max="100" step="1" value="${esc(s.percent)}" data-path="softSkills|${i}|percent" data-type="number" data-sync="spct-${i}" />` +
+                    `<input type="number" min="0" max="100" value="${esc(s.percent)}" data-path="softSkills|${i}|percent" data-type="number" data-sync="spct-${i}" /></label></div>`)).join("") +
+                `<button type="button" class="btn btn-add" data-act="add" data-list="softSkills"><i class="bi bi-plus-lg"></i> Yetkinlik ekle</button></section>` +
+
                 `<section class="card"><h2>Diller</h2>` +
                 state.languages.map((s, i) => row("languages", i, state.languages.length, biInline("languages|" + i))).join("") +
                 `<button type="button" class="btn btn-add" data-act="add" data-list="languages"><i class="bi bi-plus-lg"></i> Dil ekle</button></section>`;
@@ -362,6 +397,89 @@
                         `<div class="grid">` + field("Sayı", b + "|number", { type: "number" }) + field("Ek (örn. +)", b + "|suffix") + biField("Etiket", b + "|label") + `</div></article>`;
                 }).join("") +
                 `<button type="button" class="btn btn-add" data-act="add" data-list="stats"><i class="bi bi-plus-lg"></i> İstatistik ekle</button>`;
+        },
+
+        dersler() {
+            const list = state.courses;
+            const DAYS = [[1, "Pazartesi"], [2, "Salı"], [3, "Çarşamba"], [4, "Perşembe"], [5, "Cuma"]];
+            const KINDS = [["teori", "Teori"], ["uygulama", "Uygulama (lab)"], ["karma", "Teori + Uygulama"], ["uzaktan", "Uzaktan"]];
+            const dayName = (d) => (DAYS.find((x) => x[0] === +d) || [0, "?"])[1];
+            return pageHead("Ders programı", "Özgeçmiş sayfasındaki haftalık tablo. Aynı dersin art arda saatlerini tek satır olarak gir (ör. 13:30 – 17:20). Dönem bilgisini ve gün adlarını <b>Metinler → Özgeçmiş · Ders programı</b> bölümünden değiştirebilirsin.") +
+                list.map((c, i) => {
+                    const b = "courses|" + i;
+                    return `<article class="card item"><div class="item-head"><span class="idx">${esc(dayName(c.day))} · ${esc(c.start)}</span><h2>${esc((c.name && c.name.tr) || "Yeni ders")}</h2>${itemTools("courses", i, list.length)}</div>` +
+                        `<div class="grid">` +
+                            select("Gün", b + "|day", DAYS, { rerender: true }) +
+                            `<div class="grid two">` + field("Başlangıç", b + "|start", { ph: "08:30", rerender: true }) + field("Bitiş", b + "|end", { ph: "10:20" }) + `</div>` +
+                            field("Ders kodu", b + "|code", { ph: "MBIL 101" }) +
+                            select("Tür", b + "|kind", KINDS) +
+                            biField("Ders adı", b + "|name") +
+                            field("Derslik", b + "|room", { ph: "303 · Lab L23" }) +
+                            field("Öğretim görevlisi", b + "|teacher", { ph: "Öğr. Gör. Ad Soyad" }) +
+                        `</div></article>`;
+                }).join("") +
+                `<button type="button" class="btn btn-add" data-act="add" data-list="courses"><i class="bi bi-plus-lg"></i> Ders ekle</button>`;
+        },
+
+        dosyalar() {
+            // Aynı düzenleyici iki liste için: podyum/işler dosyaları ve hobi albümü
+            const LEATHER = [["kahve", "Kahve deri"], ["yosun", "Yosun yeşili deri"], ["siyah", "Siyah deri"], ["bordo", "Bordo deri"]];
+            const editor = (key, addLabel) => state[key].map((f, i) => {
+                    const list = state[key];
+                    const b = key + "|" + i;
+                    const items = f.items || [];
+                    return `<article class="card item folder-card">` +
+                        `<div class="item-head"><span class="idx">N° ${String(i + 1).padStart(2, "0")}</span><h2>${esc(plain(f.title && f.title.tr) || "Yeni dosya")}</h2>${itemTools(key, i, list.length)}</div>` +
+                        `<div class="grid">` +
+                            biField("Başlık", b + "|title", { help: "Örn. <code>Look &lt;em&gt;01&lt;/em&gt;</code>" }) +
+                            biField("Alt yazı (etkinlik / yer / yıl)", b + "|event") +
+                            select("Deri rengi", b + "|leather", LEATHER) +
+                        `</div>` +
+                        `<details class="sub"><summary>Kenardaki sekmeler ve kâğıttaki notlar</summary><div class="grid">` +
+                            [0, 1, 2].map((k) => biField(`Sekme ${k + 1}`, `${b}|tabs|${k}`)).join("") +
+                            [0, 1, 2].map((k) => biField(`El yazısı not ${k + 1}`, `${b}|notes|${k}`)).join("") +
+                        `</div></details>` +
+                        `<h3 class="sub-title">Dosyanın içindeki görseller <small>${items.length}</small></h3>` +
+                        `<div class="fitems">` + items.map((it, k) => {
+                            const ib = `${b}|items|${k}`;
+                            return `<div class="fitem">` +
+                                `<div class="fitem-media"><span class="fitem-thumb${it.kind === "print" ? " print" : ""}">${it.src ? `<img src="${imgSrc(it.src)}" alt="" />` : `<i class="bi bi-image"></i>`}</span>` +
+                                    `<div class="media-actions">${uploadBtn(ib + "|src")}</div></div>` +
+                                `<div class="grid">` +
+                                    `<label class="field wide"><span class="field-label">Görsel yolu</span><input type="text" data-path="${ib}|src" data-rerender value="${esc(/^data:/.test(it.src) ? "" : it.src)}" placeholder="${/^data:/.test(it.src) ? "(yüklenen görsel kullanılıyor)" : "assets/runway/ornek.png"}" /></label>` +
+                                    biField("Açıklama (pencerede görselin altında yazar)", ib + "|alt") +
+                                    select("Biçim", ib + "|kind", [["cut", "Kâğıt kesim (dekupe PNG)"], ["print", "Fotoğraf baskısı (kenarlı)"]], { rerender: true }) +
+                                    select("Dosyadaki yeri", ib + "|pos", [["left", "Sol"], ["mid", "Orta (önde, büyük)"], ["right", "Sağ"], ["extra", "Dosyada görünmez (yalnız açılan pencerede)"]]) +
+                                    field("Eğim (derece)", ib + "|rot", { type: "number", min: -20, max: 20 }) +
+                                    `<label class="switch"><input type="checkbox" data-path="${ib}|wide" ${it.wide ? "checked" : ""} /><span class="track"><i></i></span>Geniş kare (biraz küçük ve sağa kayık)</label>` +
+                                `</div>` +
+                                itemTools(`${b}|items`, k, items.length) +
+                            `</div>`;
+                        }).join("") + `</div>` +
+                        `<button type="button" class="btn btn-add" data-act="add" data-list="${b}|items" data-blank="folderItem"><i class="bi bi-plus-lg"></i> Görsel ekle</button>` +
+                    `</article>`;
+                }).join("") +
+                `<button type="button" class="btn btn-add" data-act="add" data-list="${key}"><i class="bi bi-folder-plus"></i> ${addLabel}</button>`;
+            return pageHead("Deri dosyalar", "Her dosya tıklanınca açılır, içindeki görseller dışarı çıkar. Başlıkta <code>&lt;em&gt;…&lt;/em&gt;</code> içine aldığın kısım el yazısıyla görünür. Dosyada ilk üç görsel görünür; fazlası “Dosyada görünmez” seçilerek yalnız açılan pencerede gösterilir.") +
+                `<h2 class="group-title">Podyum ve işler <small>Ana sayfa</small></h2>` + editor("folders", "Yeni dosya ekle") +
+                `<h2 class="group-title">Hobi albümü <small>Hakkımda sayfası · İlgi alanlarının altında</small></h2>` + editor("hobbyFolders", "Yeni albüm ekle");
+        },
+
+        muzik() {
+            const list = state.music;
+            return pageHead("Müzik", "Ana sayfadaki plak rafı. Şarkı YouTube'dan çalar: videonun linkini ya da 11 karakterlik kimliğini yaz (ör. <code>4NRXx6U8ABQ</code>). Kapak için <code>assets/music/</code> içine kare bir görsel koyup yolunu yaz; boş kalırsa YouTube küçük resmi kullanılır.") +
+                list.map((m, i) => {
+                    const b = "music|" + i;
+                    return `<article class="card item"><div class="item-head"><span class="idx">(${String(i + 1).padStart(2, "0")})</span><h2>${esc(m.title || "Yeni plak")}</h2>${itemTools("music", i, list.length)}</div>` +
+                        `<div class="grid">` + field("Şarkı", b + "|title") + field("Sanatçı", b + "|artist") + field("Albüm", b + "|album") +
+                        field("YouTube linki / kimliği", b + "|youtube", { ph: "https://www.youtube.com/watch?v=…", help: "Bazı resmi videolar başka sitelerde çalmaya kapalıdır; çalmazsa aynı şarkının başka bir yüklemesini dene." }) +
+                        `<div class="field wide"><span class="field-label">Kapak görseli</span><div class="cover-row">` +
+                            `<span class="cover-thumb">${m.cover ? `<img src="${imgSrc(m.cover)}" alt="" />` : `<i class="bi bi-vinyl"></i>`}</span>` +
+                            `<input type="text" data-path="${b}|cover" data-rerender value="${esc(/^data:/.test(m.cover) ? "" : m.cover)}" placeholder="${/^data:/.test(m.cover) ? "(yüklenen görsel kullanılıyor)" : "assets/music/ornek.jpg"}" />` +
+                            uploadBtn(b + "|cover", "Yükle") +
+                        `</div></div>` + `</div></article>`;
+                }).join("") +
+                `<button type="button" class="btn btn-add" data-act="add" data-list="music"><i class="bi bi-plus-lg"></i> Plak ekle</button>`;
         },
 
         aktar() {
@@ -452,7 +570,7 @@
     // Görünümü etkileyen alanlar (görsel yolu, desen) değişince sekmeyi yeniden çiz
     document.addEventListener("change", (e) => {
         const el = e.target;
-        if (el.dataset.upload !== undefined) return handleUpload(el);
+        if (el.dataset.upload !== undefined || el.dataset.uploadPath) return handleUpload(el);
         if (el.id === "importFile") return handleImport(el);
         if (el.hasAttribute("data-rerender")) showTab(currentTab, true);
     });
@@ -473,10 +591,10 @@
         const b = e.target.closest("[data-act]");
         if (!b) return;
         const list = b.dataset.list, i = +b.dataset.i;
-        const arr = list ? state[list] : null;
+        const arr = list ? getPath(list) : null; // "projects" ya da "folders|0|items" gibi iç içe yol
         switch (b.dataset.act) {
             case "add":
-                arr.push(BLANK[list]());
+                arr.push(BLANK[b.dataset.blank || list]());
                 setDirty(true);
                 showTab(currentTab, true);
                 // Yeni öğenin ilk alanına odaklan
@@ -488,7 +606,7 @@
                 }, 0);
                 break;
             case "del": {
-                const label = list === "projects" ? "Bu proje" : "Bu öğe";
+                const label = { projects: "Bu proje", folders: "Bu dosya ve içindeki görseller", hobbyFolders: "Bu albüm ve içindeki görseller", music: "Bu plak" }[list] || (/\|items$/.test(list) ? "Bu görsel" : "Bu öğe");
                 if (!confirm(label + " silinsin mi?")) return;
                 arr.splice(i, 1);
                 setDirty(true);
@@ -543,7 +661,7 @@
     // Önizleme: sekmeye uygun sayfayı açar (önce kaydeder)
     $("#previewBtn").addEventListener("click", () => {
         if (dirty && !save()) return;
-        const page = { projeler: "projects.html", deneyim: "resume.html", egitim: "resume.html", yetenekler: "resume.html" }[currentTab] || "index.html";
+        const page = { projeler: "projects.html", deneyim: "resume.html", egitim: "resume.html", yetenekler: "resume.html", dersler: "resume.html", dosyalar: "index.html#podyum",  muzik: "index.html#music" }[currentTab] || "index.html";
         window.open(page, "_blank", "noopener");
     });
 
@@ -557,7 +675,7 @@
     /* ---------- Görsel yükleme: canvas ile küçültüp JPEG data URL'e çevir ---------- */
     function handleUpload(inputEl) {
         const file = inputEl.files && inputEl.files[0];
-        const i = +inputEl.dataset.upload;
+        const target = inputEl.dataset.uploadPath || "projects|" + inputEl.dataset.upload + "|image";
         if (!file) return;
         if (!/^image\//.test(file.type)) return toast("Lütfen bir görsel dosyası seç.", "error");
         const reader = new FileReader();
@@ -569,10 +687,14 @@
                 const c = document.createElement("canvas");
                 c.width = w; c.height = h;
                 const ctx = c.getContext("2d");
-                ctx.fillStyle = "#212518"; // saydam PNG'ler için koyu zemin
-                ctx.fillRect(0, 0, w, h);
+                // Saydam görseller (dekupe kesimler) saydam kalsın: WebP (desteklenmezse PNG)
+                const alpha = /png|webp|gif/.test(file.type) && !/^projects\|/.test(target);
+                if (!alpha) {
+                    ctx.fillStyle = "#212518"; // saydam PNG'ler için koyu zemin
+                    ctx.fillRect(0, 0, w, h);
+                }
                 ctx.drawImage(img, 0, 0, w, h);
-                state.projects[i].image = c.toDataURL("image/jpeg", IMG_QUALITY);
+                setPath(target, alpha ? c.toDataURL("image/webp", IMG_QUALITY) : c.toDataURL("image/jpeg", IMG_QUALITY));
                 setDirty(true);
                 showTab(currentTab, true);
                 toast(`Görsel eklendi (${w}×${h}). Kaydetmeyi unutma.`);
@@ -589,7 +711,7 @@
         "   Site içeriği (tek veri dosyası)\n" +
         "   - Tüm metinler, profil bilgileri, projeler, deneyim, eğitim, yetenekler,\n" +
         "     diller ve istatistikler burada tutulur.\n" +
-        "   - Bu dosyayı elle düzenleyebilir ya da admin.html panelinden\n" +
+        "   - Bu dosyayı elle düzenleyebilir ya da /admin panelinden\n" +
         "     \"content.js indir\" ile yeniden üretip bunun yerine koyabilirsin.\n" +
         "   - Metinlerde {name} ve {firstName} profil bilgileriyle değiştirilir.\n" +
         "   - JSON değil JS dosyasıdır: file:// ile açıldığında da çalışsın diye.\n" +
