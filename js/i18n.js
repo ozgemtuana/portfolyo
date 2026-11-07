@@ -335,6 +335,18 @@ function renderContent(site) {
         } else rings.forEach((r) => r.classList.add("is-in"));
     }
 
+    // Hakkımda: yeteneklerim (sıralı liste)
+    if ((el = box("skillsol"))) el.innerHTML = site.skills.map((x, i) => `<li data-i18n="skill.${i + 1}"></li>`).join("");
+
+    // Ana sayfa: galeriden ilk üç kare
+    if ((el = box("gallerypreview"))) {
+        el.innerHTML = (site.gallery || []).slice(0, 3).map((g, i) =>
+            `<a class="gp-item" href="galeri.html" data-reveal data-delay="${["0.0", "0.1", "0.2"][i]}" data-cursor="view">` +
+                `<img src="${g.image}" alt="" data-i18n-alt="g.${i + 1}.alt" loading="lazy" decoding="async">` +
+                `<span class="gp-place" data-i18n="g.${i + 1}.place"></span>` +
+            `</a>`).join("");
+    }
+
     // Galeri: fotoğraf + yer + kısa açıklama (js/content.js > gallery)
     if ((el = box("gallery"))) {
         el.innerHTML = (site.gallery || []).map((g, i) =>

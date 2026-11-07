@@ -9,7 +9,7 @@ Kullanılan şablon (Template):
 
 Şablondan alınan dosyalar:
   - css/styles.css   (şablonun derlenmiş CSS'i, Bootstrap 5 dahil)
-  - assets/favicon.ico
+  - images/favicon.ico
   - Sayfa yapısı: index.html, resume.html, projects.html, contact.html
     (navbar, header, kartlar, özgeçmiş/proje/iletişim düzeni)
 
@@ -46,8 +46,8 @@ Admin Paneli (içerik yönetimi):
   Not: Panel şifresi (varsayılan "admin") yalnızca tarayıcı tarafında kontrol edilir,
        gerçek bir güvenlik sağlamaz (site statik, sunucu yok).
 
-Blog görselleri (assets/blog/):
-  - kontrast-denetleyici.jpg : assets/blog/demo/kontrast.html sayfasının gerçek ekran görüntüsü
+Blog görselleri (images/blog/):
+  - kontrast-denetleyici.jpg : images/blog/demo/kontrast.html sayfasının gerçek ekran görüntüsü
   - sakin-mum-*.jpg, sakin-mum.svg, demo/sakin-mum.html : "Sakin Mum" kurgusal marka konsepti
     (gerçek bir işletme değildir; yapay zekâ desteğiyle hazırlanmış örnek çalışma)
   - moda-kapak-konsepti.jpg, kozmetik-reklam-konsepti.jpg, yuz-yakin-cekim.jpg : kendi fotoğraflarımla

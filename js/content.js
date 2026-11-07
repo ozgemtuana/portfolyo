@@ -195,8 +195,8 @@ window.SITE_CONTENT = {
             "pagenav.prev": "Önceki",
             "pagenav.all": "Tüm sayfalar",
             "pagenav.desc.home": "Giriş, plak rafım ve podyumdan kareler.",
-            "pagenav.desc.about": "Kimim, hobilerim, yeteneklerim ve yüzdelerle ben.",
-            "pagenav.desc.resume": "Eğitim, deneyim ve haftalık ders programım.",
+            "pagenav.desc.about": "Kimim, ders programım, hobilerim ve yeteneklerim.",
+            "pagenav.desc.resume": "Eğitim, deneyim ve kullandığım araçlar.",
             "pagenav.desc.projects": "Ürün tanıtımı ve web çalışmalarım.",
             "pagenav.desc.blog": "Yapay zekâ, dijital tanıtım ve modellik üzerine üç yazı.",
             "pagenav.desc.contact": "Proje, iş birliği ya da merhaba demek için yaz.",
@@ -208,7 +208,21 @@ window.SITE_CONTENT = {
             "gallery.eyebrow": "Kareler",
             "gallery.title": "Galeri",
             "gallery.sub": "Beni en çok yansıttığını düşündüğüm fotoğraflar.",
-            "pagenav.desc.gallery": "Beni en çok yansıtan fotoğraflar ve kısa notlar."
+            "pagenav.desc.gallery": "Beni en çok yansıtan fotoğraflar ve kısa notlar.",
+            "aboutpage.lists.eyebrow": "Kısaca",
+            "aboutpage.lists.title": "Listelerle <em>ben</em>",
+            "aboutpage.lists.skills": "Yeteneklerim",
+            "aboutpage.lists.skills.note": "Kullandığım araçlar, öğrenme sırasıyla:",
+            "aboutpage.lists.interests": "İlgi alanlarım",
+            "aboutpage.lists.interests.note": "Boş zamanımda yaptıklarım:",
+            "aboutpage.lists.int1": "Satranç",
+            "aboutpage.lists.int2": "Opera ve koro",
+            "aboutpage.lists.int3": "Tenis",
+            "aboutpage.lists.int4": "Binicilik",
+            "aboutpage.lists.int5": "Podyum ve modellik",
+            "home.gallery.eyebrow": "Kareler",
+            "home.gallery.title": "Galeriden <em>kareler</em>",
+            "home.gallery.all": "Tüm galeri"
         },
         "en": {
             "meta.title.home": "Home — {name}",
@@ -383,8 +397,8 @@ window.SITE_CONTENT = {
             "pagenav.prev": "Previous",
             "pagenav.all": "All pages",
             "pagenav.desc.home": "Intro, my record shelf and runway shots.",
-            "pagenav.desc.about": "Who I am, my hobbies, skills and me in percentages.",
-            "pagenav.desc.resume": "Education, experience and my weekly class schedule.",
+            "pagenav.desc.about": "Who I am, my class schedule, hobbies and skills.",
+            "pagenav.desc.resume": "Education, experience and the tools I use.",
             "pagenav.desc.projects": "My product promotion and web work.",
             "pagenav.desc.blog": "Three posts on AI, digital promotion and modelling.",
             "pagenav.desc.contact": "Write to me about a project, a collaboration or just to say hi.",
@@ -396,7 +410,21 @@ window.SITE_CONTENT = {
             "gallery.eyebrow": "Frames",
             "gallery.title": "Gallery",
             "gallery.sub": "The photos I think reflect me best.",
-            "pagenav.desc.gallery": "The photos that reflect me best, with short notes."
+            "pagenav.desc.gallery": "The photos that reflect me best, with short notes.",
+            "aboutpage.lists.eyebrow": "In short",
+            "aboutpage.lists.title": "Me in <em>lists</em>",
+            "aboutpage.lists.skills": "My skills",
+            "aboutpage.lists.skills.note": "The tools I use, in the order I learned them:",
+            "aboutpage.lists.interests": "My interests",
+            "aboutpage.lists.interests.note": "What I do in my free time:",
+            "aboutpage.lists.int1": "Chess",
+            "aboutpage.lists.int2": "Opera and choir",
+            "aboutpage.lists.int3": "Tennis",
+            "aboutpage.lists.int4": "Horse riding",
+            "aboutpage.lists.int5": "Runway and modelling",
+            "home.gallery.eyebrow": "Frames",
+            "home.gallery.title": "Frames from the <em>gallery</em>",
+            "home.gallery.all": "Full gallery"
         }
     },
     "projects": [
@@ -413,7 +441,7 @@ window.SITE_CONTENT = {
                 "tr": "Vanilla Coca-Cola için hazırladığım ürün tanıtım görseli: akışkan çizgiler ve yansımalı sahne.",
                 "en": "A product promotion visual for Vanilla Coca-Cola: flowing lines and a reflective stage."
             },
-            "image": "assets/projects/vanilla-cola.jpg",
+            "image": "images/projects/vanilla-cola.jpg",
             "art": "",
             "link": "",
             "featured": true
@@ -431,7 +459,7 @@ window.SITE_CONTENT = {
                 "tr": "Photoshop History Brush tekniğiyle siyah-beyaz sahnede tek karakteri renkle öne çıkaran çalışma.",
                 "en": "A Photoshop History Brush piece that brings one character to life in colour on a black-and-white scene."
             },
-            "image": "assets/projects/history-brush.jpg",
+            "image": "images/projects/history-brush.jpg",
             "art": "",
             "link": "",
             "featured": true
@@ -784,7 +812,7 @@ window.SITE_CONTENT = {
             "leather": "kahve",
             "items": [
                 {
-                    "src": "assets/runway/altin-etek.png",
+                    "src": "images/runway/altin-etek.png",
                     "alt": {
                         "tr": "Altın saten elbiseyle podyumda",
                         "en": "On the runway in a gold satin dress"
@@ -795,7 +823,7 @@ window.SITE_CONTENT = {
                     "wide": false
                 },
                 {
-                    "src": "assets/runway/altin-on.png",
+                    "src": "images/runway/altin-on.png",
                     "alt": {
                         "tr": "Altın saten elbise, önden",
                         "en": "Gold satin dress, front view"
@@ -806,7 +834,7 @@ window.SITE_CONTENT = {
                     "wide": false
                 },
                 {
-                    "src": "assets/runway/altin-yuruyus.png",
+                    "src": "images/runway/altin-yuruyus.png",
                     "alt": {
                         "tr": "Altın saten elbiseyle yürüyüş",
                         "en": "Walking in the gold satin dress"
@@ -858,7 +886,7 @@ window.SITE_CONTENT = {
             "leather": "kahve",
             "items": [
                 {
-                    "src": "assets/runway/siyah-podyum.png",
+                    "src": "images/runway/siyah-podyum.png",
                     "alt": {
                         "tr": "Siyah kombinle podyumda",
                         "en": "On the runway in a black outfit"
@@ -869,7 +897,7 @@ window.SITE_CONTENT = {
                     "wide": false
                 },
                 {
-                    "src": "assets/runway/siyah-kemer.png",
+                    "src": "images/runway/siyah-kemer.png",
                     "alt": {
                         "tr": "Siyah kemer detaylı kombin",
                         "en": "Black outfit with belt details"
@@ -880,7 +908,7 @@ window.SITE_CONTENT = {
                     "wide": false
                 },
                 {
-                    "src": "assets/runway/siyah-elbise.png",
+                    "src": "images/runway/siyah-elbise.png",
                     "alt": {
                         "tr": "Siyah elbise ve uzun eldivenler",
                         "en": "Black dress with opera gloves"
@@ -932,7 +960,7 @@ window.SITE_CONTENT = {
             "leather": "bordo",
             "items": [
                 {
-                    "src": "assets/runway/pembe-elbise.png",
+                    "src": "images/runway/pembe-elbise.png",
                     "alt": {
                         "tr": "Pembe uzun elbiseyle podyumda yürüyüş",
                         "en": "Walking the runway in a long pink dress"
@@ -984,7 +1012,7 @@ window.SITE_CONTENT = {
             "leather": "siyah",
             "items": [
                 {
-                    "src": "assets/runway/beyaz-inci.png",
+                    "src": "images/runway/beyaz-inci.png",
                     "alt": {
                         "tr": "İnci işlemeli beyaz elbiseyle kuliste",
                         "en": "Backstage in a pearl-studded white dress"
@@ -995,7 +1023,7 @@ window.SITE_CONTENT = {
                     "wide": false
                 },
                 {
-                    "src": "assets/runway/beyaz-sapka.png",
+                    "src": "images/runway/beyaz-sapka.png",
                     "alt": {
                         "tr": "Şapka ve inci işlemeli tülle kulis",
                         "en": "Backstage in a hat and pearl-studded tulle"
@@ -1006,7 +1034,7 @@ window.SITE_CONTENT = {
                     "wide": false
                 },
                 {
-                    "src": "assets/runway/beyaz-galeri.png",
+                    "src": "images/runway/beyaz-galeri.png",
                     "alt": {
                         "tr": "Sanat galerisinde, inci işlemeli tül ve şapkayla",
                         "en": "In an art gallery, wearing pearl tulle and a hat"
@@ -1017,7 +1045,7 @@ window.SITE_CONTENT = {
                     "wide": false
                 },
                 {
-                    "src": "assets/runway/beyaz-defile.png",
+                    "src": "images/runway/beyaz-defile.png",
                     "alt": {
                         "tr": "Defile yürüyüşü, beyaz koleksiyon",
                         "en": "Runway walk, white collection"
@@ -1069,7 +1097,7 @@ window.SITE_CONTENT = {
             "leather": "yosun",
             "items": [
                 {
-                    "src": "assets/projects/history-brush.jpg",
+                    "src": "images/projects/history-brush.jpg",
                     "alt": {
                         "tr": "History Brush ürün tanıtım görseli",
                         "en": "History Brush product visual"
@@ -1080,7 +1108,7 @@ window.SITE_CONTENT = {
                     "wide": false
                 },
                 {
-                    "src": "assets/projects/vanilla-cola.jpg",
+                    "src": "images/projects/vanilla-cola.jpg",
                     "alt": {
                         "tr": "Vanilla Cola ürün tanıtım görseli",
                         "en": "Vanilla Cola product visual"
@@ -1310,7 +1338,7 @@ window.SITE_CONTENT = {
             "leather": "kahve",
             "items": [
                 {
-                    "src": "assets/hobbies/satranc-podyum.jpg",
+                    "src": "images/hobbies/satranc-podyum.jpg",
                     "alt": {
                         "tr": "Satranç turnuvasında ödül töreni",
                         "en": "Award ceremony at a chess tournament"
@@ -1321,7 +1349,7 @@ window.SITE_CONTENT = {
                     "wide": false
                 },
                 {
-                    "src": "assets/hobbies/binicilik.jpg",
+                    "src": "images/hobbies/binicilik.jpg",
                     "alt": {
                         "tr": "Binicilik",
                         "en": "Horse riding"
@@ -1332,7 +1360,7 @@ window.SITE_CONTENT = {
                     "wide": false
                 },
                 {
-                    "src": "assets/hobbies/sahne-carmen.jpg",
+                    "src": "images/hobbies/sahne-carmen.jpg",
                     "alt": {
                         "tr": "Carmen operasında sahne",
                         "en": "On stage in the opera Carmen"
@@ -1343,7 +1371,7 @@ window.SITE_CONTENT = {
                     "wide": false
                 },
                 {
-                    "src": "assets/hobbies/kulis-kostum.jpg",
+                    "src": "images/hobbies/kulis-kostum.jpg",
                     "alt": {
                         "tr": "Opera kostümleriyle kulis",
                         "en": "Backstage in opera costumes"
@@ -1354,7 +1382,7 @@ window.SITE_CONTENT = {
                     "wide": false
                 },
                 {
-                    "src": "assets/hobbies/koro.jpg",
+                    "src": "images/hobbies/koro.jpg",
                     "alt": {
                         "tr": "Koro arkadaşlarımla prova arası",
                         "en": "With my choir friends between rehearsals"
@@ -1365,7 +1393,7 @@ window.SITE_CONTENT = {
                     "wide": false
                 },
                 {
-                    "src": "assets/hobbies/carmen-haber.jpg",
+                    "src": "images/hobbies/carmen-haber.jpg",
                     "alt": {
                         "tr": "Antalya Devlet Opera ve Balesi’nin Carmen haberi (2017)",
                         "en": "News about Antalya State Opera and Ballet’s Carmen (2017)"
@@ -1376,7 +1404,7 @@ window.SITE_CONTENT = {
                     "wide": false
                 },
                 {
-                    "src": "assets/hobbies/orkestra.jpg",
+                    "src": "images/hobbies/orkestra.jpg",
                     "alt": {
                         "tr": "Orkestra performansı",
                         "en": "Orchestra performance"
@@ -1387,7 +1415,7 @@ window.SITE_CONTENT = {
                     "wide": false
                 },
                 {
-                    "src": "assets/hobbies/kostum-duvar.jpg",
+                    "src": "images/hobbies/kostum-duvar.jpg",
                     "alt": {
                         "tr": "Sahne kostümüyle",
                         "en": "In my stage costume"
@@ -1402,7 +1430,7 @@ window.SITE_CONTENT = {
     ],
     "gallery": [
         {
-            "image": "assets/gallery/side.jpg",
+            "image": "images/gallery/side.jpg",
             "place": {
                 "tr": "Side, Antalya",
                 "en": "Side, Antalya"
@@ -1417,7 +1445,7 @@ window.SITE_CONTENT = {
             }
         },
         {
-            "image": "assets/gallery/dogum-gunu.jpg",
+            "image": "images/gallery/dogum-gunu.jpg",
             "place": {
                 "tr": "Doğum günü",
                 "en": "Birthday"
@@ -1432,7 +1460,7 @@ window.SITE_CONTENT = {
             }
         },
         {
-            "image": "assets/gallery/kaleici.jpg",
+            "image": "images/gallery/kaleici.jpg",
             "place": {
                 "tr": "Kaleiçi, Antalya",
                 "en": "Kaleiçi, Antalya"
@@ -1447,7 +1475,7 @@ window.SITE_CONTENT = {
             }
         },
         {
-            "image": "assets/gallery/istanbul.jpg",
+            "image": "images/gallery/istanbul.jpg",
             "place": {
                 "tr": "İstanbul",
                 "en": "Istanbul"
@@ -1462,7 +1490,7 @@ window.SITE_CONTENT = {
             }
         },
         {
-            "image": "assets/gallery/spor.jpg",
+            "image": "images/gallery/spor.jpg",
             "place": {
                 "tr": "Spor",
                 "en": "Sport"

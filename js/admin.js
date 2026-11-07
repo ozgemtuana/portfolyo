@@ -261,7 +261,7 @@
         ["cursor", "İmleç etiketleri"]
     ];
     // Bu anahtarlar HTML olarak basılır (<em> ile italik vurgu)
-    const HTML_KEYS = ["hero.line2", "work.title", "cta.big", "resume.title", "projects.title", "contact.title", "runway.title", "schedule.title", "blog.end.title"];
+    const HTML_KEYS = ["hero.line2", "work.title", "cta.big", "resume.title", "projects.title", "contact.title", "runway.title", "schedule.title", "blog.end.title", "aboutpage.lists.title", "home.gallery.title"];
 
     /* ---------- Sekmeler ---------- */
     const TABS = {
@@ -278,7 +278,7 @@
                 field("GitHub", p("github"), { type: "url", ph: "https://github.com/…" }) +
                 field("Instagram", p("instagram"), { type: "url", ph: "https://www.instagram.com/…" }) +
                 field("LinkedIn (isteğe bağlı)", p("linkedin"), { type: "url", ph: "https://www.linkedin.com/in/…", help: "Boş bırakılırsa sitede gösterilmez." }) +
-                field("CV dosyası (isteğe bağlı)", p("cv"), { ph: "assets/cv.pdf", help: "PDF'ini <code>assets/</code> klasörüne koyup yolunu yaz. Boş bırakılırsa Özgeçmiş sayfasındaki “CV İndir” düğmesi gizlenir." }) +
+                field("CV dosyası (isteğe bağlı)", p("cv"), { ph: "images/cv.pdf", help: "PDF'ini <code>images/</code> klasörüne koyup yolunu yaz. Boş bırakılırsa Özgeçmiş sayfasındaki “CV İndir” düğmesi gizlenir." }) +
                 `</div></div>`;
         },
 
@@ -307,14 +307,14 @@
 
         galeri() {
             const list = state.gallery;
-            return pageHead("Galeri", "Galeri sayfasındaki fotoğraflar. Fotoğrafı <code>assets/gallery/</code> klasörüne koyup yolunu yaz ya da “Yükle” ile ekle. Açıklamayı Türkçe ve İngilizce yaz.") +
+            return pageHead("Galeri", "Galeri sayfasındaki fotoğraflar. Fotoğrafı <code>images/gallery/</code> klasörüne koyup yolunu yaz ya da “Yükle” ile ekle. Açıklamayı Türkçe ve İngilizce yaz.") +
                 list.map((g, i) => {
                     const b = "gallery|" + i;
                     return `<article class="card item"><div class="item-head"><span class="idx">(${String(i + 1).padStart(2, "0")})</span><h2>${esc((g.place && g.place.tr) || "Yeni fotoğraf")}</h2>${itemTools("gallery", i, list.length)}</div>` +
                         `<div class="grid">` +
                         `<div class="field wide"><span class="field-label">Fotoğraf</span><div class="cover-row">` +
                             `<span class="cover-thumb">${g.image ? `<img src="${imgSrc(g.image)}" alt="" />` : `<i class="bi bi-image"></i>`}</span>` +
-                            `<input type="text" data-path="${b}|image" data-rerender value="${esc(/^data:/.test(g.image) ? "" : g.image)}" placeholder="${/^data:/.test(g.image) ? "(yüklenen görsel kullanılıyor)" : "assets/gallery/ornek.jpg"}" />` +
+                            `<input type="text" data-path="${b}|image" data-rerender value="${esc(/^data:/.test(g.image) ? "" : g.image)}" placeholder="${/^data:/.test(g.image) ? "(yüklenen görsel kullanılıyor)" : "images/gallery/ornek.jpg"}" />` +
                             uploadBtn(b + "|image", "Yükle") +
                         `</div></div>` +
                         biField("Yer / etiket", b + "|place", { ph: "Side, Antalya" }) +
@@ -342,7 +342,7 @@
                                     (p.image ? `<button type="button" class="btn btn-ghost btn-sm danger" data-act="noimg" data-i="${i}"><i class="bi bi-x-lg"></i> Görseli kaldır</button>` : "") +
                                 `</div>` +
                                 (size ? `<span class="help">Yüklenen görsel · ${size}</span>` : "") +
-                                `<label class="field"><span class="field-label">Görsel yolu</span><input type="text" data-path="${base}|image" data-rerender value="${esc(/^data:/.test(p.image) ? "" : p.image)}" placeholder="${/^data:/.test(p.image) ? "(yüklenen görsel kullanılıyor)" : "assets/projects/ornek.jpg"}" /></label>` +
+                                `<label class="field"><span class="field-label">Görsel yolu</span><input type="text" data-path="${base}|image" data-rerender value="${esc(/^data:/.test(p.image) ? "" : p.image)}" placeholder="${/^data:/.test(p.image) ? "(yüklenen görsel kullanılıyor)" : "images/projects/ornek.jpg"}" /></label>` +
                                 (!p.image ? `<label class="field"><span class="field-label">Görsel yoksa desen</span><select data-path="${base}|art" data-rerender>${arts.map((a) => `<option value="${a}" ${p.art === a ? "selected" : ""}>Desen ${a.slice(4)}</option>`).join("")}</select></label>` : "") +
                                 `<label class="switch"><input type="checkbox" data-path="${base}|featured" ${p.featured ? "checked" : ""} /><span class="track"><i></i></span>Ana sayfada göster</label>` +
                             `</div>` +
@@ -467,7 +467,7 @@
                                 `<div class="fitem-media"><span class="fitem-thumb${it.kind === "print" ? " print" : ""}">${it.src ? `<img src="${imgSrc(it.src)}" alt="" />` : `<i class="bi bi-image"></i>`}</span>` +
                                     `<div class="media-actions">${uploadBtn(ib + "|src")}</div></div>` +
                                 `<div class="grid">` +
-                                    `<label class="field wide"><span class="field-label">Görsel yolu</span><input type="text" data-path="${ib}|src" data-rerender value="${esc(/^data:/.test(it.src) ? "" : it.src)}" placeholder="${/^data:/.test(it.src) ? "(yüklenen görsel kullanılıyor)" : "assets/runway/ornek.png"}" /></label>` +
+                                    `<label class="field wide"><span class="field-label">Görsel yolu</span><input type="text" data-path="${ib}|src" data-rerender value="${esc(/^data:/.test(it.src) ? "" : it.src)}" placeholder="${/^data:/.test(it.src) ? "(yüklenen görsel kullanılıyor)" : "images/runway/ornek.png"}" /></label>` +
                                     biField("Açıklama (pencerede görselin altında yazar)", ib + "|alt") +
                                     select("Biçim", ib + "|kind", [["cut", "Kâğıt kesim (dekupe PNG)"], ["print", "Fotoğraf baskısı (kenarlı)"]], { rerender: true }) +
                                     select("Dosyadaki yeri", ib + "|pos", [["left", "Sol"], ["mid", "Orta (önde, büyük)"], ["right", "Sağ"], ["extra", "Dosyada görünmez (yalnız açılan pencerede)"]]) +
@@ -497,7 +497,7 @@
                 `<li>İndirdiğin dosyayı projede <code>js/content.js</code> dosyasının yerine koy ve siteyi yayınla.</li>` +
                 `<li>İstersen sonra “Dosyadaki içeriğe dön” ile tarayıcı kaydını temizle.</li></ol>` +
                 `<div class="actions"><button type="button" class="btn btn-primary" data-act="export-js"><i class="bi bi-filetype-js"></i> content.js indir</button></div>` +
-                `<p class="help">Yüklenen görseller dosyanın içine gömülür (data URL). Büyük görseller için dosyayı <code>assets/projects/</code> klasörüne koyup “Görsel yolu” alanını kullanmak daha hafiftir.</p></section>` +
+                `<p class="help">Yüklenen görseller dosyanın içine gömülür (data URL). Büyük görseller için dosyayı <code>images/projects/</code> klasörüne koyup “Görsel yolu” alanını kullanmak daha hafiftir.</p></section>` +
 
                 `<section class="card"><h2>Yedek (JSON)</h2>` +
                 `<div class="actions"><button type="button" class="btn btn-ghost" data-act="export-json"><i class="bi bi-download"></i> JSON yedeği indir</button>` +

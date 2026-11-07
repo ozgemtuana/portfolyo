@@ -6,17 +6,17 @@
         <meta name="description" content="Kişisel portfolyo — Personal portfolio" />
         <meta name="theme-color" content="#191c12" />
         <title>Hakkımda</title>
-        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+        <link rel="icon" type="image/x-icon" href="images/favicon.ico" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300..600;1,300..600&amp;family=DM+Sans:ital,opsz,wght@0,9..40,300..600;1,9..40,300..500&amp;display=swap" rel="stylesheet" />
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css" rel="stylesheet" />
         <!-- Şablonun çekirdek CSS'i (Bootstrap dahil) -->
-        <link href="css/styles.css?v=62" rel="stylesheet" />
+        <link href="css/styles.css?v=70" rel="stylesheet" />
         <!-- Koyu tema ve animasyon katmanı -->
-        <link href="css/dark.css?v=62" rel="stylesheet" />
+        <link href="css/dark.css?v=71" rel="stylesheet" />
         <!-- Sayfa geçişi + yükleme ekranı -->
-        <link href="css/transition.css?v=62" rel="stylesheet" />
+        <link href="css/transition.css?v=70" rel="stylesheet" />
         <script>
             /* Geçiş sahnesi/yükleme ekranı için: JS var mı, ilk ziyaret mi? */
             document.documentElement.classList.add("js");
@@ -103,7 +103,7 @@
                     <div class="col-lg-6">
                         <div class="glass about-text" data-reveal>
                             <figure class="id-photo">
-                                <img src="assets/about/vesikalik.jpg" width="591" height="709" alt="Tuana Davarcı vesikalık fotoğrafı" data-i18n-alt="aboutpage.photo.alt" decoding="async">
+                                <img src="images/about/vesikalik.jpg" width="591" height="709" alt="Tuana Davarcı vesikalık fotoğrafı" data-i18n-alt="aboutpage.photo.alt" decoding="async">
                                 <figcaption><span class="id-name">Tuana Davarcı</span><span data-i18n="aboutpage.photo.cap"></span></figcaption>
                             </figure>
                             <h2 class="h1 mb-4" data-i18n-html="aboutpage.intro.h">Kısaca <em>ben</em></h2>
@@ -237,6 +237,46 @@
                     </dl>
                 </section>
 
+                <!-- Ders programı: js/content.js > courses listesinden basılır -->
+                <section class="mb-5 schedule">
+                    <div class="d-flex flex-wrap gap-3 align-items-end justify-content-between mb-4" data-reveal>
+                        <div>
+                            <div class="eyebrow mb-3" data-i18n="schedule.eyebrow">Bu dönem</div>
+                            <h2 class="fw-bolder mb-0" data-i18n-html="schedule.title">Ders <em>programım</em></h2>
+                        </div>
+                        <p class="sched-term mb-0" data-i18n="schedule.term"></p>
+                    </div>
+                    <div class="glass sched-wrap" data-reveal data-render="schedule"></div>
+                </section>
+
+                <!-- Listelerle ben: sıralı (ol) ve sırasız (ul) liste -->
+                <section class="mb-5">
+                    <div class="eyebrow mb-3" data-reveal data-i18n="aboutpage.lists.eyebrow"></div>
+                    <h2 class="display-4 mb-5" data-reveal data-i18n-html="aboutpage.lists.title"></h2>
+                    <div class="row gx-5 gy-5">
+                        <div class="col-lg-6">
+                            <div class="glass list-card list-card--wood" data-reveal>
+                                <h3 class="h4 mb-2" data-i18n="aboutpage.lists.skills"></h3>
+                                <p class="list-note" data-i18n="aboutpage.lists.skills.note"></p>
+                                <ol class="ol-list" data-render="skillsol"></ol>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="glass list-card list-card--cream" data-reveal data-delay="0.1">
+                                <h3 class="h4 mb-2" data-i18n="aboutpage.lists.interests"></h3>
+                                <p class="list-note" data-i18n="aboutpage.lists.interests.note"></p>
+                                <ul class="ul-list">
+                                    <li data-i18n="aboutpage.lists.int1"></li>
+                                    <li data-i18n="aboutpage.lists.int2"></li>
+                                    <li data-i18n="aboutpage.lists.int3"></li>
+                                    <li data-i18n="aboutpage.lists.int4"></li>
+                                    <li data-i18n="aboutpage.lists.int5"></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
                 <!-- Kapanış -->
                 <section class="text-center py-5">
                     <a class="cta-big" href="contact.html" data-i18n-html="aboutpage.cta" data-cursor="mail"></a>
@@ -298,13 +338,13 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
         <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-        <script src="js/content.js?v=62"></script>
-        <script src="js/i18n.js?v=62"></script>
-        <script src="js/transition.js?v=62"></script>
-        <script src="js/main.js?v=62"></script>
-        <script src="js/world.js?v=62"></script>
-        <script src="js/folders.js?v=62"></script>
-        <script src="js/blog.js?v=62"></script>
-        <script src="js/router.js?v=62"></script>
+        <script src="js/content.js?v=70"></script>
+        <script src="js/i18n.js?v=70"></script>
+        <script src="js/transition.js?v=70"></script>
+        <script src="js/main.js?v=70"></script>
+        <script src="js/world.js?v=70"></script>
+        <script src="js/folders.js?v=70"></script>
+        <script src="js/blog.js?v=70"></script>
+        <script src="js/router.js?v=70"></script>
     </body>
 </html>
