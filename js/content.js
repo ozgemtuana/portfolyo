@@ -1430,6 +1430,51 @@ window.SITE_CONTENT = {
                 "tr": "Mumları üflemeden hemen önce, dilek tutarken.",
                 "en": "Just before blowing out the candles, making a wish."
             }
+        },
+        {
+            "image": "assets/gallery/kaleici.jpg",
+            "place": {
+                "tr": "Kaleiçi, Antalya",
+                "en": "Kaleiçi, Antalya"
+            },
+            "alt": {
+                "tr": "Tuana, Kaleiçi'nde çini süslemeli taş bir kapının önünde yukarı bakıyor",
+                "en": "Tuana looking up in front of a stone doorway with tile decoration in Kaleiçi"
+            },
+            "caption": {
+                "tr": "Kaleiçi'nin taş sokaklarında akşam yürüyüşü. Her kapının bir hikâyesi var.",
+                "en": "An evening walk through the stone streets of Kaleiçi. Every door has a story."
+            }
+        },
+        {
+            "image": "assets/gallery/istanbul.jpg",
+            "place": {
+                "tr": "İstanbul",
+                "en": "Istanbul"
+            },
+            "alt": {
+                "tr": "Tuana, İstanbul'da tarihi bir binanın duvarına yaslanmış, yukarı bakıyor",
+                "en": "Tuana leaning against the wall of a historic building in Istanbul, looking up"
+            },
+            "caption": {
+                "tr": "İstanbul sokaklarında, binaların arasında kendime yer bulurken.",
+                "en": "On the streets of Istanbul, finding my own space among the buildings."
+            }
+        },
+        {
+            "image": "assets/gallery/spor.jpg",
+            "place": {
+                "tr": "Spor",
+                "en": "Sport"
+            },
+            "alt": {
+                "tr": "Tuana, spor salonunun soyunma odasında aynadan fotoğraf çekiyor",
+                "en": "Tuana taking a mirror photo in a gym locker room"
+            },
+            "caption": {
+                "tr": "Spor benim için günün ritmi: disiplin ve enerji.",
+                "en": "Sport sets my daily rhythm: discipline and energy."
+            }
         }
     ]
 };
