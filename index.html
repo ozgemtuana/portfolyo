@@ -12,11 +12,11 @@
         <link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300..600;1,300..600&amp;family=DM+Sans:ital,opsz,wght@0,9..40,300..600;1,9..40,300..500&amp;display=swap" rel="stylesheet" />
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css" rel="stylesheet" />
         <!-- Şablonun çekirdek CSS'i (Bootstrap dahil) -->
-        <link href="css/styles.css?v=32" rel="stylesheet" />
+        <link href="css/styles.css?v=61" rel="stylesheet" />
         <!-- Koyu tema ve animasyon katmanı -->
-        <link href="css/dark.css?v=51" rel="stylesheet" />
+        <link href="css/dark.css?v=61" rel="stylesheet" />
         <!-- Sayfa geçişi + yükleme ekranı -->
-        <link href="css/transition.css?v=32" rel="stylesheet" />
+        <link href="css/transition.css?v=61" rel="stylesheet" />
         <script>
             /* Geçiş sahnesi/yükleme ekranı için: JS var mı, ilk ziyaret mi? */
             document.documentElement.classList.add("js");
@@ -77,6 +77,7 @@
                             <li class="nav-item"><a class="nav-link" data-nav="resume" data-scramble href="resume.html" data-i18n="nav.resume">Özgeçmiş</a></li>
                             <li class="nav-item"><a class="nav-link" data-nav="projects" data-scramble href="projects.html" data-i18n="nav.projects">Projeler</a></li>
                             <li class="nav-item"><a class="nav-link" data-nav="blog" data-scramble href="blog.html" data-i18n="nav.blog">Blog</a></li>
+                            <li class="nav-item"><a class="nav-link" data-nav="gallery" data-scramble href="galeri.html" data-i18n="nav.gallery">Galeri</a></li>
                             <li class="nav-item"><a class="nav-link" data-nav="contact" data-scramble href="contact.html" data-i18n="nav.contact">İletişim</a></li>
                             <li class="nav-item ms-lg-3 mt-2 mt-lg-0">
                                 <div class="lang-switch" role="group" aria-label="Dil / Language">
@@ -119,70 +120,6 @@
                 </div>
                 <div class="scroll-hint" aria-hidden="true"><i></i><span data-i18n="hero.scroll">Kaydır</span></div>
             </header>
-
-            <!-- Dinlediklerim: dönen plak rafı + vintage pikap (js/music.js) -->
-            <section class="music py-5 my-5" id="music">
-                <div class="container px-5">
-                    <div class="row gx-5 mb-4 align-items-end">
-                        <div class="col-lg-7">
-                            <div class="eyebrow mb-3" data-reveal data-i18n="music.eyebrow">Dinlediklerim</div>
-                            <h2 class="display-3 mb-0" data-reveal data-i18n-html="music.title">Plak <em>rafım</em></h2>
-                        </div>
-                        <div class="col-lg-5">
-                            <p class="glass-note mb-0 mt-3" data-reveal data-i18n="music.sub"></p>
-                        </div>
-                    </div>
-                </div>
-                <!-- Raf: plak kılıfları 3D bir çember üzerinde döner -->
-                <div class="shelf" data-shelf tabindex="0" role="listbox" aria-label="Plak rafı" data-i18n-aria="music.shelf">
-                    <div class="shelf-ring" data-ring></div>
-                </div>
-                <div class="container px-5">
-                    <div class="deck" data-deck>
-                        <div class="turntable" data-turntable>
-                            <div class="tt-plinth">
-                                <span class="tt-brand">Tuana · <em>Hi-Fi</em></span>
-                                <div class="tt-platter">
-                                    <div class="tt-mat"></div>
-                                    <div class="tt-record vinyl" data-record></div>
-                                    <span class="tt-spindle"></span>
-                                    <span class="tt-drop" data-i18n="music.drop">Buraya bırak</span>
-                                </div>
-                                <div class="tt-arm" data-arm aria-hidden="true">
-                                    <span class="tt-arm-base"></span>
-                                    <span class="tt-arm-weight"></span>
-                                    <span class="tt-arm-rod"></span>
-                                    <span class="tt-arm-head"></span>
-                                </div>
-                                <div class="tt-knobs" aria-hidden="true">
-                                    <span class="tt-knob"></span><span class="tt-speed"><b>33</b> 45</span><span class="tt-led" data-led></span>
-                                </div>
-                            </div>
-                            <span class="tt-foot l"></span><span class="tt-foot r"></span>
-                        </div>
-                        <div class="deck-panel">
-                            <div class="np">
-                                <span class="np-cover" data-np-cover></span>
-                                <div class="np-text">
-                                    <b data-np-title data-i18n="music.idle">Pikap boş. Raftan bir plak seç.</b>
-                                    <span data-np-artist></span>
-                                </div>
-                            </div>
-                            <div class="np-progress"><span class="np-time" data-np-cur>0:00</span><div class="np-bar" data-np-bar><i></i></div><span class="np-time" data-np-dur>0:00</span></div>
-                            <div class="deck-ctrls">
-                                <button type="button" class="brass" data-act="restart" disabled aria-label="Baştan çal" data-i18n-aria="music.restart"><i class="bi bi-skip-backward-fill"></i></button>
-                                <button type="button" class="brass brass--big" data-act="toggle" disabled aria-label="Çal" data-i18n-aria="music.play"><i class="bi bi-play-fill"></i></button>
-                                <button type="button" class="brass" data-act="eject" disabled aria-label="Çıkar" data-i18n-aria="music.eject"><i class="bi bi-eject-fill"></i></button>
-                            </div>
-                            <label class="deck-vol"><i class="bi bi-volume-down"></i><input type="range" min="0" max="100" value="70" data-vol aria-label="Ses" data-i18n-aria="music.volume" /><i class="bi bi-volume-up"></i></label>
-                        </div>
-                    </div>
-                </div>
-                <div class="container px-5">
-                    <p class="music-invite" data-reveal data-i18n-html="music.invite"></p>
-                </div>
-                
-            </section>
 
             <!-- Kayan yazı bantları -->
             <div class="my-5 py-4" aria-hidden="true">
@@ -361,15 +298,13 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
         <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-        <script src="js/content.js?v=50"></script>
-        <script src="js/i18n.js?v=50"></script>
-        <script src="js/transition.js?v=32"></script>
-        <script src="js/main.js?v=40"></script>
-        <script src="js/world.js?v=32"></script>
-        <script src="js/player.js?v=32"></script>
-        <script src="js/folders.js?v=32"></script>
-        <script src="js/music.js?v=32"></script>
-        <script src="js/blog.js?v=32"></script>
-        <script src="js/router.js?v=40"></script>
+        <script src="js/content.js?v=61"></script>
+        <script src="js/i18n.js?v=61"></script>
+        <script src="js/transition.js?v=61"></script>
+        <script src="js/main.js?v=61"></script>
+        <script src="js/world.js?v=61"></script>
+        <script src="js/folders.js?v=61"></script>
+        <script src="js/blog.js?v=61"></script>
+        <script src="js/router.js?v=61"></script>
     </body>
 </html>

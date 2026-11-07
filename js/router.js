@@ -6,9 +6,8 @@
      2. hedef sayfanın HTML'i alınır ve yalnızca <main>, alt bilgi ve dosya
         penceresi değiştirilir,
      3. sayfaya özel kodlar yeniden kurulur, perde açılır.
-   Kalıcı olanlar hiç yeniden başlamaz: 3D dünya (js/world.js), müzik motoru
-   ve müzik ikonu (js/player.js), imleç, kaydırma. Böylece müzik sayfalar
-   arasında kesintisiz çalar ve kamera bir sayfadan diğerine süzülür.
+   Kalıcı olanlar hiç yeniden başlamaz: 3D dünya (js/world.js), imleç, kaydırma.
+   Böylece kamera bir sayfadan diğerine kesilmeden süzülür.
    Geri / ileri tuşları, adres çubuğu ve #bağlantılar çalışmaya devam eder.
    Bir sorun olursa (ağ hatası vb.) normal sayfa yüklemesine düşer.
    file:// ile açılınca devre dışıdır (tarayıcı fetch'e izin vermez).
@@ -17,7 +16,7 @@
 window.Router = (function () {
     if (location.protocol === "file:" || !window.fetch || !window.DOMParser || !window.history || !history.pushState) return null;
 
-    const FILES = { "index.html": "home", "hakkimda.html": "about", "resume.html": "resume", "projects.html": "projects", "blog.html": "blog", "contact.html": "contact" };
+    const FILES = { "index.html": "home", "hakkimda.html": "about", "resume.html": "resume", "projects.html": "projects", "blog.html": "blog", "galeri.html": "gallery", "contact.html": "contact" };
     const cache = new Map();   // adres → HTML metni (üzerine gelince önceden alınır)
     let busy = false;
     let lastURL = new URL(location.href);
@@ -87,7 +86,6 @@ window.Router = (function () {
 
             // 1) eski sayfanın kayıtlarını temizle
             if (window.Site) window.Site.destroyPage();
-            if (window.MusicUI) window.MusicUI.destroy();
             if (window.Folders) window.Folders.destroy();
             if (window.BlogPage) window.BlogPage.destroy();
 
@@ -100,7 +98,6 @@ window.Router = (function () {
             // 3) yeni içeriği kur
             if (window.I18N_refresh) window.I18N_refresh();      // listeleri bas, dili uygula
             if (window.Folders) window.Folders.init();
-            if (window.MusicUI) window.MusicUI.init();            // çalan plak varsa pikapta bulunur
             if (window.BlogPage) window.BlogPage.init();
             if (window.World) window.World.setPage(document.body.dataset.page);
             const ready = window.Transition ? window.Transition.reveal(key, name) : Promise.resolve();

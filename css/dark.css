@@ -1868,3 +1868,19 @@ html.js-anim .about-glass .statement .w { color: rgba(43, 56, 31, .22); }
 .id-photo figcaption { display: flex; flex-direction: column; gap: .2rem; font-size: .85rem; color: #6b5a42; }
 .id-photo .id-name { font: 500 1.5rem/1.1 var(--font-display); color: #2b381f; }
 address { font-style: normal; }
+
+/* ==========================================================================
+   Galeri sayfası (js/i18n.js > gallery)
+   ========================================================================== */
+.gallery { columns: 3 280px; column-gap: 1.4rem; }
+.g-item { break-inside: avoid; margin: 0 0 1.4rem; border-radius: 24px; overflow: hidden; border: 1px solid var(--glass-border); background: linear-gradient(150deg, rgba(250, 245, 232, .95), rgba(236, 224, 196, .92)); box-shadow: 0 24px 54px rgba(16, 9, 4, .3); transition: transform .7s var(--ease-out), box-shadow .7s var(--ease-out); }
+.g-item:nth-child(3n+2) { background: linear-gradient(150deg, rgba(132, 90, 56, .92), rgba(58, 38, 22, .96) 78%); --g-ink: #f3e8d2; --g-mut: #e0bb7c; }
+.g-item:hover { transform: translateY(-6px); box-shadow: 0 34px 70px rgba(16, 9, 4, .42); }
+.g-photo { overflow: hidden; }
+.g-photo img { display: block; width: 100%; height: auto; transition: transform 1.2s var(--ease-out); }
+.g-item:hover .g-photo img { transform: scale(1.04); }
+.g-item figcaption { display: flex; flex-direction: column; gap: .35rem; padding: 1.1rem 1.4rem 1.4rem; }
+.g-place { font-size: .64rem; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; color: var(--g-mut, #8a5a35); }
+.g-cap { font: 400 1.15rem/1.45 var(--font-display); color: var(--g-ink, #2b381f); }
+@media (max-width: 575.98px) { .gallery { columns: 1; } }
+@media (prefers-reduced-motion: reduce) { .g-item, .g-photo img { transition: none; } }

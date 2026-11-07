@@ -34,7 +34,7 @@
 
     /* ---------- İçerik: dosyadaki varsayılan + varsa kayıt (i18n.js ile aynı mantık) ---------- */
     const FILE_DEFAULT = clone(window.SITE_CONTENT || {});
-    const LISTS = ["projects", "experience", "education", "skills", "skillBars", "languages", "stats", "music", "folders", "hobbyFolders", "courses", "softSkills"];
+    const LISTS = ["projects", "experience", "education", "skills", "skillBars", "languages", "stats", "gallery", "folders", "hobbyFolders", "courses", "softSkills"];
 
     function mergeContent(def, ov) {
         const out = Object.assign({}, clone(def));
@@ -229,7 +229,7 @@
         skillBars: () => ({ name: bi(), percent: 50 }),
         languages: () => bi(),
         stats: () => ({ number: 0, suffix: "", label: bi() }),
-        music: () => ({ title: "", artist: "", album: "", youtube: "", cover: "" }),
+        gallery: () => ({ image: "", place: bi(), alt: bi(), caption: bi() }),
         hobbyFolders: () => ({ title: { tr: "Yeni <em>albüm</em>", en: "New <em>album</em>" }, event: bi(), tabs: [bi(), bi(), bi()], notes: [bi(), bi(), bi()], leather: "kahve", items: [] }),
         folders: () => ({ title: { tr: "Yeni <em>dosya</em>", en: "New <em>folder</em>" }, event: bi(), tabs: [bi(), bi(), bi()], notes: [bi(), bi(), bi()], leather: "kahve", items: [] }),
         folderItem: () => ({ src: "", alt: bi(), pos: "mid", rot: 0, kind: "cut", wide: false }),
@@ -248,8 +248,8 @@
         ["services", "Ana sayfa · Hizmetler"],
         ["quote", "Ana sayfa · Güzel sözler"],
         ["runway", "Ana sayfa · Deri dosyalar (podyum)"],
-        ["music", "Ana sayfa · Plak rafı"],
         ["cta", "Ana sayfa · Kapanış çağrısı"],
+        ["gallery", "Galeri sayfası (başlık)"],
         ["aboutpage", "Hakkımda sayfası"],
         ["blog", "Blog sayfası (üst bölüm ve alt bağlantılar)"],
         ["resume", "Özgeçmiş sayfası"],
@@ -261,7 +261,7 @@
         ["cursor", "İmleç etiketleri"]
     ];
     // Bu anahtarlar HTML olarak basılır (<em> ile italik vurgu)
-    const HTML_KEYS = ["hero.line2", "work.title", "cta.big", "resume.title", "projects.title", "contact.title", "runway.title", "music.title", "music.invite", "schedule.title", "blog.end.title"];
+    const HTML_KEYS = ["hero.line2", "work.title", "cta.big", "resume.title", "projects.title", "contact.title", "runway.title", "schedule.title", "blog.end.title"];
 
     /* ---------- Sekmeler ---------- */
     const TABS = {
@@ -303,6 +303,26 @@
                             `<label class="bi-col"><span class="lang">EN</span>${input("text|en|" + k, { area: long, rows: 3 })}</label>` +
                             `</div></div>`;
                     }).join("") + `</section>`).join("");
+        },
+
+        galeri() {
+            const list = state.gallery;
+            return pageHead("Galeri", "Galeri sayfasındaki fotoğraflar. Fotoğrafı <code>assets/gallery/</code> klasörüne koyup yolunu yaz ya da “Yükle” ile ekle. Açıklamayı Türkçe ve İngilizce yaz.") +
+                list.map((g, i) => {
+                    const b = "gallery|" + i;
+                    return `<article class="card item"><div class="item-head"><span class="idx">(${String(i + 1).padStart(2, "0")})</span><h2>${esc((g.place && g.place.tr) || "Yeni fotoğraf")}</h2>${itemTools("gallery", i, list.length)}</div>` +
+                        `<div class="grid">` +
+                        `<div class="field wide"><span class="field-label">Fotoğraf</span><div class="cover-row">` +
+                            `<span class="cover-thumb">${g.image ? `<img src="${imgSrc(g.image)}" alt="" />` : `<i class="bi bi-image"></i>`}</span>` +
+                            `<input type="text" data-path="${b}|image" data-rerender value="${esc(/^data:/.test(g.image) ? "" : g.image)}" placeholder="${/^data:/.test(g.image) ? "(yüklenen görsel kullanılıyor)" : "assets/gallery/ornek.jpg"}" />` +
+                            uploadBtn(b + "|image", "Yükle") +
+                        `</div></div>` +
+                        biField("Yer / etiket", b + "|place", { ph: "Side, Antalya" }) +
+                        biField("Kısa açıklama", b + "|caption") +
+                        biField("Görsel açıklaması (ekran okuyucular için)", b + "|alt", { help: "Fotoğrafta ne görünüyor, tek cümle." }) +
+                        `</div></article>`;
+                }).join("") +
+                `<button type="button" class="btn btn-add" data-act="add" data-list="gallery"><i class="bi bi-plus-lg"></i> Fotoğraf ekle</button>`;
         },
 
         projeler() {
@@ -466,22 +486,6 @@
                 `<h2 class="group-title">Hobi albümü <small>Hakkımda sayfası · İlgi alanlarının altında</small></h2>` + editor("hobbyFolders", "Yeni albüm ekle");
         },
 
-        muzik() {
-            const list = state.music;
-            return pageHead("Müzik", "Ana sayfadaki plak rafı. Şarkı YouTube'dan çalar: videonun linkini ya da 11 karakterlik kimliğini yaz (ör. <code>4NRXx6U8ABQ</code>). Kapak için <code>assets/music/</code> içine kare bir görsel koyup yolunu yaz; boş kalırsa YouTube küçük resmi kullanılır.") +
-                list.map((m, i) => {
-                    const b = "music|" + i;
-                    return `<article class="card item"><div class="item-head"><span class="idx">(${String(i + 1).padStart(2, "0")})</span><h2>${esc(m.title || "Yeni plak")}</h2>${itemTools("music", i, list.length)}</div>` +
-                        `<div class="grid">` + field("Şarkı", b + "|title") + field("Sanatçı", b + "|artist") + field("Albüm", b + "|album") +
-                        field("YouTube linki / kimliği", b + "|youtube", { ph: "https://www.youtube.com/watch?v=…", help: "Bazı resmi videolar başka sitelerde çalmaya kapalıdır; çalmazsa aynı şarkının başka bir yüklemesini dene." }) +
-                        `<div class="field wide"><span class="field-label">Kapak görseli</span><div class="cover-row">` +
-                            `<span class="cover-thumb">${m.cover ? `<img src="${imgSrc(m.cover)}" alt="" />` : `<i class="bi bi-vinyl"></i>`}</span>` +
-                            `<input type="text" data-path="${b}|cover" data-rerender value="${esc(/^data:/.test(m.cover) ? "" : m.cover)}" placeholder="${/^data:/.test(m.cover) ? "(yüklenen görsel kullanılıyor)" : "assets/music/ornek.jpg"}" />` +
-                            uploadBtn(b + "|cover", "Yükle") +
-                        `</div></div>` + `</div></article>`;
-                }).join("") +
-                `<button type="button" class="btn btn-add" data-act="add" data-list="music"><i class="bi bi-plus-lg"></i> Plak ekle</button>`;
-        },
 
         aktar() {
             const raw = store.get(CONTENT_KEY);
@@ -662,7 +666,7 @@
     // Önizleme: sekmeye uygun sayfayı açar (önce kaydeder)
     $("#previewBtn").addEventListener("click", () => {
         if (dirty && !save()) return;
-        const page = { projeler: "projects.html", deneyim: "resume.html", egitim: "resume.html", yetenekler: "resume.html", dersler: "resume.html", dosyalar: "index.html#podyum",  muzik: "index.html#music" }[currentTab] || "index.html";
+        const page = { galeri: "galeri.html", projeler: "projects.html", deneyim: "resume.html", egitim: "resume.html", yetenekler: "resume.html", dersler: "resume.html", dosyalar: "index.html#podyum", }[currentTab] || "index.html";
         window.open(page, "_blank", "noopener");
     });
 

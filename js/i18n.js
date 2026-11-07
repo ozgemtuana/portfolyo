@@ -43,7 +43,7 @@ function mergeContent(def, ov) {
     }
     out.profile = out.profile || {};
     out.text = out.text || { tr: {}, en: {} };
-    ["projects", "experience", "education", "skills", "skillBars", "languages", "stats", "music", "folders", "hobbyFolders", "courses", "softSkills"].forEach((k) => {
+    ["projects", "experience", "education", "skills", "skillBars", "languages", "stats", "gallery", "folders", "hobbyFolders", "courses", "softSkills"].forEach((k) => {
         if (!Array.isArray(out[k])) out[k] = [];
     });
     return out;
@@ -84,6 +84,11 @@ function buildDictionaries(site) {
         site.skillBars.forEach((s, i) => (d[`bar.${i + 1}`] = pick(s.name)));
         site.languages.forEach((s, i) => (d[`langs.${i + 1}`] = pick(s)));
         site.stats.forEach((s, i) => (d[`stats.${i + 1}`] = pick(s.label)));
+        (site.gallery || []).forEach((g, i) => {
+            d[`g.${i + 1}.alt`] = pick(g.alt);
+            d[`g.${i + 1}.cap`] = pick(g.caption);
+            d[`g.${i + 1}.place`] = pick(g.place);
+        });
         site.courses.forEach((c, i) => (d[`course.${i + 1}.name`] = pick(c.name)));
         site.softSkills.forEach((s, i) => (d[`soft.${i + 1}`] = pick(s.name)));
         // Deri dosyalar: podyum/işler ("folder.N") ve hobi albümü ("hfolder.N")
@@ -330,9 +335,18 @@ function renderContent(site) {
         } else rings.forEach((r) => r.classList.add("is-in"));
     }
 
+    // Galeri: fotoğraf + yer + kısa açıklama (js/content.js > gallery)
+    if ((el = box("gallery"))) {
+        el.innerHTML = (site.gallery || []).map((g, i) =>
+            `<figure class="g-item" data-reveal data-delay="${["0.0", "0.08", "0.16"][i % 3]}">` +
+                `<div class="g-photo"><img src="${g.image}" alt="" data-i18n-alt="g.${i + 1}.alt" loading="lazy" decoding="async"></div>` +
+                `<figcaption><span class="g-place" data-i18n="g.${i + 1}.place"></span><span class="g-cap" data-i18n="g.${i + 1}.cap"></span></figcaption>` +
+            `</figure>`).join("");
+    }
+
     // Sayfa sonu: sıradaki sayfa + tüm sayfalara kısa yol
     if ((el = box("pagenav"))) {
-        const ORDER = [["home", "index.html", "nav.home"], ["about", "hakkimda.html", "nav.about"], ["resume", "resume.html", "nav.resume"], ["projects", "projects.html", "nav.projects"], ["blog", "blog.html", "nav.blog"], ["contact", "contact.html", "nav.contact"]];
+        const ORDER = [["home", "index.html", "nav.home"], ["about", "hakkimda.html", "nav.about"], ["resume", "resume.html", "nav.resume"], ["projects", "projects.html", "nav.projects"], ["blog", "blog.html", "nav.blog"], ["gallery", "galeri.html", "nav.gallery"], ["contact", "contact.html", "nav.contact"]];
         const cur = Math.max(0, ORDER.findIndex((o) => o[0] === document.body.dataset.page));
         const next = ORDER[(cur + 1) % ORDER.length], prev = ORDER[(cur - 1 + ORDER.length) % ORDER.length];
         const last = cur === ORDER.length - 1;

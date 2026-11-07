@@ -82,21 +82,6 @@ window.SITE_CONTENT = {
             "quote.2.by": "Coco Chanel",
             "quote.3.text": "Sen okyanusta bir damla değilsin; bir damlada okyanusun tamamısın.",
             "quote.3.by": "Mevlânâ",
-            "music.invite": "Sayfayı incelerken <em>benim seçkimden</em> bir plak çalın.",
-            "music.eyebrow": "Dinlediklerim",
-            "music.title": "Plak <em>rafım</em>",
-            "music.sub": "Rafı sürükleyerek çevir. Bir plağı pikaba sürükle ya da üstüne tıkla; iğne insin, müzik başlasın.",
-            "music.idle": "Pikap boş. Raftan bir plak seç.",
-            "music.drop": "Buraya bırak",
-            "music.loading": "İğne iniyor…",
-            "music.error": "Bu şarkı burada çalınamıyor, başka bir plak dene.",
-            "music.play": "Çal",
-            "music.pause": "Duraklat",
-            "music.restart": "Baştan çal",
-            "music.eject": "Çıkar",
-            "music.volume": "Ses",
-            "music.drag": "Sürükle",
-            "music.shelf": "Plak rafı: sola ya da sağa sürükleyerek çevir",
             "cta.eyebrow": "Bir fikrin mi var?",
             "cta.big": "Hadi <em>konuşalım</em>",
             "footer.copy": "© 2026 {name}. Tüm hakları saklıdır.",
@@ -205,11 +190,6 @@ window.SITE_CONTENT = {
             "blog.end.resume": "Eğitim, deneyim ve ders programım.",
             "blog.end.projects": "Ürün tanıtımı ve web çalışmalarım.",
             "blog.end.contact": "Proje ya da iş birliği için yaz.",
-            "music.dock.pause": "Müziği duraklat",
-            "music.dock.play": "Müziği başlat",
-            "music.dock.close": "Müziği kapat",
-            "music.dock.now": "Çalıyor",
-            "music.dock.paused": "Duraklatıldı",
             "pagenav.next": "Sıradaki sayfa",
             "pagenav.restart": "Başa dön",
             "pagenav.prev": "Önceki",
@@ -222,7 +202,13 @@ window.SITE_CONTENT = {
             "pagenav.desc.contact": "Proje, iş birliği ya da merhaba demek için yaz.",
             "aboutpage.photo.alt": "Tuana Davarcı vesikalık fotoğrafı",
             "aboutpage.photo.cap": "Bilgisayar Programcılığı · Akdeniz Üniversitesi",
-            "contact.addr": "Adres"
+            "contact.addr": "Adres",
+            "nav.gallery": "Galeri",
+            "meta.title.gallery": "Galeri — {name}",
+            "gallery.eyebrow": "Kareler",
+            "gallery.title": "Galeri",
+            "gallery.sub": "Beni en çok yansıttığını düşündüğüm fotoğraflar.",
+            "pagenav.desc.gallery": "Beni en çok yansıtan fotoğraflar ve kısa notlar."
         },
         "en": {
             "meta.title.home": "Home — {name}",
@@ -284,21 +270,6 @@ window.SITE_CONTENT = {
             "quote.2.by": "Coco Chanel",
             "quote.3.text": "You are not a drop in the ocean. You are the entire ocean in a drop.",
             "quote.3.by": "Rumi",
-            "music.invite": "Put on a record from <em>my selection</em> while you look around.",
-            "music.eyebrow": "On rotation",
-            "music.title": "My record <em>shelf</em>",
-            "music.sub": "Drag the shelf to spin it. Drag a record onto the turntable or just click it — the needle drops and the music starts.",
-            "music.idle": "The turntable is empty. Pick a record from the shelf.",
-            "music.drop": "Drop here",
-            "music.loading": "Dropping the needle…",
-            "music.error": "This track can't be played here — try another record.",
-            "music.play": "Play",
-            "music.pause": "Pause",
-            "music.restart": "Restart",
-            "music.eject": "Eject",
-            "music.volume": "Volume",
-            "music.drag": "Drag",
-            "music.shelf": "Record shelf: drag left or right to spin",
             "cta.eyebrow": "Got an idea?",
             "cta.big": "Let's <em>talk</em>",
             "footer.copy": "© 2026 {name}. All rights reserved.",
@@ -407,11 +378,6 @@ window.SITE_CONTENT = {
             "blog.end.resume": "Education, experience and my class schedule.",
             "blog.end.projects": "My product promotion and web work.",
             "blog.end.contact": "Write to me about a project or collaboration.",
-            "music.dock.pause": "Pause music",
-            "music.dock.play": "Play music",
-            "music.dock.close": "Close music",
-            "music.dock.now": "Now playing",
-            "music.dock.paused": "Paused",
             "pagenav.next": "Next page",
             "pagenav.restart": "Back to the start",
             "pagenav.prev": "Previous",
@@ -424,7 +390,13 @@ window.SITE_CONTENT = {
             "pagenav.desc.contact": "Write to me about a project, a collaboration or just to say hi.",
             "aboutpage.photo.alt": "Tuana Davarcı ID-style portrait",
             "aboutpage.photo.cap": "Computer Programming · Akdeniz University",
-            "contact.addr": "Address"
+            "contact.addr": "Address",
+            "nav.gallery": "Gallery",
+            "meta.title.gallery": "Gallery — {name}",
+            "gallery.eyebrow": "Frames",
+            "gallery.title": "Gallery",
+            "gallery.sub": "The photos I think reflect me best.",
+            "pagenav.desc.gallery": "The photos that reflect me best, with short notes."
         }
     },
     "projects": [
@@ -769,64 +741,6 @@ window.SITE_CONTENT = {
                 "tr": "Fincan kahve",
                 "en": "Cups of coffee"
             }
-        }
-    ],
-    "music": [
-        {
-            "title": "I Was Made for Lovin' You",
-            "artist": "KISS",
-            "album": "Dynasty",
-            "youtube": "ZhIsAZO5gl0",
-            "cover": "assets/music/i-was-made-for-lovin-you.jpg"
-        },
-        {
-            "title": "Get Lucky",
-            "artist": "Daft Punk ft. Pharrell Williams",
-            "album": "Random Access Memories",
-            "youtube": "5NV6Rdv1a3I",
-            "cover": "assets/music/get-lucky.jpg"
-        },
-        {
-            "title": "Why'd You Only Call Me When You're High?",
-            "artist": "Arctic Monkeys",
-            "album": "AM",
-            "youtube": "6366dxFf-Os",
-            "cover": "assets/music/whyd-you-only-call-me.jpg"
-        },
-        {
-            "title": "We Are the People",
-            "artist": "Empire of the Sun",
-            "album": "Walking on a Dream",
-            "youtube": "hN5X4kGhAtU",
-            "cover": "assets/music/we-are-the-people.jpg"
-        },
-        {
-            "title": "Diet Mountain Dew",
-            "artist": "Lana Del Rey",
-            "album": "Born to Die",
-            "youtube": "sEetXo3R-aM",
-            "cover": "assets/music/diet-mountain-dew.jpg"
-        },
-        {
-            "title": "Hymn for the Weekend",
-            "artist": "Coldplay",
-            "album": "A Head Full of Dreams",
-            "youtube": "YykjpeuMNEk",
-            "cover": "assets/music/hymn-for-the-weekend.jpg"
-        },
-        {
-            "title": "Lilith",
-            "artist": "Saint Avangeline",
-            "album": "Gardener of Eden",
-            "youtube": "4YQ8mgzXcxU",
-            "cover": "assets/music/lilith.jpg"
-        },
-        {
-            "title": "Tom's Diner",
-            "artist": "Suzanne Vega & DNA",
-            "album": "Tom's Album",
-            "youtube": "j4jtIDaeaWI",
-            "cover": "assets/music/toms-diner.jpg"
         }
     ],
     "folders": [
@@ -1484,6 +1398,38 @@ window.SITE_CONTENT = {
                     "wide": false
                 }
             ]
+        }
+    ],
+    "gallery": [
+        {
+            "image": "assets/gallery/side.jpg",
+            "place": {
+                "tr": "Side, Antalya",
+                "en": "Side, Antalya"
+            },
+            "alt": {
+                "tr": "Tuana, gün batımında Side'deki antik sütunların önünde taş bir duvara oturuyor",
+                "en": "Tuana sitting on a stone wall in front of ancient columns in Side at sunset"
+            },
+            "caption": {
+                "tr": "Gün batımında antik sütunların arasında. Tarihin içinde yürümek bana hep ilham verir.",
+                "en": "Among the ancient columns at sunset. Walking through history always inspires me."
+            }
+        },
+        {
+            "image": "assets/gallery/dogum-gunu.jpg",
+            "place": {
+                "tr": "Doğum günü",
+                "en": "Birthday"
+            },
+            "alt": {
+                "tr": "Tuana, doğum günü pastasındaki mumların başında gözleri kapalı gülümsüyor",
+                "en": "Tuana smiling with closed eyes over the candles of a birthday cake"
+            },
+            "caption": {
+                "tr": "Mumları üflemeden hemen önce, dilek tutarken.",
+                "en": "Just before blowing out the candles, making a wish."
+            }
         }
     ]
 };

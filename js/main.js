@@ -6,7 +6,7 @@
    - initGlobal(): bir kez çalışır (Lenis, imleç, genel dinleyiciler).
    - initPage(): her sayfa (ve her sayfa geçişi) için içeriğe özel animasyonları kurar.
    - destroyPage(): geçişte eski sayfanın ScrollTrigger / tween kayıtlarını temizler.
-   3D dünya js/world.js, müzik js/player.js + js/music.js içindedir.
+   3D dünya js/world.js içindedir.
    ========================================================================== */
 
 (function () {

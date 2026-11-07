@@ -1096,7 +1096,7 @@
         [4.0, 4.6, -60], [3.0, 3.8, -70], [4.2, 3.5, -78], [5.2, 3.5, -86], [4.5, 3.7, -96], [4.2, 5.0, -106]
     ].map((a) => V3(a[0], a[1], a[2])), false, "catmullrom", 0.5);
     // Her sayfa dünyanın farklı bir bölümünden girer
-    const RANGES = { home: [0, 1], about: [0.12, 0.5], resume: [0.3, 0.62], projects: [0.44, 0.76], blog: [0.06, 0.9], contact: [0.68, 1] };
+    const RANGES = { home: [0, 1], about: [0.12, 0.5], resume: [0.3, 0.62], projects: [0.44, 0.76], blog: [0.06, 0.9], gallery: [0.54, 0.86], contact: [0.68, 1] };
     let RANGE = RANGES[page] || [0, 1];
     // Sayfa değişince (js/router.js) kamera yeni bölgeye kesmeden süzülür
     let glideFrom = null, glideT0 = 0, lastTT = 0;
