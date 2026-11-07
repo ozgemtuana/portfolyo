@@ -18,7 +18,8 @@ window.SITE_CONTENT = {
         "github": "https://github.com/ozgemtuana",
         "instagram": "https://www.instagram.com/ozgemtuana/",
         "linkedin": "",
-        "cv": ""
+        "cv": "",
+        "address": "Muratpaşa, Antalya, TR"
     },
     "text": {
         "tr": {
@@ -218,7 +219,10 @@ window.SITE_CONTENT = {
             "pagenav.desc.resume": "Eğitim, deneyim ve haftalık ders programım.",
             "pagenav.desc.projects": "Ürün tanıtımı ve web çalışmalarım.",
             "pagenav.desc.blog": "Yapay zekâ, dijital tanıtım ve modellik üzerine üç yazı.",
-            "pagenav.desc.contact": "Proje, iş birliği ya da merhaba demek için yaz."
+            "pagenav.desc.contact": "Proje, iş birliği ya da merhaba demek için yaz.",
+            "aboutpage.photo.alt": "Tuana Davarcı vesikalık fotoğrafı",
+            "aboutpage.photo.cap": "Bilgisayar Programcılığı · Akdeniz Üniversitesi",
+            "contact.addr": "Adres"
         },
         "en": {
             "meta.title.home": "Home — {name}",
@@ -417,7 +421,10 @@ window.SITE_CONTENT = {
             "pagenav.desc.resume": "Education, experience and my weekly class schedule.",
             "pagenav.desc.projects": "My product promotion and web work.",
             "pagenav.desc.blog": "Three posts on AI, digital promotion and modelling.",
-            "pagenav.desc.contact": "Write to me about a project, a collaboration or just to say hi."
+            "pagenav.desc.contact": "Write to me about a project, a collaboration or just to say hi.",
+            "aboutpage.photo.alt": "Tuana Davarcı ID-style portrait",
+            "aboutpage.photo.cap": "Computer Programming · Akdeniz University",
+            "contact.addr": "Address"
         }
     },
     "projects": [

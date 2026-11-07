@@ -274,6 +274,7 @@
                 field("E-posta", p("email"), { type: "email" }) +
                 field("Telefon", p("phone"), { help: "Örn. 0552 311 07 00" }) +
                 field("Konum", p("location")) +
+                field("Adres (iletişim sayfası)", p("address")) +
                 field("GitHub", p("github"), { type: "url", ph: "https://github.com/…" }) +
                 field("Instagram", p("instagram"), { type: "url", ph: "https://www.instagram.com/…" }) +
                 field("LinkedIn (isteğe bağlı)", p("linkedin"), { type: "url", ph: "https://www.linkedin.com/in/…", help: "Boş bırakılırsa sitede gösterilmez." }) +
