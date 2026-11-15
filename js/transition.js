@@ -5,7 +5,7 @@
      sayfanın adı harf harf belirir. Perde tam kapalıyken içerik değiştirilir,
      ardından Transition.reveal() başlığı yukarı kaydırıp katmanları çeker.
      (Sayfa baştan yüklenmez; bu yüzden müzik ve 3D dünya kesilmez.)
-   - İlk ziyarette 0→100 sayacı ile zeytin rengi "sıvı" ekranı doldurur.
+   - İlk ziyarette lilyum çiçeği 0→100 sayacıyla açılır.
    main.js, hero girişini başlatmak için hazır sözünü (ready) bekler.
    GSAP yoksa veya hareket azaltılmışsa perde hemen kaldırılır.
    ========================================================================== */
@@ -172,28 +172,73 @@
         hide();
         markReady();
     } else if (firstVisit) {
-        /* ---------- İlk ziyaret: sayaç + yükselen sıvı ---------- */
+        /* ---------- İlk ziyaret: açan lilyum + yüzde sayacı ---------- */
         setText(info(page), words().hello);
         el.classList.add("is-live");
         gsap.set(rule, { scaleX: 0 });
         gsap.set(wordIn, { yPercent: 110 });
         gsap.set(chars, { yPercent: 130 });
+
+        const NS = "http://www.w3.org/2000/svg";
+        const bloom = document.createElement("div");
+        bloom.className = "pt-bloom";
+        const petalD = "M0 0 C26 -10 36 -62 12 -98 C5 -106 -5 -106 -12 -98 C-36 -62 -26 -10 0 0 Z";
+        let petals = "";
+        for (let i = 0; i < 6; i++) {
+            petals += '<g class="lp" data-i="' + i + '"><path d="' + petalD + '" fill="url(#lilyPetal)"/>' +
+                '<path d="M0 -4 C3 -30 3 -56 1 -80" fill="none" stroke="#e4e08a" stroke-width="2.4" stroke-linecap="round" opacity=".75"/>' +
+                '<path d="M-6 -22 C-4 -42 -3 -58 -2 -72 M8 -22 C9 -40 8 -56 4 -74" fill="none" stroke="#b79a6c" stroke-width=".7" opacity=".45"/></g>';
+        }
+        let stamens = "";
+        [-52, -22, 8, 38, 68].forEach((deg, i) => {
+            stamens += '<g class="ls" transform="rotate(' + deg + ')"><path d="M0 0 L0 -' + (58 + (i % 2) * 10) + '" stroke="#ece59a" stroke-width="1.6" stroke-linecap="round"/>' +
+                '<ellipse cx="0" cy="-' + (62 + (i % 2) * 10) + '" rx="3.2" ry="7.5" fill="#5b3418"/></g>';
+        });
+        bloom.innerHTML =
+            '<svg class="pt-lily" viewBox="-110 -110 220 220" focusable="false" aria-hidden="true">' +
+            '<defs><radialGradient id="lilyPetal" cx="0" cy="0" r="95" gradientUnits="userSpaceOnUse">' +
+            '<stop offset="0" stop-color="#eef0a8"/><stop offset=".28" stop-color="#f4e6c4"/>' +
+            '<stop offset=".7" stop-color="#e6cfa4"/><stop offset="1" stop-color="#d2b484"/></radialGradient></defs>' +
+            '<g class="lily-flower">' + petals + '<circle class="lc" r="7" fill="#eef0a8"/>' + stamens + '</g></svg>' +
+            '<div class="pt-bloom-count"><b>0</b><em>%</em></div>';
+        el.appendChild(bloom);
+        const flower = bloom.querySelector(".lily-flower");
+        const lp = [...bloom.querySelectorAll(".lp")];
+        const ls = [...bloom.querySelectorAll(".ls")];
+        const bcount = bloom.querySelector(".pt-bloom-count b");
+        const bcountWrap = bloom.querySelector(".pt-bloom-count");
+        const lilyEl = bloom.querySelector(".pt-lily");
+
+        // Her yaprak: tomurcuktan (dar açı, küçük) tam açılmaya
         const obj = { v: 0 };
-        const wave = () => {
-            const v = obj.v;
-            const L = 100 - v;
-            const a = 7 * Math.sin((Math.PI * v) / 100) * Math.cos(performance.now() / 260);
-            fill.setAttribute("d", "M0 100 L0 " + L + " Q25 " + (L - a) + " 50 " + L + " T100 " + L + " L100 100 Z");
-            countEl.textContent = Math.round(v);
+        const render = () => {
+            const e = obj.v / 100;
+            lp.forEach((p, i) => {
+                const open = Math.min(1, Math.max(0, e * 1.25 - i * 0.025));
+                const ang = i * 60 * (0.12 + 0.88 * open) + (i % 2 ? 6 : -4) * open;
+                const sc = 0.3 + 0.7 * open;
+                p.setAttribute("transform", "rotate(" + ang + ") scale(" + (0.55 + 0.45 * open) + " " + sc + ")");
+                p.style.opacity = Math.min(1, 0.25 + e * 2);
+            });
+            const sOpen = Math.max(0, (e - 0.55) / 0.45);
+            ls.forEach((s) => s.setAttribute("opacity", sOpen));
+            flower.setAttribute("transform", "rotate(" + (-18 + 18 * e) + ") scale(" + (0.82 + 0.18 * e) + ")");
+            bcount.textContent = Math.round(obj.v);
         };
+        render();
+
         const tl = gsap.timeline();
         tl.fromTo(texts, { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.6, ease: "power3.out", stagger: 0.06 }, 0.05)
-            .to(obj, { v: 100, duration: 1.9, ease: "power2.inOut", onUpdate: wave }, 0.1)
-            .to(rule, { scaleX: 1, duration: 1.9, ease: "power2.inOut" }, 0.1)
-            .to(countWrap, { yPercent: -110, duration: 0.45, ease: "power3.in" }, "-=0.12")
+            .fromTo(bloom, { opacity: 0 }, { opacity: 1, duration: 0.5, ease: "power2.out" }, 0)
+            .to(obj, { v: 100, duration: 2.6, ease: "power2.inOut", onUpdate: render }, 0.1)
+            .to(rule, { scaleX: 1, duration: 2.6, ease: "power2.inOut" }, 0.1)
+            .to(lilyEl, { y: -6, duration: 1.3, ease: "sine.inOut", yoyo: true, repeat: 1 }, 0.1)
+            .to(bcountWrap, { opacity: 0, y: 10, duration: 0.35, ease: "power2.in" }, ">0.05")
+            .to(bloom, { opacity: 0, scale: 1.12, duration: 0.5, ease: "power2.in" }, "<0.15")
             .add(() => el.classList.add("is-named"));
-        textIn(tl, ">-0.05");
-        tl.add(buildReveal(true), "+=0.12");
+        textIn(tl, ">-0.15");
+        tl.add(buildReveal(false), "+=0.12");
+        tl.add(() => bloom.remove());
         current = tl;
     } else {
         // Doğrudan açılış / yenileme: kısa başlık + açılış
