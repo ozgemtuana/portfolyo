@@ -1912,3 +1912,14 @@ address { font-style: normal; }
 .gp-place { position: absolute; left: 1rem; bottom: 1rem; padding: .4rem .9rem; border-radius: 999px; font-size: .62rem; font-weight: 600; letter-spacing: .18em; text-transform: uppercase; color: #f3e8d2; background: rgba(40, 26, 14, .62); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); }
 @media (max-width: 767.98px) { .gp-grid { grid-template-columns: 1fr 1fr; } .gp-item:nth-child(3) { display: none; } }
 @media (prefers-reduced-motion: reduce) { .gp-item img { transition: none; } }
+
+/* Rakamlar: Cormorant varsayılan olarak "eski stil" rakam kullanır (9 aşağı sarkar, 6 yukarı çıkar).
+   Tüm sitede satır hizalı (lining) rakamlar kullanılır; sayaçlar da şık ve sığar. */
+:root { font-variant-numeric: lining-nums; font-feature-settings: "lnum" 1; }
+.stat { padding-top: 1.4rem; }
+.stat .num { display: flex; align-items: flex-start; gap: .12em; font-weight: 400; font-size: clamp(2.8rem, 5.2vw, 4.6rem); line-height: 1.08; letter-spacing: -.01em; font-variant-numeric: lining-nums tabular-nums; white-space: nowrap; }
+.stat .num sup { position: static; margin-top: .22em; font: 400 .55em/1 var(--font-display); font-style: normal; color: var(--accent); }
+.stat .label { margin-top: .9rem; font-size: .7rem; line-height: 1.5; letter-spacing: .14em; }
+/* Krem panellerdeki çerçeveli düğme: koyu kahve yazı ve çizgi */
+.about-glass .btn-outline-dark { color: #3a2616; border-color: rgba(58, 38, 22, .55); background: transparent; }
+.about-glass .btn-outline-dark:hover, .about-glass .btn-outline-dark:focus-visible { color: #f3e8d2; background: #3a2616; border-color: #3a2616; }
