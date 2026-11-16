@@ -466,6 +466,24 @@ window.SITE_CONTENT = {
         },
         {
             "title": {
+                "tr": "Scarlet Witch Renklendirme",
+                "en": "Scarlet Witch Colouring"
+            },
+            "tag": {
+                "tr": "Proje 3",
+                "en": "Project 3"
+            },
+            "desc": {
+                "tr": "Photoshop'ta siyah çizgi çizimini renklendirdiğim çizgi roman tarzı çalışma: kırmızı tonlar ve parlayan enerji efekti.",
+                "en": "A comic-style piece where I coloured a black line drawing in Photoshop: deep reds and a glowing energy effect."
+            },
+            "image": "images/projects/proje3.jpg",
+            "art": "",
+            "link": "",
+            "featured": true
+        },
+        {
+            "title": {
                 "tr": "Kişisel Portfolyo",
                 "en": "Personal Portfolio"
             },
