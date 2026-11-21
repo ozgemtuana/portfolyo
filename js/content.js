@@ -648,8 +648,8 @@ window.SITE_CONTENT = {
                 "en": "Zizi Beach Web Interface"
             },
             "tag": {
-                "tr": "Proje 6 · Web Arayüzü",
-                "en": "Project 6 · Web Interface"
+                "tr": "Proje 5 · Web Arayüzü",
+                "en": "Project 5 · Web Interface"
             },
             "desc": {
                 "tr": "zizibeach.com sitesinin arayüzünü 960 Grid System şablonu üzerinde Photoshop'ta yeniden tasarladım; Layer Comps ile 3 farklı yerleşim hazırladım.",
