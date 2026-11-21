@@ -1,0 +1,120 @@
+/* ==========================================================================
+   Vintage katman (aşama 2): "Old World" paleti, fontlar, dokular, kart şekilleri
+   dark.css'ten SONRA yüklenir; yalnızca belirteçleri ve şekilleri geçersiz kılar.
+   ========================================================================== */
+
+:root {
+    /* PROMPT.md paleti */
+    --forest-700: #2f3a28;
+    --olive-600: #4a5a3c;
+    --olive-500: #6b7a55;
+    --sage-400: #9aa58a;
+    --wood-700: #4e3426;
+    --wood-500: #7a5a43;
+    --earth-200: #e6dcc8;
+    --cream-100: #f2ebdd;
+    --cream-50: #f6f0e3;
+    --gold: #c9a96e;
+    --gold-deep: #b08d57;
+    --ink: #2a2420;
+    --bg: var(--forest-700);
+    --surface: #36432f;
+    --surface-2: #404e37;
+    --olive-deep: #2a3524;
+    --forest: #2f3a28;
+    --ink-wood: var(--ink);
+
+    --font-display: "Cormorant Garamond", "Cormorant", "Times New Roman", serif;
+    --font-serif: var(--font-display);
+    --font-body: "Jost", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --font-calli: "Pinyon Script", "Cormorant Garamond", serif;
+    --paper: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8 .7' numOctaves='2' seed='4'/%3E%3CfeColorMatrix values='0 0 0 0 .35 0 0 0 0 .27 0 0 0 0 .17 0 0 0 .16 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23p)'/%3E%3C/svg%3E");
+}
+
+body { font-size: 1.0625rem; font-weight: 400; }
+p, li, dd, td, th { font-weight: 400; }
+
+/* Sayfa başlığının üstündeki kaligrafik küçük başlık (yalnızca sayfa başlıkları) */
+.page-offset .eyebrow, .hero .eyebrow {
+    font-family: var(--font-calli);
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    letter-spacing: 0; text-transform: none;
+    color: var(--gold); line-height: 1.1;
+}
+/* Bölüm içi küçük etiketler sade kalır: kaligrafi yok, büyük harf etiketi gizle */
+main section:not(.page-offset):not(.hero) .eyebrow { font-family: var(--font-body); font-size: .8rem; letter-spacing: .14em; text-transform: uppercase; color: var(--sage); }
+
+/* Vinyet: kenarlarda hafif kararma */
+body::after {
+    content: ""; position: fixed; inset: 0; z-index: 149; pointer-events: none;
+    background: radial-gradient(ellipse at 50% 45%, transparent 55%, rgba(18, 12, 6, .38) 100%);
+}
+
+/* --- Kart (a): dantel kenarlı krem kart --- */
+.quote, .about-glass.about-glass {
+    --r: 8px;
+    border: var(--r) solid transparent !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    -webkit-mask: linear-gradient(#000 0 0) padding-box, radial-gradient(circle calc(var(--r) - .6px) at 50% 50%, #000 98%, #0000) border-box 0 0 / calc(var(--r) * 2) calc(var(--r) * 2) round;
+    mask: linear-gradient(#000 0 0) padding-box, radial-gradient(circle calc(var(--r) - .6px) at 50% 50%, #000 98%, #0000) border-box 0 0 / calc(var(--r) * 2) calc(var(--r) * 2) round;
+}
+.quote { background-color: var(--cream-50) !important; background-image: var(--paper), linear-gradient(160deg, var(--cream-50), var(--earth-200)) !important; background-blend-mode: multiply; color: var(--ink); }
+.quote .quote-text, .quote .quote-by { color: var(--ink) !important; }
+
+/* --- Kart (b): vintage etiket (kemerli üst/alt, ince altın iç çerçeve) --- */
+.list-card, .proc-card, .card.rounded-4 {
+    position: relative;
+    border-radius: 50% / 26px !important;
+    padding-inline: clamp(1.75rem, 5vw, 3rem) !important;
+    padding-block: clamp(2.25rem, 5vw, 3rem) !important;
+}
+.list-card::after, .proc-card::after, .card.rounded-4::after {
+    content: ""; position: absolute; inset: 11px; pointer-events: none;
+    border: 1px solid rgba(176, 141, 87, .75);
+    border-radius: 50% / 20px;
+}
+.list-card--cream, .proc-card.list-card--cream { background-image: var(--paper), linear-gradient(160deg, var(--cream-50), var(--earth-200)) !important; background-blend-mode: multiply; }
+.list-card--cream h2, .list-card--cream h3 { color: var(--ink); }
+
+/* Kabartma (gofre): küçük başlıklarda */
+.id-name, .footer-name { text-shadow: 0 1px 0 rgba(255, 244, 220, .35), 0 -1px 0 rgba(0, 0, 0, .35); }
+
+/* --- Telefon: menü vintage kart gibi açılır; dokunma alanları 44 px --- */
+.btn, .navbar .nav-link, .lang-switch button, .pagenav a, .form-control, .form-select { min-height: 44px; }
+@media (max-width: 991.98px) {
+    .navbar-collapse {
+        margin-top: .75rem; padding: 1.25rem 1.5rem 1.5rem;
+        background-image: var(--paper), linear-gradient(160deg, var(--cream-50), var(--earth-200));
+        background-blend-mode: multiply;
+        border: 1px solid var(--gold-deep); border-radius: 50% / 22px;
+        box-shadow: 0 18px 40px rgba(10, 6, 2, .45);
+    }
+    .navbar-collapse .nav-link { color: var(--ink) !important; display: flex; align-items: center; }
+    .navbar-collapse .nav-link.active, .navbar-collapse .nav-link[aria-current] { color: var(--gold-deep) !important; }
+}
+
+/* --- Ders programı: gerçek <table>, eski defter / kayıt defteri görünümü --- */
+section .glass.sched-wrap.sched-wrap.sched-wrap.sched-wrap { background-color: var(--cream-50) !important; background-image: var(--paper), linear-gradient(160deg, var(--cream-50), var(--earth-200)) !important; background-blend-mode: multiply; color: var(--ink); }
+.sched-table { width: 100%; table-layout: fixed; border-collapse: collapse; color: var(--ink); }
+.sched-table th, .sched-table td { vertical-align: top; }
+.sgt-corner, .sgt-head {
+    padding: .7rem .4rem .8rem; text-align: center; font-family: var(--font-display); font-size: 1.15rem; font-weight: 500;
+    color: var(--ink); border-bottom: 2px solid var(--gold-deep);
+}
+.sgt-corner { width: 4.5rem; font-family: var(--font-body); font-size: .72rem; letter-spacing: .14em; text-transform: uppercase; }
+.sgt-head small { display: none; font-family: var(--font-body); font-size: .58rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--cream-50); background: var(--wood-700); border-radius: 999px; padding: .15rem .55rem; margin-left: .4rem; }
+.sgt-head.is-today small { display: inline-block; }
+.sgt-head.is-today { color: var(--wood-700); }
+.sgt-time { padding: .5rem .4rem; text-align: left; font-family: var(--font-body); font-size: .8rem; font-weight: 500; color: var(--wood-500); font-variant-numeric: tabular-nums; border-top: 1px solid rgba(78, 52, 38, .22); }
+.sgt-cell { height: 5.5rem; padding: 3px; border-top: 1px solid rgba(78, 52, 38, .22); border-left: 1px dotted rgba(78, 52, 38, .3); }
+.sgt-cell.is-today { background: rgba(176, 141, 87, .12); }
+.sgt-free { padding: .9rem; text-align: center; font-family: var(--font-display); font-style: italic; font-size: 1.4rem; color: var(--wood-500); border-top: 1px solid rgba(78, 52, 38, .22); border-left: 1px dotted rgba(78, 52, 38, .3); }
+.sched-table .course { position: static; height: 100%; min-height: 4.8rem; box-sizing: border-box; background: rgba(78, 52, 38, .07); border: 1px solid rgba(78, 52, 38, .3); box-shadow: inset 3px 0 0 var(--gold-deep); }
+.sched-table .course:hover { transform: none; box-shadow: inset 3px 0 0 var(--gold-deep); }
+.sched-table .course-name { color: var(--ink); font-weight: 500; }
+.sched-table .course-code { color: var(--wood-700); }
+.sched-table .course-time, .sched-table .course-meta { color: rgba(42, 36, 32, .78); }
+.sched-table .course-kind { color: var(--wood-700); border-color: rgba(78, 52, 38, .4); }
+.sched-table .course.is-short .course-meta span:nth-child(2) { display: none; }
+@media (max-width: 991.98px) { .sched-table { display: none; } }

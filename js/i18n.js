@@ -283,17 +283,32 @@ function renderContent(site) {
                     `<span class="course-kind k-${kind(x.c.kind)}" data-i18n="schedule.kind.${kind(x.c.kind)}"></span>` +
                     `<span class="course-now" data-i18n="schedule.now"></span>` +
                 `</article>`;
-            let grid = `<div class="sched-grid" style="--rows: ${rows}">` +
-                `<div class="sg-head sg-corner" data-i18n="schedule.time"></div>` +
-                [1, 2, 3, 4, 5].map((d) => `<div class="sg-head" data-day="${d}" style="--col: ${d + 1}"><span data-i18n="schedule.day${d}"></span><small data-i18n="schedule.today"></small></div>`).join("");
+            // Gerçek <table>: üst satırda günler (th), solda saatler (th), dersler rowspan'li hücreler (td)
+            const spanOf = (x) => Math.max(1, Math.round((x.e - x.s + 10) / 60));
+            const covered = {}; // "satır:gün" → önceki bir dersin rowspan'i tarafından kapatılmış hücre
+            let grid = `<table class="sched-table"><caption class="visually-hidden" data-i18n="schedule.title.plain"></caption>` +
+                `<thead><tr><th scope="col" class="sgt-corner" data-i18n="schedule.time"></th>` +
+                [1, 2, 3, 4, 5].map((d) => `<th scope="col" class="sgt-head" data-day="${d}"><span data-i18n="schedule.day${d}"></span><small data-i18n="schedule.today"></small></th>`).join("") +
+                `</tr></thead><tbody>`;
             for (let r = 0; r < rows; r++) {
                 const t = first + r * 60;
                 const busy = courses.some((x) => x.s < t + 50 && x.e > t);
-                grid += `<div class="sg-time" style="--row: ${r + 2}">${hhmm(t)}</div>` +
-                    (busy ? "" : `<div class="sg-free" style="--row: ${r + 2}" data-i18n="schedule.lunch"></div>`);
-                for (let d = 1; d <= 5; d++) grid += `<div class="sg-cell" data-day="${d}" style="--row: ${r + 2}; --col: ${d + 1}"></div>`;
+                grid += `<tr><th scope="row" class="sgt-time">${hhmm(t)}</th>`;
+                if (!busy) {
+                    grid += `<td class="sgt-free" colspan="5" data-i18n="schedule.lunch"></td></tr>`;
+                    continue;
+                }
+                for (let d = 1; d <= 5; d++) {
+                    if (covered[r + ":" + d]) continue;
+                    const x = courses.find((c) => c.d === d && Math.floor((c.s - first) / 60) === r);
+                    if (!x) { grid += `<td class="sgt-cell" data-day="${d}"></td>`; continue; }
+                    const sp = spanOf(x);
+                    for (let k = 1; k < sp; k++) covered[(r + k) + ":" + d] = true;
+                    grid += `<td class="sgt-cell sgt-has" data-day="${d}" rowspan="${sp}">${card(x).replace('class="course ', 'class="course ' + (sp === 1 ? "is-short " : ""))}</td>`;
+                }
+                grid += `</tr>`;
             }
-            grid += courses.map(card).join("") + `</div>`;
+            grid += `</tbody></table>`;
             const list = `<div class="sched-list">` + [1, 2, 3, 4, 5].map((d) => {
                 const day = courses.filter((x) => x.d === d);
                 if (!day.length) return "";
