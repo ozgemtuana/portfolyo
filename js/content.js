@@ -484,6 +484,42 @@ window.SITE_CONTENT = {
         },
         {
             "title": {
+                "tr": "Güneş Sistemi",
+                "en": "The Solar System"
+            },
+            "tag": {
+                "tr": "Proje 4 · Smart Object",
+                "en": "Project 4 · Smart Object"
+            },
+            "desc": {
+                "tr": "Photoshop Smart Object ile hazırladığım güneş sistemi: gezegenler akıllı nesne olarak yerleştirildi, yörüngeler ve yıldızlı arka planla tamamlandı.",
+                "en": "A solar system built with Photoshop Smart Objects: planets placed as smart objects, finished with orbits and a starry background."
+            },
+            "image": "images/projects/proje4-gunes-sistemi.jpg",
+            "art": "",
+            "link": "",
+            "featured": true
+        },
+        {
+            "title": {
+                "tr": "Zizi Beach Web Arayüzü",
+                "en": "Zizi Beach Web Interface"
+            },
+            "tag": {
+                "tr": "Proje 6 · Web Arayüzü",
+                "en": "Project 6 · Web Interface"
+            },
+            "desc": {
+                "tr": "zizibeach.com sitesinin arayüzünü 960 Grid System şablonu üzerinde Photoshop'ta yeniden tasarladım; Layer Comps ile 3 farklı yerleşim hazırladım.",
+                "en": "I redesigned the zizibeach.com interface in Photoshop on the 960 Grid System template and prepared 3 layouts with Layer Comps."
+            },
+            "image": "images/projects/proje6-web-arayuzu.jpg",
+            "art": "",
+            "link": "",
+            "featured": true
+        },
+        {
+            "title": {
                 "tr": "Kişisel Portfolyo",
                 "en": "Personal Portfolio"
             },
