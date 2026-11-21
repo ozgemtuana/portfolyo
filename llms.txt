@@ -1,0 +1,20 @@
+# Tuana Davarcı — kişisel portfolyo
+
+> Akdeniz Üniversitesi Bilgisayar Programcılığı öğrencisi Tuana Davarcı'nın Türkçe ve İngilizce kişisel web sitesi. Konular: grafik animasyon, web tasarım, ürün tanıtımı, dijital tanıtım. Konum: Muratpaşa, Antalya, Türkiye.
+
+Site iki dillidir (TR/EN); dil, sağ üstteki düğmeyle değişir. Bütün içerik düz HTML metni olarak sayfalarda bulunur.
+
+## Sayfalar
+- [Ana Sayfa](https://ozgemtuana.github.io/portfolyo/): kısa tanıtım, proje ve galeri önizlemesi
+- [Hakkımda](https://ozgemtuana.github.io/portfolyo/hakkimda.html): vesikalık, özgeçmiş, ders programı, ilgi alanları, yetenek yüzdeleri
+- [Özgeçmiş](https://ozgemtuana.github.io/portfolyo/resume.html): eğitim, deneyim, diller, araçlar
+- [Projeler](https://ozgemtuana.github.io/portfolyo/projects.html): Grafik Animasyon dersi çalışmaları (ürün tanıtımı, Photoshop, Smart Object, web arayüzü)
+- [Blog](https://ozgemtuana.github.io/portfolyo/blog.html): yapay zekâ, dijital tanıtım ve kişisel marka üzerine üç yazı
+- [Galeri](https://ozgemtuana.github.io/portfolyo/galeri.html): fotoğraflar ve kısa açıklamalar
+- [Süreç & İlham](https://ozgemtuana.github.io/portfolyo/surec.html): konsept, palet, fontlar, araçlar, yapım süreci
+- [İletişim](https://ozgemtuana.github.io/portfolyo/contact.html): adres, telefon, iletişim formu
+
+## İletişim
+- E-posta: ozgmtuana15@gmail.com
+- GitHub: https://github.com/ozgemtuana
+- Instagram: https://www.instagram.com/ozgemtuana/

@@ -25,7 +25,8 @@
         projects: { file: "projects.html", key: "nav.projects", no: "04", fb: "Projeler" },
         blog: { file: "blog.html", key: "nav.blog", no: "05", fb: "Blog" },
         gallery: { file: "galeri.html", key: "nav.gallery", no: "06", fb: "Galeri" },
-        contact: { file: "contact.html", key: "nav.contact", no: "07", fb: "İletişim" }
+        process: { file: "surec.html", key: "nav.process", no: "07", fb: "Süreç" },
+        contact: { file: "contact.html", key: "nav.contact", no: "08", fb: "İletişim" }
     };
     const TOTAL = "0" + Object.keys(PAGES).length;
     const WORDS = {
