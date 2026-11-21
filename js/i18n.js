@@ -358,7 +358,7 @@ function renderContent(site) {
 
     // Sayfa sonu: sıradaki sayfa + tüm sayfalara kısa yol
     if ((el = box("pagenav"))) {
-        const ORDER = [["home", "index.html", "nav.home"], ["about", "hakkimda.html", "nav.about"], ["resume", "resume.html", "nav.resume"], ["projects", "projects.html", "nav.projects"], ["blog", "blog.html", "nav.blog"], ["gallery", "galeri.html", "nav.gallery"], ["contact", "contact.html", "nav.contact"]];
+        const ORDER = [["home", "index.html", "nav.home"], ["about", "hakkimda.html", "nav.about"], ["resume", "resume.html", "nav.resume"], ["projects", "projects.html", "nav.projects"], ["blog", "blog.html", "nav.blog"], ["gallery", "galeri.html", "nav.gallery"], ["process", "surec.html", "nav.process"], ["contact", "contact.html", "nav.contact"]];
         const cur = Math.max(0, ORDER.findIndex((o) => o[0] === document.body.dataset.page));
         const next = ORDER[(cur + 1) % ORDER.length], prev = ORDER[(cur - 1 + ORDER.length) % ORDER.length];
         const last = cur === ORDER.length - 1;
@@ -438,6 +438,18 @@ function applyLang(lang) {
 
     const titleKey = document.body.dataset.title;
     if (titleKey && dict[titleKey]) document.title = dict[titleKey];
+
+    // Sayfaya özel açıklama + paylaşım etiketleri (arama motorları ve sosyal önizleme)
+    const descKey = document.body.dataset.desc;
+    const setMeta = (sel, v) => { const m = document.querySelector(sel); if (m && v) m.setAttribute("content", v); };
+    if (descKey && dict[descKey]) {
+        setMeta('meta[name="description"]', dict[descKey]);
+        setMeta('meta[property="og:description"]', dict[descKey]);
+        setMeta('meta[name="twitter:description"]', dict[descKey]);
+    }
+    setMeta('meta[property="og:title"]', document.title);
+    setMeta('meta[name="twitter:title"]', document.title);
+    setMeta('meta[property="og:locale"]', lang === "en" ? "en_US" : "tr_TR");
 
     document.querySelectorAll(".lang-switch button").forEach((b) => {
         const on = b.dataset.lang === lang;

@@ -1923,3 +1923,19 @@ address { font-style: normal; }
 /* Krem panellerdeki çerçeveli düğme: koyu kahve yazı ve çizgi */
 .about-glass .btn-outline-dark { color: #3a2616; border-color: rgba(58, 38, 22, .55); background: transparent; }
 .about-glass .btn-outline-dark:hover, .about-glass .btn-outline-dark:focus-visible { color: #f3e8d2; background: #3a2616; border-color: #3a2616; }
+
+/* --- Süreç & İlham sayfası --- */
+.proc-grid { display: grid; grid-template-columns: 1fr; gap: 1.5rem; }
+@media (min-width: 992px) { .proc-grid { grid-template-columns: 1fr 1fr; } .proc-card--wide { grid-column: 1 / -1; } }
+.proc-card h2 { font-size: clamp(1.6rem, 3vw, 2.1rem); margin-bottom: .75rem; }
+.proc-card p { margin-bottom: .75rem; }
+.proc-links li { margin-bottom: .35rem; }
+.proc-links a { text-decoration: underline; text-underline-offset: 3px; }
+.proc-palette { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(8.5rem, 1fr)); gap: .75rem; }
+.proc-sw { display: grid; grid-template-columns: 2.25rem 1fr; grid-template-rows: auto auto; column-gap: .6rem; align-items: center; font-size: .9rem; }
+.proc-chip { grid-row: 1 / 3; width: 2.25rem; height: 2.25rem; border-radius: .5rem; border: 1px solid rgba(0,0,0,.25); }
+.proc-hex { font-family: var(--font-mono); font-size: .72rem; letter-spacing: .08em; opacity: .75; }
+.proc-sample { margin: 1rem 0 0; padding-left: 1rem; border-left: 2px solid var(--accent); font-family: var(--font-display); font-style: italic; font-size: 1.5rem; line-height: 1.3; }
+.proc-sample p { margin: 0; }
+.proc-grid { align-items: start; }
+.list-card--wood .ul-list li::before { background: var(--accent); }

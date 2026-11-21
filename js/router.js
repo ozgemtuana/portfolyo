@@ -16,7 +16,7 @@
 window.Router = (function () {
     if (location.protocol === "file:" || !window.fetch || !window.DOMParser || !window.history || !history.pushState) return null;
 
-    const FILES = { "index.html": "home", "hakkimda.html": "about", "resume.html": "resume", "projects.html": "projects", "blog.html": "blog", "galeri.html": "gallery", "contact.html": "contact" };
+    const FILES = { "index.html": "home", "hakkimda.html": "about", "resume.html": "resume", "projects.html": "projects", "blog.html": "blog", "galeri.html": "gallery", "surec.html": "process", "contact.html": "contact" };
     const cache = new Map();   // adres → HTML metni (üzerine gelince önceden alınır)
     let busy = false;
     let lastURL = new URL(location.href);
@@ -54,6 +54,7 @@ window.Router = (function () {
         incoming.forEach((n) => body.insertBefore(document.importNode(n, true), anchor || null));
         body.dataset.page = doc.body.dataset.page || "";
         body.dataset.title = doc.body.dataset.title || "";
+        body.dataset.desc = doc.body.dataset.desc || "";
         const md = doc.querySelector('meta[name="description"]'), cur = document.querySelector('meta[name="description"]');
         if (md && cur) cur.setAttribute("content", md.getAttribute("content"));
         document.title = doc.title;
