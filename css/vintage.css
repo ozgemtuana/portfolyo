@@ -128,3 +128,5 @@ html.paint-fallback .paint-bg canvas { display: none; }
 
 /* Performans: WebGL tuvalinin üstünde her karede yeniden hesaplanan bulanıklıklar GPU'yu yoruyordu (sekme çökmesi) */
 *, *::before, *::after { -webkit-backdrop-filter: none !important; backdrop-filter: none !important; }
+/* Trackpad'de yana kayan iki parmak hareketi tarayıcının "geri git" jestini tetikleyip sayfayı değiştirmesin */
+html, body { overscroll-behavior-x: none; }
