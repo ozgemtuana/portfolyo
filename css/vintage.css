@@ -118,3 +118,13 @@ section .glass.sched-wrap.sched-wrap.sched-wrap.sched-wrap { background-color: v
 .sched-table .course-kind { color: var(--wood-700); border-color: rgba(78, 52, 38, .4); }
 .sched-table .course.is-short .course-meta span:nth-child(2) { display: none; }
 @media (max-width: 991.98px) { .sched-table { display: none; } }
+
+/* --- Canlanan tablo (js/painting.js): yalnızca ana sayfada --- */
+.paint-bg { position: fixed; inset: 0; z-index: -2; pointer-events: none; display: none; background: #2b2a20 url("../images/scenes/cole-fallback.jpg") center / cover no-repeat; }
+.paint-bg canvas { display: block; width: 100%; height: 100%; opacity: 0; transition: opacity 1.2s ease; }
+html.paint-on .paint-bg { display: block; }
+html.paint-ready .paint-bg canvas { opacity: 1; }
+html.paint-fallback .paint-bg canvas { display: none; }
+
+/* Performans: WebGL tuvalinin üstünde her karede yeniden hesaplanan bulanıklıklar GPU'yu yoruyordu (sekme çökmesi) */
+*, *::before, *::after { -webkit-backdrop-filter: none !important; backdrop-filter: none !important; }

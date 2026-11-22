@@ -1101,7 +1101,7 @@
     // Sayfa değişince (js/router.js) kamera yeni bölgeye kesmeden süzülür
     let glideFrom = null, glideT0 = 0, lastTT = 0;
 
-    let sp = 0, target = 0, time = 0, wind = 0, lastScrollY = window.scrollY, dirty = true, visible = true, last = performance.now(), firstDone = false;
+    let paused = false, sp = 0, target = 0, time = 0, wind = 0, lastScrollY = window.scrollY, dirty = true, visible = true, last = performance.now(), firstDone = false;
     const mouse = { x: 0, y: 0, tx: 0, ty: 0 };
     const readScroll = () => {
         const max = document.documentElement.scrollHeight - window.innerHeight;
@@ -1125,7 +1125,7 @@
     const camPos = new THREE.Vector3(), camLook = new THREE.Vector3();
     function frame(now) {
         requestAnimationFrame(frame);
-        if (!visible) return;
+        if (!visible || paused) return;
         const dt = Math.min(0.05, (now - last) / 1000); last = now;
         if (!reduce) time += dt;
         sp += (target - sp) * (1 - Math.exp(-dt * 3.2));
@@ -1191,6 +1191,14 @@
     requestAnimationFrame(frame);
     // Yeni sayfa: kaydırma konumu sıfırlanır, kamera o sayfanın bölgesine süzülür
     window.World = {
+        // Ana sayfada js/painting.js tablosu çizilirken bu dünya durur ve gizlenir
+        pause(on) {
+            paused = !!on;
+            canvas.style.visibility = paused ? "hidden" : "";
+            // Duraklayınca çizim tamponunu küçült: iki WebGL tuvali aynı anda GPU belleği tüketmesin
+            if (paused) renderer.setSize(2, 2, false);
+            else { renderer.setSize(window.innerWidth, window.innerHeight); last = performance.now(); dirty = true; }
+        },
         setPage(p) {
             glideFrom = lastTT; glideT0 = performance.now() / 1000;
             RANGE = RANGES[p] || [0, 1];
