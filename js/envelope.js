@@ -181,8 +181,8 @@
                 .to(q(".env-card"), { yPercent: 0, duration: 0.18, ease: "power2.in" }, 0.2)
                 .set(q(".env-flap"), { zIndex: 4 }, 0.3)
                 .to(q(".env-flap"), { rotateX: 0, duration: 0.2, ease: "power2.in" }, 0.24)
-                .to(q(".env-seal"), { opacity: 1, scale: 1, duration: 0.12, ease: "back.out(3)" }, 0.44)
-                .call(resolve, null, 0.56);
+                .to(q(".env-seal"), { opacity: 1, scale: 1, duration: 0.1, ease: "back.out(3)" }, 0.4)
+                .call(resolve, null, 0.5);
         });
     }
     // Varış: mühür çatlar, kapak açılır, kart çıkıp ekranı doldurur, yeni sayfa görünür
@@ -198,13 +198,13 @@
             tl.to(q(".env-half.l"), { x: -10, y: 8, rotate: -20, opacity: 0, duration: 0.22, ease: "power2.in" }, 0)
                 .to(q(".env-half.r"), { x: 10, y: 9, rotate: 18, opacity: 0, duration: 0.22, ease: "power2.in" }, 0);
             bits.forEach((b, i) => tl.fromTo(b, { opacity: 1 }, { x: (i - 2.5) * 14, y: 26 + Math.random() * 20, opacity: 0, duration: 0.35 }, 0.02));
-            tl.to(q(".env-flap"), { rotateX: 178, duration: 0.22, ease: "power2.out" }, 0.12)
-                .set(q(".env-flap"), { zIndex: 1 }, 0.22)
-                .to(q(".env-card"), { yPercent: -55, duration: 0.18, ease: "power2.out" }, 0.28)
-                .set(q(".env-card"), { zIndex: 6 }, 0.44)
-                .to(q(".env-card"), { scale: 5, yPercent: -30, duration: 0.24, ease: "power2.in" }, 0.44)
-                .call(resolve, null, 0.5)
-                .to(stage, { opacity: 0, duration: 0.18 }, 0.56);
+            tl.to(q(".env-flap"), { rotateX: 178, duration: 0.2, ease: "power2.out" }, 0.1)
+                .set(q(".env-flap"), { zIndex: 1 }, 0.2)
+                .to(q(".env-card"), { yPercent: -55, duration: 0.16, ease: "power2.out" }, 0.24)
+                .set(q(".env-card"), { zIndex: 6 }, 0.38)
+                .to(q(".env-card"), { scale: 5, yPercent: -30, duration: 0.2, ease: "power2.in" }, 0.38)
+                .call(resolve, null, 0.44)
+                .to(stage, { opacity: 0, duration: 0.16 }, 0.46);
         });
     }
 

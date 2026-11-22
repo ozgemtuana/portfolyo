@@ -1,8 +1,41 @@
 # İlerleme ve kararlar
 
-## YAPILMADI – ÖNCELİK 1 (2026-11-23)
+## SABAH ÖZETİ (2026-11-23, gece çalışması)
 
-Açılış jeneriği ve sayfa geçişleri hâlâ eski hâlinde: kahverengi zemin, altın mühür, sayaçlı yükleme, "Gir" butonu ve Met kapısı. Bunlar defalarca istendi, yapılmadı. Bu iş bitene kadar başka göreve geçilmeyecek.
+**Bitti**
+- **Öncelik 1, açılış zarfı (references/26):**
+  - Sahne: yeşil kadife zarf, kapak kenarlarında gerçek krem dantel (Met dantel kâğıdından kesildi), ortada krem oval kabartma mühür (zambak + T·D).
+  - Yazılar: "Bir portfolyo", kaligrafik "Tuana Davarcı", el çizimi alt çizgili "Davetiyeyi aç".
+  - Animasyon: tıklayınca, kaydırınca ya da Enter'a basınca mühür çatlar ve kırıntılar saçılır. Kamera geri çekilir, kapak 3D açılır, dantel kart çıkar, ekranı doldurur ve Panini galerisi belirir.
+  - Kaldırılanlar: kahverengi perde, altın mühür, sayaç, "hoş geldin" yazısı, "Gir" kutusu ve kapı açılışı.
+  - Telefonda da test edildi.
+- **Öncelik 1, sayfa geçişleri:** küçük zarf kayarak gelir, kapak kapanır, mühür basılır, ardından mühür çatlar, kapak açılır ve kart yeni sayfaya dönüşür. Zarf rengi sayfaya göre değişir: yeşil kadife (genel), krem dantelli (Hakkımda), kahve (Projeler), beyaz dalgalı kapaklı (İletişim).
+- **Kanıt:** `inceleme/acilis-ve-gecis.jpg` (references/26 ile yan yana açılış kareleri + üç geçiş).
+- **Hakkımda kâğıt kolajı:**
+  - Objeler: mektup, daktilo kâğıdı, bilet koçanı, kulüp kartı, davetiye, kraft etiket, diploma, kayıt defteri, fiş kartı, defter sayfası.
+  - Süsler: SVG damgalar ve monogram.
+  - Telefonda yatay taşma düzeltildi.
+- **Tipografi:** kaligrafik "Tuana"nın T'si artık Cormorant italik. Dev "Tuana Davarcı" ekrana sığıyor. Rastgele beyaz noktalar (shader tozu) kaldırıldı.
+
+**Kaldı**
+- Anasayfa ve Projeler dergi düzeni yazıldı ama henüz incelenmedi; ekran görüntüleri alınıp düzeltilecek (sırada).
+- Kalan sayfalar (Özgeçmiş, Blog, Galeri, Süreç, İletişim) kolaj düzenine geçecek.
+- Gerçek görseller gelince kullanılacaklar: kadife doku, mühür, ataş, mandal, çerçeveler ve Projeler'in eskiz defteri girişi (ASSETS-TODO.md).
+
+**Onayını bekleyenler**
+- Açılış zarfı ve geçişler (`inceleme/acilis-ve-gecis.jpg`).
+- Hakkımda kolajı.
+- Anasayfa ve Projeler dergi düzeni (ekran görüntüleri sabah hazır olacak).
+
+## ÖNCELİK 1 – YAPILDI (2026-11-23)
+
+Açılış jeneriği ve sayfa geçişleri eski hâlindeydi: kahverengi zemin, altın mühür, sayaçlı yükleme, "Gir" butonu ve Met kapısı. Bu oturumda yapıldı (yukarıdaki özete bak). Teknik notlar:
+- **Bileşenler:** `js/envelope.js` ve `css/envelope.css`. `js/transition.js` zarf yüklüyse eski perdeyi hiç çalıştırmıyor. Kapı açılışı betiği (`js/intro.js`) sayfalardan çıkarıldı; dosya silinmedi.
+- **Kadife dokusu:** gerçek fotoğraf yoksa SVG gürültü, kadife tüyü ve dokuma çizgileriyle üretiliyor. `public/assets/real/envelope-green-velvet.jpg` ve `wax-seal-cream-oval.png` konunca kendiliğinden onlara geçiyor (ASSETS-TODO.md).
+- **Karar:** tam ekran zarfın üstünde kartın çıkacağı yer olmadığı için kapak açılırken kamera geri çekiliyor (zarf 0,58 ölçeğe iniyor). Kart zarftan gerçekten yukarı kayıp sonra büyüyor.
+- **Süre:** açılış yaklaşık 3,2 sn; geçiş ayrılış 0,5 sn + varış 0,62 sn (toplam ~1,1 sn, sayfanın yüklenme süresi hariç).
+
+Aşağıda orijinal istek:
 
 1. **Açılış (references/26):**
    - Sahne: ekranı dolduran zeytin yeşili kadife/keten dokulu kapalı zarf, üstten bakış. Kapak kenarlarında krem dantel şerit.
