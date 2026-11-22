@@ -82,6 +82,38 @@
         return;
     }
 
+    /* ---------- Zarf (js/envelope.js): açılış davetiyesi ve sayfa geçişleri ----------
+       Eski sayaçlı mühür, "Gir" butonu, kapı ve sıvı perde yerine geçer. */
+    if (window.Envelope) {
+        const E = window.Envelope;
+        const isFirst = root.classList.contains("first-visit");
+        const outgoingEls = () => document.querySelectorAll("main > :not(nav), .site-footer, .navbar");
+        const pageInfo = (key, fb) => { const p = PAGES[key]; return { page: key, name: p ? tr(p.key, p.fb) : fb || "—" }; };
+        if (isFirst) {
+            // Zarf perdenin üstünde açılır; yükleme arkada sessizce sürer
+            E.intro().then(markReady);
+            requestAnimationFrame(() => hide());
+        } else {
+            // Doğrudan açılış / yenileme: perde kısa bir solmayla kalkar
+            gsap.to(el, { opacity: 0, duration: 0.45, delay: 0.1, ease: "power1.out", onComplete: () => { hide(); el.style.opacity = ""; } });
+            setTimeout(markReady, 250);
+        }
+        window.Transition = {
+            leave(key) {
+                document.dispatchEvent(new CustomEvent("transition:start", { detail: { key } }));
+                gsap.to(outgoingEls(), { opacity: 0.25, y: -30, duration: 0.45, ease: "power2.in" });
+                return E.leave(key);
+            },
+            reveal(key) {
+                const p = makeReady();
+                E.reveal(key).then(markReady);
+                return p;
+            },
+            info: pageInfo, pages: PAGES
+        };
+        return;
+    }
+
     /* ---------- Öğeler ---------- */
     const $ = (s) => el.querySelector(s);
     const nameEl = $(".pt-name");

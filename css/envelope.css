@@ -1,0 +1,90 @@
+/* ==========================================================================
+   Zarf: açılış davetiyesi ve sayfa geçişleri (js/envelope.js, references/26)
+   Kadife/keten dokusu: gerçek fotoğraf (public/assets/real/envelope-green-velvet.jpg) yoksa
+   SVG gürültü + ince dokuma çizgileriyle üretilir. Dantel: Met dantel kâğıdı (CC0).
+   ========================================================================== */
+:root {
+    --velvet-noise: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' seed='3'/%3E%3CfeColorMatrix values='0 0 0 0 .16  0 0 0 0 .18  0 0 0 0 .08  0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    --velvet-pile: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='600'%3E%3Cfilter id='m'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.012 .03' numOctaves='2' seed='9'/%3E%3CfeColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 .85  0 0 0 .16 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23m)'/%3E%3C/svg%3E");
+    --weave: repeating-linear-gradient(0deg, rgba(255, 255, 240, .035) 0 1px, transparent 1px 3px), repeating-linear-gradient(90deg, rgba(0, 0, 0, .05) 0 1px, transparent 1px 3px);
+    --env-green: url("../public/assets/real/envelope-green-velvet.jpg") center / cover, var(--velvet-pile) center / 600px, var(--velvet-noise), var(--weave), linear-gradient(160deg, #78804f, #61683e 55%, #555b34);
+    --env-green-flap: url("../public/assets/real/envelope-green-velvet.jpg") center / cover, var(--velvet-pile) 30% 20% / 600px, var(--velvet-noise), var(--weave), linear-gradient(170deg, #7f8755, #6a7144 60%, #5d6339);
+    --env-cream: var(--velvet-noise), linear-gradient(rgba(246, 239, 224, .7), rgba(236, 226, 204, .7)), url("../images/textures/paper-aged.jpg") center / 700px, #efe5d1;
+    --env-kraft: var(--velvet-noise), linear-gradient(rgba(122, 86, 52, .78), rgba(98, 66, 38, .78)), url("../images/textures/paper-aged.jpg") center / 600px, #6d4a2b;
+    --env-white: var(--velvet-noise), linear-gradient(rgba(252, 250, 244, .82), rgba(242, 238, 228, .82)), url("../images/textures/paper-aged.jpg") center / 900px, #f7f3ea;
+}
+
+/* Sayfa yüklenirken (zarf gelmeden önce) eski kahverengi perde yerine kadife */
+html.js .pt { background: var(--env-green); }
+html.js .pt .pt-svg, html.js .pt .pt-content, html.js .pt .pt-bloom { display: none !important; }
+
+.env-stage { position: fixed; inset: 0; z-index: 2000; display: grid; place-items: center; overflow: hidden; perspective: 1600px; }
+.env-stage--intro { background: radial-gradient(ellipse at 50% 55%, #3f4428, #262916 75%); }.env-stage--tx { background: radial-gradient(ellipse at 50% 55%, rgba(28, 24, 16, .55), rgba(16, 13, 8, .82)); pointer-events: all; }
+
+/* ---------- Zarf ---------- */
+.env { --apex: 58%; position: relative; transform-style: preserve-3d; }
+.env--full { position: absolute; inset: 0; width: 100%; height: 100%; cursor: pointer; }
+.env--mini { --apex: 54%; width: min(420px, 78vw); aspect-ratio: 3 / 2; }
+.env--full::before { content: ""; position: absolute; inset: 4% 2% -3%; z-index: 0; background: rgba(0, 0, 0, .6); filter: blur(30px); }
+.env--mini::before { content: ""; position: absolute; inset: 6% 3% -4%; z-index: 0; background: rgba(0, 0, 0, .55); filter: blur(18px); border-radius: 8px; }
+.env > * { position: absolute; }
+.env-liner { inset: 0; clip-path: polygon(0 0, 100% 0, 50% var(--apex)); background:
+    linear-gradient(rgba(0, 0, 0, .28), rgba(0, 0, 0, .05) 70%), var(--velvet-noise), linear-gradient(#e9dfc8, #dacdaf); z-index: 1; }
+.env-pocket { inset: 0; z-index: 3; clip-path: polygon(0 0, 50% var(--apex), 100% 0, 100% 100%, 0 100%); background: var(--env-green); }
+.env-folds { position: absolute; inset: 0; background-size: 100% 100%; }
+.env-pocket::after { content: ""; position: absolute; inset: 0; background: radial-gradient(ellipse 70% 60% at 50% 60%, transparent 40%, rgba(10, 8, 4, .42)); }
+.env-flap { left: 0; top: 0; width: 100%; height: var(--apex); z-index: 4; transform-origin: 50% 0; transform-style: preserve-3d; }
+.env-flap-front, .env-flap-back { position: absolute; inset: 0; clip-path: polygon(0 0, 100% 0, 50% 100%); backface-visibility: hidden; }
+.env-flap-front { background: var(--env-green-flap); }
+.env-flap-front::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(255, 250, 230, .07), rgba(0, 0, 0, .18)); }
+.env-flap-back { transform: rotateX(180deg); background: linear-gradient(rgba(0, 0, 0, .12), rgba(0, 0, 0, .12)), var(--velvet-noise), linear-gradient(#e9dfc8, #d8ccae); }
+/* Kapak kenarında sarkan krem dantel (gerçek dantel taraması) */
+.env-lace { position: absolute; top: 0; z-index: 2; height: clamp(46px, 6.4vw, 86px); background: url("../images/textures/lace-strip.webp") 0 0 / auto 100% repeat-x;
+    filter: drop-shadow(0 4px 4px rgba(0, 0, 0, .35)); pointer-events: none; }
+.env-lace.l { left: 0; transform-origin: 0 0; }
+.env-lace.r { right: 0; transform-origin: 100% 0; }
+.env--mini .env-lace { height: 14px; }
+/* Kartın içi: dantel kenarlı krem kart */
+.env-card { left: 50%; top: 18%; width: 62%; height: 72%; margin-left: -31%; z-index: 2; transform-origin: 50% 40%; }
+.env-card-in { position: absolute; inset: 0; border: clamp(14px, 2.4vw, 30px) solid transparent; border-image: url("../images/textures/lace-border.webp") 150 / clamp(14px, 2.4vw, 30px) round;
+    background: linear-gradient(rgba(246, 239, 224, .62), rgba(238, 228, 206, .62)) padding-box, url("../images/textures/paper-aged.jpg") center / 600px padding-box, #efe5d1; background-clip: padding-box; }
+.env--mini .env-card-in { border-width: 8px; border-image-width: 8px; }
+/* Mühür */
+.env-seal { left: 50%; top: var(--apex); z-index: 5; width: clamp(110px, 13vw, 168px); aspect-ratio: 240 / 300; transform: translate(-50%, -50%); }
+.env--mini .env-seal { width: 46px; }
+.env-seal-real { position: absolute; inset: -6%; width: 112%; height: 112%; object-fit: contain; z-index: 2; }
+.env-half { position: absolute; inset: 0; }
+.env-half svg { width: 100%; height: 100%; display: block; overflow: visible; }
+.env-half.l { clip-path: polygon(0 0, 52% 0, 47% 18%, 55% 33%, 46% 50%, 54% 66%, 47% 82%, 52% 100%, 0 100%); }
+.env-half.r { clip-path: polygon(52% 0, 100% 0, 100% 100%, 52% 100%, 47% 82%, 54% 66%, 46% 50%, 55% 33%, 47% 18%); }
+.env-crumbs { position: absolute; left: 50%; top: 50%; width: 0; height: 0; }
+.env-crumbs i { position: absolute; left: 0; top: 0; border-radius: 40% 60% 45% 55%; background: linear-gradient(135deg, #fffdf6, #d9d1bf); box-shadow: 0 1px 2px rgba(0, 0, 0, .3); opacity: 0; }
+
+/* Varyantlar */
+.env--cream .env-pocket { background: var(--env-cream); }
+.env--cream .env-flap-front { background: var(--env-cream); }
+.env--kraft .env-pocket, .env--kraft .env-flap-front { background: var(--env-kraft); }
+.env--kraft .env-lace { display: none; }
+.env--white .env-pocket, .env--white .env-flap-front { background: var(--env-white); }
+.env--white .env-lace { background: radial-gradient(circle at 50% 0, #f7f3ea 62%, transparent 64%) 0 0 / 14px 100% repeat-x; filter: drop-shadow(0 2px 2px rgba(0, 0, 0, .25)); height: 9px; }
+.env--white .env-pocket::after, .env--cream .env-pocket::after { background: radial-gradient(ellipse 70% 60% at 50% 60%, transparent 50%, rgba(60, 40, 20, .2)); }
+
+/* ---------- Açılış yazıları ---------- */
+.env-copy { position: absolute; left: 50%; top: calc(58% * .42); transform: translate(-50%, -50%); z-index: 6; text-align: center; pointer-events: none; color: #f3ead6;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, .35), 0 0 18px rgba(30, 30, 10, .35); width: 92vw; }
+.env-over { margin: 0 0 .3rem; font-family: var(--font-display); font-variant: small-caps; font-size: clamp(1.05rem, 1.6vw, 1.4rem); letter-spacing: .22em; text-transform: lowercase; }
+.env-name { margin: 0; font-family: var(--font-calli); font-size: clamp(3rem, 7vw, 5.6rem); line-height: 1.05; }
+.env-name span { font-family: var(--font-display); font-style: italic; font-size: .78em; }
+.env-open { position: absolute; left: 50%; bottom: clamp(2.4rem, 9vh, 5.5rem); transform: translateX(-50%); z-index: 6; display: grid; justify-items: center; gap: .1rem;
+    background: none !important; border: 0 !important; box-shadow: none !important; border-radius: 0 !important; padding: .6rem 1rem; min-height: 44px; cursor: pointer; color: #f3ead6;
+    font-family: var(--font-display); font-variant: small-caps; text-transform: lowercase; letter-spacing: .2em; font-size: clamp(1rem, 1.5vw, 1.25rem); text-shadow: 0 1px 2px rgba(0, 0, 0, .4); }
+.env-open svg { width: 100%; height: 10px; opacity: .85; }
+.env-open:focus-visible { outline: 1px solid rgba(243, 234, 214, .7); outline-offset: 6px; }
+@media (max-width: 767.98px) {
+    .env--full { --apex: 50%; }
+    .env-copy { top: 17%; }
+    .env-name { font-size: clamp(2rem, 10.5vw, 2.8rem); }
+    .env-over { font-size: .95rem; }
+    .env-lace { height: 38px; }
+    .env-card { width: 78%; margin-left: -39%; }
+}

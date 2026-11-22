@@ -10,6 +10,10 @@ Bu görselleri `public/assets/real/` klasörüne koyman yeterli. Site her dosyay
 
 ## 1. Açılış ve sayfa geçişleri: yeşil kadife zarf (references/26)
 
+**Şu an çalışan:** açılış zarfı kodla üretilen kadife dokusu ve SVG mühürle çalışıyor. Aşağıdaki iki dosyayı koyduğunda ikisi de kendiliğinden gerçek fotoğrafa geçer:
+- `envelope-green-velvet.jpg`: zeytin yeşili kadife ya da keten kumaş/kâğıt dokusu, düz ve önden çekilmiş, en az 3200×2200, JPG. Zarfın gövdesi ve kapağı bu dokuyla kaplanır.
+- `wax-seal-cream-oval.png`: krem/beyaz oval kabartma mühür mumu (zambak + TD), arka planı şeffaf, 1400×1100, PNG. Çatlama animasyonunda ortadan ikiye bölünür.
+
 | Dosya | İçerik | Boyut | Biçim |
 |---|---|---|---|
 | `envelope-green-body.png` | Yeşil kadife zarfın gövdesi (arka yüz + alt ve yan kapaklar), kapak hariç, düz önden | 3200×2200 | şeffaf PNG |

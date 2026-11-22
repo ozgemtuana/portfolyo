@@ -1,5 +1,20 @@
 # İlerleme ve kararlar
 
+## YAPILMADI – ÖNCELİK 1 (2026-11-23)
+
+Açılış jeneriği ve sayfa geçişleri hâlâ eski hâlinde: kahverengi zemin, altın mühür, sayaçlı yükleme, "Gir" butonu ve Met kapısı. Bunlar defalarca istendi, yapılmadı. Bu iş bitene kadar başka göreve geçilmeyecek.
+
+1. **Açılış (references/26):**
+   - Sahne: ekranı dolduran zeytin yeşili kadife/keten dokulu kapalı zarf, üstten bakış. Kapak kenarlarında krem dantel şerit.
+   - Mühür: ortada krem oval kabartma mühür mumu; içinde zambak ve "TD".
+   - Yazılar: zarfın üstünde "BİR PORTFOLYO / A PORTFOLIO", altında kaligrafik "Tuana Davarcı", en altta el çizimi alt çizgili "Davetiyeyi aç / Open the invitation".
+   - Animasyon: tıklayınca ya da kaydırınca mühür çatlar, iki parçaya ayrılır ve mum kırıntıları saçılır. Kapak 3D olarak açılır, dantel kenarlı krem kart kayarak çıkar, büyüyüp ekranı doldurur, Panini galerisi belirir.
+   - Kaldırılacaklar: kahverengi zemin, altın mühür, "Gir" kutusu, sayaç, "hoş geldin" yazısı ve kapı açılışı.
+2. **Sayfa geçişleri:**
+   - Akış: aynı zarf dili, en fazla 1,2 sn. Küçük zarf kayarak gelir, kapak kapanır, mühür basılır, açılır ve yeni sayfa içinden çıkar.
+   - Sayfaya göre zarf: yeşil kadife (genel), krem dantelli (Hakkımda), kahve (Projeler), beyaz dalgalı kapaklı (İletişim).
+3. **Kanıt:** Playwright ile açılış ve bir geçiş için 6–8 kare alınacak, references/26 ile yan yana gösterilecek.
+
 Bu dosya, yeniden tasarımın aşama raporlarını ve verdiğim kararları tutar. Çalışma `vintage` dalında; `main`'e ve canlıya yalnızca onayla alınır.
 
 ## 2026-11-22 · Aşama: Ana sayfa "tablonun içine dalış" (galeri → Robert → Cole)
