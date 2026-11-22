@@ -180,7 +180,7 @@ void main() {
         vec2 o = vec2(hash(id + 3.1), hash(id + 7.7)) - 0.5;
         dust += step(0.9, h) * smoothstep(0.05, 0.0, length(f - o * 0.7)) * (0.5 + 0.5 * sin(t * (1.0 + h * 2.0) + h * 6.28)) * (0.5 - fk * 0.15);
     }
-    col += vec3(1.0, 0.92, 0.75) * dust * (0.22 + beam) * uMotion;
+    // (toz parçacıkları kaldırıldı: ekranda rastgele beyaz noktalar gibi görünüyordu)
     col *= 0.975 + 0.05 * texture2D(uWeave, gl_FragCoord.xy / 460.0).r;
     col *= vec3(1.02, 1.0, 0.975) * (1.0 - uDim);
     col *= mix(0.8, 1.0, smoothstep(1.25, 0.35, length((vUv - 0.5) * vec2(sa * 0.75, 1.0))));

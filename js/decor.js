@@ -7,7 +7,7 @@
    Şimdilik yalnızca Hakkımda sayfası (onaydan sonra diğer sayfalar).
    ========================================================================== */
 (function () {
-    const PAGES = ["about"];
+    const PAGES = ["about", "home", "projects"];
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const lang = () => (document.documentElement.lang === "en" ? "en" : "tr");
     let uid = 0;
@@ -119,7 +119,92 @@
         document.querySelectorAll(".about-page .skills-panel").forEach((p, i) => { p.classList.add("obj", i ? "obj--card" : "obj--ruler"); if (!i) add(p, "deco-head", L.ruler); });
         // Diğer kâğıtlar
         [".about-page .about-text", ".about-page .code-card", ".about-page .about-quote", ".about-page .hobby-intro"].forEach((s, i) => { const el = q(s); if (el) el.classList.add("obj", ["obj--letter", "obj--typed", "obj--lace", "obj--note"][i]); });
+        if (page === "home") decorateHome(L);
+        if (page === "projects") decorateProjects(L);
         arm();
+    }
+
+    /* ---------- Dergi süsleri: gravür ayraç, el çizimi ok, bant ---------- */
+    function divider() {
+        // Zeytin dalı: ortada küçük zambak, iki yana kıvrılan dal ve yapraklar
+        const leaf = (x, y, r, s) => `<ellipse cx="${x}" cy="${y}" rx="${5.2 * s}" ry="${1.9 * s}" transform="rotate(${r} ${x} ${y})"/>`;
+        let leaves = "";
+        for (let i = 0; i < 6; i++) {
+            const x = 20 + i * 11, s = 1 - i * 0.1;
+            leaves += leaf(100 - x, 10 - (i % 2 ? 3 : -3), i % 2 ? 28 : -28, s) + leaf(100 + x, 10 - (i % 2 ? 3 : -3), i % 2 ? -28 : 28, s);
+        }
+        return `<svg class="orn-divider" viewBox="0 0 200 20" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width=".8">` +
+            `<path d="M92 10C70 9 50 12 22 10M108 10C130 9 150 12 178 10"/>${leaves.replace(/<ellipse/g, '<ellipse fill="currentColor" fill-opacity=".18"')}` +
+            `<path d="${lily}" transform="translate(100 11) scale(.42)" stroke-width="1.9"/></g></svg>`;
+    }
+    const arrow = (flip) => `<svg class="hand-arrow${flip ? " is-flip" : ""}" viewBox="0 0 120 60" aria-hidden="true" focusable="false"><path d="M6 12C30 6 70 10 92 38" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M80 36l13 4 1-14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+    const tape = (cls) => `<i class="tape ${cls || ""}"></i>`;
+    const N = { tr: { gal: "üç kare, üç hikâye", pc: "Sevgilerle, T.", next: "sıradaki sayfa", look: "elle seçildi" }, en: { gal: "three frames, three stories", pc: "With love, T.", next: "next page", look: "hand-picked" } };
+
+    function chapters(root) {
+        // Her bölüm başlığının altına gravür ayraç
+        root.querySelectorAll("section h2").forEach((h) => {
+            if (h.closest(".pagenav, .pj-hero, .hero") || h.nextElementSibling && h.nextElementSibling.classList.contains("orn-wrap")) return;
+            const w = document.createElement("span"); w.className = "orn-wrap"; w.setAttribute("aria-hidden", "true"); w.innerHTML = divider();
+            h.insertAdjacentElement("afterend", w);
+        });
+    }
+
+    function decorateHome(L) {
+        const n = N[lang()];
+        const main = document.querySelector("main");
+        chapters(main);
+        // Galeri: büyük polaroid + küçük polaroid + pul kenarlı baskı; el yazısı not ve ok
+        const gp = [...document.querySelectorAll(".gp-item")];
+        ["is-hero", "is-small", "is-stamp"].forEach((c, i) => { if (gp[i]) { gp[i].classList.add("obj", c); } });
+        if (gp[0]) add(gp[0], "tape-wrap", tape("t1") + tape("t2"));
+        if (gp[1]) add(gp[1], "tape-wrap", tape("t3"));
+        const g = document.querySelector(".home-gallery .gp-grid");
+        if (g) add(g, "hand-note", `<span>${n.gal}</span>${arrow()}`);
+        // Hakkımda özeti: mektup kâğıdı, sayaçlar mürekkep damgası
+        const ab = document.querySelector(".about-glass");
+        if (ab) { ab.classList.add("obj", "obj--letter-home"); add(ab, "deco-sign", L.sign); add(ab, "deco-stamp", stampOval("ESTD", "2026", "ANTALYA")); }
+        // Sözler: farklı boyut ve hizada dantel kartlar
+        document.querySelectorAll("[data-quote] .quote").forEach((qq, i) => { qq.classList.add("obj", "obj--lace", "q" + (i + 1)); if (i === 2) add(qq, "deco-badge", stampRound("PORTFOLYO", "TUANA DAVARCI")); });
+        // Öne çıkan projeler: kartpostal (pul + posta damgası + el yazısı)
+        document.querySelectorAll(".h-card").forEach((c, i) => {
+            c.classList.add("postcard");
+            add(c, "pc-stamp", `<b>${monogram()}</b>`);
+            add(c, "pc-post", postmark("ANTALYA", "2026"));
+            add(c, "pc-sign", n.pc);
+            c.style.setProperty("--rot", ([-2.2, 1.6, -1, 2.4, -1.8, 1.2, -2.6][i % 7]) + "deg");
+        });
+        // Hizmetler: dosya ayraçlı fiş kartları
+        document.querySelectorAll(".services-glass .service-row").forEach((r, i) => { r.classList.add("tabcard"); r.style.setProperty("--tab", i); });
+        // Look'lar: dergi sayfası, köşede damga, el yazısı not
+        document.querySelectorAll("[data-render='folders'] .folder").forEach((f, i) => {
+            f.classList.add("mag", "mag--" + (i % 4 + 1));
+            add(f, "mag-stamp", stampRound("LOOK · PODYUM", "ANTALYA · 2026", String(i + 1).padStart(2, "0")));
+            add(f, "mag-note", n.look);
+            f.querySelectorAll(".cut").forEach((c, k) => { if (k < 3) add(c, "tape-wrap", tape(k % 2 ? "t2" : "t1")); });
+        });
+        decoratePagenav(n);
+    }
+
+    function decorateProjects(L) {
+        const n = N[lang()];
+        chapters(document.querySelector("main"));
+        document.querySelectorAll(".scenes.is-static .scene").forEach((s, i) => {
+            s.classList.add("spread", i % 2 ? "spread--b" : "spread--a");
+            const art = s.querySelector(".scene-art");
+            if (art) add(art, "tape-wrap", tape("t1") + tape("t2"));
+            const lab = s.querySelector(".sc-label");
+            if (lab) { lab.classList.add("tag-label"); add(lab, "deco-stamp", stampRound("SEÇİLİ İŞLER", "TUANA DAVARCI · 2026", String(i + 1).padStart(2, "0"))); }
+        });
+        document.querySelectorAll(".scenes.is-static .pf-card").forEach((c, i) => c.style.setProperty("--rot", ([-3, 2, -1.5, 3.2, -2.4, 1][i % 6]) + "deg"));
+        decoratePagenav(n);
+    }
+
+    function decoratePagenav(n) {
+        const next = document.querySelector(".pagenav .pn-next");
+        if (next) { next.classList.add("postcard-next"); add(next, "hand-arrow-wrap", arrow()); add(next, "pc-stamp", `<b>${monogram()}</b>`); }
+        const prev = document.querySelector(".pagenav .pn-prev");
+        if (prev) prev.classList.add("ticket-prev");
     }
 
     /* ---------- Masaya gelme ve fareyle kalkma ---------- */
@@ -146,7 +231,7 @@
 
     const run = () => requestAnimationFrame(() => requestAnimationFrame(decorate));   // i18n içerikleri basıldıktan sonra
     document.addEventListener("router:navigated", run);
-    new MutationObserver(() => { document.querySelectorAll(".deco-head, .deco-seat, .deco-sign").forEach((e) => e.remove()); run(); })
+    new MutationObserver(() => { document.querySelectorAll(".deco-head, .deco-seat, .deco-sign, .pc-sign, .hand-note, .mag-note").forEach((e) => e.remove()); run(); })
         .observe(document.documentElement, { attributes: true, attributeFilter: ["lang"] });
     if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", run); else run();
 })();
