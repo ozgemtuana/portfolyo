@@ -81,6 +81,7 @@
         /* ---------- Lenis yumuşak kaydırma ---------- */
         if (typeof window.Lenis !== "undefined") {
             lenis = new Lenis({ duration: 1.2, smoothWheel: true });
+            window.__lenis = lenis;
             lenis.on("scroll", ScrollTrigger.update);
             gsap.ticker.add((time) => lenis.raf(time * 1000));
             gsap.ticker.lagSmoothing(0);

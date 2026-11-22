@@ -32,3 +32,27 @@ Bu dosya, yeniden tasarımın aşama raporlarını ve verdiğim kararları tutar
 - Ana sayfanın dalıştan sonraki bölümleri (galeri önizlemesi, kayan bant, sayaç kartı, öne çıkan projeler) hâlâ eski arayüz; fiziksel objelere dönüşecek.
 - Navona ve Robert arasındaki mürekkep geçişi küçük bir çerçevede başlıyor; daha büyük ekranda başlatılması denenebilir.
 - Telefon görünümü bu aşamada test edilmedi.
+
+## 2026-11-22 · Aşama: Dalış düzeltmeleri, fiziksel objeler, açılış kapıları, zoom durakları
+
+**Yapılanlar**
+- Müze etiketi artık tablo geçişiyle aynı karede değişiyor (mürekkep tablonun yarısını kapladığında / karartmanın en koyu anında).
+- Açılış yazılarının arkasına yumuşak, sıcak bir koyulaşma eklendi; yazılar kaybolurken o da sönüyor. Telefonda etiket yazılarla çakışmıyor.
+- Navona → Robert mürekkep geçişi daha geç başlıyor (Navona ekranı neredeyse doldurduğunda).
+- Canlılık: Panini galerisinde üst pencereden süzülen ışık huzmeleri ve huzmede yoğunlaşan toz; Cole'da akan bulutlar, denizde parıltılar, kanat çırpan martılar.
+- Dalış sonrası bölümler fiziksel objeler oldu: galeri önizlemesi altın varaklı çerçevede tablolar + pirinç müze plakası (fareyle eğilir), sayaç ve söz kartları gerçek kabartma dantel kâğıt (Met Müzesi, CC0), kayan bant eski kâğıt şeritlere kaydırdıkça mürekkeple yazılan kelimeler, Bootstrap ikonları gravür taramalı ikonlar (tüm sayfalarda).
+- Açılış: mühürlü sayaç → "Gir" butonu → Met Müzesi'nin çift kanatlı kapısı (CC0) ortadan açılıyor → Hubert Robert'in "Büyük Galeri" tablosu (Louvre, 8472 px tarama) → kamera salona girip Panini dalışına karışıyor. "Atla" butonu ve Esc var.
+- Zoom durakları (uberdesigner.ai ilhamı, kendi tasarımımıza uyarlandı): her tabloda 3 detay (Panini: tonoz ve ışıklık, Musa, koleksiyoncular; Robert: kubbe, nişteki heykel, merdivendeki gezginler; Cole: yıkık kule, çoban, denizde ışık). Her durakta sol altta ince büyük harf Cormorant başlık + italik açıklama (TR/EN).
+- Sağ üstte mini harita: tablonun küçük önizlemesinde şu an bakılan bölge ince antik altın çerçeveyle.
+- Geçişler dönüşümlü: Panini → Robert mürekkep dağılması, Robert → Cole sinematik karartma.
+- Sağ altta Oynat / Duraklat (tüm sayfalarda): sayfa yavaşça kendiliğinden kayar, duraklarda yavaşlar, elle kaydırınca durur.
+- Musa ve koleksiyoncular duraklarında keskinlik için Panini'nin tam çözünürlüklü taramasından ikinci bir kesit eklendi.
+
+**Kararlar**
+- Pop-up kitap jeneriğini kullanmadım; yerine kapı + Büyük Galeri açılışını seçtim. Çünkü müze konseptiyle kesintisiz bağlanıyor (kapıdan salona, salondan tabloya) ve iki ayrı jenerik ilk girişi gereksiz uzatırdı.
+- Büyük Galeri olarak Hubert Robert'i seçtim, çünkü dalış zincirinde zaten onun tablosu var ve hem eser hem dönem tutarlı.
+- Kapı kanatları gerçek fotoğraftan kesildi ve CSS 3D ile menteşelerinden döndürülüyor. WebGL'e almadım, çünkü bu yöntem tek seferlik 4 saniyelik bir sahne için daha hafif ve güvenilir.
+- Durak açıklamaları yeni dekoratif metinler (sitenin içeriği değil). Musa heykeli ve "harabelerin Robert'i" lakabı gibi bilgiler doğru; emin olmadığım kişi adlarını yazmadım (koleksiyoncular için isim verilmedi).
+- Course of Empire (Thomas Cole, 5 tablo, New-York Historical Society, kamu malı, ~8800 px taramalar): Galeri sayfasının dalış zinciri olarak uygun. Galeri'de kullanıyorum.
+
+**Test:** 1280×800 ve 375×740, Chrome (Playwright, görünmez pencere). Konsol hatası yok.

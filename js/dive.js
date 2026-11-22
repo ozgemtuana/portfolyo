@@ -20,7 +20,8 @@
     /* ---------- Sahne geometrisi (dünya birimi = Panini pikseli / genişlik; Y aşağı) ---------- */
     const PW = 10587, PH = 7882, HR = PH / PW;
     const px = (x, y, w, h) => [x / PW, y / PW, w / PW, h / PW];
-    const CROP = px(300, 4750, 1850, 2700);              // Panini yüksek çözünürlük kesiti
+    const CROP = px(300, 4750, 1850, 2700);              // Panini yüksek çözünürlük kesiti (Navona çevresi)
+    const CROP2 = px(2858, 5359, 4235, 2523);            // ikinci kesit: Musa heykeli ve koleksiyoncular
     const F = px(597, 5086, 1248, 2038);                 // Navona tablosunun çerçeve içi
     const RA = 7376 / 11712;                             // Robert en/boy
     const R = [F[0] + (F[2] - F[3] * RA) / 2, F[1], F[3] * RA, F[3]];
@@ -71,6 +72,7 @@
         const uniforms = {
             uPLo: { value: tex(S + (small ? "panini-2048.webp" : "panini-4096.webp"), { mip: true }) },
             uPHi: { value: small ? blank : tex(S + "panini-navona.webp", { mip: true }) },
+            uPHi2: { value: small ? blank : tex(S + "panini-figures.webp", { mip: true }) },
             uPDepth: { value: tex(S + "panini-depth.png") },
             uRLo: { value: tex(S + "robert-2048.webp", { mip: true }) },
             uRHi: { value: small ? blank : tex(S + "robert-arch-hi.webp", { mip: true }) },
@@ -83,6 +85,8 @@
             uSpan: { value: 1 },
             uB1: { value: 0 }, uB2: { value: 0 }, uArchFade: { value: 0 },
             uColeZoom: { value: 1.2 },
+            uColeFocus: { value: new THREE.Vector2(0.62, 0.42) },
+            uDark: { value: 0 },
             uHi: { value: small ? 0 : 1 },
             uMouse: { value: new THREE.Vector2() },
             uTime: { value: 0 },
@@ -92,12 +96,13 @@
         const v4 = (a) => `vec4(${a.map((n) => n.toFixed(7)).join(",")})`;
         const frag = `
 precision highp float;
-uniform sampler2D uPLo, uPHi, uPDepth, uRLo, uRHi, uRMaps, uCole, uCMaps, uWeave;
-uniform vec2 uRes, uCam, uMouse;
-uniform float uSpan, uB1, uB2, uArchFade, uColeZoom, uHi, uTime, uMotion, uDim;
+uniform sampler2D uPLo, uPHi, uPHi2, uPDepth, uRLo, uRHi, uRMaps, uCole, uCMaps, uWeave;
+uniform vec2 uRes, uCam, uMouse, uColeFocus;
+uniform float uSpan, uB1, uB2, uArchFade, uColeZoom, uHi, uTime, uMotion, uDim, uDark;
 varying vec2 vUv;
 const float HR = ${HR.toFixed(7)};
 const vec4 CROP = ${v4(CROP)};
+const vec4 CROP2 = ${v4(CROP2)};
 const vec4 F = ${v4(F)};
 const vec4 R = ${v4(R)};
 const vec4 RHI = ${v4(RHI)};
@@ -125,7 +130,7 @@ float ink(float b, vec2 p, out float edge) {
 vec3 cole(vec2 suv, vec2 par) {
     float sa = uRes.x / uRes.y;
     vec2 span = (sa > COLE_A ? vec2(1.0, COLE_A / sa) : vec2(sa / COLE_A, 1.0)) / uColeZoom;
-    vec2 focus = vec2(sa < 1.0 ? 0.68 : 0.62, 0.42);
+    vec2 focus = uColeFocus;
     vec2 lo = clamp(focus - span * 0.5, vec2(0.0), vec2(1.0) - span);
     vec2 base = lo + vec2(suv.x, 1.0 - suv.y) * span;
     float d = img(uCMaps, base).r;
@@ -152,7 +157,7 @@ vec3 cole(vec2 suv, vec2 par) {
     for (int i = 0; i < 3; i++) {
         float fi = float(i);
         vec2 gp = vec2(fract(t * (0.012 + fi * 0.004) + fi * 0.37) * 1.3 - 0.15, 0.82 - fi * 0.06 + 0.012 * sin(t * 0.3 + fi * 2.0));
-        float gs = (0.021 - fi * 0.004) * uColeZoom;
+        float gs = (0.021 - fi * 0.004) * min(uColeZoom, 1.5);
         vec2 q = (suv - gp) * vec2(sa, 1.0) / gs;
         float ax = abs(q.x);
         float flap = sin(t * (2.2 + fi * 0.5) + fi * 4.0);
@@ -180,6 +185,8 @@ void main() {
     vec3 col = img(uPLo, pu).rgb;
     vec2 cu = (pw - CROP.xy) / CROP.zw;
     col = mix(col, img(uPHi, cu).rgb, uHi * insideSoft(cu, 0.02) * smoothstep(0.42, 0.22, uSpan));
+    vec2 cu2 = (pw - CROP2.xy) / CROP2.zw;
+    col = mix(col, img(uPHi2, cu2).rgb, uHi * insideSoft(cu2, 0.015) * smoothstep(0.5, 0.3, uSpan));
     col *= mix(0.25, 1.0, inside(pu));                             // tablonun dışı: karanlık duvar
 
     /* ---- Galerinin üst penceresinden süzülen ışık huzmeleri (geniş görünümde) ---- */
@@ -233,7 +240,7 @@ void main() {
     /* ---- İnce son işlem: neredeyse fark edilmeyen tuval, hafif sıcaklık, gren, vinyet ---- */
     col *= 0.975 + 0.05 * texture2D(uWeave, gl_FragCoord.xy / 460.0).r;
     col = col * vec3(1.02, 1.0, 0.975);
-    col *= 1.0 - uDim;
+    col *= (1.0 - uDim) * (1.0 - uDark);   // sinematik karartma geçişi
     float vig = smoothstep(1.25, 0.35, length((vUv - 0.5) * vec2(sa * 0.75, 1.0)));
     col *= mix(0.8, 1.0, vig);
     col += (hash(gl_FragCoord.xy + fract(t * 7.0) * 91.0) - 0.5) * 0.018;
@@ -245,21 +252,31 @@ void main() {
         });
         scene.add(new THREE.Mesh(new THREE.PlaneGeometry(2, 2), mat));
 
-        /* ---------- Kamera yolu ---------- */
+        /* ---------- Kamera yolu: tablo tablo zoom durakları ---------- */
         const sa = () => window.innerWidth / window.innerHeight;
         const coverX = (w, h) => (sa() > w / h ? w : h * sa());     // dikdörtgen ekranı tamamen kaplar
         const containX = (w, h) => (sa() > w / h ? h * sa() : w);   // dikdörtgen ekrana tamamen sığar
         const center = (r) => [r[0] + r[2] / 2, r[1] + r[3] / 2];
+        // Durak: tablo içi oransal merkez (u, v) ve ekrana sığacak kutu (w, h)
+        const pan = (u, v, w, h) => ({ c: [u, v * HR], s: containX(w, h * HR) });
+        const rob = (u, v, w, h) => ({ c: [R[0] + u * R[2], R[1] + v * R[3]], s: containX(w * R[2], h * R[3]) });
+        // P (0–1) → görünüm. Aynı görünüm iki kez yazılınca kamera o detayda bekler.
         let K = [];
         const buildKeys = () => {
-            K = [
-                { c: [0.5, HR / 2], s: coverX(1, HR) },              // K0: galerinin tamamı
-                { c: center(F), s: containX(F[2], F[3]) * 1.75 },    // K1: Navona tablosu ekranın ~%57'si
-                { c: center(F), s: coverX(F[2], F[3]) },             // K2: tablo ekranı doldurur
-                { c: center(O), s: coverX(O[2], O[3]) * 1.04 },      // K3: kemer açıklığı ekranı doldurur
-                { c: center(O), s: coverX(O[2], O[3]) * 0.5 }        // K4: kemerin içinden geçildi
-            ];
+            const K0 = { c: [0.5, HR / 2], s: coverX(1, HR) };
+            const S1 = pan(0.43, 0.40, 0.30, 0.30), S2 = pan(0.575, 0.77, 0.13, 0.17), S3 = pan(0.44, 0.86, 0.22, 0.22);
+            const K1 = { c: center(F), s: containX(F[2], F[3]) * 1.75 }, K2 = { c: center(F), s: coverX(F[2], F[3]) };
+            const R1 = rob(0.26, 0.67, 0.35, 0.16), R2 = rob(0.70, 0.56, 0.30, 0.20), R3 = rob(0.55, 0.82, 0.60, 0.20);
+            const K3 = { c: center(O), s: coverX(O[2], O[3]) * 1.04 };
+            K = [[0, K0], [0.04, K0], [0.10, S1], [0.14, S1], [0.20, S2], [0.24, S2], [0.30, S3], [0.34, S3],
+                [0.41, K1], [0.49, K2], [0.57, R1], [0.61, R1], [0.66, R2], [0.69, R2], [0.74, R3], [0.77, R3], [0.83, K3]];
         };
+        // Cole (ekran uzayı katmanı): odak ve yakınlık
+        const CK = [[0.83, [0.55, 0.45], 1.12], [0.86, [0.55, 0.45], 1.12], [0.89, [0.70, 0.36], 2.0], [0.91, [0.70, 0.36], 2.0],
+            [0.94, [0.69, 0.76], 2.8], [0.955, [0.69, 0.76], 2.8], [0.975, [0.22, 0.62], 2.4], [0.985, [0.22, 0.62], 2.4], [1.0, [0.55, 0.45], 1.08]];
+        // Başlıklı duraklar (cap.N): tutma aralığı
+        const STOPS = [[0.10, 0.14], [0.20, 0.24], [0.30, 0.34], [0.57, 0.61], [0.66, 0.69], [0.74, 0.77], [0.89, 0.91], [0.94, 0.955], [0.975, 0.985]];
+        const SWITCH = 0.832;                                         // karanlığın en koyu anı: Robert → Cole
         const lerpView = (a, b, t) => {
             const s = Math.exp(Math.log(a.s) * (1 - t) + Math.log(b.s) * t);
             const k = Math.abs(a.s - b.s) < 1e-9 ? t : (s - b.s) / (a.s - b.s);
@@ -267,21 +284,30 @@ void main() {
             return { c: [b.c[0] + (a.c[0] - b.c[0]) * kk, b.c[1] + (a.c[1] - b.c[1]) * kk], s };
         };
         const ss = (a, b, x) => { const t = Math.min(1, Math.max(0, (x - a) / (b - a))); return t * t * (3 - 2 * t); };
-        const SEG = [[0.06, 0.42], [0.42, 0.58], [0.58, 0.77], [0.77, 0.93]];
+        const seg = (list, P) => {
+            for (let i = 0; i < list.length - 1; i++) if (P < list[i + 1][0]) return [i, ss(list[i][0], list[i + 1][0], P)];
+            return [list.length - 2, 1];
+        };
         function viewAt(P) {
-            let v = K[0];
-            for (let i = 0; i < SEG.length; i++) {
-                const [a, b] = SEG[i];
-                if (P >= b) v = K[i + 1];
-                else if (P > a) { v = lerpView(K[i], K[i + 1], ss(a, b, P)); break; }
-                else break;
-            }
+            const [i, t] = P <= K[0][0] ? [0, 0] : seg(K, P);
+            const v = lerpView(K[i][1], K[i + 1][1], t);
             // Görünüm tablonun dışına taşmasın (yalnızca geniş görünümlerde etkili)
             const sx = v.s, sy = v.s / sa();
             const cx = sx < 1 ? Math.min(1 - sx / 2, Math.max(sx / 2, v.c[0])) : 0.5;
             const cy = sy < HR ? Math.min(HR - sy / 2, Math.max(sy / 2, v.c[1])) : HR / 2;
             return { c: [cx, cy], s: v.s };
         }
+        function coleAt(P) {
+            if (P <= CK[0][0]) return { f: CK[0][1], z: CK[0][2] };
+            const [i, t] = seg(CK, P), a = CK[i], b = CK[i + 1];
+            return { f: [a[1][0] + (b[1][0] - a[1][0]) * t, a[1][1] + (b[1][1] - a[1][1]) * t], z: Math.exp(Math.log(a[2]) * (1 - t) + Math.log(b[2]) * t) };
+        }
+        const coleRect = (c) => {
+            const A = COLE_A, r = sa();
+            const sp = (r > A ? [1, A / r] : [r / A, 1]).map((x) => x / c.z);
+            const lo = [0, 1].map((k) => Math.min(1 - sp[k], Math.max(0, c.f[k] - sp[k] / 2)));
+            return [lo[0], lo[1], sp[0], sp[1]];
+        };
 
         /* ---------- Durum ve olaylar ---------- */
         let active = false, dirty = true, visible = true, last = performance.now();
@@ -310,12 +336,36 @@ void main() {
 
         const labels = () => document.querySelectorAll("[data-dive-label]");
         const heroCopy = () => document.querySelector(".hero .container");
-        function applyStage(P) {
-            // Etiket, mürekkep geçişi tablonun yarısını kapladığı anda değişir
-            const s = uniforms.uB1.value < 0.5 ? 0 : uniforms.uB2.value < 0.5 ? 1 : 2;
+        const MAPS = [S + "panini-2048.webp", S + "robert-2048.webp", S + "cole-1280.webp"];
+        let cap = -2;
+        function applyStage(P, v, c) {
+            // Etiket, mürekkep geçişi tablonun yarısını kapladığı anda ya da karanlığın en koyu anında değişir
+            const s = uniforms.uB1.value < 0.5 ? 0 : P < SWITCH ? 1 : 2;
+            const map = document.querySelector("[data-dive-map]");
             if (s !== stage) {
                 stage = s;
                 labels().forEach((el) => el.classList.toggle("is-on", +el.dataset.diveLabel === s));
+                if (map) { map.querySelector("img").src = MAPS[s]; map.dataset.stage = s; }
+            }
+            // Durak başlığı: tutma aralığına girerken belirir, çıkarken kaybolur
+            const ci = STOPS.findIndex(([a, b]) => P > a - 0.012 && P < b + 0.012);
+            if (ci !== cap) {
+                cap = ci;
+                document.querySelectorAll("[data-cap]").forEach((el) => el.classList.toggle("is-on", +el.dataset.cap === ci));
+            }
+            // Mini harita: tablonun küçük önizlemesinde şu an bakılan bölge
+            if (map) {
+                let r;
+                if (s === 2) r = coleRect(c);
+                else {
+                    const w = v.s, h = v.s / sa(), x = v.c[0] - w / 2, y = v.c[1] - h / 2;
+                    r = s === 0 ? [x, y / HR, w, h / HR] : [(x - R[0]) / R[2], (y - R[1]) / R[3], w / R[2], h / R[3]];
+                }
+                const x0 = Math.max(0, r[0]), y0 = Math.max(0, r[1]), x1 = Math.min(1, r[0] + r[2]), y1 = Math.min(1, r[1] + r[3]);
+                const box = map.querySelector("i").style;
+                box.left = (x0 * 100).toFixed(2) + "%"; box.top = (y0 * 100).toFixed(2) + "%";
+                box.width = (Math.max(0.02, x1 - x0) * 100).toFixed(2) + "%"; box.height = (Math.max(0.02, y1 - y0) * 100).toFixed(2) + "%";
+                map.classList.toggle("is-on", P > 0.03 && P < 0.999);
             }
             const hc = heroCopy();
             if (hc) {
@@ -340,18 +390,21 @@ void main() {
             if (Math.abs(PT - P) < 1e-4) P = PT;
             // Canlı efektler (deniz, toz) sürekli çizer; hareket azaltılmışsa yalnızca değişince
             if (reduce && !dirty) return;
-            const v = viewAt(P);
+            const v = viewAt(P), c = coleAt(P);
             uniforms.uCam.value.set(v.c[0], v.c[1]);
             uniforms.uSpan.value = v.s;
-            uniforms.uB1.value = ss(0.47, 0.59, P);
-            uniforms.uB2.value = ss(0.63, 0.75, P);
-            uniforms.uArchFade.value = ss(0.86, 0.94, P);
-            uniforms.uColeZoom.value = 1.22 - 0.16 * ss(0.6, 1.0, P);
+            // Panini → Robert: mürekkep dağılması. Robert → Cole: sinematik karartma (dönüşümlü)
+            uniforms.uB1.value = ss(0.455, 0.52, P);
+            const cole = P >= SWITCH ? 1 : 0;
+            uniforms.uB2.value = cole; uniforms.uArchFade.value = cole;
+            uniforms.uDark.value = ss(0.795, 0.828, P) * (1 - ss(0.836, 0.875, P));
+            uniforms.uColeZoom.value = c.z;
+            uniforms.uColeFocus.value.set(c.f[0], c.f[1]);
             const after = journey ? Math.max(0, -journey.getBoundingClientRect().bottom + window.innerHeight) / window.innerHeight : 0;
             uniforms.uDim.value = Math.min(0.45, after * 0.5);
             uniforms.uTime.value += dt;
             uniforms.uMouse.value.set(mouse.x, mouse.y);
-            applyStage(P);
+            applyStage(P, v, c);
             renderer.render(scene, camera);
             dirty = false;
         }
@@ -366,7 +419,7 @@ void main() {
         };
         document.addEventListener("router:navigated", sync);
         sync();
-        window.Dive = { sync, uniforms, viewAt: (p) => viewAt(p) };
+        window.Dive = { sync, uniforms, viewAt: (p) => viewAt(p), stops: STOPS, progress: () => P };
     }
 
     const maybeStart = () => { if (document.body.dataset.page === "home") start(); };

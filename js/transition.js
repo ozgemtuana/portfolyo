@@ -229,12 +229,33 @@
             // Damga basılır: hafif büyüyüp yerine oturur
             .fromTo(lilyEl, { scale: 1.12 }, { scale: 1, duration: 0.45, ease: "back.out(2.2)", transformOrigin: "50% 50%" }, ">")
             .to(bcountWrap, { opacity: 0, y: 10, duration: 0.35, ease: "power2.in" }, ">0.15")
-            .to(bloom, { opacity: 0, scale: 1.08, duration: 0.5, ease: "power2.in" }, "<0.25")
+            .to(page === "home" && window.Intro ? bcountWrap : bloom, { opacity: 0, scale: page === "home" && window.Intro ? 1 : 1.08, duration: 0.5, ease: "power2.in" }, "<0.25")
             .add(() => el.classList.add("is-named"));
-        textIn(tl, ">-0.15");
-        tl.add(buildReveal(false), "+=0.12");
-        tl.add(() => bloom.remove());
-        current = tl;
+        if (page === "home" && window.Intro) {
+            // Ana sayfa: mühür basılınca "Gir" butonu; basınca müze kapıları açılır (js/intro.js)
+            tl.add(() => {
+                const btn = document.createElement("button");
+                btn.type = "button";
+                btn.className = "pt-enter";
+                btn.textContent = lang() === "en" ? "Enter" : "Gir";
+                bloom.appendChild(btn);
+                gsap.fromTo(btn, { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" });
+                btn.focus({ preventScroll: true });
+                btn.addEventListener("click", () => {
+                    btn.disabled = true;
+                    const p = window.Intro.play();
+                    // kapı sahnesi perdenin üstünde açılır; perde arkada sessizce kalkar
+                    setTimeout(() => { hide(); bloom.remove(); }, 600);
+                    p.then(markReady);
+                }, { once: true });
+            }, ">-0.2");
+            current = tl;
+        } else {
+            textIn(tl, ">-0.15");
+            tl.add(buildReveal(false), "+=0.12");
+            tl.add(() => bloom.remove());
+            current = tl;
+        }
     } else {
         // Doğrudan açılış / yenileme: kısa başlık + açılış
         setText(info(page), words().now);

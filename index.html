@@ -29,10 +29,10 @@
         <!-- Koyu tema ve animasyon katmanı -->
         <link href="css/dark.css?v=90" rel="stylesheet" />
         <!-- Sayfa geçişi + yükleme ekranı -->
-        <link href="css/transition.css?v=90" rel="stylesheet" />
-        <link href="css/vintage.css?v=12" rel="stylesheet" />
+        <link href="css/transition.css?v=91" rel="stylesheet" />
+        <link href="css/vintage.css?v=14" rel="stylesheet" />
         <link href="css/scenes.css?v=5" rel="stylesheet" />
-        <link href="css/objects.css?v=3" rel="stylesheet" />
+        <link href="css/objects.css?v=4" rel="stylesheet" />
         <script>
             /* Geçiş sahnesi/yükleme ekranı için: JS var mı, ilk ziyaret mi? */
             document.documentElement.classList.add("js");
@@ -138,6 +138,20 @@
                     </div>
                 </div>
                 <div class="scroll-hint" aria-hidden="true"><i></i><span data-i18n="hero.scroll">Kaydır</span></div>
+                <!-- Zoom durakları: detayın adı ve kısa açıklama (js/dive.js) -->
+                <div class="dive-caps">
+                    <div class="dive-cap" data-cap="0"><p class="dive-cap-t" data-i18n="cap.0.t"></p><p class="dive-cap-q" data-i18n="cap.0.q"></p></div>
+                    <div class="dive-cap" data-cap="1"><p class="dive-cap-t" data-i18n="cap.1.t"></p><p class="dive-cap-q" data-i18n="cap.1.q"></p></div>
+                    <div class="dive-cap" data-cap="2"><p class="dive-cap-t" data-i18n="cap.2.t"></p><p class="dive-cap-q" data-i18n="cap.2.q"></p></div>
+                    <div class="dive-cap" data-cap="3"><p class="dive-cap-t" data-i18n="cap.3.t"></p><p class="dive-cap-q" data-i18n="cap.3.q"></p></div>
+                    <div class="dive-cap" data-cap="4"><p class="dive-cap-t" data-i18n="cap.4.t"></p><p class="dive-cap-q" data-i18n="cap.4.q"></p></div>
+                    <div class="dive-cap" data-cap="5"><p class="dive-cap-t" data-i18n="cap.5.t"></p><p class="dive-cap-q" data-i18n="cap.5.q"></p></div>
+                    <div class="dive-cap" data-cap="6"><p class="dive-cap-t" data-i18n="cap.6.t"></p><p class="dive-cap-q" data-i18n="cap.6.q"></p></div>
+                    <div class="dive-cap" data-cap="7"><p class="dive-cap-t" data-i18n="cap.7.t"></p><p class="dive-cap-q" data-i18n="cap.7.q"></p></div>
+                    <div class="dive-cap" data-cap="8"><p class="dive-cap-t" data-i18n="cap.8.t"></p><p class="dive-cap-q" data-i18n="cap.8.q"></p></div>
+                </div>
+                <!-- Mini harita: tablonun önizlemesinde şu an bakılan bölge -->
+                <figure class="dive-map" data-dive-map aria-hidden="true"><img src="images/scenes/panini-2048.webp" alt="" decoding="async"><i></i></figure>
                 <div class="dive-labels" aria-live="polite">
                     <p class="dive-label" data-dive-label="0"><b data-i18n="dive.0.artist">Giovanni Paolo Panini</b><span data-i18n="dive.0.title"></span><small data-i18n="dive.0.meta"></small></p>
                     <p class="dive-label" data-dive-label="1"><b data-i18n="dive.1.artist">Hubert Robert</b><span data-i18n="dive.1.title"></span><small data-i18n="dive.1.meta"></small></p>
@@ -323,15 +337,17 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
         <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-        <script src="js/content.js?v=95"></script>
+        <script src="js/content.js?v=96"></script>
         <script src="js/i18n.js?v=95"></script>
-        <script src="js/transition.js?v=90"></script>
-        <script src="js/main.js?v=90"></script>
-        <script src="js/dive.js?v=6"></script>
+        <script src="js/intro.js?v=3"></script>
+        <script src="js/transition.js?v=91"></script>
+        <script src="js/main.js?v=91"></script>
+        <script src="js/dive.js?v=7"></script>
         <script src="js/folders.js?v=90"></script>
         <script src="js/scenes.js?v=4"></script>
         <script src="js/blog.js?v=90"></script>
         <script src="js/objects.js?v=1"></script>
+        <script src="js/autoplay.js?v=1"></script>
         <script src="js/router.js?v=95"></script>
     </body>
 </html>
