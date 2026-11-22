@@ -119,14 +119,68 @@ section .glass.sched-wrap.sched-wrap.sched-wrap.sched-wrap { background-color: v
 .sched-table .course.is-short .course-meta span:nth-child(2) { display: none; }
 @media (max-width: 991.98px) { .sched-table { display: none; } }
 
-/* --- Canlanan tablo (js/painting.js): yalnızca ana sayfada --- */
-.paint-bg { position: fixed; inset: 0; z-index: -2; pointer-events: none; display: none; background: #2b2a20 url("../images/scenes/cole-fallback.jpg") center / cover no-repeat; }
-.paint-bg canvas { display: block; width: 100%; height: 100%; opacity: 0; transition: opacity 1.2s ease; }
-html.paint-on .paint-bg { display: block; }
-html.paint-ready .paint-bg canvas { opacity: 1; }
-html.paint-fallback .paint-bg canvas { display: none; }
-
 /* Performans: WebGL tuvalinin üstünde her karede yeniden hesaplanan bulanıklıklar GPU'yu yoruyordu (sekme çökmesi) */
 *, *::before, *::after { -webkit-backdrop-filter: none !important; backdrop-filter: none !important; }
 /* Trackpad'de yana kayan iki parmak hareketi tarayıcının "geri git" jestini tetikleyip sayfayı değiştirmesin */
 html, body { overscroll-behavior-x: none; }
+
+/* ==========================================================================
+   Tablonun içine dalış (js/dive.js) ve sayfa tabloları
+   ========================================================================== */
+.dive-bg { position: fixed; inset: 0; z-index: -2; pointer-events: none; display: none; background: #1d1a14 url("../images/scenes/panini-2048.webp") center / cover no-repeat; }
+.dive-bg canvas { display: block; width: 100%; height: 100%; opacity: 0; transition: opacity 1s ease; }
+html.dive-on .dive-bg { display: block; }
+html.dive-ready .dive-bg canvas { opacity: 1; }
+html.dive-fallback .dive-bg canvas { display: none; }
+
+/* Yolculuk: başlık ekranda sabit, kaydırma mesafesi kamerayı ilerletir */
+.journey { position: relative; height: 640vh; }
+.journey > .hero { position: sticky; top: 0; height: 100vh; height: 100svh; min-height: 0; overflow: hidden; }
+html.dive-on .scroll-progress, html.dive-on .hero .scroll-hint { mix-blend-mode: normal; }
+/* Metin tablonun üstünde okunur kalsın: yumuşak, yönlü bir gölge (kutu yok) */
+html.dive-on .hero::before { content: ""; position: absolute; inset: 0; pointer-events: none;
+    background: radial-gradient(ellipse 70% 60% at 22% 55%, rgba(20, 14, 8, .55), transparent 70%); transition: opacity .6s; }
+.hero .container { will-change: opacity, transform; position: relative; }
+
+/* Müze etiketi: aşamaya göre değişen, tabloyu tanıtan küçük kâğıt etiket (gerçek HTML) */
+.dive-labels { position: absolute; right: clamp(1rem, 4vw, 3rem); bottom: clamp(1rem, 5vh, 3rem); z-index: 2; width: min(78vw, 330px); pointer-events: none; }
+.dive-label { position: absolute; right: 0; bottom: 0; margin: 0; width: 100%; padding: .9rem 1.1rem 1rem;
+    display: grid; gap: .15rem; color: var(--ink);
+    background: url("../images/textures/paper-aged.jpg") center / 420px auto, var(--cream-100);
+    -webkit-mask: url("../images/textures/deckle-wide.png") center / 100% 100% no-repeat; mask: url("../images/textures/deckle-wide.png") center / 100% 100% no-repeat;
+    filter: drop-shadow(0 10px 14px rgba(0, 0, 0, .35));
+    opacity: 0; transform: translateY(10px) rotate(-.6deg); transition: opacity .7s ease, transform .7s ease; }
+.dive-label.is-on { opacity: 1; transform: translateY(0) rotate(-.6deg); }
+.dive-label b { font-family: var(--font-display); font-weight: 600; font-size: 1.05rem; letter-spacing: .02em; }
+.dive-label span { font-family: var(--font-display); font-style: italic; font-size: 1.05rem; line-height: 1.25; }
+.dive-label small { font-family: var(--font-body); font-size: .72rem; letter-spacing: .08em; text-transform: uppercase; color: var(--wood-500); }
+
+/* Diğer sayfalar: kendi tablosu sabit, sakin bir fon olarak (canlı dalış sonraki aşamalarda) */
+.page-bg { position: fixed; inset: 0; z-index: -3; pointer-events: none; background-size: cover; background-position: center; }
+.page-bg::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(24, 20, 14, .55), rgba(24, 20, 14, .72)); }
+html.dive-on .page-bg { display: none; }
+body[data-page="about"] .page-bg { background-image: url("../images/paintings/fragonard-reading.webp"); background-position: 60% 30%; }
+body[data-page="resume"] .page-bg { background-image: url("../images/paintings/lorrain-merchants.webp"); }
+body[data-page="projects"] .page-bg { background-image: url("../images/paintings/vermeer-art-of-painting.webp"); background-position: 50% 35%; }
+body[data-page="blog"] .page-bg { background-image: url("../images/paintings/vermeer-lady-writing.webp"); background-position: 55% 40%; }
+body[data-page="gallery"] .page-bg { background-image: url("../images/paintings/constable-wivenhoe.webp"); }
+body[data-page="process"] .page-bg { background-image: url("../images/scenes/panini-2048.webp"); }
+body[data-page="contact"] .page-bg { background-image: url("../images/paintings/friedrich-window.webp"); background-position: 50% 30%; }
+
+/* ---------- Tipografi: serif başlığın içine binen kaligrafik kelime (references/07, 15) ---------- */
+.hero-title em, h1 em {
+    font-family: var(--font-calli) !important; font-style: normal !important; font-weight: 400 !important;
+    font-size: 1.32em !important; line-height: .8; letter-spacing: 0;
+    position: relative; display: inline-block; margin-left: -.18em; top: .12em;
+    color: #ead9b0 !important; -webkit-text-fill-color: #ead9b0;
+    text-shadow: 0 2px 10px rgba(15, 10, 5, .55), 0 1px 1px rgba(15, 10, 5, .5);
+    background: none !important;
+}
+h1 .text-gradient em { -webkit-text-fill-color: #ead9b0; }
+.list-card--cream h1 em, .sc-label h1 em { color: var(--gold-deep) !important; -webkit-text-fill-color: var(--gold-deep); text-shadow: none; }
+/* Tablonun üstündeki kaligrafik küçük başlıklar: daha büyük, açık antik altın, hafif gölge */
+.page-offset .eyebrow, .hero .eyebrow {
+    font-size: clamp(1.9rem, 3.6vw, 2.6rem) !important; color: #ecd9a8 !important; font-weight: 400;
+    text-shadow: 0 2px 8px rgba(15, 10, 5, .6), 0 1px 1px rgba(15, 10, 5, .55);
+}
+.hero .eyebrow::before, .page-offset .eyebrow::before { display: none !important; }

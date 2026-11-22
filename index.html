@@ -30,7 +30,7 @@
         <link href="css/dark.css?v=90" rel="stylesheet" />
         <!-- Sayfa geçişi + yükleme ekranı -->
         <link href="css/transition.css?v=90" rel="stylesheet" />
-        <link href="css/vintage.css?v=9" rel="stylesheet" />
+        <link href="css/vintage.css?v=10" rel="stylesheet" />
         <link href="css/scenes.css?v=5" rel="stylesheet" />
         <script>
             /* Geçiş sahnesi/yükleme ekranı için: JS var mı, ilk ziyaret mi? */
@@ -39,7 +39,7 @@
         </script>
     </head>
     <body id="top" class="d-flex flex-column h-100" data-page="home" data-title="meta.title.home" data-desc="meta.desc.home">
-        <canvas id="bg3d" aria-hidden="true"></canvas>
+        <div class="page-bg" aria-hidden="true"></div>
         <div class="grain" aria-hidden="true"></div>
         <div class="scroll-progress" aria-hidden="true"></div>
         <div class="cursor" aria-hidden="true"><span data-i18n="cursor.view">Gör</span></div>
@@ -107,6 +107,8 @@
             </nav>
 
             <!-- Header-->
+            <!-- Tablonun içine dalış: başlık ekranda sabit kalır, kaydırma kamerayı tablolar arasında ilerletir (js/dive.js) -->
+            <div class="journey" data-journey>
             <header class="hero">
                 <div class="container px-5">
                     <div class="row gx-5 align-items-center">
@@ -135,7 +137,13 @@
                     </div>
                 </div>
                 <div class="scroll-hint" aria-hidden="true"><i></i><span data-i18n="hero.scroll">Kaydır</span></div>
+                <div class="dive-labels" aria-live="polite">
+                    <p class="dive-label" data-dive-label="0"><b data-i18n="dive.0.artist">Giovanni Paolo Panini</b><span data-i18n="dive.0.title"></span><small data-i18n="dive.0.meta"></small></p>
+                    <p class="dive-label" data-dive-label="1"><b data-i18n="dive.1.artist">Hubert Robert</b><span data-i18n="dive.1.title"></span><small data-i18n="dive.1.meta"></small></p>
+                    <p class="dive-label" data-dive-label="2"><b data-i18n="dive.2.artist">Thomas Cole</b><span data-i18n="dive.2.title"></span><small data-i18n="dive.2.meta"></small></p>
+                </div>
             </header>
+            </div>
 
             <!-- Galeriden kareler: js/content.js > gallery listesinin ilk üçü -->
             <section class="py-5 my-5 home-gallery">
@@ -328,15 +336,14 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
         <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-        <script src="js/content.js?v=94"></script>
+        <script src="js/content.js?v=95"></script>
         <script src="js/i18n.js?v=94"></script>
         <script src="js/transition.js?v=90"></script>
         <script src="js/main.js?v=90"></script>
-        <script src="js/world.js?v=96"></script>
-        <script src="js/painting.js?v=3"></script>
+        <script src="js/dive.js?v=2"></script>
         <script src="js/folders.js?v=90"></script>
         <script src="js/scenes.js?v=4"></script>
         <script src="js/blog.js?v=90"></script>
-        <script src="js/router.js?v=94"></script>
+        <script src="js/router.js?v=95"></script>
     </body>
 </html>
