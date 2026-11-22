@@ -132,12 +132,35 @@ vec3 cole(vec2 suv, vec2 par) {
     vec2 cu = base + par * span * (d - 0.3) * 1.2;
     vec3 m = img(uCMaps, cu).rgb;
     float water = m.g, sky = m.b, t = uTime * uMotion;
-    cu.x += sky * sin(t * 0.045) * 0.004;
     float nearW = smoothstep(HORIZON, HORIZON + 0.25, cu.y);
     cu.y += water * nearW * (sin(cu.x * 260.0 + t * 1.6) * 0.0009 + sin(cu.x * 97.0 - t * 1.1 + cu.y * 50.0) * 0.0007);
-    vec3 c = img(uCole, cu).rgb;
+    vec3 c;
+    if (sky > 0.5) {
+        // Bulutlar: iki evreli akış haritası; yön gürültüyle değişir, böylece bulutlar kayarken hafifçe kabarır
+        vec2 fl = (vec2(fbm(cu * vec2(3.0, 6.0) + 4.0), fbm(cu * vec2(3.0, 6.0) + 9.0)) - 0.5) * vec2(0.6, 0.25) + vec2(1.0, 0.05);
+        float ph = fract(t * 0.035);
+        vec2 o = fl * 0.0045;
+        float wt = abs(1.0 - 2.0 * ph);
+        c = mix(img(uCole, cu - o * ph).rgb, img(uCole, cu - o * fract(ph + 0.5)).rgb, 1.0 - wt);
+        c *= 0.97 + 0.07 * fbm(vec2(cu.x * 4.0 - t * 0.02, cu.y * 9.0));   // gezinen bulut gölgesi
+    } else c = img(uCole, cu).rgb;
     float column = exp(-abs((cu.x - SUN.x) * COLE_A) * 9.0);
-    c += vec3(1.0, 0.94, 0.8) * smoothstep(0.8, 1.0, noise(vec2(cu.x * 420.0, cu.y * 900.0 + t * 2.2))) * water * column * nearW * 0.45;
+    float glint = smoothstep(0.8, 1.0, noise(vec2(cu.x * 420.0, cu.y * 900.0 + t * 2.2)));
+    float spark = smoothstep(0.93, 1.0, noise(vec2(cu.x * 700.0 + t * 0.6, cu.y * 1500.0 - t * 1.3)));
+    c += vec3(1.0, 0.94, 0.8) * water * nearW * (glint * column * 0.5 + spark * 0.16);
+    // Martılar: uzakta, gökte ağır ağır kanat çırparak süzülen küçük siluetler
+    for (int i = 0; i < 3; i++) {
+        float fi = float(i);
+        vec2 gp = vec2(fract(t * (0.012 + fi * 0.004) + fi * 0.37) * 1.3 - 0.15, 0.82 - fi * 0.06 + 0.012 * sin(t * 0.3 + fi * 2.0));
+        float gs = (0.021 - fi * 0.004) * uColeZoom;
+        vec2 q = (suv - gp) * vec2(sa, 1.0) / gs;
+        float ax = abs(q.x);
+        float flap = sin(t * (2.2 + fi * 0.5) + fi * 4.0);
+        float wy = (0.25 + 0.3 * flap) * sin(3.1416 * min(ax, 1.0)) - 0.1 * ax;
+        float wth = 0.16 * (1.0 - 0.7 * ax) + 0.03;
+        float g = step(ax, 1.0) * smoothstep(wth, wth * 0.35, abs(q.y - wy));
+        c = mix(c, vec3(0.2, 0.19, 0.18), g * sky * 0.85);
+    }
     float band = exp(-pow((cu.y - HORIZON) / 0.08, 2.0));
     c = mix(c, vec3(0.93, 0.9, 0.82), band * (1.0 - d) * (0.12 + 0.16 * fbm(vec2(cu.x * 3.2 + t * 0.012, cu.y * 7.0))));
     return c;
@@ -158,6 +181,18 @@ void main() {
     vec2 cu = (pw - CROP.xy) / CROP.zw;
     col = mix(col, img(uPHi, cu).rgb, uHi * insideSoft(cu, 0.02) * smoothstep(0.42, 0.22, uSpan));
     col *= mix(0.25, 1.0, inside(pu));                             // tablonun dışı: karanlık duvar
+
+    /* ---- Galerinin üst penceresinden süzülen ışık huzmeleri (geniş görünümde) ---- */
+    float tt = uTime * uMotion;
+    vec2 bd = normalize(vec2(0.42, 1.0));
+    vec2 bo = pu - vec2(0.18, -0.05);
+    float along = dot(bo, bd), across = dot(bo, vec2(bd.y, -bd.x));
+    float zone = smoothstep(0.0, 0.12, along) * smoothstep(1.1, 0.3, along) * smoothstep(0.42, 0.05, abs(across - 0.1));
+    zone *= smoothstep(0.08, 0.3, uSpan) * (1.0 - uB1);
+    float rays = smoothstep(0.5, 0.75, fbm(vec2(across * 16.0 + tt * 0.012, along * 0.6 + tt * 0.02)));
+    float beams = zone * rays;
+    col *= 1.0 - 0.08 * zone * (1.0 - rays);                                  // huzme aralarında hafif gölge
+    col = 1.0 - (1.0 - col) * (1.0 - vec3(1.0, 0.84, 0.58) * beams * 0.42 * (0.85 + 0.15 * sin(tt * 0.4)));   // ekran karışımı: parlak yerler patlamaz
 
     /* ---- Robert (Navona çerçevesinin içinde) ---- */
     if (uB1 > 0.001) {
@@ -193,7 +228,7 @@ void main() {
         vec2 o = vec2(hash(id + 3.1), hash(id + 7.7)) - 0.5;
         dust += step(0.9, h) * smoothstep(0.05, 0.0, length(f - o * 0.7)) * (0.5 + 0.5 * sin(t * (1.0 + h * 2.0) + h * 6.28)) * (0.5 - fk * 0.15);
     }
-    col += vec3(1.0, 0.92, 0.75) * dust * 0.28 * uMotion;
+    col += vec3(1.0, 0.92, 0.75) * dust * (0.28 + beams * 1.6) * uMotion;
 
     /* ---- İnce son işlem: neredeyse fark edilmeyen tuval, hafif sıcaklık, gren, vinyet ---- */
     col *= 0.975 + 0.05 * texture2D(uWeave, gl_FragCoord.xy / 460.0).r;
@@ -232,7 +267,7 @@ void main() {
             return { c: [b.c[0] + (a.c[0] - b.c[0]) * kk, b.c[1] + (a.c[1] - b.c[1]) * kk], s };
         };
         const ss = (a, b, x) => { const t = Math.min(1, Math.max(0, (x - a) / (b - a))); return t * t * (3 - 2 * t); };
-        const SEG = [[0.06, 0.40], [0.40, 0.54], [0.54, 0.74], [0.74, 0.92]];
+        const SEG = [[0.06, 0.42], [0.42, 0.58], [0.58, 0.77], [0.77, 0.93]];
         function viewAt(P) {
             let v = K[0];
             for (let i = 0; i < SEG.length; i++) {
@@ -276,7 +311,8 @@ void main() {
         const labels = () => document.querySelectorAll("[data-dive-label]");
         const heroCopy = () => document.querySelector(".hero .container");
         function applyStage(P) {
-            const s = P < 0.45 ? 0 : P < 0.7 ? 1 : 2;
+            // Etiket, mürekkep geçişi tablonun yarısını kapladığı anda değişir
+            const s = uniforms.uB1.value < 0.5 ? 0 : uniforms.uB2.value < 0.5 ? 1 : 2;
             if (s !== stage) {
                 stage = s;
                 labels().forEach((el) => el.classList.toggle("is-on", +el.dataset.diveLabel === s));
@@ -287,6 +323,7 @@ void main() {
                 hc.style.opacity = f.toFixed(3);
                 hc.style.transform = `translate3d(0, ${(-40 * (1 - f)).toFixed(1)}px, 0)`;
                 hc.style.visibility = f < 0.01 ? "hidden" : "";
+                hc.parentNode.style.setProperty("--hero-f", f.toFixed(3));
             }
         }
 
@@ -306,9 +343,9 @@ void main() {
             const v = viewAt(P);
             uniforms.uCam.value.set(v.c[0], v.c[1]);
             uniforms.uSpan.value = v.s;
-            uniforms.uB1.value = ss(0.36, 0.50, P);
-            uniforms.uB2.value = ss(0.58, 0.72, P);
-            uniforms.uArchFade.value = ss(0.84, 0.93, P);
+            uniforms.uB1.value = ss(0.47, 0.59, P);
+            uniforms.uB2.value = ss(0.63, 0.75, P);
+            uniforms.uArchFade.value = ss(0.86, 0.94, P);
             uniforms.uColeZoom.value = 1.22 - 0.16 * ss(0.6, 1.0, P);
             const after = journey ? Math.max(0, -journey.getBoundingClientRect().bottom + window.innerHeight) / window.innerHeight : 0;
             uniforms.uDim.value = Math.min(0.45, after * 0.5);

@@ -138,8 +138,15 @@ html.dive-fallback .dive-bg canvas { display: none; }
 .journey > .hero { position: sticky; top: 0; height: 100vh; height: 100svh; min-height: 0; overflow: hidden; }
 html.dive-on .scroll-progress, html.dive-on .hero .scroll-hint { mix-blend-mode: normal; }
 /* Metin tablonun üstünde okunur kalsın: yumuşak, yönlü bir gölge (kutu yok) */
-html.dive-on .hero::before { content: ""; position: absolute; inset: 0; pointer-events: none;
-    background: radial-gradient(ellipse 70% 60% at 22% 55%, rgba(20, 14, 8, .55), transparent 70%); transition: opacity .6s; }
+/* Açılış yazılarının arkasında yumuşak, sıcak bir koyulaşma (mum ışığındaki gölge gibi); yazılar kaybolurken o da söner */
+html.dive-on .hero::before { content: ""; position: absolute; inset: 0; pointer-events: none; opacity: var(--hero-f, 1);
+    background:
+        radial-gradient(ellipse 52% 46% at 24% 52%, rgba(34, 20, 9, .62), rgba(34, 20, 9, .38) 45%, transparent 78%),
+        linear-gradient(90deg, rgba(30, 18, 8, .42), rgba(30, 18, 8, .12) 48%, transparent 70%); }
+@media (max-width: 767.98px) {
+    html.dive-on .hero::before { background:
+        radial-gradient(ellipse 95% 55% at 40% 50%, rgba(34, 20, 9, .66), rgba(34, 20, 9, .36) 55%, transparent 85%); }
+}
 .hero .container { will-change: opacity, transform; position: relative; }
 
 /* Müze etiketi: aşamaya göre değişen, tabloyu tanıtan küçük kâğıt etiket (gerçek HTML) */
@@ -184,3 +191,11 @@ h1 .text-gradient em { -webkit-text-fill-color: #ead9b0; }
     text-shadow: 0 2px 8px rgba(15, 10, 5, .6), 0 1px 1px rgba(15, 10, 5, .55);
 }
 .hero .eyebrow::before, .page-offset .eyebrow::before { display: none !important; }
+
+/* Telefon: müze etiketi açılış yazılarıyla çakışmasın; yazılar kaybolurken belirir, biraz daha küçük */
+@media (max-width: 767.98px) {
+    .dive-labels { width: min(72vw, 270px); opacity: calc(1 - var(--hero-f, 1)); }
+    .dive-label { padding: .7rem .9rem .8rem; }
+    .dive-label b, .dive-label span { font-size: .95rem; }
+    .dive-label small { font-size: .64rem; }
+}
