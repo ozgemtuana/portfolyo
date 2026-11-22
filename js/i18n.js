@@ -74,6 +74,9 @@ function buildDictionaries(site) {
             d[`p.${i + 1}.tag`] = pick(p.tag);
             d[`p.${i + 1}.d`] = pick(p.desc);
         });
+        ((site.portfolio && site.portfolio.sections) || []).forEach((x, i) => {
+            ["tab", "title", "body"].forEach((f) => (d[`pf.${i + 1}.${f}`] = pick(x[f])));
+        });
         site.experience.forEach((x, i) => {
             ["date", "role", "company", "desc"].forEach((f) => (d[`exp.${i + 1}.${f}`] = pick(x[f])));
         });
@@ -154,6 +157,60 @@ function renderContent(site) {
                 `<div class="meta"><div><h3 data-i18n="p.${i + 1}.t"></h3><small data-i18n="p.${i + 1}.tag"></small></div><span class="idx">(${pad(n + 1)})</span></div>` +
             `</a>`).join("");
         setArtImages(el, site.projects);
+    }
+
+    // Projeler sayfası: her proje kendi açılış sahnesinde (anahtar deliği → portfolyo → kubbe, çerçeve, mektup...)
+    if ((el = box("projectscenes"))) {
+        const list = site.projects.map((p, i) => ({ p, i }));
+        const pfs = list.filter((x) => x.p.scene === "portfolio");
+        const rest = list.filter((x) => x.p.scene && !["portfolio", "card"].includes(x.p.scene));
+        const cards = list.filter((x) => !x.p.scene || x.p.scene === "card");
+        const link = (p, key) => (projectHref(p) ? `<a class="btn btn-outline-dark sc-link"${linkAttrs(projectHref(p))} data-i18n="${key}"></a>` : "");
+        const label = ({ p, i }) =>
+            `<div class="sc-label">` +
+                `<div class="sc-tag" data-i18n="p.${i + 1}.tag"></div>` +
+                `<h2 data-i18n="p.${i + 1}.t"></h2>` +
+                `<p data-i18n="p.${i + 1}.d"></p>` + link(p, "projects.view") +
+            `</div>`;
+        const art = ({ p, i }) => `<figure class="scene-art"><img src="${escAttr(p.image)}" alt="" data-i18n-alt="p.${i + 1}.t" loading="lazy" decoding="async"></figure>`;
+        const props = {
+            cloche: (x) => `<div class="prop prop-cloche"><div class="pc-glow"></div><div class="pc-plate"></div>${art(x)}<div class="pc-dome"><i></i></div></div>`,
+            frame: (x) => `<div class="prop prop-frame"><span class="pfr-cord"></span><div class="pfr-frame">${art(x)}</div></div>`,
+            letter: (x) => `<div class="prop prop-letter"><div class="pl-back"></div><div class="pl-paper">${art(x)}</div><div class="pl-front"></div><div class="pl-flap"></div><div class="pl-seal"><i class="l"></i><i class="r"></i></div></div>`,
+            jewel: (x) => `<div class="prop prop-jewel"><div class="pj-glow"></div><div class="pj-back"></div>${art(x)}<div class="pj-front"></div><div class="pj-lid"></div></div>`,
+            album: (x) => `<div class="prop prop-album"><div class="pa-page">${art(x)}</div><div class="pa-cover"><b></b></div></div>`
+        };
+        const kh = `<svg class="kh-cover" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">` +
+            `<defs><mask id="khMask"><rect width="100" height="100" fill="#fff"/><path fill="#000" d="M50 33a7.2 7.2 0 0 1 3.6 13.4L57 64H43l3.4-17.6A7.2 7.2 0 0 1 50 33z"/></mask></defs>` +
+            `<rect width="100" height="100" fill="#0a0704" mask="url(#khMask)"/>` +
+            `<path fill="none" stroke="#c9a96e" stroke-width=".35" opacity=".7" d="M50 33a7.2 7.2 0 0 1 3.6 13.4L57 64H43l3.4-17.6A7.2 7.2 0 0 1 50 33z"/></svg>`;
+        const portfolio = pfs.map((x) =>
+            `<section class="scene scene--portfolio" data-scene="portfolio" aria-labelledby="sc-pf">` +
+                `<div class="scene-stage">` +
+                    `<div class="pf-intro">${label(x).replace("<h2", '<h2 id="sc-pf"')}</div>` +
+                    `<div class="pf" data-pf>` +
+                        `<div class="pf-book">` +
+                            `<div class="pf-inside"><div class="pf-cards">` +
+                                (site.portfolio ? site.portfolio.sections : []).map((_, k) =>
+                                    `<article class="pf-card" data-k="${k}"><h3 data-i18n="pf.${k + 1}.title"></h3><p data-i18n="pf.${k + 1}.body"></p></article>`).join("") +
+                            `</div></div>` +
+                            `<div class="pf-cover"><div class="pf-front"><span class="pf-script" data-i18n="pf.cover.script"></span><span class="pf-title" data-i18n="pf.cover.title"></span></div><div class="pf-back"></div></div>` +
+                            `<div class="pf-tabs" role="group" data-i18n-aria="pf.tabs">` +
+                                (site.portfolio ? site.portfolio.sections : []).map((_, k) =>
+                                    `<button type="button" class="pf-tab" data-k="${k}" data-i18n="pf.${k + 1}.tab"></button>`).join("") +
+                            `</div>` +
+                        `</div>` +
+                    `</div>` + kh +
+                    `<p class="kh-hint" data-i18n="scenes.hint"></p>` +
+                `</div>` +
+            `</section>`).join("");
+        const scenes = rest.map((x, n) =>
+            `<section class="scene scene--${x.p.scene} ${n % 2 ? "is-flip" : ""}" data-scene="${x.p.scene}" aria-labelledby="sc-${x.i}">` +
+                `<div class="scene-stage"><div class="scene-prop">${props[x.p.scene](x)}</div>${label(x).replace("<h2", `<h2 id="sc-${x.i}"`)}</div>` +
+            `</section>`).join("");
+        const plain = cards.map((x) =>
+            `<section class="scene scene--card" data-scene="card" aria-labelledby="sc-${x.i}"><div class="scene-stage">${label(x).replace("<h2", `<h2 id="sc-${x.i}"`)}</div></section>`).join("");
+        el.innerHTML = portfolio + scenes + plain;
     }
 
     // Projeler sayfası: tüm projeler

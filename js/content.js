@@ -293,7 +293,11 @@ window.SITE_CONTENT = {
             "aboutpage.lists.int5": "Podyum ve modellik",
             "home.gallery.eyebrow": "Kareler",
             "home.gallery.title": "Galeriden <em>kareler</em>",
-            "home.gallery.all": "Tüm galeri"
+            "home.gallery.all": "Tüm galeri",
+            "pf.cover.script": "Seçili işler",
+            "pf.cover.title": "Portfolyo",
+            "scenes.hint": "Anahtar deliğinden geçmek için kaydır",
+            "pf.tabs": "Portfolyo bölümleri"
         },
         "en": {
             "meta.title.home": "Home — {name}",
@@ -566,7 +570,11 @@ window.SITE_CONTENT = {
             "aboutpage.lists.int5": "Runway and modelling",
             "home.gallery.eyebrow": "Frames",
             "home.gallery.title": "Frames from the <em>gallery</em>",
-            "home.gallery.all": "Full gallery"
+            "home.gallery.all": "Full gallery",
+            "pf.cover.script": "Selected work",
+            "pf.cover.title": "Portfolio",
+            "scenes.hint": "Scroll to pass through the keyhole",
+            "pf.tabs": "Portfolio sections"
         }
     },
     "projects": [
@@ -586,7 +594,8 @@ window.SITE_CONTENT = {
             "image": "images/projects/vanilla-cola.jpg",
             "art": "",
             "link": "",
-            "featured": true
+            "featured": true,
+            "scene": "cloche"
         },
         {
             "title": {
@@ -604,7 +613,8 @@ window.SITE_CONTENT = {
             "image": "images/projects/history-brush.jpg",
             "art": "",
             "link": "",
-            "featured": true
+            "featured": true,
+            "scene": "frame"
         },
         {
             "title": {
@@ -622,7 +632,8 @@ window.SITE_CONTENT = {
             "image": "images/projects/proje3.jpg",
             "art": "",
             "link": "",
-            "featured": true
+            "featured": true,
+            "scene": "letter"
         },
         {
             "title": {
@@ -640,7 +651,8 @@ window.SITE_CONTENT = {
             "image": "images/projects/proje4-gunes-sistemi.jpg",
             "art": "",
             "link": "",
-            "featured": true
+            "featured": true,
+            "scene": "jewel"
         },
         {
             "title": {
@@ -658,7 +670,8 @@ window.SITE_CONTENT = {
             "image": "images/projects/proje6-web-arayuzu.jpg",
             "art": "",
             "link": "",
-            "featured": true
+            "featured": true,
+            "scene": "album"
         },
         {
             "title": {
@@ -676,7 +689,8 @@ window.SITE_CONTENT = {
             "image": "",
             "art": "art-3",
             "link": "index.html",
-            "featured": true
+            "featured": true,
+            "scene": "portfolio"
         },
         {
             "title": {
@@ -694,7 +708,8 @@ window.SITE_CONTENT = {
             "image": "",
             "art": "art-4",
             "link": "https://www.instagram.com/ozgemtuana/",
-            "featured": true
+            "featured": true,
+            "scene": "card"
         }
     ],
     "experience": [
@@ -1700,5 +1715,65 @@ window.SITE_CONTENT = {
                 "en": "Sport sets my daily rhythm: discipline and energy."
             }
         }
-    ]
+    ],
+    "portfolio": {
+        "sections": [
+            {
+                "tab": {
+                    "tr": "Tasarım",
+                    "en": "Design"
+                },
+                "title": {
+                    "tr": "Orman ve lilyum dünyası",
+                    "en": "A forest and lily world"
+                },
+                "body": {
+                    "tr": "Zeytin yeşili, ahşap kahvesi ve krem tonları; vurgu olarak mat altın. Her sayfa aynı dünyanın başka bir köşesi.",
+                    "en": "Olive green, wood brown and cream, with matte gold as the accent. Every page is another corner of the same world."
+                }
+            },
+            {
+                "tab": {
+                    "tr": "Teknoloji",
+                    "en": "Tech"
+                },
+                "title": {
+                    "tr": "Framework'süz, elle yazıldı",
+                    "en": "Hand-written, no framework"
+                },
+                "body": {
+                    "tr": "HTML5, CSS3 ve JavaScript. Arka plandaki 3D dünya Three.js ile, kaydırma animasyonları GSAP ile yapıldı.",
+                    "en": "HTML5, CSS3 and JavaScript. The 3D background uses Three.js and the scroll animations use GSAP."
+                }
+            },
+            {
+                "tab": {
+                    "tr": "Sayfalar",
+                    "en": "Pages"
+                },
+                "title": {
+                    "tr": "Sekiz sayfa, iki dil",
+                    "en": "Eight pages, two languages"
+                },
+                "body": {
+                    "tr": "Türkçe ve İngilizce. Sayfalar arası geçişte site yeniden yüklenmez; menü, geri tuşu ve doğrudan bağlantılar çalışır.",
+                    "en": "Turkish and English. Moving between pages does not reload the site; the menu, back button and direct links all work."
+                }
+            },
+            {
+                "tab": {
+                    "tr": "Erişim",
+                    "en": "Access"
+                },
+                "title": {
+                    "tr": "Herkes için okunur",
+                    "en": "Readable for everyone"
+                },
+                "body": {
+                    "tr": "Her sayfada tek ana başlık, görsel açıklamaları, klavyeyle gezinme ve azaltılmış hareket desteği.",
+                    "en": "One main heading per page, image descriptions, keyboard navigation and reduced-motion support."
+                }
+            }
+        ]
+    }
 };
