@@ -2,3 +2,7 @@
 
 # Stil referansları (Pinterest) — yalnızca yerel, siteyle yayınlanmaz
 references/
+
+# Geçici test dosyaları, ekran görüntüleri, indirmeler ve inceleme sayfası (yayınlanmaz)
+.scratch/
+inceleme/

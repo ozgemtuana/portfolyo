@@ -18,8 +18,8 @@
     function speed() {
         // ekran yüksekliğinin saniyede ~%9'u; durakta yarı hız
         let f = 1;
-        const D = window.Dive;
-        if (D && document.body.dataset.page === "home" && D.stops) {
+        const D = document.body.dataset.page === "home" ? window.Dive : window.PageDive;
+        if (D && D.stops && D.stops.length) {
             const P = D.progress();
             if (D.stops.some(([a, b]) => P > a - 0.01 && P < b + 0.01)) f = 0.4;
         }

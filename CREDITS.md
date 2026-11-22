@@ -35,13 +35,19 @@
 - Claude Code (Anthropic), Python (Pillow, NumPy, ONNX Runtime), Playwright (test), Wikimedia Commons API, ambientCG.
 - Claude Code skill'leri: frontend-design, impeccable, greensock/gsap-skills, cloudai-x/threejs-skills, web3d-integration-patterns (freshtechbro/claudedesignskills).
 
-## Sayfa tabloları (Wikimedia Commons; hepsi kamu malı ya da CC0)
-- Jean-Honoré Fragonard, *Young Girl Reading*, c. 1769 — National Gallery of Art (CC0) · Hakkımda
-- Johannes Vermeer, *The Art of Painting* — Kunsthistorisches Museum (kamu malı) · Projeler
-- Johannes Vermeer, *A Lady Writing*, c. 1665 — National Gallery of Art (CC0) · Blog
-- John Constable, *Wivenhoe Park, Essex*, 1816 — National Gallery of Art (kamu malı) · Galeri
-- Claude Lorrain, *Landscape with Merchants* (kamu malı) · Özgeçmiş
-- Caspar David Friedrich, *Woman at a Window*, 1822 — Alte Nationalgalerie (kamu malı) · İletişim
+## Sayfa tabloları ve dalış zincirleri (Wikimedia Commons; hepsi kamu malı ya da CC0)
+- Hakkımda: Jean-Honoré Fragonard, *Young Girl Reading*, y. 1769 — National Gallery of Art, Washington (CC0; "NGA 46303").
+- Özgeçmiş: Claude Lorrain, *Landscape with Merchants*, y. 1629 — National Gallery of Art (CC0; "NGA 41657").
+- Projeler: Johannes Vermeer, *The Art of Painting*, y. 1666–68 — Kunsthistorisches Museum, Viyana (kamu malı; Google Art Project taraması).
+- Blog: Johannes Vermeer, *A Lady Writing*, y. 1665 — National Gallery of Art (CC0; "NGA 46437").
+- Galeri: Thomas Cole, *The Course of Empire* serisi (Savage State, Arcadian or Pastoral State, Consummation of Empire, Destruction, Desolation), 1834–36 — New-York Historical Society (kamu malı).
+- Süreç: Willem van Haecht, *The Gallery of Cornelis van der Geest*, 1628 — Rubenshuis, Anvers (kamu malı).
+- İletişim: Caspar David Friedrich, *Woman at a Window*, 1822 — Alte Nationalgalerie, Berlin (kamu malı; çerçeveli müze fotoğrafı) ve Camille Corot, *Tivoli, les jardins de la Villa d'Este*, 1843 — Musée du Louvre (kamu malı; RF 1943 5).
+- Eski sabit fonlar (yedek): John Constable, *Wivenhoe Park, Essex*, 1816 — National Gallery of Art.
+
+## Açılış (ilk giriş)
+- Kapı: The Metropolitan Museum of Art, "Pair of double doors" (MET DP-598-01, CC0). Kanatlar ve kasa ayrı katmanlara kesildi.
+- Salon: Hubert Robert, *Projet pour la transformation de la Grande Galerie du Louvre*, 1796 — Musée du Louvre (kamu malı; RF 1975 10).
 
 ## İlham kaynakları
 - uberdesigner.ai — "The School of Athens" ve "Course of Empire" şablonları (tablonun içine dalış, zoom durakları, mini harita, otomatik oynatma fikirleri). Kod veya görsel kopyalanmadı; fikirler bu tasarıma uyarlandı.
