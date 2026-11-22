@@ -1,0 +1,265 @@
+/* ==========================================================================
+   Vintage kâğıt kolajı (references/26–31) — şimdilik yalnızca Hakkımda (html.collage, js/decor.js)
+   Arka planda tablo, önde masaya serilmiş gerçek kâğıt objeleri. Her içerik bir objenin üstünde:
+   mektup kâğıdı, daktilo kâğıdı, dantel kart, parti kayıt kâğıdı, opera bileti, kulüp kartı,
+   davetiye, kraft etiket, diploma, kayıt defteri, fiş kartı, defter sayfası.
+   Doku: images/textures/paper-aged.jpg (ambientCG, CC0) ve Met dantel kâğıdı (CC0).
+   Şekiller (bilet çentiği, defter delikleri, etiket köşesi) maskeyle kâğıttan kesilir.
+   ========================================================================== */
+html.collage {
+    --ink-green: #2f3a28;
+    --ink-brown: #2e2418;
+    --ink-faded: #5d4b35;
+    --stamp-ink: rgba(47, 58, 40, .62);
+    --paper-cream: linear-gradient(rgba(246, 239, 224, .62), rgba(238, 228, 206, .62)), url("../images/textures/paper-aged.jpg") center / 900px, #efe5d1;
+    --paper-white: linear-gradient(rgba(250, 247, 238, .78), rgba(244, 238, 224, .78)), url("../images/textures/paper-aged.jpg") center / 1100px, #f6f1e4;
+    --paper-ticket: linear-gradient(rgba(236, 220, 176, .55), rgba(226, 206, 160, .55)), url("../images/textures/paper-aged.jpg") center / 700px, #e6d4a8;
+    --paper-kraft: linear-gradient(rgba(176, 134, 86, .72), rgba(160, 118, 72, .72)), url("../images/textures/paper-aged.jpg") center / 600px, #a87d4e;
+    --card-shadow: drop-shadow(0 2px 2px rgba(10, 6, 2, .35)) drop-shadow(0 18px 18px rgba(10, 6, 2, .42));
+}
+
+/* ---------- Ortak: masaya gelme, açı, fareyle kalkma ---------- */
+html.collage .obj {
+    --rot: 0deg; --tx: 0deg; --ty: 0deg;
+    position: relative;
+    transform: perspective(1200px) translateY(46px) rotate(calc(var(--rot) * 2.2 + 2deg));
+    opacity: 0;
+    transition: transform .9s cubic-bezier(.2, .75, .2, 1), opacity .7s ease, filter .4s ease;
+    will-change: transform;
+}
+html.collage .obj.is-in { transform: perspective(1200px) rotate(var(--rot)) rotateX(var(--tx)) rotateY(var(--ty)); opacity: 1; }
+@media (hover: hover) {
+    html.collage .obj.is-in:hover { transform: perspective(1200px) translateY(-6px) rotate(calc(var(--rot) * .6)) rotateX(var(--tx)) rotateY(var(--ty)); z-index: 5; }
+}
+html.collage .obj :is(h2, h3, h4) { color: var(--ink-green) !important; }
+/* Kâğıt şeklini maskeyle kesilenlerin gölgesi kapsayıcıdan */
+html.collage .about-page .col-lg-6, html.collage .int-grid, html.collage .about-page .col-lg-7, html.collage .about-page .col-lg-5,
+html.collage .about-page .schedule, html.collage .about-page section > .edu-list { filter: var(--card-shadow); }
+/* Önceki kart kurallarını (dantel/yırtık/gölge) bu sayfadaki objelerde sıfırla */
+html.collage body .obj:not(#_):not(.obj--lace):not(.obj--invite) {
+    border: 0 !important; border-image: none !important; box-shadow: none !important; filter: none;
+    -webkit-mask: none; mask: none; border-radius: 0 !important;
+}
+.deco-head { pointer-events: none; }
+
+/* ---------- Kısaca ben: mektup kâğıdı + köşelikli vesikalık + imza + oval damga ---------- */
+html.collage body .obj--letter:not(#_) {
+    background:
+        linear-gradient(90deg, transparent 2.6rem, rgba(170, 70, 60, .35) 2.6rem calc(2.6rem + 1px), transparent calc(2.6rem + 1px)),
+        repeating-linear-gradient(to bottom, transparent 0 1.85rem, rgba(70, 92, 120, .16) 1.85rem calc(1.85rem + 1px)),
+        var(--paper-cream) !important;
+    background-position: 0 0, 0 9.2rem, center !important;
+    padding: 2.6rem 2.2rem 4.2rem 3.4rem !important;
+    -webkit-mask: url("../images/textures/deckle-mask.png") center / 100% 100% no-repeat !important; mask: url("../images/textures/deckle-mask.png") center / 100% 100% no-repeat !important;
+    font-size: 1.02rem; line-height: 1.85rem;
+}
+html.collage .obj--letter p { color: var(--ink-brown) !important; margin-bottom: 1.85rem; }
+html.collage .obj--letter h2 { font-family: var(--font-display); font-weight: 400; }
+html.collage .about-page .id-photo { position: relative; float: right; width: 128px; margin: -.4rem -.4rem 1rem 1.2rem; padding: 7px 7px 26px; background: #f7f2e6; transform: rotate(3.5deg);
+    box-shadow: 0 1px 1px rgba(10, 6, 2, .25), 0 8px 12px rgba(10, 6, 2, .28) !important; border: 0 !important; border-radius: 0 !important; }
+html.collage .about-page .id-photo img { width: 100%; height: auto; border-radius: 0 !important; filter: sepia(.12) contrast(1.02); }
+html.collage .about-page .id-photo figcaption { position: absolute; left: 0; right: 0; bottom: 3px; text-align: center; font-family: var(--font-calli); font-size: 1rem; color: var(--ink-brown); line-height: 1.2; }
+html.collage .about-page .id-photo figcaption span:not(.id-name) { display: none; }
+html.collage .about-page .id-photo .id-name { text-shadow: none !important; }
+/* Fotoğraf köşelikleri: koyu kraft kâğıttan küçük üçgen cepler */
+.deco-corners i { position: absolute; width: 26px; height: 26px; background: linear-gradient(rgba(40, 28, 16, .82), rgba(40, 28, 16, .82)), url("../images/textures/paper-aged.jpg") center / 200px; box-shadow: 0 1px 2px rgba(0, 0, 0, .35); }
+.deco-corners i:nth-child(1) { left: -6px; top: -6px; clip-path: polygon(0 0, 100% 0, 0 100%); }
+.deco-corners i:nth-child(2) { right: -6px; top: -6px; clip-path: polygon(0 0, 100% 0, 100% 100%); }
+.deco-corners i:nth-child(3) { left: -6px; bottom: -6px; clip-path: polygon(0 0, 100% 100%, 0 100%); }
+.deco-corners i:nth-child(4) { right: -6px; bottom: -6px; clip-path: polygon(100% 0, 100% 100%, 0 100%); }
+.deco-sign { position: absolute; right: 2.2rem; bottom: 1.1rem; font-family: var(--font-calli); font-size: 2.6rem; line-height: 1; color: var(--ink-brown); transform: rotate(-4deg); }
+.obj--letter .deco-stamp { position: absolute; left: 1.2rem; bottom: .8rem; width: 64px; color: var(--stamp-ink); transform: rotate(-14deg); }
+.obj--letter .deco-stamp svg { width: 100%; height: auto; display: block; }
+
+/* ---------- Kod: daktilo kâğıdı ---------- */
+html.collage body .about-page .code-card.obj--typed:not(#_):not(#_) {
+    background: var(--paper-white) !important; color: var(--ink-brown) !important;
+    padding: 2.2rem 2.2rem 2.6rem !important; margin-left: -2.4rem;
+    -webkit-mask: url("../images/textures/deckle-mask.png") center / 100% 100% no-repeat !important; mask: url("../images/textures/deckle-mask.png") center / 100% 100% no-repeat !important;
+}
+html.collage .obj--typed .code-bar { background: none !important; border: 0 !important; padding: 0 0 .9rem; margin-bottom: 1rem; border-bottom: 1px dashed rgba(46, 36, 24, .35) !important; }
+html.collage .obj--typed .code-bar i { display: none; }
+html.collage .obj--typed .code-bar span { font-family: "Special Elite", "Courier New", monospace; font-size: .95rem; color: var(--ink-faded) !important; letter-spacing: .04em; }
+html.collage .obj--typed pre, html.collage .obj--typed code, html.collage .about-page code { font-family: "Special Elite", "Courier New", monospace !important; }
+html.collage .obj--typed pre { background: none !important; border: 0 !important; margin: 0; padding: 0 !important; color: var(--ink-brown) !important; font-size: .9rem; line-height: 1.6; white-space: pre-wrap; text-shadow: .3px .3px 0 rgba(46, 36, 24, .35); }
+html.collage .obj--typed pre * { color: var(--ink-brown) !important; }
+html.collage .obj--letter code { background: none !important; border: 0 !important; color: var(--ink-brown) !important; padding: 0 .1em !important; font-size: .92em; }
+
+/* ---------- Söz: dantel kart + yuvarlak damga rozeti (references/29) ---------- */
+.deco-badge { position: absolute; right: -10px; bottom: -14px; width: 104px; height: 104px; border-radius: 50%; display: grid; place-items: center; color: #f3ead6;
+    background: radial-gradient(circle at 40% 35%, #7d8fa3, #5b6d82 70%); box-shadow: 0 6px 12px rgba(10, 6, 2, .35); transform: rotate(-10deg); z-index: 4; }
+.deco-badge svg { width: 92%; height: auto; }
+html.collage .about-quote { overflow: visible !important; }
+
+/* ---------- Hobiler: masaya serpiştirilmiş objeler ---------- */
+html.collage .int-grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 2.2rem 1.6rem; align-items: start; }
+html.collage .int-grid > .obj--score { grid-column: 1 / span 5; }
+html.collage .int-grid > .obj--ticket { grid-column: 6 / span 7; margin-top: 2.4rem; }
+html.collage .int-grid > .obj--club { grid-column: 2 / span 5; margin-top: -.6rem; }
+html.collage .int-grid > .obj--invite { grid-column: 7 / span 5; }
+html.collage .int-grid > .obj--tag { grid-column: 3 / span 8; }
+html.collage .obj .int-head { gap: .9rem; }
+html.collage .obj .int-icon .bi { width: 2.2em !important; height: 2.2em !important; color: var(--ink-green); }
+html.collage .obj .int-meta { color: var(--ink-faded) !important; font-family: "Special Elite", monospace; font-size: .74rem !important; letter-spacing: .06em; text-transform: uppercase; }
+html.collage .obj .int-tags { font-family: var(--font-calli) !important; font-size: 1.35rem !important; color: var(--ink-faded) !important; margin-top: .6rem; }
+.deco-head { display: block; font-family: var(--font-body); font-size: .66rem; letter-spacing: .32em; text-transform: uppercase; color: var(--ink-faded); }
+
+/* Satranç: parti kayıt kâğıdı (basılı form çerçevesi + sütun çizgileri) */
+html.collage body .obj--score:not(#_) {
+    background:
+        linear-gradient(90deg, transparent calc(14% - .5px), rgba(46, 36, 24, .28) 14%, transparent calc(14% + .5px), transparent calc(57% - .5px), rgba(46, 36, 24, .28) 57%, transparent calc(57% + .5px)),
+        var(--paper-white) !important;
+    padding: 1.4rem 1.5rem 1.6rem !important; outline: 1px solid rgba(46, 36, 24, .45); outline-offset: -10px;
+}
+.obj--score .deco-head { order: -1; margin: -0.2rem 0 1rem; padding-bottom: .55rem; border-bottom: 3px double rgba(46, 36, 24, .55); text-align: center; }
+html.collage .obj--score { display: flex; flex-direction: column; }
+html.collage .obj--score .int-head { order: 0; }
+
+/* Opera ve koro: bilet koçanı (delikli ayrım çizgisi, çentikler) */
+html.collage body .obj--ticket:not(#_) {
+    background:
+        linear-gradient(to bottom, transparent 0 6px, rgba(46, 36, 24, .45) 6px 12px) 24% 0 / 1px 12px repeat-y,
+        var(--paper-ticket) !important;
+    padding: 1.6rem 1.6rem 1.8rem 30% !important;
+    -webkit-mask: radial-gradient(circle 12px at 24% 0, #0000 97%, #000) top / 100% 51% no-repeat, radial-gradient(circle 12px at 24% 100%, #0000 97%, #000) bottom / 100% 51% no-repeat !important;
+    mask: radial-gradient(circle 12px at 24% 0, #0000 97%, #000) top / 100% 51% no-repeat, radial-gradient(circle 12px at 24% 100%, #0000 97%, #000) bottom / 100% 51% no-repeat !important;
+}
+.obj--ticket .deco-head { position: absolute; left: 0; top: 0; bottom: 0; width: 24%; display: flex; align-items: center; justify-content: center; writing-mode: vertical-rl; transform: rotate(180deg); font-size: .7rem; letter-spacing: .34em; color: #7a2e24; }
+.obj--ticket .deco-seat { position: absolute; right: 1.4rem; top: .9rem; font-family: "Special Elite", monospace; font-size: .72rem; color: #7a2e24; letter-spacing: .06em; }
+
+/* Spor: kulüp üyelik kartı (kalın karton, yuvarlak köşe, basılı yeşil şerit) */
+html.collage body .obj--club:not(#_) {
+    background: linear-gradient(var(--ink-green), var(--ink-green)) 0 0 / 100% 2.2rem no-repeat, var(--paper-cream) !important;
+    border-radius: 14px !important; padding: 3.1rem 1.6rem 1.6rem !important;
+    box-shadow: inset 0 0 0 7px rgba(239, 229, 209, .0), inset 0 0 0 8px rgba(47, 58, 40, .4) !important;
+}
+.obj--club .deco-head { position: absolute; left: 1.4rem; top: .66rem; color: #efe3c8; }
+.obj--club .deco-mono-sm { position: absolute; right: 1rem; top: 2.8rem; width: 54px; color: var(--stamp-ink); transform: rotate(8deg); }
+.obj--club .deco-mono-sm svg { width: 100%; height: auto; display: block; }
+
+/* Podyum: defile davetiyesi (dantel kart, ortalı) */
+html.collage .obj--invite { text-align: center; }
+html.collage .obj--invite .int-head { flex-direction: column; align-items: center; text-align: center; }
+.obj--invite .deco-head { font-family: var(--font-calli); font-size: 2.2rem; letter-spacing: 0; text-transform: none; color: var(--ink-green); margin-bottom: .4rem; order: -1; }
+html.collage .obj--invite { display: flex; flex-direction: column; }
+html.collage .obj--invite ul { text-align: left; }
+
+/* Moda: kraft askı etiketi (kesik köşe + delik) */
+html.collage body .obj--tag:not(#_) {
+    background: var(--paper-kraft) !important; color: #24180c !important;
+    padding: 1.6rem 1.8rem 1.6rem 4.4rem !important;
+    clip-path: polygon(2.6rem 0, 100% 0, 100% 100%, 2.6rem 100%, 0 calc(100% - 2.2rem), 0 2.2rem);
+}
+html.collage .obj--tag :is(h3, p, li, .int-meta, .int-tags) { color: #24180c !important; }
+html.collage .obj--tag ul { background-image: none !important; }
+.obj--tag .deco-hole { position: absolute; left: 1.15rem; top: 50%; width: 18px; height: 18px; margin-top: -9px; border-radius: 50%; background: rgba(12, 8, 4, .85); box-shadow: 0 0 0 4px rgba(236, 220, 186, .7); }
+.obj--tag .deco-head { position: absolute; right: 1.4rem; top: .8rem; color: rgba(36, 24, 12, .7); }
+
+/* Hobi notu: yırtık küçük kâğıt */
+html.collage body .obj--note:not(#_) { background: var(--paper-white) !important; padding: 1.8rem 1.8rem 2rem !important;
+    -webkit-mask: url("../images/textures/deckle-mask.png") center / 100% 100% no-repeat !important; mask: url("../images/textures/deckle-mask.png") center / 100% 100% no-repeat !important; }
+html.collage .obj--note h3 { font-family: var(--font-display); }
+html.collage .hobby-click { font-family: var(--font-calli); font-size: 1.4rem; color: var(--ink-faded); letter-spacing: 0; text-transform: none; }
+
+/* ---------- Yetenekler: cetvel üstünde mürekkep çizgisi (yüzdeler yazılı) ---------- */
+html.collage body .obj--ruler:not(#_), html.collage body .obj--card:not(#_) { background: var(--paper-white) !important; padding: 2rem 2rem 2.2rem !important; }
+.obj--ruler .deco-head { position: absolute; right: 1.6rem; top: 1.2rem; }
+html.collage .obj--ruler .skill-bar { height: 14px !important; margin-top: .35rem; background:
+        linear-gradient(90deg, rgba(46, 36, 24, .55) 1px, transparent 1px) 0 0 / 10% 100%,
+        linear-gradient(90deg, rgba(46, 36, 24, .35) 1px, transparent 1px) 0 100% / 2% 45% no-repeat repeat-x,
+        linear-gradient(rgba(46, 36, 24, .45), rgba(46, 36, 24, .45)) 0 0 / 100% 1px no-repeat !important;
+    background-repeat: repeat-x, repeat-x, no-repeat !important; border-radius: 0 !important; overflow: visible !important; }
+html.collage .obj--ruler .skill-bar > i { top: 6px !important; height: 3px !important; background: #2b3a5a !important; border-radius: 2px !important; box-shadow: 0 0 1px rgba(43, 58, 90, .6) !important; }
+html.collage .obj--ruler .skill-bar > i::after { content: ""; position: absolute; right: -4px; top: -2.5px; width: 8px; height: 8px; border-radius: 50%; background: #2b3a5a; }
+/* Kişisel yetkinlikler: fiş kartı, halkalar mürekkep */
+html.collage body .obj--card:not(#_) { background:
+        linear-gradient(rgba(170, 70, 60, .5), rgba(170, 70, 60, .5)) 0 3.9rem / 100% 1px no-repeat,
+        repeating-linear-gradient(to bottom, transparent 0 1.9rem, rgba(70, 92, 120, .2) 1.9rem calc(1.9rem + 1px)) 0 4rem / 100% 100% no-repeat,
+        var(--paper-white) !important; }
+
+/* ---------- Eğitim: diploma ---------- */
+html.collage body .obj--diploma:not(#_) { background: var(--paper-cream) !important; padding: 3rem 3rem 3.4rem !important; text-align: center;
+    box-shadow: inset 0 0 0 12px rgba(239, 229, 209, 0), inset 0 0 0 13px rgba(47, 58, 40, .55), inset 0 0 0 17px rgba(239, 229, 209, 0), inset 0 0 0 18px rgba(47, 58, 40, .35) !important; }
+.obj--diploma .deco-head { margin-bottom: 1.4rem; letter-spacing: .5em; color: var(--ink-green); }
+html.collage .obj--diploma > div { border: 0 !important; padding: .5rem 0 !important; display: block !important; }
+html.collage .obj--diploma dt { font-family: var(--font-display); font-size: 1.7rem; font-weight: 500; color: var(--ink-green) !important; }
+html.collage .obj--diploma dd { font-family: var(--font-display); font-style: italic; font-size: 1.1rem; color: var(--ink-faded) !important; }
+.obj--diploma .deco-stamp { position: absolute; right: 2rem; bottom: 1.2rem; width: 92px; color: rgba(122, 46, 36, .55); transform: rotate(-12deg); }
+.obj--diploma .deco-stamp svg { width: 100%; height: auto; display: block; }
+
+/* ---------- Ders programı: okul kayıt defteri ---------- */
+html.collage body .obj--register:not(#_) { background:
+        linear-gradient(90deg, transparent 4.2rem, rgba(170, 70, 60, .4) 4.2rem calc(4.2rem + 1px), transparent calc(4.2rem + 1px)),
+        var(--paper-white) !important; padding: 2.4rem 1.6rem 2rem !important; }
+.obj--register .deco-head { position: absolute; right: 1.6rem; top: .9rem; }
+html.collage .obj--register .sched-table .course { background: none !important; border: 0 !important; box-shadow: none !important; border-left: 2px solid rgba(43, 58, 90, .55) !important; border-radius: 0 !important; padding-left: .5rem !important; }
+html.collage .obj--register .sched-table .course-name { font-family: var(--font-display); font-style: italic; font-size: 1.02rem; color: #23304d !important; }
+html.collage .obj--register .sched-table .course-kind { border: 0 !important; background: none !important; padding: 0 !important; font-family: "Special Elite", monospace; color: var(--ink-faded) !important; }
+html.collage .obj--register .sgt-head { font-family: var(--font-display); font-style: italic; color: var(--ink-green) !important; border-bottom: 2px solid rgba(47, 58, 40, .6) !important; }
+
+/* ---------- Listeler: fiş kartı (ol) ve defter sayfası (ul) ---------- */
+html.collage body .obj--index:not(#_) { background:
+        linear-gradient(rgba(170, 70, 60, .55), rgba(170, 70, 60, .55)) 0 5.6rem / 100% 1px no-repeat,
+        var(--paper-white) !important; border-radius: 4px !important; padding: 1.8rem 2rem 2rem !important; }
+.obj--index .deco-head { position: absolute; right: 1.6rem; top: 1.3rem; font-family: "Special Elite", monospace; letter-spacing: .08em; }
+html.collage .obj--index ol { margin-top: 1rem !important; }
+html.collage body .obj--notebook:not(#_) {
+    background:
+        linear-gradient(90deg, transparent 3.4rem, rgba(170, 70, 60, .42) 3.4rem calc(3.4rem + 1px), transparent calc(3.4rem + 1px), transparent calc(3.4rem + 4px), rgba(170, 70, 60, .3) calc(3.4rem + 4px) calc(3.4rem + 5px), transparent calc(3.4rem + 5px)),
+        var(--paper-cream) !important;
+    padding: 1.8rem 2rem 2rem 4.4rem !important;
+    -webkit-mask: radial-gradient(circle 8px at 1.5rem 50%, #0000 96%, #000) 0 0 / 100% 72px repeat-y !important; mask: radial-gradient(circle 8px at 1.5rem 50%, #0000 96%, #000) 0 0 / 100% 72px repeat-y !important;
+}
+.deco-rosette { position: absolute; right: 1.4rem; top: -1.2rem; width: 64px; color: var(--ink-green); transform: rotate(8deg); }
+.deco-rosette svg { width: 100%; height: auto; display: block; }
+html.collage .list-note { font-family: var(--font-calli) !important; font-size: 1.3rem !important; color: var(--ink-faded) !important; }
+
+/* ---------- Kapanış butonu: lastik damga ---------- */
+html.collage .about-page .btn-primary { background: none !important; color: #7a2e24 !important; border: 2px solid rgba(122, 46, 36, .75) !important; border-radius: 4px !important;
+    box-shadow: inset 0 0 0 3px rgba(239, 229, 209, 0), inset 0 0 0 4px rgba(122, 46, 36, .45) !important; letter-spacing: .26em; text-transform: uppercase; transform: rotate(-3deg); font-family: var(--font-body); }
+html.collage .about-page .btn-primary::before { display: none !important; }
+html.collage .about-page .btn-primary:hover { background: rgba(122, 46, 36, .08) !important; transform: rotate(-1deg) scale(1.03); }
+html.collage .about-page .cta-big { text-shadow: 0 2px 14px rgba(10, 6, 2, .6); }
+
+/* ---------- Menü: üstte kenarı yırtık kâğıt şerit, mürekkep linkler, el çizimi alt çizgi, TR/EN pullar ---------- */
+html.collage .navbar { background: var(--paper-cream) !important;
+    -webkit-mask: url("../images/textures/deckle-wide.png") center bottom / 100% 160% no-repeat; mask: url("../images/textures/deckle-wide.png") center bottom / 100% 160% no-repeat;
+    padding-bottom: 1.3rem !important; filter: none; }
+html.collage .navbar .nav-link { color: var(--ink-brown) !important; font-family: var(--font-display) !important; font-style: italic; font-size: 1.12rem !important; letter-spacing: 0 !important; }
+html.collage .navbar .nav-link.active::before { display: none !important; }
+html.collage .navbar .nav-link.active { color: var(--ink-green) !important; }
+html.collage .navbar-brand span { color: var(--ink-green) !important; -webkit-text-fill-color: var(--ink-green); text-shadow: none !important; font-family: var(--font-calli) !important; font-style: normal !important; font-size: 1.9rem; letter-spacing: 0 !important; }
+.deco-underline { position: absolute; left: .4rem; right: .4rem; bottom: .15rem; height: 8px; color: var(--ink-green); pointer-events: none; }
+.deco-underline svg { width: 100%; height: 100%; display: block; }
+html.collage .lang-switch { background: none !important; border: 0 !important; gap: .45rem; }
+html.collage .lang-switch button { width: 40px; min-height: 46px; border-radius: 0 !important; color: var(--ink-brown) !important; font-family: var(--font-display); font-size: .95rem; font-weight: 500;
+    background: var(--paper-white) !important; box-shadow: none !important;
+    -webkit-mask: radial-gradient(circle 3px at 50% 0, #0000 95%, #000) 0 0 / 8px 51% repeat-x, radial-gradient(circle 3px at 50% 100%, #0000 95%, #000) 0 100% / 8px 51% repeat-x;
+    mask: radial-gradient(circle 3px at 50% 0, #0000 95%, #000) 0 0 / 8px 51% repeat-x, radial-gradient(circle 3px at 50% 100%, #0000 95%, #000) 0 100% / 8px 51% repeat-x;
+    outline: 1px solid rgba(46, 36, 24, .3); outline-offset: -6px; transform: rotate(-3deg); }
+html.collage .lang-switch button + button { transform: rotate(4deg); }
+html.collage .lang-switch button[aria-pressed="true"], html.collage .lang-switch button.active, html.collage .lang-switch button.is-active { color: #f3e8d2 !important; background: linear-gradient(var(--ink-green), var(--ink-green)) !important; outline-color: rgba(243, 232, 210, .5); }
+html.collage .navbar-toggler { border-color: rgba(46, 36, 24, .4) !important; }
+html.collage .navbar-toggler-icon { filter: none !important; }
+
+/* ---------- Footer: tarihli posta damgası + TD monogramı ---------- */
+html.collage .site-footer > .container { position: relative; }
+.deco-post { position: absolute; left: clamp(1rem, 6vw, 5rem); top: 1.2rem; width: 190px; color: rgba(236, 217, 168, .5); transform: rotate(-6deg); pointer-events: none; }
+.deco-post svg, .deco-mono svg { width: 100%; height: auto; display: block; }
+.deco-mono { position: absolute; right: clamp(1rem, 6vw, 5rem); top: 1rem; width: 78px; color: rgba(236, 217, 168, .55); transform: rotate(8deg); pointer-events: none; }
+
+/* ---------- Telefon: objeler alt alta, açılar azalır, üst üste binme yok ---------- */
+@media (max-width: 991.98px) {
+    html.collage .int-grid { grid-template-columns: 1fr; gap: 2rem; }
+    html.collage .int-grid > .obj { grid-column: 1 / -1 !important; margin-top: 0 !important; }
+    html.collage body .about-page .code-card.obj--typed:not(#_):not(#_) { margin-left: 0; }
+    html.collage .obj { --rot: 0deg !important; }
+    html.collage .obj.is-in { transform: rotate(calc(var(--rot) * .4)); }
+    .deco-post { width: 130px; }
+}
+@media (max-width: 575.98px) {
+    html.collage body .obj--ticket:not(#_) { padding-left: 28% !important; }
+    html.collage body .obj--letter:not(#_) { padding: 2.2rem 1.4rem 4.2rem 2.6rem !important; }
+    html.collage .about-page .id-photo { width: 104px; }
+}
+@media (prefers-reduced-motion: reduce) { html.collage .obj { transition: none; opacity: 1; transform: rotate(var(--rot)); } }

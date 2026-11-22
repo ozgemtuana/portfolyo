@@ -1,0 +1,32 @@
+/* Kolaj düzeltmeleri (Hakkımda incelemesi 1) */
+/* Söz kartının içindeki eski ışık efekti kart dışına taşıyordu */
+html.collage .quote::before { display: none !important; }
+/* Eski "belirme" animasyonu (GSAP satır içi stil) kâğıtları yarı saydam bırakıyordu: kolaj objelerinde kendi gelişimiz geçerli */
+html.collage .obj.is-in { opacity: 1 !important; transform: perspective(1200px) rotate(var(--rot)) rotateX(var(--tx)) rotateY(var(--ty)) !important; }
+@media (hover: hover) {
+    html.collage .obj.is-in:hover { transform: perspective(1200px) translateY(-6px) rotate(calc(var(--rot) * .6)) rotateX(var(--tx)) rotateY(var(--ty)) !important; }
+}
+html.collage .obj:not(.is-in) { opacity: 0 !important; }
+@media (max-width: 991.98px) { html.collage .obj.is-in { transform: rotate(calc(var(--rot) * .4)) !important; } }
+/* Hobi maddeleri: mürekkep rengi kesin */
+html body.collage-x .int-list li, html.collage body .obj :is(ul, ol).int-list > li:not(#_), html.collage body .obj .int-list li *:not(#_) { color: var(--ink-brown) !important; -webkit-text-fill-color: var(--ink-brown) !important; }
+html.collage body .obj--tag .int-list li:not(#_), html.collage body .obj--tag .int-list li *:not(#_) { color: #24180c !important; -webkit-text-fill-color: #24180c !important; }
+/* Vesikalık altındaki isim: tek satır, küçük el yazısı */
+html.collage .about-page .id-photo figcaption { font-size: .82rem; white-space: nowrap; overflow: hidden; }
+/* Daktilo kâğıdı: kod satırları sarılır (telefonda yatay taşma olmasın) */
+html.collage .obj--typed pre, html.collage .obj--typed code { white-space: pre-wrap !important; overflow-wrap: anywhere; word-break: break-word; }
+/* Footer'daki dev isim ekrana sığsın (taşıp kesilmesin, telefonda sayfayı genişletmesin) */
+.site-footer { min-width: 0; overflow-x: hidden; }
+.footer-name { font-size: clamp(2.6rem, 12.4vw, 11.5rem) !important; letter-spacing: -.01em !important; line-height: 1 !important; padding: 0 .2em; }
+html.collage .navbar-brand span { font-size: clamp(1.35rem, 5.4vw, 1.9rem) !important; white-space: nowrap; }
+html.collage .navbar > .container { flex-wrap: nowrap; }
+@media (max-width: 575.98px) { html.collage .navbar > .container { padding-left: 1.25rem !important; padding-right: 1.25rem !important; } }
+/* Telefon ders listesi: kayıt defteri satırları (kutu yok) */
+html.collage .obj--register .sl-day h3 { font-family: var(--font-display); font-style: italic; color: var(--ink-green) !important; border-bottom: 1px solid rgba(47, 58, 40, .5); padding-bottom: .3rem; }
+html.collage .obj--register .sl-day .course { background: none !important; border: 0 !important; box-shadow: none !important; border-left: 2px solid rgba(43, 58, 90, .55) !important; border-radius: 0 !important; padding: .2rem 0 .2rem .7rem !important; }
+html.collage .obj--register .sl-day .course * { color: var(--ink-brown) !important; }
+html.collage .obj--register .sl-day .course-name { font-family: var(--font-display); font-style: italic; color: #23304d !important; }
+html.collage .obj--register .sl-day h3 small { background: none !important; color: #7a2e24 !important; border: 1px solid rgba(122, 46, 36, .6); border-radius: 2px; }
+/* Kapanış damgası tablonun üstünde: krem mürekkep */
+html.collage .about-page .btn-primary { color: #ecd9a8 !important; border-color: rgba(236, 217, 168, .8) !important; box-shadow: inset 0 0 0 3px rgba(0, 0, 0, 0), inset 0 0 0 4px rgba(236, 217, 168, .45) !important; }
+html.collage .about-page .btn-primary:hover { background: rgba(236, 217, 168, .08) !important; }
