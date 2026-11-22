@@ -414,7 +414,7 @@ function renderContent(site) {
     if ((el = box("gallerypreview"))) {
         el.innerHTML = (site.gallery || []).slice(0, 3).map((g, i) =>
             `<a class="gp-item" href="galeri.html" data-reveal data-delay="${["0.0", "0.1", "0.2"][i]}" data-cursor="view">` +
-                `<img src="${g.image}" alt="" data-i18n-alt="g.${i + 1}.alt" loading="lazy" decoding="async">` +
+                `<span class="gp-canvas"><img src="${g.image}" alt="" data-i18n-alt="g.${i + 1}.alt" loading="lazy" decoding="async"></span>` +
                 `<span class="gp-place" data-i18n="g.${i + 1}.place"></span>` +
             `</a>`).join("");
     }

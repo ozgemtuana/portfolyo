@@ -27,6 +27,8 @@
 - Deri: ambientCG Leather014 (CC0).
 - Altın varaklı çerçeve: Rijksmuseum, "Vergulde lijst met gesneden en opengewerkte ornamenten", SK-L-1714 (CC0); arka planı kaldırıldı.
 - Mühür mumu: "1842 wax seal of hat maker guild in Sombor" (Wikimedia Commons, kamu malı); arka planı kaldırıldı.
+- Dantel kâğıt kenarı: The Metropolitan Museum of Art, "Lace Paper Valentine" (MET DP-14967-005, CC0; Wikimedia Commons). Dış dantel bandı ayrılıp kart kenarı yapıldı.
+- Gravür ikonlar: Bootstrap Icons (MIT) şekillerinden bu proje için gravür taramasıyla üretildi (`images/icons`); oklar ve kapatma işareti elle çizildi.
 - Tırtıklı kenar maskesi ile toz/çizik katmanı bu proje için kodla üretildi.
 
 ## Kullanılan araçlar
@@ -40,3 +42,6 @@
 - John Constable, *Wivenhoe Park, Essex*, 1816 — National Gallery of Art (kamu malı) · Galeri
 - Claude Lorrain, *Landscape with Merchants* (kamu malı) · Özgeçmiş
 - Caspar David Friedrich, *Woman at a Window*, 1822 — Alte Nationalgalerie (kamu malı) · İletişim
+
+## İlham kaynakları
+- uberdesigner.ai — "The School of Athens" ve "Course of Empire" şablonları (tablonun içine dalış, zoom durakları, mini harita, otomatik oynatma fikirleri). Kod veya görsel kopyalanmadı; fikirler bu tasarıma uyarlandı.
