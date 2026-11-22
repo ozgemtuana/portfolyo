@@ -56,3 +56,25 @@ Bu dosya, yeniden tasarımın aşama raporlarını ve verdiğim kararları tutar
 - Course of Empire (Thomas Cole, 5 tablo, New-York Historical Society, kamu malı, ~8800 px taramalar): Galeri sayfasının dalış zinciri olarak uygun. Galeri'de kullanıyorum.
 
 **Test:** 1280×800 ve 375×740, Chrome (Playwright, görünmez pencere). Konsol hatası yok.
+
+## 2026-11-22 · Aşama: Diğer sayfaların dalışları
+
+**Yapılanlar**
+- Genel sayfa dalışı motoru: `js/pagedive.js` + veri `js/pagedive-data.js` + `css/pagedive.css`. Ana sayfadaki gibi: zoom durakları, sol altta başlık + italik açıklama (TR/EN), sağ üstte mini harita, müze etiketi, dönüşümlü geçiş (mürekkep / karartma), oynat/duraklat ile uyumlu.
+- Sayfa başlığı (h1 kutusu) tablonun üstündeki yapışkan sahneye taşınıyor; belge sırası ve SEO değişmiyor.
+- Zincirler: Hakkımda Fragonard (yüz, fırça, kitap → kitabın içine), Özgeçmiş Claude Lorrain, Projeler Vermeer *Resim Sanatı* (avize, Clio, harita, ressam), Blog Vermeer *Mektup Yazan Kadın* (bakış, tüy kalem, mücevher kutusu), Galeri Thomas Cole *Course of Empire* 5 tablo, Süreç van Haecht galerisi, İletişim Friedrich *Pencerede Kadın* → Corot *Villa d'Este bahçeleri*.
+- Yüksek çözünürlüklü taramalar (3840 px masaüstü, 2048 px telefon). Masaüstünde yalnızca yakındaki tabloların büyük dokusu bellekte tutuluyor.
+
+**Kararlar**
+- Galeri için Constable yerine Course of Empire serisini seçtim, çünkü beş tablo tek bir hikâye anlatıyor ve aynı kaya tepesi her tabloda tekrar ediyor; dalış zinciri için ideal.
+- İletişim'de "balkon → gizli bahçe" için Corot'nun Villa d'Este terası tablosunu seçtim (servi, korkuluk, sisli tepeler).
+- Süreç için van Haecht'in koleksiyon galerisini seçtim, çünkü duvarlar dolusu tablo bir "moodboard" gibi.
+
+**Test:** 1280×800 ve 375×740, tüm sayfalar. Konsol hatası yok.
+
+**Kalan işler (sıradaki oturum)**
+1. Sayfa geçişlerinde zarf açılması (şu an sıvı perde).
+2. Mürekkeple yazan el katmanı, köşelerde hayvanlar ve çiçekler, çerçeveli canlı tablolar ve özlü sözler.
+3. Sayfa içerikleri fiziksel objeler: Hakkımda kitap sayfası özgeçmiş + oval çerçevede vesikalık; Blog mühürlü mektuplar + mum damlatma; Galeri altın çerçeveli fotoğraflar; İletişim zarftan çıkan form; gravür ikonların kontrolü.
+4. TR/EN, 375/768/1440 testi, hoca şartları, SEO/GEO, 300 MB ölçümü, Süreç sayfasına uberdesigner.ai ve yeni araçlar.
+5. En sonda: inceleme/index.html özet sayfası (önce/sonra, sayfa sayfa görüntüler, tablo listesi, kontrol tabloları).
