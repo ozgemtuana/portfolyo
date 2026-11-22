@@ -18,7 +18,10 @@ window.Scenes = (function () {
     function init() {
         destroy();
         const root = document.querySelector("[data-scenes]");
-        if (!root || typeof gsap === "undefined" || typeof ScrollTrigger === "undefined") return;
+        if (!root) return;
+        // Gerçek obje görselleri (public/assets/real) gelene kadar CSS taklidi objeler gösterilmez: yalnızca kart + görsel + yazı
+        if (!document.documentElement.classList.contains("real-objects")) { root.classList.add("is-static"); return; }
+        if (typeof gsap === "undefined" || typeof ScrollTrigger === "undefined") return;
         if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
         gsap.registerPlugin(ScrollTrigger);
 

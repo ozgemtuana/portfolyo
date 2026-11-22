@@ -1,0 +1,210 @@
+/* ==========================================================================
+   Gerçek dokulu kartlar (aşama 4) — en son yüklenir.
+   Fıçı biçimli degrade kutular ve hap satırlar kaldırıldı. Yerine:
+   - .is-lace (dantel kenarlı krem kart): Met Müzesi'nin kabartma dantel kâğıdı (CC0)
+   - .is-torn (yırtık kenarlı krem kart): eskitilmiş kâğıt taraması + tırtıklı kenar maskesi
+   - .is-clip: dantel kart + altın mandal (public/assets/real/bulldog-clip-gold.png gelince görünür)
+   - Listeler: eski defter sayfası, madde işareti küçük mühür
+   - Form: dantel kartın üstünde mürekkep alt çizgisi, mühür biçiminde gönder butonu
+   Sınıflar HTML'e eklenmez; aşağıdaki seçiciler mevcut yapıyı hedefler.
+   ========================================================================== */
+:root {
+    --ink-card: #2e2418;
+    --ink-soft: #5d4b35;
+    --paper-real: linear-gradient(rgba(244, 236, 219, .58), rgba(236, 226, 204, .58)), url("../images/textures/paper-aged.jpg") center / 900px, #efe5d1;
+    --lace-w: clamp(30px, 4.2vw, 52px);
+}
+
+/* ---------- 1) Hatalar ---------- */
+/* Menü ve başlıklarda arka plan asla dolu kutu olmasın (Safari'de text-clip / seçim kalıntıları dahil) */
+.navbar .nav-link, .navbar .nav-link *, .navbar-brand, .navbar-brand *, .hero .eyebrow, .hero-title, .hero-title *,
+.page-offset .eyebrow, h1, h1 *, .pj-copy .eyebrow {
+    background: none !important; background-color: transparent !important; box-shadow: none !important;
+}
+.navbar .nav-link, .hero-title, .hero-title *, h1 .text-gradient { -webkit-text-fill-color: currentColor; }
+::selection { background: rgba(201, 169, 110, .32); color: inherit; }
+.hero-title em::selection, h1 em::selection { -webkit-text-fill-color: #ead9b0; }
+/* Kartların üstündeki rastgele siyah/beyaz noktalar: film greni katmanı ve SVG gürültü dokusu kapatıldı */
+.grain { display: none !important; }
+/* Kaligrafik kelime yanındaki harfi kesmesin: üst üste binme yok, satır kırpması yok */
+.hero-title em, h1 em { margin-left: .04em !important; padding: 0 .06em .08em 0; }
+h1, h1 .text-gradient, .hero-title .line { overflow: visible !important; }
+.hero-title .line { padding-bottom: .24em; }
+/* Projeler: üst başlık ile h1 aynı kelime ("Seçili işler"); tek kalsın */
+body[data-page="projects"] h1 ~ .eyebrow, body[data-page="projects"] .eyebrow[data-i18n="work.eyebrow"] { display: none !important; }
+
+/* ---------- 2) Kart tabanı: eskitilmiş kâğıt, keskin köşe, gerçek gölge ---------- */
+.list-card, .proc-card, .card.rounded-4, .int-card, .skills-panel, .about-text, .hobby-intro, .edu-list, .services-glass,
+.sc-label, .pf-card, .pagenav .pn-next, .pagenav .pn-prev, .blog-links a, .flow-card, .mini-card, .runway .glass-note, .music .glass-note,
+.sched-wrap {
+    background: var(--paper-real) !important;
+    color: var(--ink-card) !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    box-shadow: 0 22px 34px -10px rgba(10, 6, 2, .6), 0 3px 6px rgba(10, 6, 2, .3) !important;
+    --bone: var(--ink-card); --muted: var(--ink-soft); --tan: #8a5a35; --accent: #8a5a35; --sage: #5a6a38;
+    --border: rgba(46, 36, 24, .2); --glass-border: rgba(46, 36, 24, .2); --surface-2: transparent;
+}
+:is(.list-card, .proc-card, .card.rounded-4, .int-card, .skills-panel, .about-text, .hobby-intro, .edu-list, .services-glass, .sc-label, .pf-card, .pagenav .pn-next, .pagenav .pn-prev, .flow-card, .mini-card)::after { display: none !important; }
+:is(.list-card, .proc-card, .card.rounded-4, .int-card, .skills-panel, .about-text, .hobby-intro, .edu-list, .services-glass, .sc-label, .pf-card, .pagenav .pn-next, .pagenav .pn-prev, .flow-card, .mini-card) :is(h2, h3, h4, p, li, span, div, td, th, dd, dt, small, b, strong, em, label) {
+    color: inherit; text-shadow: none !important;
+}
+:is(.list-card, .proc-card, .card.rounded-4, .int-card, .skills-panel, .about-text, .sc-label, .pf-card, .edu-list) :is(.text-muted, small, .int-meta, .list-note) { color: var(--ink-soft) !important; }
+:is(.list-card, .proc-card, .card.rounded-4, .int-card, .skills-panel, .about-text, .sc-label, .pf-card) a:not(.btn) { color: #7a4a24 !important; }
+.list-card--wood, .list-card--cream { background: var(--paper-real) !important; }
+
+/* (a) Dantel kenarlı kart — Mevlânâ kartındaki gerçek dantel */
+.about-text, .skills-panel, .sc-label, .int-card:nth-child(odd), .proc-card:nth-child(4n+1), .proc-card:nth-child(4n+4),
+.list-card:nth-of-type(odd), .pagenav .pn-next, .contact-form-card, .col-lg-7 > .card.rounded-4, .hobby-intro {
+    border: var(--lace-w) solid transparent !important;
+    border-image: url("../images/textures/lace-border.webp") 150 / var(--lace-w) round !important;
+    background-clip: padding-box !important;
+    box-shadow: none !important;
+    filter: drop-shadow(0 18px 20px rgba(10, 6, 2, .5)) drop-shadow(0 2px 3px rgba(10, 6, 2, .3));
+}
+
+/* (b) Yırtık kenarlı krem kart */
+.int-card:nth-child(even), .proc-card:nth-child(4n+2), .proc-card:nth-child(4n+3), .list-card:nth-of-type(even),
+.timeline .card.rounded-4, .edu-list, .pagenav .pn-prev, .pf-card, .col-lg-5 .card.rounded-4, .flow-card, .mini-card {
+    -webkit-mask: url("../images/textures/deckle-mask.png") center / 100% 100% no-repeat;
+    mask: url("../images/textures/deckle-mask.png") center / 100% 100% no-repeat;
+    box-shadow: none !important;
+    padding: clamp(1.6rem, 4vw, 2.6rem) !important;
+}
+/* Yırtık kartların gölgesi: maskeyi taşıyan öğenin ebeveyni gölgeyi çizer */
+.timeline, .int-grid, .proc-grid, .col-lg-5 > .d-flex, .pagenav .pn-grid, .pf-cards { filter: drop-shadow(0 16px 16px rgba(10, 6, 2, .45)); }
+.timeline .card.rounded-4:nth-of-type(odd) { transform: rotate(-.5deg); }
+.timeline .card.rounded-4:nth-of-type(even) { transform: rotate(.4deg); }
+
+/* (c) Altın mandallı kart: mandal görseli gelince görünür (yoksa hiçbir şey çizilmez) */
+.skills-panel, .col-lg-5 .card.rounded-4:first-child, .proc-card--wide { position: relative; }
+.skills-panel::before, .col-lg-5 .card.rounded-4:first-child::before, .proc-card--wide::before {
+    content: ""; position: absolute; z-index: 3; top: calc(-1 * var(--lace-w) - 26px); left: 50%; width: 92px; height: 80px; transform: translateX(-50%) rotate(-2deg);
+    background: url("../public/assets/real/bulldog-clip-gold.png") center / contain no-repeat; pointer-events: none;
+}
+.col-lg-5 .card.rounded-4:first-child::before { top: -30px; }
+
+/* İç kutular (tarih kutusu, ders kutusu): dolu kutu yok, ince mürekkep çizgisi */
+.inner-box, .timeline .inner-box { background: none !important; border: 0 !important; border-left: 1px solid rgba(46, 36, 24, .45) !important; border-radius: 0 !important; padding: .2rem 0 .2rem 1rem !important; box-shadow: none !important; }
+.inner-box .text-primary { color: #8a5a35 !important; font-family: var(--font-display); font-style: italic; font-size: 1.15rem; }
+
+/* ---------- Listeler: eski defter sayfası, mürekkeple yazılmış maddeler, mühür işaretleri ---------- */
+:is(.list-card, .int-card, .proc-card, .skills-panel) :is(ul, ol) {
+    list-style: none; padding: .4rem 0 0 0 !important; margin: 0;
+    background-image: repeating-linear-gradient(to bottom, transparent 0 2.15rem, rgba(70, 92, 120, .22) 2.15rem calc(2.15rem + 1px));
+    background-position: 0 .1rem;
+}
+:is(.list-card, .int-card, .proc-card, .skills-panel) :is(ul, ol) > li {
+    position: relative; min-height: 2.15rem; line-height: 1.45; margin: 0 !important; padding: .42rem 0 .3rem 2rem !important;
+    background: none !important; border: 0 !important; border-radius: 0 !important; box-shadow: none !important;
+    font-family: var(--font-display); font-style: italic; font-size: 1.12rem; color: var(--ink-card) !important;
+}
+:is(.list-card, .int-card, .proc-card, .skills-panel) ul > li::before {
+    content: "" !important; position: absolute; left: .1rem; top: .62rem; width: 1.15rem; height: 1.15rem;
+    background: url("../images/textures/seal-wax.webp") center / contain no-repeat !important; border: 0 !important; border-radius: 0 !important;
+    filter: sepia(.2) drop-shadow(0 1px 1px rgba(0, 0, 0, .35)); transform: rotate(-8deg);
+}
+:is(.list-card, .int-card, .proc-card, .skills-panel) ol { counter-reset: ink; }
+:is(.list-card, .int-card, .proc-card, .skills-panel) ol > li { counter-increment: ink; }
+:is(.list-card, .int-card, .proc-card, .skills-panel) ol > li::before {
+    content: counter(ink) "." !important; position: absolute; left: .1rem; top: .38rem; width: auto; height: auto;
+    background: none !important; border: 0 !important; border-radius: 0 !important; color: #8a5a35 !important;
+    font: italic 400 1.15rem var(--font-display) !important; display: block !important;
+}
+/* Hap etiketler (yetenek etiketleri, kısa yol linkleri, ilgi etiketleri): mürekkeple yazılmış kelimeler */
+.skill-tag, .int-tags span, .proc-chip, .study-tag, .mc-tag, .post-cat, .sc-tag, .pn-all a, .int-meta span {
+    background: none !important; border: 0 !important; border-radius: 0 !important; box-shadow: none !important;
+    padding: 0 .1rem !important; margin: 0 .55rem .2rem 0 !important; color: var(--ink-soft) !important;
+    font-family: var(--font-display) !important; font-style: italic; letter-spacing: .01em; text-transform: none !important; font-size: 1.02rem !important;
+}
+.skill-tag + .skill-tag::before, .int-tags span + span::before { content: "· "; color: rgba(46, 36, 24, .45); }
+.pn-all a { color: rgba(244, 234, 214, .85) !important; text-decoration: underline; text-decoration-color: rgba(201, 169, 110, .5); text-underline-offset: .25em; }
+.pn-all a.is-here { color: #ecd9a8 !important; text-decoration-color: #ecd9a8; }
+/* İlgi alanı ikonları ve özgeçmiş başlık ikonları: koyu kutu yok, gravür ikon */
+.int-icon, .feature, .feature.bg-gradient-primary-to-secondary, .bx-icon {
+    background: none !important; box-shadow: none !important; border: 0 !important; border-radius: 0 !important;
+    color: var(--ink-card) !important; width: auto !important; height: auto !important;
+}
+.int-icon .bi, .feature .bi { width: 2.1em !important; height: 2.1em !important; }
+/* Yetenek çubukları: altın hap yerine mürekkep çizgisi */
+.skill-bar { height: 2px !important; border-radius: 0 !important; background: rgba(46, 36, 24, .15) !important; }
+.skill-bar > i { border-radius: 0 !important; background: #6b4a2a !important; box-shadow: none !important; }
+.skills-panel .ring-bg { stroke: rgba(46, 36, 24, .14) !important; }
+
+/* ---------- Form: dantel kartın üstünde mürekkep alt çizgisi ---------- */
+.card.rounded-4 .form-control, .card.rounded-4 .form-select, form .form-control {
+    background: transparent !important; border: 0 !important; border-bottom: 1px solid rgba(46, 36, 24, .55) !important; border-radius: 0 !important;
+    box-shadow: none !important; color: var(--ink-card) !important; padding-left: 0 !important; padding-right: 0 !important;
+    font-family: var(--font-display); font-size: 1.15rem;
+}
+form .form-control:focus { border-bottom-color: #8a5a35 !important; border-bottom-width: 2px !important; }
+form .form-floating > label, form label { color: var(--ink-soft) !important; padding-left: 0 !important; font-family: var(--font-body); font-size: .78rem; letter-spacing: .14em; text-transform: uppercase; }
+form textarea.form-control { background-image: repeating-linear-gradient(to bottom, transparent 0 1.9rem, rgba(46, 36, 24, .25) 1.9rem calc(1.9rem + 1px)) !important; line-height: 1.9rem; border-bottom: 0 !important; }
+form .form-floating > .form-control::placeholder { color: transparent; }
+/* Gönder: mühür mumu */
+#submitButton {
+    width: 132px; height: 132px; min-height: 0; margin: 1rem auto 0; padding: 0 !important; border: 0 !important; border-radius: 50% !important;
+    background: url("../images/textures/seal-wax.webp") center / 112% no-repeat !important;
+    color: #f6e7c4 !important; font-family: var(--font-display) !important; font-weight: 500 !important; font-size: 1.05rem !important; letter-spacing: .18em; text-transform: uppercase;
+    text-shadow: 0 1px 0 rgba(60, 20, 10, .8), 0 -1px 0 rgba(255, 220, 190, .25);
+    filter: drop-shadow(0 8px 10px rgba(30, 10, 5, .45)); transition: transform .3s ease, filter .3s ease;
+}
+#submitButton::before { display: none !important; }
+#submitButton:hover, #submitButton:focus-visible { transform: scale(1.05) rotate(-4deg); filter: drop-shadow(0 12px 14px rgba(30, 10, 5, .5)); }
+form .d-grid:has(#submitButton) { display: flex !important; justify-content: center; }
+
+/* İletişim kartları: ikon kartın üstünde, gravür; yazılar mürekkep */
+.col-lg-5 .card.rounded-4 { padding: clamp(1.4rem, 3vw, 2rem) !important; }
+.col-lg-5 .card.rounded-4 a { color: var(--ink-card) !important; }
+
+/* ---------- Sayfa sonu gezinmesi ---------- */
+.pagenav .pn-next, .pagenav .pn-prev { color: var(--ink-card) !important; }
+.pagenav .pn-label { color: var(--ink-soft) !important; }
+.pagenav .pn-arrow { background: none !important; border: 0 !important; color: var(--ink-card) !important; }
+
+/* ---------- Projeler: CSS ile çizilmiş objeler gerçek görseller gelene kadar gizli; yalnızca kart + görsel + yazı ---------- */
+.scenes.is-static .kh-cover, .scenes.is-static .kh-hint, .scenes.is-static .pf-cover, .scenes.is-static .pf-tabs,
+.scenes.is-static .pc-dome, .scenes.is-static .pc-glow, .scenes.is-static .pc-plate, .scenes.is-static .pfr-cord,
+.scenes.is-static .pl-back, .scenes.is-static .pl-front, .scenes.is-static .pl-flap, .scenes.is-static .pl-seal,
+.scenes.is-static .pj-glow, .scenes.is-static .pj-back, .scenes.is-static .pj-front, .scenes.is-static .pj-lid,
+.scenes.is-static .pa-cover { display: none !important; }
+.scenes.is-static .scene, .scenes.is-static .scene--portfolio { min-height: 0 !important; height: auto !important; padding: clamp(2rem, 6vw, 5rem) 0; }
+.scenes.is-static .scene-stage { position: relative !important; height: auto !important; min-height: 0 !important; display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); gap: clamp(1.5rem, 4vw, 4rem); align-items: center; width: min(1160px, 92vw); margin: 0 auto; }
+.scenes.is-static .scene.is-flip .scene-stage { grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); }
+.scenes.is-static .scene.is-flip .scene-prop { order: 2; }
+.scenes.is-static .scene-prop, .scenes.is-static .prop, .scenes.is-static .pfr-frame, .scenes.is-static .pl-paper, .scenes.is-static .pa-page {
+    position: relative !important; inset: auto !important; transform: none !important; width: 100% !important; height: auto !important;
+    background: none !important; border: 0 !important; box-shadow: none !important; padding: 0 !important; opacity: 1 !important;
+}
+.scenes.is-static .scene-art { position: relative !important; inset: auto !important; transform: none !important; margin: 0; width: 100% !important; height: auto !important; opacity: 1 !important; }
+/* Görsel: yırtık kenarlı krem kartın üstüne yapıştırılmış baskı */
+.scenes.is-static .scene-art { padding: clamp(14px, 2vw, 26px); background: var(--paper-real);
+    -webkit-mask: url("../images/textures/deckle-mask.png") center / 100% 100% no-repeat; mask: url("../images/textures/deckle-mask.png") center / 100% 100% no-repeat; }
+.scenes.is-static .scene-prop { filter: drop-shadow(0 18px 18px rgba(10, 6, 2, .5)); }
+.scenes.is-static .scene-art img { display: block; width: 100%; height: auto; max-height: 70vh; object-fit: contain; filter: sepia(.08); }
+.scenes.is-static .sc-label { position: relative !important; inset: auto !important; transform: none !important; opacity: 1 !important; max-width: none; text-align: left; }
+.scenes.is-static .scene--portfolio .scene-stage { grid-template-columns: 1fr; }
+.scenes.is-static .pf, .scenes.is-static .pf-book, .scenes.is-static .pf-inside { position: relative !important; inset: auto !important; transform: none !important; width: 100% !important; height: auto !important; background: none !important; box-shadow: none !important; border: 0 !important; opacity: 1 !important; }
+.scenes.is-static .pf-cards { position: relative !important; display: grid !important; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.6rem; transform: none !important; }
+.scenes.is-static .pf-card { position: relative !important; inset: auto !important; transform: none !important; opacity: 1 !important; width: auto !important; height: auto !important; }
+.scenes.is-static .pf-card:nth-child(odd) { transform: rotate(-.8deg) !important; }
+.scenes.is-static .pf-card:nth-child(even) { transform: rotate(.7deg) !important; }
+.scenes.is-static .pf-intro { opacity: 1 !important; transform: none !important; position: relative !important; }
+@media (max-width: 767.98px) {
+    .scenes.is-static .scene-stage, .scenes.is-static .scene.is-flip .scene-stage { grid-template-columns: 1fr; }
+    .scenes.is-static .scene.is-flip .scene-prop { order: 0; }
+}
+
+/* ---------- Ana sayfa galeri önizlemesi: gerçek çerçeve gelene kadar yırtık kenarlı kartta baskı ---------- */
+.gp-item { border: 0 !important; border-image: none !important; background: var(--paper-real) !important; padding: clamp(12px, 1.6vw, 20px) clamp(12px, 1.6vw, 20px) clamp(44px, 5vw, 60px) !important;
+    -webkit-mask: url("../images/textures/deckle-mask.png") center / 100% 100% no-repeat; mask: url("../images/textures/deckle-mask.png") center / 100% 100% no-repeat;
+    box-shadow: none !important; }
+.gp-grid { filter: drop-shadow(0 18px 18px rgba(10, 6, 2, .5)); }
+.gp-item::after { display: none !important; }
+.gp-item .gp-canvas::after { display: none; }
+.gp-place { position: absolute !important; top: auto !important; bottom: clamp(12px, 1.6vw, 18px) !important; left: 50% !important; transform: translateX(-50%) !important;
+    background: none !important; box-shadow: none !important; color: var(--ink-card) !important; text-shadow: none !important;
+    font-family: var(--font-display) !important; font-style: italic; font-weight: 400 !important; font-size: 1rem !important; letter-spacing: .02em !important; text-transform: none !important; }
+.home-gallery .gp-grid { padding-bottom: 1rem; }
+.gp-item:nth-child(1) { transform: rotate(-1.4deg); }
+.gp-item:nth-child(3) { transform: rotate(1.2deg); }
