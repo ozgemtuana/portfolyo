@@ -30,7 +30,9 @@
     const O = [R[0] + OPEN_N[0] * R[2], R[1] + OPEN_N[1] * R[3], (OPEN_N[2] - OPEN_N[0]) * R[2], (OPEN_N[3] - OPEN_N[1]) * R[3]];
     const COLE_A = 3840 / 2822;
 
-    let started = false;
+    let started = false, flowTex = null;
+    const brushPos = { x: -1, y: -1 };
+    addEventListener("pointermove", (e) => { brushPos.x = e.clientX / innerWidth; brushPos.y = e.clientY / innerHeight; }, { passive: true });
     function start() {
         if (started) return;
         started = true;
@@ -87,6 +89,9 @@
             uColeZoom: { value: 1.2 },
             uColeFocus: { value: new THREE.Vector2(0.62, 0.42) },
             uDark: { value: 0 },
+            // Fırça akış haritası (js/brush.js) ve canlanan figür bölgesi
+            uFlow: { value: window.BrushFlow ? (flowTex = new THREE.CanvasTexture(window.BrushFlow.canvas)) : blank },
+            uHot: { value: new THREE.Vector4(0.28, 0.2, 0.72, 0.8) }, uHotAmt: { value: 0 },
             uHi: { value: small ? 0 : 1 },
             uMouse: { value: new THREE.Vector2() },
             uTime: { value: 0 },
@@ -96,9 +101,10 @@
         const v4 = (a) => `vec4(${a.map((n) => n.toFixed(7)).join(",")})`;
         const frag = `
 precision highp float;
-uniform sampler2D uPLo, uPHi, uPHi2, uPDepth, uRLo, uRHi, uRMaps, uCole, uCMaps, uWeave;
+uniform sampler2D uPLo, uPHi, uPHi2, uPDepth, uRLo, uRHi, uRMaps, uCole, uCMaps, uWeave, uFlow;
 uniform vec2 uRes, uCam, uMouse, uColeFocus;
-uniform float uSpan, uB1, uB2, uArchFade, uColeZoom, uHi, uTime, uMotion, uDim, uDark;
+uniform vec4 uHot;
+uniform float uSpan, uB1, uB2, uArchFade, uColeZoom, uHi, uTime, uMotion, uDim, uDark, uHotAmt;
 varying vec2 vUv;
 const float HR = ${HR.toFixed(7)};
 const vec4 CROP = ${v4(CROP)};
@@ -173,8 +179,15 @@ vec3 cole(vec2 suv, vec2 par) {
 
 void main() {
     float sa = uRes.x / uRes.y;
+    // Islak boya (fırça akış haritası) + fırçanın üstündeki detayın hafifçe canlanması
+    vec4 fl = texture2D(uFlow, vUv);
+    vec2 off = (fl.rg - 0.5) * vec2(1.0, -1.0) * 0.05 * fl.b;
+    vec2 hc = (uHot.xy + uHot.zw) * 0.5, hs = max(uHot.zw - uHot.xy, vec2(0.001));
+    float hm = uHotAmt * smoothstep(1.0, 0.55, length((vUv - hc) / (hs * 0.5)));
+    off += hm * vec2(sin(uTime * 2.1 + vUv.y * 9.0), cos(uTime * 1.7 + vUv.x * 7.0)) * 0.0035 * uMotion;
+    vec2 uv0 = vUv - off;
     vec2 sp = vec2(uSpan, uSpan / sa);
-    vec2 w = uCam + vec2(vUv.x - 0.5, 0.5 - vUv.y) * sp;          // dünya noktası
+    vec2 w = uCam + vec2(uv0.x - 0.5, 0.5 - uv0.y) * sp;          // dünya noktası
     vec2 par = uMouse * vec2(-1.0, -1.0) * 0.006 * uMotion;       // ekran oranında kayma
 
     /* ---- Panini galerisi ---- */
@@ -213,7 +226,7 @@ void main() {
         vec2 hu = (ru - RHI.xy) / RHI.zw;
         rc = mix(rc, img(uRHi, hu).rgb, uHi * insideSoft(hu, 0.01));
         if (uB2 > 0.001) {
-            vec3 cc = cole(vUv, par);
+            vec3 cc = cole(uv0, par);
             float e2; float m2 = ink(uB2, ru * vec2(5.0, 7.9), e2);
             float open = 1.0 - rm.g;
             rc = mix(rc, cc * (1.0 - 0.18 * e2), open * m2);
@@ -240,6 +253,8 @@ void main() {
     /* ---- İnce son işlem: neredeyse fark edilmeyen tuval, hafif sıcaklık, gren, vinyet ---- */
     col *= 0.975 + 0.05 * texture2D(uWeave, gl_FragCoord.xy / 460.0).r;
     col = col * vec3(1.02, 1.0, 0.975);
+    float wet = fl.b * (0.6 + 0.4 * noise(vUv * vec2(sa, 1.0) * 60.0));
+    col += vec3(1.0, 0.95, 0.85) * wet * 0.07;
     col *= (1.0 - uDim) * (1.0 - uDark);   // sinematik karartma geçişi
     float vig = smoothstep(1.25, 0.35, length((vUv - 0.5) * vec2(sa * 0.75, 1.0)));
     col *= mix(0.8, 1.0, vig);
@@ -404,6 +419,17 @@ void main() {
             uniforms.uDim.value = Math.min(0.45, after * 0.5);
             uniforms.uTime.value += dt;
             uniforms.uMouse.value.set(mouse.x, mouse.y);
+            if (flowTex && window.BrushFlow && window.BrushFlow.dirty) { flowTex.needsUpdate = true; window.BrushFlow.dirty = false; }
+            // Bir zoom durağındayken fırça ekranın ortasındaki detayın üstündeyse: detay canlanır, yanında müze etiketi
+            {
+                const ci = STOPS.findIndex(([a, b]) => P > a - 0.012 && P < b + 0.012);
+                const over = ci >= 0 && brushPos.x > 0.28 && brushPos.x < 0.72 && brushPos.y > 0.2 && brushPos.y < 0.8;
+                uniforms.uHotAmt.value += ((over ? 1 : 0) - uniforms.uHotAmt.value) * 0.08;
+                if (window.BrushFlow) {
+                    const el = over ? document.querySelector(`[data-cap="${ci}"] .dive-cap-t`) : null;
+                    window.BrushFlow.hover = el ? { text: el.textContent } : null;
+                }
+            }
             applyStage(P, v, c);
             renderer.render(scene, camera);
             dirty = false;

@@ -142,6 +142,20 @@ html.collage .stamps-card a .bi { width: 1.6em !important; height: 1.6em !import
 html.collage body :is(.bizcard, .callcard, .addr-label) .feature:not(#_) { background: none !important; box-shadow: none !important; color: var(--ink-green) !important; }
 html.collage body .addr-label .feature:not(#_) { color: #24180c !important; }
 
+/* ================= FIRÇA İMLEÇ (js/brush.js) ================= */
+html.brush-on, html.brush-on body, html.brush-on a, html.brush-on button, html.brush-on [role="button"], html.brush-on label { cursor: none !important; }
+html.brush-on input, html.brush-on textarea, html.brush-on select { cursor: text !important; }
+html.brush-on .cursor, html.brush-on .cursor-dot { display: none !important; }
+/* Fırçanın ucu (görselin sol alt köşesi) imlecin tam noktasıdır */
+.brush-cursor { position: fixed; left: 0; top: 0; z-index: 3000; width: 64px; height: 64px; margin: -52px 0 0 -12px; transform-origin: 12px 52px;
+    pointer-events: none; opacity: 0; transition: opacity .25s; filter: drop-shadow(2px 4px 4px rgba(0, 0, 0, .45)); }
+.brush-cursor img, .brush-cursor svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.brush-cursor img + svg { display: none; }
+.brush-label { position: fixed; left: 0; top: 0; z-index: 2999; pointer-events: none; opacity: 0; transition: opacity .3s;
+    padding: .35rem .7rem .4rem; background: var(--paper-white, #f6f1e4); color: #2e2418; font-family: var(--font-display); font-style: italic; font-size: .95rem;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, .35); clip-path: polygon(0 0, 100% 0, 100% 100%, 8% 100%, 0 82%); }
+.brush-label.is-on { opacity: 1; }
+
 /* ---------- Telefon ---------- */
 @media (max-width: 991.98px) {
     html.collage .blog-index, html.collage .gallery { grid-template-columns: 1fr !important; }

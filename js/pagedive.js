@@ -14,7 +14,9 @@
     const P_DIR = "images/paintings/";
     const U_HOLD = 1, U_MOVE = 1.2, U_TRANS = 1.6, U_START = 1, VH_PER_UNIT = 48;
 
-    let renderer = null, scene, camera, uniforms, canvas, wrap, small = false;
+    let renderer = null, scene, camera, uniforms, canvas, wrap, small = false, flowTex = null;
+    const brushPos = { x: -1, y: -1 };
+    addEventListener("pointermove", (e) => { brushPos.x = e.clientX / innerWidth; brushPos.y = e.clientY / innerHeight; }, { passive: true });
     let cfg = null, plan = null, journey = null, hero = null, copy = null, active = false, dirty = true, visible = true;
     let P = 0, PT = 0, last = performance.now(), stage = -1, cap = -1;
     const mouse = { x: 0, y: 0, tx: 0, ty: 0 };
@@ -135,14 +137,17 @@
             uA: { value: blank }, uB: { value: blank }, uWeave: { value: weave },
             uRA: { value: new THREE.Vector4(0, 0, 1, 1) }, uRB: { value: new THREE.Vector4(0, 0, 1, 1) },
             uMix: { value: 0 }, uType: { value: 0 }, uRes: { value: new THREE.Vector2(1, 1) }, uMouse: { value: new THREE.Vector2() },
-            uTime: { value: 0 }, uMotion: { value: reduce ? 0 : 1 }, uDim: { value: 0 }
+            uTime: { value: 0 }, uMotion: { value: reduce ? 0 : 1 }, uDim: { value: 0 },
+            // Fırça akış haritası (js/brush.js) ve fırçanın üstünde durduğu figür bölgesi (ekran uv: x0,y0,x1,y1)
+            uFlow: { value: window.BrushFlow ? (flowTex = new THREE.CanvasTexture(window.BrushFlow.canvas)) : blank },
+            uHot: { value: new THREE.Vector4(-1, -1, -1, -1) }, uHotAmt: { value: 0 }
         };
         const frag = `
 precision highp float;
-uniform sampler2D uA, uB, uWeave;
-uniform vec4 uRA, uRB;
+uniform sampler2D uA, uB, uWeave, uFlow;
+uniform vec4 uRA, uRB, uHot;
 uniform vec2 uRes, uMouse;
-uniform float uMix, uType, uTime, uMotion, uDim;
+uniform float uMix, uType, uTime, uMotion, uDim, uHotAmt;
 varying vec2 vUv;
 float hash(vec2 p) { p = fract(p * vec2(123.34, 456.21)); p += dot(p, p + 45.32); return fract(p.x * p.y); }
 float noise(vec2 p) { vec2 i = floor(p), f = fract(p); vec2 u = f * f * (3.0 - 2.0 * f);
@@ -154,9 +159,17 @@ vec3 paint(sampler2D t, vec4 r, vec2 uv) {
 }
 void main() {
     float sa = uRes.x / uRes.y, t = uTime * uMotion;
-    vec3 col = paint(uA, uRA, vUv);
+    // Islak boya: fırçanın geçtiği yerde pikseller hareket yönünde kayar
+    vec4 fl = texture2D(uFlow, vUv);
+    vec2 off = (fl.rg - 0.5) * vec2(1.0, -1.0) * 0.05 * fl.b;
+    // Figür canlanması: fırça bir figürün üstündeyken o bölge hafifçe nefes alır / sallanır
+    vec2 hc = (uHot.xy + uHot.zw) * 0.5, hs = max(uHot.zw - uHot.xy, vec2(0.001));
+    float hm = uHotAmt * smoothstep(1.0, 0.55, length((vUv - hc) / (hs * 0.5)));
+    off += hm * vec2(sin(t * 2.1 + vUv.y * 9.0), cos(t * 1.7 + vUv.x * 7.0)) * 0.0035;
+    vec2 uv = vUv - off;
+    vec3 col = paint(uA, uRA, uv);
     if (uMix > 0.0001) {
-        vec3 b = paint(uB, uRB, vUv);
+        vec3 b = paint(uB, uRB, uv);
         if (uType < 0.5) {                                  // mürekkep dağılması
             float n = fbm(vUv * vec2(sa, 1.0) * 3.2);
             float m = smoothstep(n - 0.06, n + 0.06, uMix * 1.16 - 0.08);
@@ -181,6 +194,10 @@ void main() {
         dust += step(0.9, h) * smoothstep(0.05, 0.0, length(f - o * 0.7)) * (0.5 + 0.5 * sin(t * (1.0 + h * 2.0) + h * 6.28)) * (0.5 - fk * 0.15);
     }
     // (toz parçacıkları kaldırıldı: ekranda rastgele beyaz noktalar gibi görünüyordu)
+    // Islak boya parlaması: fırça izinde ince, sıcak bir ışıltı
+    float wet = fl.b * (0.6 + 0.4 * noise(vUv * vec2(sa, 1.0) * 60.0));
+    col += vec3(1.0, 0.95, 0.85) * wet * 0.07;
+    col = mix(col, col * 1.06, wet);
     col *= 0.975 + 0.05 * texture2D(uWeave, gl_FragCoord.xy / 460.0).r;
     col *= vec3(1.02, 1.0, 0.975) * (1.0 - uDim);
     col *= mix(0.8, 1.0, smoothstep(1.25, 0.35, length((vUv - 0.5) * vec2(sa * 0.75, 1.0))));
@@ -277,9 +294,30 @@ void main() {
         uniforms.uDim.value = Math.min(0.5, after * 0.55);
         uniforms.uTime.value += dt;
         uniforms.uMouse.value.set(mouse.x, mouse.y);
+        if (flowTex && window.BrushFlow && window.BrushFlow.dirty) { flowTex.needsUpdate = true; window.BrushFlow.dirty = false; }
+        brushHover(u, st);
         applyUI(u, st);
         renderer.render(scene, camera);
         dirty = false;
+    }
+    // Fırça bir durağın (figürün) kutusunun üstündeyse: o bölge canlanır, yanında küçük müze etiketi belirir
+    function brushHover(u, st) {
+        const B = window.BrushFlow;
+        let hit = null;
+        if (B && brushPos.x >= 0 && !st.vB && P < 0.999) {
+            const p = cfg[st.A], r = rectOf(p.a, st.vA);
+            const bu = r[0] + brushPos.x * r[2], bv = r[1] + brushPos.y * r[3];
+            const L = lang();
+            p.stops.forEach((s) => {
+                if (!hit && Math.abs(bu - s.u) < s.w / 2 && Math.abs(bv - s.v) < s.h / 2) {
+                    hit = { s, x0: (s.u - s.w / 2 - r[0]) / r[2], y0: (s.v - s.h / 2 - r[1]) / r[3], x1: (s.u + s.w / 2 - r[0]) / r[2], y1: (s.v + s.h / 2 - r[1]) / r[3] };
+                }
+            });
+        }
+        if (B) B.hover = hit ? { text: hit.s.t[lang()] } : null;
+        const target = hit ? 1 : 0;
+        uniforms.uHotAmt.value += (target - uniforms.uHotAmt.value) * 0.08;
+        if (hit) uniforms.uHot.value.set(hit.x0, 1 - hit.y1, hit.x1, 1 - hit.y0);
     }
     function applyUI(u, st) {
         // Etiket ve mini harita: geçişin yarısında yeni tabloya geçer
