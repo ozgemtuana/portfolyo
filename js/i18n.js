@@ -266,7 +266,7 @@ function renderContent(site) {
     if ((el = box("skillbars"))) {
         el.innerHTML = site.skillBars.map((s, i) => {
             const w = Math.max(0, Math.min(100, parseInt(s.percent, 10) || 0));
-            return `<div class="col-md-6"><div class="d-flex justify-content-between small mb-2"><span data-i18n="bar.${i + 1}"></span><span class="text-muted">${w}%</span></div><div class="skill-bar"><i style="--w: ${w}%"></i></div></div>`;
+            return `<div class="col-md-6"><div class="d-flex justify-content-between small mb-2"><span data-i18n="bar.${i + 1}"></span><span class="text-muted">${w}%</span></div><div class="skill-bar" role="meter" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${w}" aria-valuetext="${w}%"><i style="--w: ${w}%"></i></div></div>`;
         }).join("");
     }
     if ((el = box("languages"))) {
@@ -393,7 +393,7 @@ function renderContent(site) {
     if ((el = box("softskills"))) {
         el.innerHTML = site.softSkills.map((s, i) => {
             const v = Math.max(0, Math.min(100, parseInt(s.percent, 10) || 0));
-            return `<div class="ring" style="--p: ${v}" role="img" aria-label="${v}%">` +
+            return `<div class="ring" style="--p: ${v}" role="meter" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${v}" aria-valuetext="${v}%">` +
                 `<svg viewBox="0 0 120 120" aria-hidden="true"><circle class="ring-bg" cx="60" cy="60" r="52" /><circle class="ring-fg" cx="60" cy="60" r="52" pathLength="100" /></svg>` +
                 `<b>${v}<small>%</small></b><span data-i18n="soft.${i + 1}"></span>` +
             `</div>`;
@@ -471,6 +471,11 @@ function renderContent(site) {
 
 /* ---------- Dil ---------- */
 function getLang() {
+    // Adresteki ?lang=en / ?lang=tr önce gelir (hreflang bağlantıları ve paylaşılan linkler için); seçim hatırlanır
+    try {
+        const q = new URLSearchParams(location.search).get("lang");
+        if (q && I18N[q]) { try { localStorage.setItem(LANG_KEY, q); } catch (e) { /* yoksay */ } return q; }
+    } catch (e) { /* eski tarayıcı */ }
     try {
         const saved = localStorage.getItem(LANG_KEY);
         if (saved && I18N[saved]) return saved;

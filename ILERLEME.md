@@ -1,12 +1,44 @@
 # İlerleme ve kararlar
 
+## HOCANIN ŞARTLARI KONTROLÜ (2026-11-23)
+
+Denetim betiği: `.scratch/requirements.js` (8 sayfa × TR/EN, masaüstü + 375 px). Ham sonuç: `.scratch/out/requirements.json`.
+
+| Şart | Durum | Not |
+|---|---|---|
+| Kendini tanıtan site, yapay zekâ ile | ✅ | Süreç sayfasında araçlar ve skill'ler yazılı |
+| Görsel olarak etkileyici, özel tasarım | ✅ | Tablo dalışları, zarf açılışı, kâğıt kolajı |
+| Türkçe ve İngilizce, dil seçici her sayfada, seçim hatırlanıyor | ✅ | 8 sayfa TR/EN; `?lang=en` adres desteği eklendi |
+| Alt sayfalar ve menü (tek sayfa değil) | ✅ | 8 ayrı sayfa |
+| Her sayfada tek `<h1>`, birden çok `<h2>` | ✅ | Galeri ve İletişim'de 1 adet `<h2>` var (şart "birden çok h2" diyor; bkz. aşağı) |
+| Her sayfanın kendi title ve description'ı (TR ve EN) | ✅ | 16/16 benzersiz |
+| Semantik HTML5 (header, nav, main, section, footer) | ✅ | header 3 sayfada; diğerlerinde başlık bloğu `div` |
+| Hakkımda: vesikalık + özgeçmiş | ✅ | |
+| Hakkımda: ders programı `<table>`/`<th>`/`<td>` | ✅ | 15 th, 25 td |
+| Hakkımda: `<ol>` ve `<ul>` | ✅ | |
+| Hakkımda: `<abbr>`, `<code>`, `<pre>`, `<blockquote>` | ✅ | 5 / 2 / 1 / 1 |
+| Yetenek yüzdeleri (HTML'de yazılı + `meter`) | ✅ | Bu oturumda `role="meter"` + `aria-valuenow` eklendi (16 adet) |
+| Projeler: çalışmaların görselleri ve kısa açıklamaları | ✅ | |
+| Blog: en az 3 yazı + ekran görüntüleri | ✅ | 3 yazı, 14 görsel |
+| Galeri: fotoğraflar ve kısa açıklamaları | ✅ | 5 açıklama |
+| İletişim: adres, telefon (`tel:`), form | ✅ | 4 alanlı form |
+| Responsive / mobil | ✅ | 8 sayfa 375 px'te yatay taşmasız |
+| SEO: canonical, JSON-LD, sitemap, robots, llms.txt | ✅ | |
+| SEO: `hreflang` (tr / en / x-default) | ✅ | Bu oturumda eklendi |
+| Görsellerde `alt` | ✅ | Eksik `alt` yok |
+| JS hatası | ✅ | 16 sayfa yüklemesinde 0 |
+| 300 MB sınırı | ✅ | 56,5 MB (yayınlanan dosyalar; `.git`, `references`, `.scratch`, `inceleme` hariç) |
+| Teslim: `OgrenciNo-WEB.zip` → `.PDF` | ⏳ | TESLIM.md'de adımlar var; zip en sonda hazırlanacak |
+
+**Küçük not:** Galeri ve İletişim sayfalarında yalnızca bir `<h2>` var. Şart "birden çok h2" diyorsa bu iki sayfaya birer bölüm başlığı eklemek gerekir. Bu içerik değişikliği sayılacağı için onayını bekliyorum.
+
 ## ŞU AN (2026-11-23 öğleden sonra)
 
 **Sıra (kullanıcının önceliği, limit %75'te, idareli çalışılıyor):**
 1. Look kartları ✅
-2. Sayfa geçişi zarfını akışkan yapmak ⏳
-3. Hocanın şartları kontrolü
-4. Kalan süs ve animasyonlar
+2. Sayfa geçişi zarfı ✅ (8 kare: `inceleme/gecis-8-kare.jpg`)
+3. Hocanın şartları kontrolü ✅ (yukarıdaki tablo)
+4. Kalan süs ve animasyonlar ⏳ (sıradaki)
 
 **Bitti: Look kartları (commit'li)**
 - Figürlerin gömülü beyaz "sticker" kenarı otomatik temizlendi. Temiz kopyalar `images/runway/clean/` altında, orijinaller duruyor. `js/content.js` temiz kopyaları kullanıyor. Betik: `.scratch/dehalo.py`.
