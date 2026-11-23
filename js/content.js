@@ -58,6 +58,7 @@ window.SITE_CONTENT = {
             "work.eyebrow": "Seçili İşler",
             "work.title": "Öne çıkan <em>projeler</em>",
             "work.all": "Tüm projeler",
+            "p.rights": "Ders çalışması · karakter hakları Marvel'a aittir",
             "services.eyebrow": "Neler yapıyorum",
             "services.1.t": "Web Tasarım",
             "services.1.d": "HTML5, CSS3 ve JavaScript ile modern, responsive siteler.",
@@ -365,6 +366,7 @@ window.SITE_CONTENT = {
             "work.eyebrow": "Selected work",
             "work.title": "Featured <em>projects</em>",
             "work.all": "All projects",
+            "p.rights": "Coursework · characters © Marvel",
             "services.eyebrow": "What I do",
             "services.1.t": "Web Design",
             "services.1.d": "Modern, responsive websites with HTML5, CSS3 and JavaScript.",
@@ -673,6 +675,7 @@ window.SITE_CONTENT = {
             "image": "images/projects/history-brush.jpg",
             "art": "",
             "link": "",
+            "rights": "marvel",
             "featured": true,
             "scene": "frame"
         },
@@ -692,6 +695,7 @@ window.SITE_CONTENT = {
             "image": "images/projects/proje3.jpg",
             "art": "",
             "link": "",
+            "rights": "marvel",
             "featured": true,
             "scene": "letter"
         },

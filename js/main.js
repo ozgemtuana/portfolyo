@@ -381,7 +381,8 @@
 
         /* ---------- Yatay kayan proje bölümü (sabitlenir) ---------- */
         const hTrack = document.querySelector(".h-track");
-        if (hTrack) {
+        // Kartpostallar artık sabit, ortalı kolaj (ekrandan kesilmesin): yatay sabitleme yalnızca data-static yoksa
+        if (hTrack && !hTrack.hasAttribute("data-static")) {
             const dist = () => hTrack.scrollWidth - window.innerWidth;
             const hTween = gsap.to(hTrack, {
                 x: () => -dist(),

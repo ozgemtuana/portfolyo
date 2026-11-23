@@ -12,7 +12,7 @@
     const root = document.documentElement;
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const P_DIR = "images/paintings/";
-    const U_HOLD = 1, U_MOVE = 1.2, U_TRANS = 1.6, U_START = 1, VH_PER_UNIT = 48;
+    const U_HOLD = 1, U_MOVE = 1.2, U_TRANS = 1.6, U_START = 1, VH_PER_UNIT = 34;   // eleştiri: dalışlar %30 kısaltıldı (48 → 34)
 
     let renderer = null, scene, camera, uniforms, canvas, wrap, small = false, flowTex = null;
     const brushPos = { x: -1, y: -1 };
@@ -258,6 +258,7 @@ void main() {
         journey.innerHTML =
             `<div class="hero pj-hero"><div class="container px-5 pj-copy"></div>` +
             `<div class="dive-caps">${caps}</div>` +
+            `<p class="dive-prog" data-prog aria-hidden="true"></p>` +
             `<figure class="dive-map" data-pmap aria-hidden="true"><img alt="" decoding="async"><i></i></figure>` +
             `<div class="dive-labels" aria-live="polite">${cfg.map((p, i) => `<p class="dive-label" data-plabel="${i}"></p>`).join("")}</div>` +
             `</div>`;
@@ -291,7 +292,7 @@ void main() {
         } else if (st.A + 1 < cfg.length) texOf(st.A + 1);          // sıradaki tabloyu önceden yükle
         uniforms.uMix.value = st.mix; uniforms.uType.value = st.type;
         const after = Math.max(0, innerHeight - journey.getBoundingClientRect().bottom) / innerHeight;
-        uniforms.uDim.value = Math.min(0.5, after * 0.55);
+        uniforms.uDim.value = Math.min(0.22, after * 0.3);
         uniforms.uTime.value += dt;
         uniforms.uMouse.value.set(mouse.x, mouse.y);
         if (flowTex && window.BrushFlow && window.BrushFlow.dirty) { flowTex.needsUpdate = true; window.BrushFlow.dirty = false; }
@@ -319,6 +320,7 @@ void main() {
         uniforms.uHotAmt.value += (target - uniforms.uHotAmt.value) * 0.08;
         if (hit) uniforms.uHot.value.set(hit.x0, 1 - hit.y1, hit.x1, 1 - hit.y0);
     }
+    const roman = (n) => ["", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", "XI", "XII"][n] || String(n);
     function applyUI(u, st) {
         // Etiket ve mini harita: geçişin yarısında yeni tabloya geçer
         const s = st.vB && st.mix >= 0.5 ? st.B : st.A;
@@ -332,6 +334,14 @@ void main() {
         const h = plan.holds.find((x) => u > x.ua - 0.25 && u < x.ub + 0.25);
         const ci = h ? h.cap : -1;
         if (ci !== cap) { cap = ci; hero.querySelectorAll("[data-pcap]").forEach((el) => el.classList.toggle("is-on", +el.dataset.pcap === ci)); }
+        // İlerleme göstergesi "II / V": geçilen durak sayısı
+        const prog = hero.querySelector("[data-prog]");
+        if (prog) {
+            const done = Math.max(1, plan.holds.filter((x) => u >= x.ua - 0.25).length);
+            const txt = roman(done) + " / " + roman(plan.holds.length);
+            if (prog.textContent !== txt) prog.textContent = txt;
+            prog.classList.toggle("is-on", u > 0.6 && P < 0.995);
+        }
         const v = s === st.A ? st.vA : st.vB, r = rectOf(cfg[s].a, v);
         const box = map.querySelector("i").style;
         box.left = (Math.max(0, r[0]) * 100).toFixed(2) + "%"; box.top = (Math.max(0, r[1]) * 100).toFixed(2) + "%";

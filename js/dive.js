@@ -368,6 +368,15 @@ void main() {
                 cap = ci;
                 document.querySelectorAll("[data-cap]").forEach((el) => el.classList.toggle("is-on", +el.dataset.cap === ci));
             }
+            // İlerleme göstergesi "II / IX": geçilen durak sayısı
+            const prog = document.querySelector("[data-dive-prog]");
+            if (prog) {
+                const R = ["", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X"];
+                const done = Math.max(1, STOPS.filter(([a]) => P >= a - 0.012).length);
+                const txt = R[done] + " / " + R[STOPS.length];
+                if (prog.textContent !== txt) prog.textContent = txt;
+                prog.classList.toggle("is-on", P > 0.03 && P < 0.995);
+            }
             // Mini harita: tablonun küçük önizlemesinde şu an bakılan bölge
             if (map) {
                 let r;
@@ -416,7 +425,7 @@ void main() {
             uniforms.uColeZoom.value = c.z;
             uniforms.uColeFocus.value.set(c.f[0], c.f[1]);
             const after = journey ? Math.max(0, -journey.getBoundingClientRect().bottom + window.innerHeight) / window.innerHeight : 0;
-            uniforms.uDim.value = Math.min(0.45, after * 0.5);
+            uniforms.uDim.value = Math.min(0.2, after * 0.3);
             uniforms.uTime.value += dt;
             uniforms.uMouse.value.set(mouse.x, mouse.y);
             if (flowTex && window.BrushFlow && window.BrushFlow.dirty) { flowTex.needsUpdate = true; window.BrushFlow.dirty = false; }

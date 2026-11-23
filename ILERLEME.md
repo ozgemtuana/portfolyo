@@ -1,5 +1,26 @@
 # İlerleme ve kararlar
 
+## WEB TASARIMCISI ELEŞTİRİSİ (2026-11-23 akşam) — devam ediyor
+
+Tüm düzeltmeler tek dosyada: `css/critique.css` (8 sayfada en son yüklenen stil). Betikler: `.scratch/crit.js <etiket> <sayfalar>` (1440 + 375 ekran görüntüsü), `.scratch/critsheet.py` (kontak sayfası), `.scratch/fontaudit.js` (13px/18px/300 denetimi), `.scratch/contrast.js` + `.scratch/contrast.py` (WCAG AA, ekran pikselleriyle).
+
+**Yapıldı**
+- Kontrast: dalış başlıkları krem, 500 ağırlık, ince koyu gölge ve altında sıcak gradient. Hero metni 18px+, Konum/Yerel saat 17px. Koyulaşma yalnızca yazı bölgesinde. Genel koyu katman azaltıldı (`.page-bg::after` .55/.72 → .22/.38, dalış sonrası `uDim` .45 → .2).
+- Yazı: gövde 18px, etiket/menü en az 13px, 300 ağırlıklar 500'e çıktı. Pinyon yazılar büyüdü ve ince konturla kalınlaştı. Font denetimi temiz (yalnızca 13px'lik Marvel notu kasıtlı küçük).
+- Tek tasarım dili: hap butonlar kaldırıldı. Birincil buton kâğıt etiket, ikincil buton el yazısı alt çizgili link, kâğıt üstündeki "İncele" ve form butonları kırmızı damga. TR/EN ve "oynat" da kâğıt etiket. Proje başlıkları Cormorant, Special Elite yalnızca küçük notlarda.
+- Öne çıkan projeler: yatay sabitlenen kaydırma kapatıldı (`data-static`). Kartlar artık ortalı, iki sütunlu ve bilinçli olarak üst üste binen bir kolaj; telefonda tek sütun.
+- Look çerçeveleri kemerli oldu. Bantlar alt köşelere taşındı, böylece ev/çatı görüntüsü kalktı.
+- Dalış ilerleme göstergesi eklendi ("III / IX", küçük büyük harf). Dalışlar %30 kısaldı (ana sayfa 1150vh → 805vh, sayfa dalışları VH_PER_UNIT 48 → 34).
+- "Tuana" yazısındaki T artık dik Cormorant. Başlık harf harf bölündüğü için `.char:first-child` hedeflendi. Menüdeki adın T'si de aynı şekilde düzeltildi.
+- Marvel notu: History Brush ve Scarlet Witch kartlarına "Ders çalışması · karakter hakları Marvel'a aittir" eklendi (`rights: "marvel"`, `p.rights`).
+- Hero butonları metnin altına alındı; müze etiketiyle artık çakışmıyor.
+
+**Kalan**
+1. Kontrast denetimini yeniden çalıştırıp sonucu okumak. İlk ölçümde 1207 yazıdan 238'i başarısızdı; ardından düzeltmeler eklendi.
+2. "ben Tuana" yazısında T ile "uana" arasında boşluk kaldı: `.char:first-child` için margin-right değeri yaklaşık -.06em yapılacak.
+3. Telefon (375px): alıntı kartı ile başlık çakışması, imza/pul kesilmesi ve küçük hero butonları gözle kontrol edilecek (`node .scratch/crit.js x index,projects`).
+4. Kalan sayfalarda (blog, galeri, iletişim, süreç, özgeçmiş) ekran görüntüsü kontrolü.
+
 ## HOCANIN ŞARTLARI KONTROLÜ (2026-11-23)
 
 Denetim betiği: `.scratch/requirements.js` (8 sayfa × TR/EN, masaüstü + 375 px). Ham sonuç: `.scratch/out/requirements.json`.

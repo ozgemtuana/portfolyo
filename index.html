@@ -45,6 +45,7 @@
         <link href="css/collage-fix.css?v=1" rel="stylesheet" />
         <link href="css/magazine.css?v=3" rel="stylesheet" />
         <link href="css/pages.css?v=2" rel="stylesheet" />
+        <link href="css/critique.css?v=1" rel="stylesheet" />
         <script>
             /* Geçiş sahnesi/yükleme ekranı için: JS var mı, ilk ziyaret mi? */
             document.documentElement.classList.add("js");
@@ -162,6 +163,7 @@
                     <div class="dive-cap" data-cap="7"><p class="dive-cap-t" data-i18n="cap.7.t"></p><p class="dive-cap-q" data-i18n="cap.7.q"></p></div>
                     <div class="dive-cap" data-cap="8"><p class="dive-cap-t" data-i18n="cap.8.t"></p><p class="dive-cap-q" data-i18n="cap.8.q"></p></div>
                 </div>
+                <p class="dive-prog" data-dive-prog aria-hidden="true"></p>
                 <!-- Mini harita: tablonun önizlemesinde şu an bakılan bölge -->
                 <figure class="dive-map" data-dive-map aria-hidden="true"><img src="images/scenes/panini-2048.webp" alt="" decoding="async"><i></i></figure>
                 <div class="dive-labels" aria-live="polite">
@@ -232,7 +234,7 @@
                     <a class="btn btn-outline-dark px-4 py-2 magnetic" href="projects.html"><span data-i18n="work.all">Tüm projeler</span> <i class="bi bi-arrow-right"></i></a>
                 </div>
                 <!-- Kartlar js/content.js > projects (featured: true) listesinden basılır -->
-                <div class="h-track" data-render="projects-featured"></div>
+                <div class="h-track" data-render="projects-featured" data-static></div>
             </section>
 
             <!-- Hizmetler -->
@@ -349,15 +351,15 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
         <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-        <script src="js/content.js?v=96"></script>
-        <script src="js/i18n.js?v=96"></script>
+        <script src="js/content.js?v=97"></script>
+        <script src="js/i18n.js?v=97"></script>
         <script src="js/envelope.js?v=2"></script>
         <script src="js/transition.js?v=92"></script>
-        <script src="js/main.js?v=91"></script>
+        <script src="js/main.js?v=92"></script>
         <script src="js/brush.js?v=1"></script>
-        <script src="js/dive.js?v=8"></script>
+        <script src="js/dive.js?v=9"></script>
         <script src="js/pagedive-data.js?v=1"></script>
-        <script src="js/pagedive.js?v=2"></script>
+        <script src="js/pagedive.js?v=3"></script>
         <script src="js/folders.js?v=90"></script>
         <script src="js/scenes.js?v=5"></script>
         <script src="js/blog.js?v=90"></script>

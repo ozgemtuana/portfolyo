@@ -1,0 +1,250 @@
+/* ==========================================================================
+   Web tasarımcısı eleştirisi düzeltmeleri (2026-11-23) — EN SON yüklenir.
+   1) Kontrast + okunur yazı boyutları  2) Tek tasarım dili (hap buton yok)
+   3) Kompozisyon  4) Telefon 375px  5) "Tuana" T'si
+   ========================================================================== */
+
+:root {
+    --hand-line: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 10' preserveAspectRatio='none'%3E%3Cpath d='M2 6c14-3 30-4 48-2s32 1 46-3' fill='none' stroke='%23ecd9a8' stroke-width='1.6' stroke-linecap='round'/%3E%3C/svg%3E");
+    --hand-line-ink: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 10' preserveAspectRatio='none'%3E%3Cpath d='M2 6c14-3 30-4 48-2s32 1 46-3' fill='none' stroke='%233a2a1a' stroke-width='1.6' stroke-linecap='round'/%3E%3C/svg%3E");
+    --cream-text: #f6ecd6;
+}
+
+/* ---------- 1a) Okunur yazı: gövde ≥18px, etiket/menü ≥13px, ince ağırlık yok ---------- */
+body { font-size: 1.125rem; font-weight: 400; }
+:where(html.collage main) :where(p, li, dd, td, blockquote p),
+:where(html.collage footer) :where(p) { font-size: max(1.125rem, 1em); }
+/* Ana sayfa dalışı %30 kısa (1150vh → 805vh); duraklar oran olduğu için kayma yok */
+.journey:not(.pjourney) { height: 805vh; }
+/* Başlıklar Cormorant 300 yerine 500 */
+html.collage :is(h1, h2, h3, h4, h5, .display-1, .display-2, .display-3, .display-4, .display-5, .hero-title, .lead, .fw-light) { font-weight: 500 !important; }
+html.collage .hero-title .line > span { font-weight: 500; }
+/* Menü ve küçük etiketler en az 13px */
+html.collage .navbar .nav-link { font-size: max(.8125rem, 1rem) !important; font-weight: 500 !important; }
+html.collage :is(small, .small, .dive-label small, .int-meta, .deco-seat, .course-kind, .idx, .pt-meta, .pt-label, .scroll-hint span, .foot-meta, .footer small) { font-size: max(.8125rem, 1em) !important; }
+
+/* Denetimden (.scratch/fontaudit.js) çıkan 13px altı etiketler → 13px taban */
+html.collage body :is(.col-auto a, .post-toc a, .post-toc b, .post-toc li a, figcaption b, table caption, .quote-by, .quote-by cite, .quote-by span,
+    .sc-tag, .mc-link, .mc-role, .to-top, dt, dt abbr, .flow-card i, .flow-step, .form-floating > label, .int-meta, .copy-btn span, .course-meta span,
+    .pn-all span, .pn-label, .ring span, .bx-meta, .bx-meta span, .bx-cat, .bx-go, .caption-label, .course-code, .course-now, .course-time,
+    .pf-chip, .post-read, .proc-hex, .ad-copy span, .svc-chip, th, .sgt-corner, .sgt-time, pre code, pre code span, .post-meta span, .dive-label small):not(#_) {
+    font-size: .8125rem !important;
+}
+html.collage body :is(.course-code, .course-time, .pn-label, .bx-cat, .svc-chip, .pf-chip, .flow-step, .caption-label, .course-now):not(#_) { letter-spacing: .06em !important; }
+html.collage body pre:not(#_) { font-size: .8125rem !important; }
+/* Gövde: 18px altında kalan uzun metinler */
+html.collage body :is(.sc-label p:not(.p-rights), .list-card p, .folder-meta, .caption-box .hash, .study-note, .about-page dd):not(#_) { font-size: 1.125rem !important; }
+/* 300 ağırlıklar → 500 */
+html.collage body :is(h1 em, h2 em, h3 em, p em, figcaption em, .cta-big, .cta-big em, .mc-name, .pn-title, .folder-title em, .p-rights):not(#_) { font-weight: 500 !important; }
+html.collage body .p-rights:not(#_) { font-weight: 400 !important; }
+
+/* Script (Pinyon) yazılar: daha büyük ve kalın görünsün (Pinyon'un tek ağırlığı var → ince kontur) */
+html.collage :is(.hand-note, .gp-place, .list-note, .hobby-click, .deco-sign, .pc-sign, .mag-note, .int-tags, .pf-script, .obj--invite .deco-head, .h-card.postcard .meta small) {
+    -webkit-text-stroke: .035em currentColor; paint-order: stroke fill; letter-spacing: .01em;
+}
+html.collage .hand-note { font-size: clamp(1.7rem, 2.6vw, 2.4rem); }
+html.collage .gp-item .gp-place { font-size: 1.7rem !important; }
+html.collage .list-note { font-size: 1.55rem !important; }
+html.collage .hobby-click { font-size: 1.65rem; }
+html.collage .h-card.postcard .meta small { font-size: 1.75rem !important; }
+.hero-title em, h1 em { -webkit-text-stroke: .02em currentColor; }
+
+/* ---------- 1b) Kontrast: dalış başlıkları ---------- */
+.dive-cap::before {
+    inset: -55% -40% -45% -30%;
+    background: radial-gradient(ellipse 60% 55% at 32% 62%, rgba(30, 17, 6, .78), rgba(30, 17, 6, .45) 55%, transparent 80%);
+}
+.dive-cap-t {
+    font-weight: 500 !important; color: var(--cream-text) !important; letter-spacing: .07em;
+    text-shadow: 0 1px 1px rgba(20, 11, 4, .9), 0 2px 4px rgba(20, 11, 4, .7), 0 4px 22px rgba(20, 11, 4, .55) !important;
+}
+.dive-cap-q {
+    color: var(--cream-text) !important; font-weight: 500 !important; font-size: clamp(1.15rem, 1.8vw, 1.5rem) !important;
+    text-shadow: 0 1px 2px rgba(20, 11, 4, .9), 0 2px 12px rgba(20, 11, 4, .7) !important;
+}
+.dive-label small { font-size: .8125rem !important; color: #5a3f22 !important; }
+.dive-label b, .dive-label span { font-size: 1.12rem !important; }
+
+/* Açılış metni: büyük, arkasında yalnızca yazı bölgesinde sıcak koyulaşma */
+html.dive-on .hero::before {
+    background: radial-gradient(ellipse 46% 52% at 22% 56%, rgba(36, 20, 8, .72), rgba(36, 20, 8, .42) 50%, transparent 76%) !important;
+}
+.hero .hero-sub { font-size: clamp(1.15rem, 1.5vw, 1.35rem) !important; line-height: 1.55; font-weight: 500 !important; color: var(--cream-text) !important;
+    text-shadow: 0 1px 2px rgba(20, 11, 4, .85), 0 2px 12px rgba(20, 11, 4, .6); max-width: 36ch; }
+.hero .hero-meta, .hero .hero-meta span, .hero .hero-meta b { font-size: 1.0625rem !important; letter-spacing: .06em; font-weight: 500 !important; color: var(--cream-text) !important;
+    text-shadow: 0 1px 2px rgba(20, 11, 4, .85), 0 2px 10px rgba(20, 11, 4, .6); }
+.hero .hero-meta { display: flex; flex-wrap: wrap; gap: .4rem 2rem; }
+.page-offset .eyebrow, .hero .eyebrow { -webkit-text-stroke: .03em currentColor; }
+
+/* Tabloların üstündeki genel koyu katman: azaltıldı, renkler canlı */
+.page-bg::after { background: linear-gradient(180deg, rgba(24, 20, 14, .22), rgba(24, 20, 14, .38)) !important; }
+/* Tablo üstündeki bölüm başlıkları ve krem yazılar: ince koyu gölge */
+html.collage main section h2, html.collage main section .eyebrow, html.collage .section-title {
+    text-shadow: 0 1px 2px rgba(20, 11, 4, .8), 0 2px 14px rgba(20, 11, 4, .55);
+}
+
+/* ---------- 1c) WCAG AA düzeltmeleri (.scratch/contrast.js + contrast.py) ---------- */
+:root { --ink-faded: #47382a; }
+/* Tablo üstündeki başlıkların italik kelimesi: soluk ten rengi yerine açık antik altın + gölge */
+html.collage main :is(h2, h3, .cta-big) em, html.collage main .cta-big {
+    color: #f1dcaa !important; -webkit-text-fill-color: #f1dcaa;
+    text-shadow: 0 1px 2px rgba(20, 11, 4, .85), 0 2px 14px rgba(20, 11, 4, .6) !important;
+}
+html.collage main :is(.list-card--cream, .sc-label, .obj, .folder, .card, .about-glass, .pf-card, .postcard, .quote) :is(h2, h3) em {
+    color: #6e4f25 !important; -webkit-text-fill-color: #6e4f25; text-shadow: none !important;
+}
+html.collage main .eyebrow, html.collage .mag-note, html.collage .hand-note, html.collage .home-gallery .hand-note, html.collage main section > .container > .row p:not(:is(.obj *, .card *)) {
+    color: #f6ecd6 !important; text-shadow: 0 1px 2px rgba(20, 11, 4, .9), 0 2px 12px rgba(20, 11, 4, .65) !important;
+}
+/* Kâğıt üstü küçük yazılar: koyu mürekkep */
+html.collage :is(.sc-tag, .course-kind, .sgt-time, .sgt-corner, .course-time, .course-code, .int-meta, .int-tags, .list-note, .pn-label, .pn-desc, .pc-sign, .gp-place, .id-name, abbr) { color: #3d2e1e !important; }
+html.collage .scenes.is-static .sc-label .sc-tag { color: #6a2219 !important; }
+/* Altbilgi: krem yazı */
+html.collage .site-footer :is(a, .text-muted, small, span, p), html.collage footer :is(a, .text-muted, small) { color: #efe3c6 !important; text-shadow: 0 1px 2px rgba(20, 11, 4, .8); }
+/* İlerleme göstergesi ve "oynat" etiketi: arkada yumuşak sıcak koyulaşma */
+.dive-prog { padding: .5rem 1.2rem; background: radial-gradient(ellipse at center, rgba(30, 17, 6, .55), transparent 72%); }
+.autoplay span, .autoplay { color: #2a1e12 !important; }
+
+/* ---------- 2) Tek tasarım dili: hap butonlar yerine kâğıt etiket / damga / el yazısı link ---------- */
+/* Ortak: yuvarlak hap yok */
+html.collage .btn { border-radius: 0 !important; }
+/* Birincil (ör. Projelerimi Gör): yırtık kenarlı kâğıt etiket */
+html.collage main .btn-primary, html.collage main .btn-light {
+    background: url("../images/textures/paper-aged.jpg") center / 420px, #efe4c8 !important; color: #2e2418 !important; border: 0 !important; box-shadow: none !important;
+    -webkit-mask: url("../images/textures/deckle-wide.png") center / 100% 100% no-repeat; mask: url("../images/textures/deckle-wide.png") center / 100% 100% no-repeat;
+    font-family: var(--font-display) !important; font-weight: 600 !important; font-size: 1.15rem !important; letter-spacing: .1em !important; font-variant: small-caps; text-transform: none !important;
+    padding: .9rem 2.2rem 1rem !important; transform: rotate(-1.2deg); filter: drop-shadow(0 6px 8px rgba(0, 0, 0, .35)); min-height: 44px;
+}
+html.collage main .btn-primary:hover, html.collage main .btn-light:hover { transform: rotate(0deg) translateY(-2px); }
+/* İkincil / çerçeveli butonlar (Özgeçmiş, Tüm galeri…): el yazısı + el çizimi alt çizgi */
+html.collage main .btn-outline-dark, html.collage main .btn-outline-light, html.collage main .btn-outline-primary, html.collage main .btn-secondary {
+    background: var(--hand-line) center bottom / 92% 9px no-repeat !important; border: 0 !important; box-shadow: none !important;
+    font-family: var(--font-display) !important; font-style: italic; font-weight: 600 !important; font-size: 1.3rem !important; letter-spacing: .01em !important; text-transform: none !important;
+    color: var(--cream-text) !important; padding: .3rem .5rem .9rem !important; min-height: 44px;
+    text-shadow: 0 1px 2px rgba(20, 11, 4, .85), 0 2px 10px rgba(20, 11, 4, .55);
+}
+/* Kâğıt üstündeki linkler (İncele, CTA): kırmızı mürekkep damgası */
+html.collage :is(.sc-label, .cta-postcard, .obj, .card, .pf-card, .folder) .btn,
+html.collage body .scenes .sc-label .sc-link:not(#_) {
+    background: none !important; border: 2px solid rgba(122, 46, 36, .75) !important; border-radius: 3px !important; color: #7a2e24 !important;
+    font-family: var(--font-display) !important; font-style: normal; font-weight: 700 !important; font-variant: small-caps; text-transform: none !important;
+    font-size: 1.05rem !important; letter-spacing: .14em !important; padding: .35rem 1rem .45rem !important; min-height: 44px; text-shadow: none !important;
+    box-shadow: inset 0 0 0 3px #f6efdf, inset 0 0 0 4px rgba(122, 46, 36, .45) !important; transform: rotate(-2deg); mix-blend-mode: multiply;
+}
+/* Form gönder düğmesi: damga */
+html.collage form .btn[type="submit"], html.collage form button[type="submit"] {
+    border-radius: 3px !important; background: none !important; border: 2px solid rgba(122, 46, 36, .8) !important; color: #7a2e24 !important;
+    font-family: var(--font-display) !important; font-weight: 700 !important; font-variant: small-caps; letter-spacing: .14em !important; text-transform: none !important;
+    box-shadow: inset 0 0 0 3px #f6efdf, inset 0 0 0 4px rgba(122, 46, 36, .45) !important; -webkit-mask: none; mask: none; filter: none; transform: rotate(-1.5deg);
+}
+
+/* TR / EN: el yazısı alt çizgili iki kelime */
+html.collage .lang-switch { gap: .2rem !important; align-items: center; }
+html.collage .lang-switch button {
+    width: auto !important; min-width: 44px; min-height: 44px; padding: 0 .35rem .35rem !important; -webkit-mask: none !important; mask: none !important; outline: 0 !important;
+    background: none !important; transform: none !important; border: 0 !important;
+    font-family: var(--font-display) !important; font-variant: small-caps; text-transform: none; letter-spacing: .14em; font-size: 1.1rem !important; font-weight: 600 !important;
+    color: rgba(46, 36, 24, .6) !important;
+}
+html.collage .lang-switch button:is([aria-pressed="true"], .active, .is-active) {
+    color: #2e2418 !important; background: var(--hand-line-ink) center bottom 6px / 80% 8px no-repeat !important;
+}
+html.collage .lang-switch button + button::before { content: none; }
+
+/* Oynat: küçük kâğıt etiket, el yazısı alt çizgi */
+.autoplay {
+    border-radius: 0 !important; border: 0 !important; color: #2e2418 !important;
+    background: url("../images/textures/paper-aged.jpg") center / 300px, #efe4c8 !important;
+    -webkit-mask: url("../images/textures/deckle-wide.png") center / 100% 100% no-repeat; mask: url("../images/textures/deckle-wide.png") center / 100% 100% no-repeat;
+    font-family: var(--font-display) !important; font-variant: small-caps; text-transform: none !important; letter-spacing: .14em !important; font-size: 1.05rem !important; font-weight: 600;
+    padding: .55rem 1.2rem .6rem 1rem !important; transform: rotate(1.5deg); filter: drop-shadow(0 6px 8px rgba(0, 0, 0, .4));
+}
+.autoplay:hover, .autoplay:focus-visible { background: url("../images/textures/paper-aged.jpg") center / 300px, #f6ecd2 !important; transform: rotate(0); }
+
+/* ---------- 2b) Daktilo fontu yalnızca küçük notlarda; proje başlıkları Cormorant ---------- */
+html.collage .h-card.postcard .meta h3, html.collage .cta-postcard h3 {
+    font-family: var(--font-display) !important; font-weight: 600 !important; font-size: clamp(1.35rem, 1.9vw, 1.7rem) !important; letter-spacing: .01em !important;
+}
+.p-rights { display: block; margin: .5rem 0 0; font-family: "Special Elite", "Courier New", monospace; font-style: normal; font-size: .8125rem !important; line-height: 1.4;
+    color: #6b4a2c !important; letter-spacing: .02em; text-shadow: none !important; }
+.sc-label .p-rights { text-align: center; }
+
+/* ---------- 3a) Öne çıkan projeler: ortalı, bilinçli üst üste binen kolaj (ekrandan kesilmez) ---------- */
+html.collage .h-scroll { overflow: visible !important; }
+html.collage body .h-track[data-static]:not(#_) {
+    display: grid !important; grid-template-columns: repeat(2, minmax(0, 1fr)); width: min(1240px, 100% - 4rem) !important; max-width: 100%;
+    margin-inline: auto; padding: 1rem 0 3rem !important; gap: 0 2.5rem !important; transform: none !important;
+}
+html.collage body .h-track[data-static] .h-card.postcard:not(#_) { width: 100% !important; transform: rotate(var(--rot)) !important; scale: 1 !important; }
+html.collage .h-track[data-static] .h-card:nth-child(even) { margin-top: 6rem; }
+html.collage .h-track[data-static] .h-card:nth-child(n+3) { margin-top: -3.5rem; }
+html.collage .h-track[data-static] .h-card:nth-child(2n+4) { margin-top: 2.5rem; }
+html.collage .h-track[data-static] .h-card:nth-child(odd) { z-index: 2; }
+html.collage .h-track[data-static] .h-card:nth-child(even) { z-index: 1; }
+html.collage .h-track[data-static] .h-card:hover { z-index: 5; }
+html.collage .h-track[data-static] .h-card:last-child:nth-child(odd) { grid-column: 1 / -1; justify-self: center; width: min(620px, 100%) !important; margin-top: 1rem; }
+html.collage .h-track[data-static] .thumb > div { transform: none !important; }
+
+/* ---------- 3b) Look kartları: ev/beşgen değil, kemerli çerçeve ---------- */
+html.collage .folder.mag .cut.pop::before { border-radius: 50% 50% 3px 3px / 22% 22% 3px 3px; }
+html.collage .folder.mag .cut .tape.tc1 { left: calc(9% - 20px); top: auto; bottom: calc(3% + 8px); transform: rotate(-32deg); }
+html.collage .folder.mag .cut .tape.tc2 { right: calc(9% - 20px); top: auto; bottom: calc(3% + 8px); transform: rotate(32deg); }
+html.collage .folder.mag .cut.pop-side .tape.tc1, html.collage .folder.mag .cut.pop-side .tape.tc2 { top: auto; }
+
+/* ---------- 3c) Dalış ilerleme göstergesi "II / V" ---------- */
+.dive-prog {
+    position: absolute; left: 50%; top: clamp(5.2rem, 12vh, 7rem); z-index: 3; margin: 0; transform: translate(-50%, -6px);
+    font-family: var(--font-display); font-variant: small-caps; font-weight: 600; font-size: 1.05rem; letter-spacing: .32em; color: var(--cream-text);
+    text-shadow: 0 1px 2px rgba(20, 11, 4, .9), 0 2px 10px rgba(20, 11, 4, .6); opacity: 0; transition: opacity .5s ease, transform .5s ease; pointer-events: none;
+}
+.dive-prog::before, .dive-prog::after { content: ""; display: inline-block; vertical-align: middle; width: 2.2rem; height: 1px; background: rgba(246, 236, 214, .7); margin: 0 .9rem; }
+.dive-prog.is-on { opacity: 1; transform: translate(-50%, 0); }
+
+/* ---------- 5) "Tuana" T'si okunur: dik Cormorant T, devamı script ---------- */
+.hero-title em::first-letter, h1 em::first-letter {
+    font-family: var(--font-display) !important; font-style: normal !important; font-weight: 500 !important; font-size: .78em; letter-spacing: .02em; -webkit-text-stroke: 0;
+}
+html.collage .navbar-brand span { display: inline-block; font-weight: 400 !important; -webkit-text-stroke: .03em currentColor; }
+html.collage .navbar-brand span::first-letter { font-family: var(--font-display); font-style: normal; font-weight: 600; font-size: .8em; }
+html.collage .deco-sign::first-letter { font-family: var(--font-display); font-style: italic; font-weight: 500; font-size: .8em; }
+/* Başlık harf harf bölünüyor (.char): ilk harf span'ı */
+.hero-title em > span:first-child > .char:first-child, h1 em > span:first-child > .char:first-child {
+    font-family: var(--font-display) !important; font-style: normal !important; font-weight: 500 !important; font-size: .78em; letter-spacing: .02em; margin-right: .02em; -webkit-text-stroke: 0;
+}
+
+/* Hero: butonlar metnin altında, solda (müze etiketiyle çakışmaz) */
+.hero .row.gy-4 > .col-lg-6 { flex: 0 0 100%; max-width: 100%; }
+.hero .row.gy-4 .d-sm-flex { justify-content: flex-start !important; align-items: center; gap: 1rem 2rem !important; }
+.hero .hero-sub { max-width: 40ch; }
+/* Son kartpostal (tek kalan) ortada, normal boyutta */
+html.collage body .h-track[data-static] .h-card.postcard:last-child:nth-child(odd):not(#_) { grid-column: 1 / -1; justify-self: center; width: min(620px, 100%) !important; margin-top: 1rem; }
+
+/* ---------- 4) Telefon (≤767px) ---------- */
+@media (max-width: 767.98px) {
+    .hero .hero-sub { font-size: 1.125rem !important; }
+    .hero .hero-meta, .hero .hero-meta span, .hero .hero-meta b { font-size: 1rem !important; letter-spacing: .03em; }
+    /* Hero butonları küçük: etiket + link yan yana */
+    .hero .d-grid { display: flex !important; flex-wrap: wrap; align-items: center; gap: .6rem 1.4rem !important; }
+    html.collage .hero .btn { width: auto !important; font-size: 1rem !important; padding: .6rem 1.3rem .7rem !important; }
+    html.collage .hero .btn-outline-dark { font-size: 1.15rem !important; padding: .2rem .3rem .8rem !important; }
+    html.dive-on .hero::before { background: radial-gradient(ellipse 100% 48% at 40% 58%, rgba(36, 20, 8, .74), rgba(36, 20, 8, .42) 55%, transparent 85%) !important; }
+    .dive-prog { top: auto; bottom: 1.3rem; left: 1.25rem; transform: none; font-size: .95rem; }
+    .dive-prog.is-on { transform: none; }
+    .dive-prog::before { display: none; }
+    .dive-cap-q { font-size: 1.125rem !important; }
+    /* Proje kartpostalları: tek sütun, ekrana sığar */
+    html.collage body .h-track[data-static]:not(#_) { grid-template-columns: 1fr; width: calc(100% - 2.5rem) !important; gap: 2.2rem !important; padding-inline: 0 !important; }
+    html.collage body .h-track[data-static] .h-card.postcard:not(#_) { width: 100% !important; margin: 0 !important; --rot: 0deg; }
+    html.collage .h-track[data-static] .h-card:nth-child(odd) { transform: rotate(-1deg) !important; }
+    html.collage .h-track[data-static] .h-card:nth-child(even) { transform: rotate(1deg) !important; }
+    html.collage .h-track[data-static] .h-card:last-child:nth-child(odd) { width: 100% !important; }
+    /* İmza ve pul kartın içinde kalsın */
+    html.collage .h-card.postcard .pc-stamp { right: 12px; top: 12px; width: 52px; height: 62px; }
+    html.collage .h-card.postcard .pc-sign { right: 1rem !important; left: auto !important; bottom: .7rem !important; max-width: 60%; font-size: 1.5rem !important; transform: rotate(-4deg); white-space: nowrap; }
+    html.collage .h-card.postcard .meta { padding-bottom: 3.4rem !important; }
+    /* Alıntı kartı ile sonraki başlık çakışmasın */
+    html.collage [data-quote] .quote { margin-bottom: 3rem !important; transform: rotate(var(--rot, 0deg)) !important; }
+    html.collage [data-quote] { padding-bottom: 2.5rem !important; margin-bottom: 1.5rem !important; }
+    html.collage [data-quote] + section, html.collage [data-quote] + * { margin-top: 0 !important; padding-top: 2.5rem !important; }
+    html.collage .navbar .nav-link { font-size: 1.05rem !important; }
+}

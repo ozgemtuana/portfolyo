@@ -154,7 +154,7 @@ function renderContent(site) {
         el.innerHTML = list.map(({ p, i }, n) =>
             `<a class="h-card"${linkAttrs(projectHref(p))} data-cursor="view" data-pi="${i}">` +
                 `<div class="thumb tilt">${projectArt(p)}<span class="glare"></span></div>` +
-                `<div class="meta"><div><h3 data-i18n="p.${i + 1}.t"></h3><small data-i18n="p.${i + 1}.tag"></small></div><span class="idx">(${pad(n + 1)})</span></div>` +
+                `<div class="meta"><div><h3 data-i18n="p.${i + 1}.t"></h3><small data-i18n="p.${i + 1}.tag"></small>${p.rights ? '<em class="p-rights" data-i18n="p.rights"></em>' : ""}</div><span class="idx">(${pad(n + 1)})</span></div>` +
             `</a>`).join("");
         setArtImages(el, site.projects);
     }
@@ -170,7 +170,8 @@ function renderContent(site) {
             `<div class="sc-label">` +
                 `<div class="sc-tag" data-i18n="p.${i + 1}.tag"></div>` +
                 `<h2 data-i18n="p.${i + 1}.t"></h2>` +
-                `<p data-i18n="p.${i + 1}.d"></p>` + link(p, "projects.view") +
+                `<p data-i18n="p.${i + 1}.d"></p>` +
+                (p.rights ? '<p class="p-rights" data-i18n="p.rights"></p>' : "") + link(p, "projects.view") +
             `</div>`;
         const art = ({ p, i }) => `<figure class="scene-art"><img src="${escAttr(p.image)}" alt="" data-i18n-alt="p.${i + 1}.t" loading="lazy" decoding="async"></figure>`;
         const props = {
