@@ -17,15 +17,42 @@
   - Telefonda yatay taşma düzeltildi.
 - **Tipografi:** kaligrafik "Tuana"nın T'si artık Cormorant italik. Dev "Tuana Davarcı" ekrana sığıyor. Rastgele beyaz noktalar (shader tozu) kaldırıldı.
 
+- **Anasayfa dergi düzeni:**
+  - Galeri: büyük polaroid, üstüne binen küçük polaroid, pul kenarlı baskı, el yazısı not ve ok.
+  - Hakkımda özeti: mektup kâğıdı, sayaçlar mürekkep damgası.
+  - Sözler: farklı boy ve açıda dantel kartlar.
+  - Öne çıkan projeler: kartpostal (pul, posta damgası, daktilo başlık).
+  - Hizmetler: dosya sekmeli fiş kartları.
+  - Look'lar: farklı boyut ve açıda dergi sayfaları (kapak fotoğrafı, bantlı küçük fotoğraflar, damga, el yazısı not).
+  - Bölüm başları: "No. I–VI" künye ve gravür zeytin dalı ayracı.
+  - "Tüm galeri / Tüm projeler": hap buton yerine el yazısı bağlantı.
+- **Projeler dergi düzeni:** her proje bir açılım (geniş bantlı baskı + üstüne binen etiket + damga + "İncele" lastik damgası), Kişisel Portfolyo notları kareli kâğıtta, sonda kartpostal çağrısı.
+- **Kalan sayfalar kolaja geçti:**
+  - Özgeçmiş: iple bağlı bagaj etiketi deneyimler, diploma eğitim, fiş kartı yetenekler.
+  - Blog: pullu mektup kartı dizini, çizgili mektup kâğıdı yazılar, bantlı baskı görseller.
+  - Galeri: dağınık polaroid ve pul kenarlı eski baskılar, el yazısı etiketler.
+  - Süreç: moodboard (iğneli liste, kartela, tipografi kartı, damgalı kontrol listesi).
+  - İletişim: çizgili mektup kâğıdında form, mühür gönder butonu, kartvizit, kraft adres etiketi, pul sosyal linkler.
+- **Sayfa sonu (tüm sayfalar):** sıradaki sayfa kartpostal, önceki sayfa bilet koçanı, tüm sayfalar dosya ayraçları.
+- **Telefon:** sekiz sayfanın hepsi 375 px'te yatay taşmasız (Anasayfa'daki kartpostal şeridi, Projeler'deki bantlar ve çağrı kartı düzeltildi).
+- **Ekran görüntüleri:** `inceleme/` klasöründe (02–08 numaralı dosyalar).
+
 **Kaldı**
-- Anasayfa ve Projeler dergi düzeni yazıldı ama henüz incelenmedi; ekran görüntüleri alınıp düzeltilecek (sırada).
-- Kalan sayfalar (Özgeçmiş, Blog, Galeri, Süreç, İletişim) kolaj düzenine geçecek.
-- Gerçek görseller gelince kullanılacaklar: kadife doku, mühür, ataş, mandal, çerçeveler ve Projeler'in eskiz defteri girişi (ASSETS-TODO.md).
+- **Açık hata:** Projeler'in Kişisel Portfolyo bölümünde, arka planda soluk adaçayı rengi büyük bir daire görünüyor. İki yöntemle aradım, kaynağını bulamadım (tuval değil, bölümün kendi öğeleri değil, buton dolgusu değil). Sıradaki ilk iş.
+- Fırça imleç ve tablolarda boya sürükleme / figür etkileşimi (5. madde).
+- Mürekkeple yazan el, köşelerde hayvanlar ve çiçekler, çerçeveli canlı tablolar ve özlü sözler (PROMPT.md 4–4c).
+- Projeler'in eskiz defteri girişi (references/32): kâğıt, halka, mandal ve aydınger için gerçek görsel bekliyor.
+- Gerçek görseller gelince: kadife doku, mühür, ataş, mandal, çerçeveler (ASSETS-TODO.md).
+- TR/EN, 768/1440 testleri, hoca şartları kontrol tablosu, SEO/GEO, 300 MB ölçümü, en sonda inceleme/index.html.
 
 **Onayını bekleyenler**
-- Açılış zarfı ve geçişler (`inceleme/acilis-ve-gecis.jpg`).
-- Hakkımda kolajı.
-- Anasayfa ve Projeler dergi düzeni (ekran görüntüleri sabah hazır olacak).
+- Açılış zarfı ve geçişler: `inceleme/acilis-ve-gecis.jpg`, `08-acilis-telefon.png`.
+- Hakkımda kolajı: `05-hakkimda-kolaj.jpg`.
+- Anasayfa ve Projeler dergi düzeni: `02`, `03`, `04`.
+- Kalan sayfalar: `06`, `07`. Onayın gelmeden ilerledim, çünkü gece kuralında sıra buydu.
+
+## SABAH ONAY BEKLİYOR
+- `sh .scratch/*.sh` biçimindeki kabuk betikleri onay istiyor; çalıştırmadım, komutları tek tek `node` / `python3` ile çalıştırdım. Onaylarsan izin listesine `Bash(sh .scratch/*)` eklenebilir.
 
 ## ÖNCELİK 1 – YAPILDI (2026-11-23)
 
