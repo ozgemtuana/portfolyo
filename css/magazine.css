@@ -170,19 +170,57 @@ html.collage [data-render="folders"] > div:nth-child(4) { grid-column: 6 / span 
 html.collage [data-render="folders"] > div:nth-child(n+5) { grid-column: span 6; }
 html.collage body .folder.mag:not(#_) {
     -webkit-mask: none !important; mask: none !important; background: var(--paper-white) !important;
-    padding: 1.6rem 1.6rem 1.8rem !important; display: grid !important; grid-template-columns: 1.5fr 1fr; grid-template-areas: "cover side" "title title";
-    gap: 1rem 1.1rem; transform: rotate(var(--rot, 0deg)) !important;
+    padding: 2.6rem 1.8rem 1.8rem !important; display: grid !important; grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr) minmax(0, 1fr); grid-template-areas: "hero s1 s2" "title title title";
+    align-items: end; gap: 1rem .6rem; transform: rotate(var(--rot, 0deg)) !important;
     filter: drop-shadow(0 2px 2px rgba(10, 6, 2, .3)) drop-shadow(0 20px 22px rgba(10, 6, 2, .42));
 }
 html.collage .folder.mag--1 { --rot: -1.6deg; } html.collage .folder.mag--2 { --rot: 2.2deg; } html.collage .folder.mag--3 { --rot: -3deg; } html.collage .folder.mag--4 { --rot: 1.2deg; }
+html.collage body .folder.mag.mag--duo:not(#_) { grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); grid-template-areas: "hero s1" "title title"; }
+html.collage body .folder.mag.mag--solo:not(#_) { grid-template-columns: 1.3fr 1fr; grid-template-areas: "hero aside" "title title"; }
 html.collage .folder.mag .folder-papers { display: contents !important; }
-html.collage .folder.mag .folder-papers .cut { position: relative !important; padding: 6px 6px 6px !important; background: #fbf8f0 !important; }
-html.collage .folder.mag .folder-papers .cut:first-child { grid-area: cover; transform: rotate(-1deg) !important; }
-html.collage .folder.mag .folder-papers .cut:first-child img { aspect-ratio: 4 / 5 !important; }
-html.collage .folder.mag .folder-papers .cut:nth-child(2) { grid-area: side; align-self: start; transform: rotate(3deg) !important; width: 92% !important; }
-html.collage .folder.mag .folder-papers .cut:nth-child(3) { grid-area: side; align-self: end; justify-self: end; transform: rotate(-4deg) !important; width: 80% !important; margin-top: 2rem !important; }
-html.collage .folder.mag .folder-papers .cut:nth-child(n+4) { display: none !important; }
-html.collage .folder.mag .folder-papers .cut img { aspect-ratio: 1 / 1; }
+/* Figür: kâğıt baskı çerçevesinin önünde, çerçeveden taşar. Görsel kare/kırpık değil, figürün kendisi */
+html.collage .folder.mag .folder-papers .cut { position: relative !important; padding: 0 !important; background: none !important; box-shadow: none !important; transform: none !important; width: auto !important; margin: 0 !important; z-index: 1; }
+html.collage .folder.mag .folder-papers .cut:nth-child(n+4), html.collage .folder.mag .folder-papers .cut.c-extra { display: none !important; }
+html.collage .folder.mag .cut.pop-hero { grid-area: hero; }
+html.collage .folder.mag .cut.pop-side:nth-of-type(1), html.collage .folder.mag .cut.pop-side + .cut.pop-hero + .cut.pop-side { grid-area: auto; }
+html.collage .folder.mag .cut.pop-side { align-self: end; }
+html.collage .folder.mag .cut.pop::before {
+    content: ""; position: absolute; left: 9%; right: 9%; top: 26%; bottom: 3%; z-index: -1;
+    background: linear-gradient(rgba(154, 165, 138, .28), rgba(122, 134, 108, .38)), url("../images/textures/paper-aged.jpg") center / 420px, #dcd3bd;
+    box-shadow: inset 0 0 0 6px #f7f2e6, inset 0 0 0 7px rgba(46, 36, 24, .12), 0 8px 14px rgba(10, 6, 2, .28);
+    transform: rotate(var(--fr, 0deg));
+}
+html.collage .folder.mag .cut.pop-side::before { top: 30%; background: linear-gradient(rgba(176, 141, 87, .2), rgba(150, 120, 80, .3)), url("../images/textures/paper-aged.jpg") center / 420px, #e4d8bd; }
+html.collage .folder.mag .cut.pop img { position: relative; z-index: 1; display: block; width: 100%; height: auto !important; aspect-ratio: auto !important; object-fit: contain !important;
+    border: 0 !important; background: none !important; box-shadow: none !important; transform-origin: 50% 100%;
+    filter: drop-shadow(0 2px 2px rgba(10, 6, 2, .35)) drop-shadow(0 12px 12px rgba(10, 6, 2, .22));
+    transition: transform .6s cubic-bezier(.2, .7, .2, 1), filter .6s ease; }
+html.collage .folder.mag .cut.pop img { max-width: 100%; }
+html.collage .folder.mag .cut.pop-hero img { max-height: 520px; width: auto; margin: 0 auto; }
+html.collage .folder.mag .cut.pop-side img { max-height: 300px; width: auto; margin: 0 auto; }
+html.collage .folder.mag .cut { min-width: 0; }
+@media (hover: hover) {
+    html.collage .folder.mag .cut.pop:hover img { transform: translateY(-10px) scale(1.045); filter: drop-shadow(0 4px 4px rgba(10, 6, 2, .3)) drop-shadow(0 26px 22px rgba(10, 6, 2, .3)); }
+}
+/* Bant: yalnızca çerçevenin üst köşelerinde, çapraz (asla yüzde) */
+html.collage .folder.mag .cut .tape { width: 64px; height: 20px; }
+html.collage .folder.mag .cut .tape.tc1 { left: calc(9% - 26px); top: calc(26% - 6px); transform: rotate(-40deg); }
+html.collage .folder.mag .cut .tape.tc2 { right: calc(9% - 26px); top: calc(26% - 6px); transform: rotate(40deg); }
+html.collage .folder.mag .cut.pop-side .tape.tc1, html.collage .folder.mag .cut.pop-side .tape.tc2 { top: calc(30% - 6px); }
+html.collage .folder.mag .cut .tape-wrap { z-index: 0; }
+/* Fotoğraf baskıları (kesilmemiş): kâğıt baskı, bant köşelerde */
+html.collage .folder.mag .cut.pinned { background: #f8f4ea !important; padding: 8px !important; box-shadow: 0 8px 14px rgba(10, 6, 2, .28) !important; transform: rotate(var(--fr, 0deg)) !important; }
+html.collage .folder.mag .cut.pinned .tape.tc1 { left: -22px; top: -4px; }
+html.collage .folder.mag .cut.pinned .tape.tc2 { right: -22px; top: -4px; }
+html.collage .folder.mag .cut.pinned img { aspect-ratio: 4 / 5 !important; object-fit: cover; }
+/* Tek figürlü Look: yanına kumaş kartelası + not */
+.mag-aside { grid-area: aside; align-self: center; display: grid; gap: .8rem; justify-items: start; padding-left: .4rem; min-width: 0; }
+html.collage [data-render="folders"] > div:nth-child(3) { grid-column: 1 / span 5 !important; }
+.swatches { display: grid; grid-template-columns: repeat(3, minmax(0, 34px)); gap: .4rem; transform: rotate(-3deg); }
+.swatches i { display: block; width: 34px; height: 44px; background: linear-gradient(rgba(255, 255, 255, .08), rgba(0, 0, 0, .12)), url("../images/textures/canvas-weave.jpg") center / 140px, var(--c); background-blend-mode: normal, multiply, normal;
+    clip-path: polygon(0 0, 100% 0, 100% 86%, 92% 100%, 84% 86%, 76% 100%, 68% 86%, 60% 100%, 52% 86%, 44% 100%, 36% 86%, 28% 100%, 20% 86%, 12% 100%, 4% 86%, 0 100%); box-shadow: 0 4px 8px rgba(0, 0, 0, .25); }
+.swatches i:nth-child(2) { transform: rotate(4deg) translateY(4px); }
+.mag-aside-note { font-family: var(--font-calli); font-size: 1.7rem; color: var(--ink-faded); transform: rotate(-4deg); }
 html.collage .folder.mag .folder-front { grid-area: title; display: flex !important; align-items: baseline; gap: .8rem; flex-wrap: wrap; }
 html.collage .folder.mag .folder-title { font-size: clamp(2rem, 3.4vw, 3.2rem) !important; font-weight: 300; color: var(--ink-green) !important; line-height: 1; margin: 0 !important; }
 html.collage .folder.mag .folder-title em { font-family: var(--font-display) !important; font-style: italic; color: #7a2e24 !important; -webkit-text-fill-color: #7a2e24; font-size: 1em !important; margin: 0 !important; top: 0 !important; }

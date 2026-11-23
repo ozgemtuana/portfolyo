@@ -1083,7 +1083,7 @@ window.SITE_CONTENT = {
             "leather": "kahve",
             "items": [
                 {
-                    "src": "images/runway/altin-etek.png",
+                    "src": "images/runway/clean/altin-etek.png",
                     "alt": {
                         "tr": "Altın saten elbiseyle podyumda",
                         "en": "On the runway in a gold satin dress"
@@ -1094,7 +1094,7 @@ window.SITE_CONTENT = {
                     "wide": false
                 },
                 {
-                    "src": "images/runway/altin-on.png",
+                    "src": "images/runway/clean/altin-on.png",
                     "alt": {
                         "tr": "Altın saten elbise, önden",
                         "en": "Gold satin dress, front view"
@@ -1105,7 +1105,7 @@ window.SITE_CONTENT = {
                     "wide": false
                 },
                 {
-                    "src": "images/runway/altin-yuruyus.png",
+                    "src": "images/runway/clean/altin-yuruyus.png",
                     "alt": {
                         "tr": "Altın saten elbiseyle yürüyüş",
                         "en": "Walking in the gold satin dress"
@@ -1157,7 +1157,7 @@ window.SITE_CONTENT = {
             "leather": "kahve",
             "items": [
                 {
-                    "src": "images/runway/siyah-podyum.png",
+                    "src": "images/runway/clean/siyah-podyum.png",
                     "alt": {
                         "tr": "Siyah kombinle podyumda",
                         "en": "On the runway in a black outfit"
@@ -1168,7 +1168,7 @@ window.SITE_CONTENT = {
                     "wide": false
                 },
                 {
-                    "src": "images/runway/siyah-kemer.png",
+                    "src": "images/runway/clean/siyah-kemer.png",
                     "alt": {
                         "tr": "Siyah kemer detaylı kombin",
                         "en": "Black outfit with belt details"
@@ -1179,7 +1179,7 @@ window.SITE_CONTENT = {
                     "wide": false
                 },
                 {
-                    "src": "images/runway/siyah-elbise.png",
+                    "src": "images/runway/clean/siyah-elbise.png",
                     "alt": {
                         "tr": "Siyah elbise ve uzun eldivenler",
                         "en": "Black dress with opera gloves"
@@ -1231,7 +1231,7 @@ window.SITE_CONTENT = {
             "leather": "bordo",
             "items": [
                 {
-                    "src": "images/runway/pembe-elbise.png",
+                    "src": "images/runway/clean/pembe-elbise.png",
                     "alt": {
                         "tr": "Pembe uzun elbiseyle podyumda yürüyüş",
                         "en": "Walking the runway in a long pink dress"
@@ -1283,7 +1283,7 @@ window.SITE_CONTENT = {
             "leather": "siyah",
             "items": [
                 {
-                    "src": "images/runway/beyaz-inci.png",
+                    "src": "images/runway/clean/beyaz-inci.png",
                     "alt": {
                         "tr": "İnci işlemeli beyaz elbiseyle kuliste",
                         "en": "Backstage in a pearl-studded white dress"
@@ -1294,7 +1294,7 @@ window.SITE_CONTENT = {
                     "wide": false
                 },
                 {
-                    "src": "images/runway/beyaz-sapka.png",
+                    "src": "images/runway/clean/beyaz-sapka.png",
                     "alt": {
                         "tr": "Şapka ve inci işlemeli tülle kulis",
                         "en": "Backstage in a hat and pearl-studded tulle"
@@ -1305,7 +1305,7 @@ window.SITE_CONTENT = {
                     "wide": false
                 },
                 {
-                    "src": "images/runway/beyaz-galeri.png",
+                    "src": "images/runway/clean/beyaz-galeri.png",
                     "alt": {
                         "tr": "Sanat galerisinde, inci işlemeli tül ve şapkayla",
                         "en": "In an art gallery, wearing pearl tulle and a hat"
@@ -1316,7 +1316,7 @@ window.SITE_CONTENT = {
                     "wide": false
                 },
                 {
-                    "src": "images/runway/beyaz-defile.png",
+                    "src": "images/runway/clean/beyaz-defile.png",
                     "alt": {
                         "tr": "Defile yürüyüşü, beyaz koleksiyon",
                         "en": "Runway walk, white collection"

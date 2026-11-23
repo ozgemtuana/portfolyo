@@ -185,9 +185,54 @@
             f.classList.add("mag", "mag--" + (i % 4 + 1));
             add(f, "mag-stamp", stampRound("LOOK · PODYUM", "ANTALYA · 2026", String(i + 1).padStart(2, "0")));
             add(f, "mag-note", n.look);
-            f.querySelectorAll(".cut").forEach((c, k) => { if (k < 3) add(c, "tape-wrap", tape(k % 2 ? "t2" : "t1")); });
+            popLook(f, n);
         });
         decoratePagenav(n);
+    }
+
+    /* ---------- Look: çerçeveden taşan figürler (moda dergisi "pop-out") ----------
+       Kesilmiş figür, arkasındaki daha küçük kâğıt baskının önünde durur; baş/etek çerçeve dışına taşar.
+       Bantlar yalnızca çerçevenin köşelerinde (asla yüzde). En yüksek çözünürlüklü figür büyük olur,
+       düşük çözünürlüklüler küçük kalır. Tek figürlü Look'ta yanına kumaş kartelası + not gelir. */
+    function popLook(f, n) {
+        const cuts = [...f.querySelectorAll(".folder-papers .cut")].filter((c) => !c.classList.contains("c-extra")).slice(0, 3);
+        if (!cuts.length) return;
+        const imgs = cuts.map((c) => c.querySelector("img"));
+        const ready = imgs.map((im) => (im.complete && im.naturalWidth ? Promise.resolve() : new Promise((r) => { im.addEventListener("load", r, { once: true }); im.addEventListener("error", r, { once: true }); })));
+        Promise.all(ready).then(() => {
+            const area = (im) => (im.naturalWidth || 0) * (im.naturalHeight || 0);
+            let hero = 0;
+            imgs.forEach((im, i) => { if (area(im) > area(imgs[hero])) hero = i; });
+            let side = 0;
+            cuts.forEach((c, i) => {
+                const isCut = !c.classList.contains("print");
+                c.classList.add(isCut ? "pop" : "pinned", i === hero ? "pop-hero" : "pop-side");
+                c.style.gridArea = i === hero ? "hero" : "s" + (++side);
+                c.style.setProperty("--fr", ([-2.4, 2, -1.2][i % 3]) + "deg");
+                add(c, "tape-wrap", tape("tc1") + tape("tc2"));
+            });
+            f.classList.toggle("mag--solo", cuts.length === 1);
+            f.classList.toggle("mag--duo", cuts.length === 2);
+            if (cuts.length === 1 && !f.querySelector(".swatches")) {
+                const aside = document.createElement("div");
+                aside.className = "mag-aside"; aside.setAttribute("aria-hidden", "true");
+                aside.innerHTML = `<span class="swatches">${swatches(imgs[0]).map((c) => `<i style="--c:${c}"></i>`).join("")}</span><span class="mag-aside-note">${lang() === "en" ? "fabric swatches" : "kumaş kartelası"}</span>`;
+                f.appendChild(aside);
+            }
+        });
+    }
+    // Figürün kendi renklerinden üç kumaş tonu (açık, orta, koyu)
+    function swatches(img) {
+        try {
+            const cv = document.createElement("canvas"), W = 40, H = 80;
+            cv.width = W; cv.height = H;
+            const cx = cv.getContext("2d", { willReadFrequently: true });
+            cx.drawImage(img, 0, 0, W, H);
+            const d = cx.getImageData(0, Math.round(H * 0.3), W, Math.round(H * 0.6)).data, px = [];
+            for (let i = 0; i < d.length; i += 4) if (d[i + 3] > 200) px.push([d[i], d[i + 1], d[i + 2]]);
+            px.sort((a, b) => (a[0] + a[1] + a[2]) - (b[0] + b[1] + b[2]));
+            return [0.25, 0.55, 0.85].map((q) => { const p = px[Math.floor(q * (px.length - 1))] || [180, 150, 130]; return `rgb(${p.join(",")})`; });
+        } catch (e) { return ["#d9a09a", "#c4807a", "#8f5550"]; }
     }
 
     function decorateProjects(L) {
