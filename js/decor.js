@@ -197,6 +197,9 @@
             if (lab) { lab.classList.add("tag-label"); add(lab, "deco-stamp", stampRound("SEÇİLİ İŞLER", "TUANA DAVARCI · 2026", String(i + 1).padStart(2, "0"))); }
         });
         document.querySelectorAll(".scenes.is-static .pf-card").forEach((c, i) => c.style.setProperty("--rot", ([-3, 2, -1.5, 3.2, -2.4, 1][i % 6]) + "deg"));
+        // Sayfa sonu çağrısı: kartpostal
+        const cta = document.querySelector(".scenes ~ section .card");
+        if (cta) { cta.classList.add("cta-postcard"); add(cta, "pc-stamp", `<b>${monogram()}</b>`); add(cta, "pc-post", postmark("ANTALYA", "2026")); add(cta, "pc-sign", n.pc); }
         decoratePagenav(n);
     }
 

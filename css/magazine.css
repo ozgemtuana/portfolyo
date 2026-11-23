@@ -11,6 +11,9 @@
     font-family: var(--font-display); font-style: italic; font-weight: 400; font-size: .74em; letter-spacing: .01em;
 }
 
+/* Eski butonların hover dolgu dairesi damga/etiket butonlardan taşıyordu (sayfada soluk büyük daire) */
+html.collage .btn::before, html.collage .btn::after { display: none !important; }
+
 /* ---------- Bölüm başlıkları: dergi künyesi gibi "No. I" + başlık + gravür ayraç ---------- */
 html.collage main { counter-reset: chap; }
 html.collage main section:not(.hero) > .container .eyebrow,
@@ -24,6 +27,16 @@ html.collage main section:not(.hero) .eyebrow::before {
     background: none !important; border: 0 !important; animation: none !important;
     font-style: normal; font-variant: small-caps; letter-spacing: .14em; font-size: .92rem; color: rgba(236, 217, 168, .6); margin-bottom: .1rem;
 }
+/* "Tüm galeri / Tüm projeler" gibi bölüm bağlantıları: hap buton yerine el yazısı + el çizimi alt çizgi */
+html.collage main section .container > .d-flex > .btn, html.collage main section .d-flex > a.btn-outline-light, html.collage main section .d-flex > a.btn-outline-dark {
+    background: none !important; border: 0 !important; border-radius: 0 !important; box-shadow: none !important; min-height: 44px;
+    font-family: var(--font-calli) !important; font-size: 1.7rem !important; letter-spacing: 0 !important; text-transform: none !important; color: rgba(236, 217, 168, .95) !important;
+    padding: .2rem .4rem 1rem !important;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 10' preserveAspectRatio='none'%3E%3Cpath d='M2 6c14-3 30-4 48-2s32 1 46-3' fill='none' stroke='%23ecd9a8' stroke-width='1.4' stroke-linecap='round'/%3E%3C/svg%3E") center bottom / 92% 9px no-repeat !important;
+}
+html.collage main section .d-flex > a.btn .bi { display: none; }
+html.collage main section:not(.hero) .eyebrow::before { font-size: 1.05rem !important; color: rgba(236, 217, 168, .75) !important; }
+html.collage .home-gallery .hand-note { color: #f3e7c8; font-size: clamp(1.8rem, 2.6vw, 2.4rem); text-shadow: 0 2px 10px rgba(10, 6, 2, .6); }
 .orn-wrap { display: block; width: min(240px, 60%); margin: .6rem 0 0; color: rgba(236, 217, 168, .75); }
 .text-center .orn-wrap, .orn-wrap.is-center { margin-inline: auto; }
 .orn-divider { display: block; width: 100%; height: auto; }
@@ -110,7 +123,11 @@ html.collage body .h-card.postcard:not(#_) {
     border-radius: 2px !important; text-decoration: none !important;
 }
 html.collage .h-card.postcard .thumb { -webkit-mask: none !important; mask: none !important; padding: 0 !important; background: #2a2016 !important; transform: none !important; height: 100% !important; aspect-ratio: auto !important; }
-html.collage .h-card.postcard .thumb .art-img { height: 100% !important; }
+html.collage .h-card.postcard .thumb { position: relative !important; overflow: hidden; }
+html.collage .h-card.postcard .thumb > div { position: absolute !important; inset: 0 !important; height: auto !important; width: auto !important; background-size: cover !important; background-position: center !important; }
+/* Görseli olmayan proje: koyu kutu yerine kâğıt üstünde mühür */
+html.collage .h-card.postcard .thumb:has(:is(.art-1, .art-2, .art-3, .art-4, .art-5, .art-6)) { background: var(--paper-cream) !important; box-shadow: inset 0 0 0 1px rgba(46, 36, 24, .18); }
+html.collage .h-card.postcard .thumb > :is(.art-1, .art-2, .art-3, .art-4, .art-5, .art-6) { background-size: 26% auto !important; background-repeat: no-repeat !important; opacity: .9; }
 html.collage .h-card.postcard .meta { position: relative; display: block !important; padding: 5.2rem 1.4rem 1rem 2rem !important; margin: 0 !important;
     background: repeating-linear-gradient(to bottom, transparent 0 2.1rem, rgba(46, 36, 24, .3) 2.1rem calc(2.1rem + 1px)) 2rem 6.2rem / calc(100% - 3.4rem) 8.4rem no-repeat; }
 html.collage .h-card.postcard .meta h3 { font-family: "Special Elite", monospace !important; font-size: clamp(1rem, 1.4vw, 1.25rem) !important; color: var(--ink-brown) !important; line-height: 2.1rem !important; margin: 0 !important; }
@@ -130,11 +147,14 @@ html.collage .h-track { gap: clamp(2rem, 4vw, 4rem) !important; padding-block: 2
 
 /* --- No. IV Hizmetler: dosya ayraçlı fiş kartları (sekmeler kademeli) --- */
 html.collage body .services-glass:not(#_) { background: none !important; box-shadow: none !important; padding: 0 !important; border: 0 !important; -webkit-mask: none !important; mask: none !important; filter: drop-shadow(0 16px 16px rgba(10, 6, 2, .4)); }
+html.collage .services-glass, html.collage .service-row.tabcard { overflow: visible !important; }
 html.collage .service-row.tabcard { position: relative; display: grid !important; grid-template-columns: 4rem 1fr 1.2fr; gap: 1.4rem; align-items: baseline;
     margin-top: 2.6rem; padding: 1.8rem 2rem 1.6rem !important; border: 0 !important; background: var(--paper-cream); transform: rotate(calc((var(--tab) - 1.5) * .7deg)); }
 html.collage .service-row.tabcard:nth-child(even) { background: linear-gradient(rgba(218, 196, 150, .5), rgba(218, 196, 150, .5)), var(--paper-cream); }
-html.collage .service-row.tabcard::before { content: "" !important; position: absolute; top: -2.2rem; left: calc(4% + var(--tab) * 22%); width: 9rem; height: 2.3rem; transform: none !important;
-    background: inherit; clip-path: polygon(10% 0, 90% 0, 100% 100%, 0 100%); }
+html.collage .service-row.tabcard::before { content: "" !important; display: block !important; position: absolute; inset: auto !important; top: -2.2rem !important; left: calc(4% + var(--tab) * 22%) !important; width: 9rem !important; height: 2.3rem !important;
+    transform: none !important; opacity: 1 !important; border-radius: 0 !important;
+    background: var(--paper-cream) !important; clip-path: polygon(10% 0, 90% 0, 100% 100%, 0 100%); z-index: 0; }
+html.collage .service-row.tabcard:nth-child(even)::before { background: linear-gradient(rgba(218, 196, 150, .5), rgba(218, 196, 150, .5)), var(--paper-cream) !important; }
 html.collage .service-row.tabcard .no { color: #7a2e24 !important; font-family: var(--font-display) !important; font-style: italic; font-size: 1.4rem !important; }
 html.collage .service-row.tabcard h3 { color: var(--ink-green) !important; font-size: clamp(1.5rem, 3vw, 2.4rem) !important; translate: none !important; }
 html.collage .service-row.tabcard p { color: var(--ink-brown) !important; max-width: 30rem !important; }
@@ -171,7 +191,7 @@ html.collage .folder.mag .folder-meta { font-family: "Special Elite", monospace 
 .mag-stamp { position: absolute; right: -14px; bottom: 2.2rem; width: 92px; color: rgba(122, 46, 36, .6); transform: rotate(-14deg); z-index: 4; pointer-events: none; }
 .mag-stamp svg { width: 100%; height: auto; display: block; }
 .mag-note { position: absolute; left: 1.8rem; top: -1.6rem; font-family: var(--font-calli); font-size: 1.7rem; color: rgba(236, 217, 168, .95); transform: rotate(-4deg); pointer-events: none; z-index: 4; }
-html.collage .runway .glass-note { background: none !important; box-shadow: none !important; color: rgba(236, 217, 168, .85) !important; font-family: var(--font-display); font-style: italic; font-size: 1.2rem; padding: 0 !important; -webkit-mask: none !important; mask: none !important; border: 0 !important; filter: none !important; }
+html.collage body .runway .glass-note:not(#_):not(#_) { background: none !important; box-shadow: none !important; color: rgba(236, 217, 168, .85) !important; font-family: var(--font-display); font-style: italic; font-size: 1.2rem; padding: 0 !important; -webkit-mask: none !important; mask: none !important; border: 0 !important; filter: none !important; }
 
 /* --- Kapanış: el çizimi ok ve not --- */
 html.collage .cta-big { position: relative; }
@@ -208,7 +228,12 @@ html.collage .pn-all a.is-here { transform: translateY(-5px); color: var(--ink-g
 /* Her proje bir dergi sayfası: büyük baskı + üstüne binen, altı yırtık etiket + damga */
 html.collage .scenes.is-static .scene.spread .scene-stage { grid-template-columns: minmax(0, 1.25fr) minmax(0, .75fr) !important; gap: 0 !important; }
 html.collage .scenes.is-static .scene.spread--b .scene-stage { grid-template-columns: minmax(0, .75fr) minmax(0, 1.25fr) !important; }
-html.collage .scenes.is-static .scene.spread--b .scene-prop { order: 2; }
+html.collage .scenes.is-static .scene.spread .scene-prop { grid-column: 1; grid-row: 1; order: 0 !important; }
+html.collage .scenes.is-static .scene.spread .sc-label { grid-column: 2; grid-row: 1; }
+html.collage .scenes.is-static .scene.spread--b .scene-prop { grid-column: 2; }
+html.collage .scenes.is-static .scene.spread--b .sc-label { grid-column: 1; }
+html.collage .scenes.is-static .scene.spread .prop, html.collage .scenes.is-static .scene.spread .pfr-frame, html.collage .scenes.is-static .scene.spread .pl-paper,
+html.collage .scenes.is-static .scene.spread .pa-page { width: 100% !important; height: auto !important; }
 html.collage .scenes.is-static .scene.spread .scene-art { -webkit-mask: none !important; mask: none !important; background: #f8f4ea !important; padding: 14px 14px 14px !important; transform: rotate(-1.6deg) !important; }
 html.collage .scenes.is-static .scene.spread--b .scene-art { transform: rotate(2deg) !important; }
 html.collage .scenes.is-static .scene-prop { filter: drop-shadow(0 2px 2px rgba(10, 6, 2, .3)) drop-shadow(0 22px 22px rgba(10, 6, 2, .45)) !important; }
@@ -235,6 +260,18 @@ html.collage body .scenes.is-static .pf-card:not(#_) { -webkit-mask: none !impor
 html.collage .scenes.is-static .pf-card:nth-child(2) { margin-top: 2.4rem; }
 html.collage .scenes.is-static .pf-card:nth-child(4) { margin-top: 1.2rem; }
 html.collage .scenes.is-static .pf-card h3 { font-family: var(--font-display); font-style: italic; color: var(--ink-green) !important; }
+
+/* Projeler sonu: kartpostal çağrısı */
+html.collage body .card.cta-postcard:not(#_) {
+    -webkit-mask: none !important; mask: none !important; border: 0 !important; border-image: none !important; border-radius: 2px !important;
+    background: linear-gradient(rgba(46, 36, 24, .25), rgba(46, 36, 24, .25)) 60% 16% / 1px 68% no-repeat, var(--paper-white) !important;
+    width: min(760px, 92%); margin: 0 auto; padding: 3rem 9rem 3.4rem 3rem !important; text-align: left !important; transform: rotate(-1.2deg);
+    filter: drop-shadow(0 2px 2px rgba(10, 6, 2, .3)) drop-shadow(0 20px 22px rgba(10, 6, 2, .45));
+}
+html.collage .cta-postcard h3 { font-family: "Special Elite", monospace !important; font-weight: 400 !important; font-size: clamp(1.3rem, 2.2vw, 1.8rem) !important; color: var(--ink-brown) !important; max-width: 24ch; }
+html.collage .cta-postcard .btn { background: none !important; border: 2px solid rgba(122, 46, 36, .7) !important; border-radius: 3px !important; color: #7a2e24 !important;
+    box-shadow: inset 0 0 0 3px transparent, inset 0 0 0 4px rgba(122, 46, 36, .35) !important; letter-spacing: .22em; text-transform: uppercase; transform: rotate(-3deg); }
+html.collage .cta-postcard .btn::before { display: none !important; }
 
 /* ---------- Telefon: objeler alt alta, açılar azalır ---------- */
 @media (max-width: 991.98px) {
