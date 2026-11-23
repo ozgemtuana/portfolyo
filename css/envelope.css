@@ -9,9 +9,11 @@
     --weave: repeating-linear-gradient(0deg, rgba(255, 255, 240, .035) 0 1px, transparent 1px 3px), repeating-linear-gradient(90deg, rgba(0, 0, 0, .05) 0 1px, transparent 1px 3px);
     --env-green: url("../public/assets/real/envelope-green-velvet.jpg") center / cover, var(--velvet-pile) center / 600px, var(--velvet-noise), var(--weave), linear-gradient(160deg, #78804f, #61683e 55%, #555b34);
     --env-green-flap: url("../public/assets/real/envelope-green-velvet.jpg") center / cover, var(--velvet-pile) 30% 20% / 600px, var(--velvet-noise), var(--weave), linear-gradient(170deg, #7f8755, #6a7144 60%, #5d6339);
-    --env-cream: var(--velvet-noise), linear-gradient(rgba(246, 239, 224, .7), rgba(236, 226, 204, .7)), url("../images/textures/paper-aged.jpg") center / 700px, #efe5d1;
-    --env-kraft: var(--velvet-noise), linear-gradient(rgba(122, 86, 52, .78), rgba(98, 66, 38, .78)), url("../images/textures/paper-aged.jpg") center / 600px, #6d4a2b;
-    --env-white: var(--velvet-noise), linear-gradient(rgba(252, 250, 244, .82), rgba(242, 238, 228, .82)), url("../images/textures/paper-aged.jpg") center / 900px, #f7f3ea;
+    /* Kâğıt zarflar: gerçek eskitilmiş kâğıt taraması + sol üstten sıcak ışık (kadife gürültüsü yok, griye çalmasın) */
+    --env-light: radial-gradient(ellipse 90% 80% at 25% 15%, rgba(255, 246, 220, .35), transparent 60%);
+    --env-cream: var(--env-light), linear-gradient(rgba(244, 232, 205, .55), rgba(232, 214, 178, .6)), url("../images/textures/paper-aged.jpg") center / 520px, #ead9b6;
+    --env-kraft: var(--env-light), linear-gradient(rgba(150, 104, 62, .7), rgba(112, 76, 44, .76)), url("../images/textures/paper-aged.jpg") center / 480px, #7d5634;
+    --env-white: var(--env-light), linear-gradient(rgba(250, 246, 236, .7), rgba(238, 232, 218, .72)), url("../images/textures/paper-aged.jpg") center / 640px, #f4eee1;
 }
 
 /* Sayfa yüklenirken (zarf gelmeden önce) eski kahverengi perde yerine kadife */
@@ -24,7 +26,11 @@ html.js .pt .pt-svg, html.js .pt .pt-content, html.js .pt .pt-bloom { display: n
 /* ---------- Zarf ---------- */
 .env { --apex: 58%; position: relative; transform-style: preserve-3d; }
 .env--full { position: absolute; inset: 0; width: 100%; height: 100%; cursor: pointer; }
-.env--mini { --apex: 54%; width: min(420px, 78vw); aspect-ratio: 3 / 2; }
+.env--mini { --apex: 54%; width: min(560px, 82vw); aspect-ratio: 3 / 2; }
+/* Kapak bükülürken üstünden geçen ışık (kâğıt/kadife parlaması) */
+.env-flap-shine { position: absolute; inset: 0; opacity: 0; pointer-events: none; z-index: 1;
+    background: linear-gradient(170deg, rgba(255, 250, 230, 0) 20%, rgba(255, 250, 230, .55) 48%, rgba(255, 250, 230, 0) 72%); mix-blend-mode: soft-light; }
+.env--mini .env-pocket::after { background: radial-gradient(ellipse 80% 70% at 40% 30%, rgba(255, 248, 225, .12), transparent 60%), radial-gradient(ellipse 70% 60% at 50% 60%, transparent 40%, rgba(10, 8, 4, .38)); }
 .env--full::before { content: ""; position: absolute; inset: 4% 2% -3%; z-index: 0; background: rgba(0, 0, 0, .6); filter: blur(30px); }
 .env--mini::before { content: ""; position: absolute; inset: 6% 3% -4%; z-index: 0; background: rgba(0, 0, 0, .55); filter: blur(18px); border-radius: 8px; }
 .env > * { position: absolute; }
@@ -43,7 +49,7 @@ html.js .pt .pt-svg, html.js .pt .pt-content, html.js .pt .pt-bloom { display: n
     filter: drop-shadow(0 4px 4px rgba(0, 0, 0, .35)); pointer-events: none; }
 .env-lace.l { left: 0; transform-origin: 0 0; }
 .env-lace.r { right: 0; transform-origin: 100% 0; }
-.env--mini .env-lace { height: 14px; }
+.env--mini .env-lace { height: 24px; }
 /* Kartın içi: dantel kenarlı krem kart */
 .env-card { left: 50%; top: 18%; width: 62%; height: 72%; margin-left: -31%; z-index: 2; transform-origin: 50% 40%; }
 .env-card-in { position: absolute; inset: 0; border: clamp(14px, 2.4vw, 30px) solid transparent; border-image: url("../images/textures/lace-border.webp") 150 / clamp(14px, 2.4vw, 30px) round;
@@ -51,7 +57,7 @@ html.js .pt .pt-svg, html.js .pt .pt-content, html.js .pt .pt-bloom { display: n
 .env--mini .env-card-in { border-width: 8px; border-image-width: 8px; }
 /* Mühür */
 .env-seal { left: 50%; top: var(--apex); z-index: 5; width: clamp(110px, 13vw, 168px); aspect-ratio: 240 / 300; transform: translate(-50%, -50%); }
-.env--mini .env-seal { width: 46px; }
+.env--mini .env-seal { width: 64px; }
 .env-seal-real { position: absolute; inset: -6%; width: 112%; height: 112%; object-fit: contain; z-index: 2; }
 .env-half { position: absolute; inset: 0; }
 .env-half svg { width: 100%; height: 100%; display: block; overflow: visible; }
