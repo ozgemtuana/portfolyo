@@ -1,5 +1,31 @@
 # İlerleme ve kararlar
 
+## ŞU AN (2026-11-23 öğleden sonra)
+
+**Sıra (kullanıcının önceliği, limit %75'te, idareli çalışılıyor):**
+1. Look kartları ✅
+2. Sayfa geçişi zarfını akışkan yapmak ⏳
+3. Hocanın şartları kontrolü
+4. Kalan süs ve animasyonlar
+
+**Bitti: Look kartları (commit'li)**
+- Figürlerin gömülü beyaz "sticker" kenarı otomatik temizlendi. Temiz kopyalar `images/runway/clean/` altında, orijinaller duruyor. `js/content.js` temiz kopyaları kullanıyor. Betik: `.scratch/dehalo.py`.
+- Her figür kendisinden küçük bir kâğıt baskı çerçevesinin önünde duruyor; baş, saç ve etek çerçeveden taşıyor (moda dergisi pop-out). Yüzler tamamen görünüyor.
+- Bantlar yalnızca çerçevenin üst köşelerinde ve çapraz; yüzün üstüne hiç gelmiyor. Fareyle üstüne gelince figür öne çıkıyor, gölgesi büyüyor.
+- Her Look'ta en yüksek çözünürlüklü figür büyük gösteriliyor, düşük çözünürlüklüler küçük kalıyor.
+- Look 03 (tek figür): sağdaki boşluğa figürün kendi renklerinden üç kumaş kartelası ve el yazısı "kumaş kartelası" notu kondu; kart biraz genişletildi.
+- Düşük çözünürlüklü podyum fotoğrafları (projede daha büyük sürümü yok, büyütülmedi): `altin-etek.png` (271×391), `altin-on.png` (250×607), `pembe-elbise.png` (418×804), `siyah-podyum.png` (413×945). Daha büyük sürümleri varsa `images/runway/` altına aynı adla konabilir; temizleme betiği yeniden çalıştırılır.
+- `beyaz-defile.png`'de başın çevresinde hafif bir parlama kaldı. Bu görsel Look kartında gösterilmiyor (dördüncü görsel, gizli).
+
+**Yarım kalan: sayfa geçişi zarfı (2. madde).** Dosya: `js/envelope.js`, `leave()` ve `reveal()` fonksiyonları (yaklaşık 171–209. satırlar). Henüz değişiklik yapılmadı. Plan:
+- **Zarf:** açılıştakiyle aynı doku, dantel ve gölge; biraz daha büyük, `min(560px, 82vw)`.
+- **Kapak:** sert dönmek yerine kâğıt gibi bükülerek açılacak. GSAP keyframes ile `rotateX` 0→70→178, ortada `skewX` -3° ve `scaleY` .94; dönerken kapağın üstünden bir ışık geçecek. Kapanırken hafif sallanıp oturacak (back.out).
+- **Sıra:** önce mühür çatlar, sonra kapak açılır, sonra kart hafifçe yükselip dönerek çıkar, sonra tek kesintisiz hareketle büyüyüp ekranı doldurur, en son yeni sayfa görünür.
+- **Süre:** toplam 1–1,4 sn, telefonda `timeScale(1.25)` ile daha kısa.
+- **Kanıt:** Playwright ile 8 kare, açılış zarfıyla yan yana (`.scratch/txtest.js`, `.scratch/compare.py`).
+
+**Sıradaki adım:** yukarıdaki planı `js/envelope.js`'e uygulamak, 8 kareyi çekmek, ardından hocanın şartları kontrolüne geçip ✅/❌ tablosunu hazırlamak.
+
 ## SABAH ÖZETİ (2026-11-23, gece çalışması)
 
 **Bitti**
