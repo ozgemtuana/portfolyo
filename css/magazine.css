@@ -225,6 +225,8 @@ html.collage .pn-all a:nth-child(odd) { background: linear-gradient(rgba(218, 19
 html.collage .pn-all a.is-here { transform: translateY(-5px); color: var(--ink-green) !important; }
 
 /* ================= PROJELER ================= */
+/* Kenardan sarkan bantlar telefonda sayfayı genişletmesin */
+html.collage .scenes { overflow-x: clip; }
 /* Her proje bir dergi sayfası: büyük baskı + üstüne binen, altı yırtık etiket + damga */
 html.collage .scenes.is-static .scene.spread .scene-stage { grid-template-columns: minmax(0, 1.25fr) minmax(0, .75fr) !important; gap: 0 !important; }
 html.collage .scenes.is-static .scene.spread--b .scene-stage { grid-template-columns: minmax(0, .75fr) minmax(0, 1.25fr) !important; }
@@ -272,6 +274,12 @@ html.collage .cta-postcard h3 { font-family: "Special Elite", monospace !importa
 html.collage .cta-postcard .btn { background: none !important; border: 2px solid rgba(122, 46, 36, .7) !important; border-radius: 3px !important; color: #7a2e24 !important;
     box-shadow: inset 0 0 0 3px transparent, inset 0 0 0 4px rgba(122, 46, 36, .35) !important; letter-spacing: .22em; text-transform: uppercase; transform: rotate(-3deg); }
 html.collage .cta-postcard .btn::before { display: none !important; }
+html.collage section:has(> .container > .cta-postcard) { overflow-x: clip; }
+@media (max-width: 767.98px) {
+    html.collage body .card.cta-postcard:not(#_) { width: 100%; padding: 2.2rem 1.6rem 3.4rem !important; }
+    html.collage .cta-postcard .pc-post { display: none; }
+    html.collage .cta-postcard .pc-stamp { width: 48px; height: 58px; right: 12px; top: 12px; }
+}
 
 /* ---------- Telefon: objeler alt alta, açılar azalır ---------- */
 @media (max-width: 991.98px) {

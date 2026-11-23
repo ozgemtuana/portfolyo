@@ -4,10 +4,10 @@
      "TD" monogramı, tarihli posta damgası, gravür rozet. Mürekkep aşınması SVG gürültü filtresiyle.
    - Fotoğraf köşelikleri, el yazısı imza, bilet numarası gibi küçük dekoratif parçalar (aria-hidden).
    - Kâğıt objeler kaydırınca masaya kayarak/dönerek gelir; fareyle üstüne gelince hafifçe kalkıp 3D eğilir.
-   Şimdilik yalnızca Hakkımda sayfası (onaydan sonra diğer sayfalar).
+   Tüm genel sayfalarda (Anasayfa, Hakkımda, Özgeçmiş, Projeler, Blog, Galeri, Süreç, İletişim).
    ========================================================================== */
 (function () {
-    const PAGES = ["about", "home", "projects"];
+    const PAGES = ["about", "home", "projects", "resume", "blog", "gallery", "process", "contact"];
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const lang = () => (document.documentElement.lang === "en" ? "en" : "tr");
     let uid = 0;
@@ -121,6 +121,10 @@
         [".about-page .about-text", ".about-page .code-card", ".about-page .about-quote", ".about-page .hobby-intro"].forEach((s, i) => { const el = q(s); if (el) el.classList.add("obj", ["obj--letter", "obj--typed", "obj--lace", "obj--note"][i]); });
         if (page === "home") decorateHome(L);
         if (page === "projects") decorateProjects(L);
+        if (["resume", "blog", "gallery", "process", "contact"].includes(page)) {
+            ({ resume: decorateResume, blog: decorateBlog, gallery: decorateGallery, process: decorateProcess, contact: decorateContact })[page]();
+            decoratePagenav(N[lang()]);
+        }
         arm();
     }
 
@@ -201,6 +205,65 @@
         const cta = document.querySelector(".scenes ~ section .card");
         if (cta) { cta.classList.add("cta-postcard"); add(cta, "pc-stamp", `<b>${monogram()}</b>`); add(cta, "pc-post", postmark("ANTALYA", "2026")); add(cta, "pc-sign", n.pc); }
         decoratePagenav(n);
+    }
+
+    /* ---------- Kalan sayfalar ---------- */
+    const rotSet = [-2.2, 1.6, -1.1, 2.6, -2.8, 1.2, -1.6, 2.2];
+    const setRot = (els) => els.forEach((e, i) => e.style.setProperty("--rot", rotSet[i % rotSet.length] + "deg"));
+    function decorateResume() {
+        chapters(document.querySelector("main"));
+        const tls = document.querySelectorAll(".page-offset .timeline");
+        if (tls[0]) {
+            tls[0].classList.add("strung");
+            tls[0].querySelectorAll(".card").forEach((c, i) => {
+                c.classList.add("obj", "doc-tag");
+                add(c, "doc-hole", "");
+                add(c, "doc-stamp", stampRound("DENEYİM · TUANA", "ANTALYA · 2026", String(i + 1).padStart(2, "0")));
+            });
+        }
+        if (tls[1]) tls[1].querySelectorAll(".card").forEach((c) => { c.classList.add("obj", "doc-diploma"); add(c, "doc-stamp", stampOval("ESTD", "2026", "AKDENİZ")); });
+        const skills = document.querySelector(".page-offset section:last-of-type > .card");
+        if (skills) skills.classList.add("obj", "doc-index");
+        setRot([...document.querySelectorAll(".page-offset .obj")]);
+    }
+    function decorateBlog() {
+        document.querySelectorAll(".blog-index .bx").forEach((b, i) => { b.classList.add("obj", "letter-card"); add(b, "pc-stamp", `<b>${monogram()}</b>`); add(b, "pc-post", postmark("ANTALYA", "2026")); });
+        document.querySelectorAll(".post").forEach((p) => p.classList.add("letter-paper"));
+        document.querySelectorAll(".post-hero, .post-text figure").forEach((f, i) => { f.classList.add("taped-print"); add(f, "tape-wrap", tape("t1") + (i % 2 ? tape("t2") : tape("t3"))); });
+        document.querySelectorAll(".post .mini-card").forEach((m) => m.classList.add("obj", "doc-index"));
+        document.querySelectorAll(".blog-links a").forEach((a) => a.classList.add("ticket-link"));
+        setRot([...document.querySelectorAll(".blog-index .obj")]);
+    }
+    function decorateGallery() {
+        const items = [...document.querySelectorAll(".gallery .g-item")];
+        items.forEach((g, i) => {
+            g.classList.add("obj", i % 3 === 1 ? "print-old" : "polaroid");
+            add(g, "tape-wrap", i % 2 ? tape("t1") : tape("t2") + tape("t3"));
+        });
+        setRot(items);
+    }
+    function decorateProcess() {
+        const cards = [...document.querySelectorAll(".proc-grid > .proc-card")];
+        cards.forEach((c, i) => {
+            c.classList.add("obj");
+            if (c.querySelector(".proc-palette")) c.classList.add("swatch-card");
+            else if (c.querySelector(".proc-sample")) c.classList.add("type-card");
+            else if (c.querySelector(".proc-links")) c.classList.add("pinned-card");
+            else if (c.querySelector("ol")) c.classList.add("steps-card");
+            else if (c.querySelector("ul")) c.classList.add("check-card");
+            else c.classList.add("typed-card");
+        });
+        document.querySelectorAll(".check-card li, .pinned-card li").forEach((li, i) => li.style.setProperty("--tick", (i % 3)));
+        setRot(cards);
+    }
+    function decorateContact() {
+        const form = document.querySelector("#contactForm");
+        const fc = form && form.closest(".card");
+        if (fc) { fc.classList.add("obj", "letter-form"); add(fc, "deco-sign", "Tuana"); }
+        const side = [...document.querySelectorAll(".col-lg-5 .card")];
+        ["bizcard", "callcard", "addr-label", "stamps-card"].forEach((c, i) => { if (side[i]) side[i].classList.add("obj", c); });
+        if (side[1]) add(side[1], "deco-stamp", stampRound("TELEFON", "ANTALYA · 2026"));
+        setRot(side);
     }
 
     function decoratePagenav(n) {
