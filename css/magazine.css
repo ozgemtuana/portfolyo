@@ -227,6 +227,8 @@ html.collage .pn-all a.is-here { transform: translateY(-5px); color: var(--ink-g
 /* ================= PROJELER ================= */
 /* Kenardan sarkan bantlar telefonda sayfayı genişletmesin */
 html.collage .scenes { overflow-x: clip; }
+/* Eski anahtar deliği sahnesinin altın ışık lekesi (scenes.css) statik düzende soluk bir daire olarak kalıyordu */
+.scenes.is-static .scene--portfolio { background: none !important; }
 /* Her proje bir dergi sayfası: büyük baskı + üstüne binen, altı yırtık etiket + damga */
 html.collage .scenes.is-static .scene.spread .scene-stage { grid-template-columns: minmax(0, 1.25fr) minmax(0, .75fr) !important; gap: 0 !important; }
 html.collage .scenes.is-static .scene.spread--b .scene-stage { grid-template-columns: minmax(0, .75fr) minmax(0, 1.25fr) !important; }
