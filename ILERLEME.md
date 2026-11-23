@@ -1,5 +1,11 @@
 # İlerleme ve kararlar
 
+## GİT VE SON KONTROL (2026-11-23 gece)
+- `CLAUDE.md` (Karpathy yönergeleri) eklendi. `main` dalına dokunulmadı; eski sürüm `v1-eski` etiketiyle işaretlendi ve push edildi. `vintage` dalı `origin/vintage` olarak push edildi.
+- Şart denetimi (`.scratch/requirements.js`, 8 sayfa × TR/EN): 16/16 sayfada tek h1, title, description, hreflang ×3, canonical, JSON-LD, viewport var; JS hatası 0; 375 px'te yatay taşma yok (TR ve EN). Tablo, ol/ul, abbr/code/pre/blockquote, yetenek yüzdeleri (meter), blog 3 yazı, galeri 5 altyazı, iletişim adres + `tel:` + form, boyut ~56 MB: hepsi ✅. Açık not: Galeri ve İletişim'de tek `<h2>` var (içerik değişikliği olacağı için onay bekliyor).
+- Kontrast 2. tur: blog kod blokları (`.code-fig`) krem kâğıt üstünde okunmuyordu; token renkleri koyulaştırıldı. Satır içi kod, tablo başlığı/altyazı, sayfa sonu etiketleri koyulaştırıldı. "ben Tuana" T aralığı düzeltildi.
+- **Kalan:** kontrast ölçümü hâlâ ~470 uyarı veriyor; çoğu WebGL arka plan/kayan öğe örneklemesinden gelen ölçüm gürültüsü olabilir (ör. koyu yazılı "Oynat" etiketi). Gerçek ihlaller gözle tek tek doğrulanmalı: başlıktaki `em` büyük yazılar (blog), "Sakin Mum" bağlantısı, "İletişime geç" butonu.
+
 ## WEB TASARIMCISI ELEŞTİRİSİ (2026-11-23 akşam) — devam ediyor
 
 Tüm düzeltmeler tek dosyada: `css/critique.css` (8 sayfada en son yüklenen stil). Betikler: `.scratch/crit.js <etiket> <sayfalar>` (1440 + 375 ekran görüntüsü), `.scratch/critsheet.py` (kontak sayfası), `.scratch/fontaudit.js` (13px/18px/300 denetimi), `.scratch/contrast.js` + `.scratch/contrast.py` (WCAG AA, ekran pikselleriyle).

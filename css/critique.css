@@ -209,7 +209,7 @@ html.collage .navbar-brand span::first-letter { font-family: var(--font-display)
 html.collage .deco-sign::first-letter { font-family: var(--font-display); font-style: italic; font-weight: 500; font-size: .8em; }
 /* Başlık harf harf bölünüyor (.char): ilk harf span'ı */
 .hero-title em > span:first-child > .char:first-child, h1 em > span:first-child > .char:first-child {
-    font-family: var(--font-display) !important; font-style: normal !important; font-weight: 500 !important; font-size: .78em; letter-spacing: .02em; margin-right: .02em; -webkit-text-stroke: 0;
+    font-family: var(--font-display) !important; font-style: normal !important; font-weight: 500 !important; font-size: .78em; letter-spacing: .02em; margin-right: -.06em; -webkit-text-stroke: 0;
 }
 
 /* Hero: butonlar metnin altında, solda (müze etiketiyle çakışmaz) */
@@ -248,3 +248,17 @@ html.collage body .h-track[data-static] .h-card.postcard:last-child:nth-child(od
     html.collage [data-quote] + section, html.collage [data-quote] + * { margin-top: 0 !important; padding-top: 2.5rem !important; }
     html.collage .navbar .nav-link { font-size: 1.05rem !important; }
 }
+
+/* Kontrast düzeltmesi (2. tur): krem kâğıt üstünde açık kalan yazılar koyulaştırıldı */
+html.collage .code-fig pre code, html.collage .code-fig pre code span { color: #3d2e1e !important; text-shadow: none !important; }
+html.collage .code-fig span.tk-c:not(#_):not(#_) { color: #4f5f33 !important; }
+html.collage .code-fig span.tk-k:not(#_):not(#_) { color: #7a3b22 !important; font-weight: 600; }
+html.collage .code-fig span.tk-s:not(#_):not(#_) { color: #5a4520 !important; }
+html.collage .code-fig span.tk-n:not(#_):not(#_) { color: #7a4a10 !important; }
+html.collage .code-fig span.tk-f:not(#_):not(#_) { color: #2d5a22 !important; }
+html.collage main :not(pre) > code, html.collage .post code, html.collage .copy-btn, html.collage .code-fig .copy-btn span { color: #3d2e1e !important; background: rgba(61,46,30,.08) !important; text-shadow: none !important; }
+html.collage caption, html.collage .caption-label, html.collage .blog-note, html.collage td, html.collage .svc-chip--grow { color: #3d2e1e !important; }
+html.collage .svc-chip--ok { background: #4f5f33 !important; color: #fffaf0 !important; }
+html.collage .svc-chip--grow { border-color: #7a5a22 !important; }
+html.collage .pn-label, html.collage .pn-desc, html.collage .pagenav a, html.collage .to-top { color: #3d2e1e !important; }
+html.collage .text-muted { color: #4a3b2a !important; }
