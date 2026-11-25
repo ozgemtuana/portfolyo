@@ -59,3 +59,34 @@ html.collage .about-page .id-photo img { position: absolute !important; left: 15
 html.collage .about-page .id-photo::before { content: ""; position: absolute; left: 50%; top: -5.5%; z-index: 3; width: 36%; height: 8%; transform: translateX(-50%); background: url("../images/lace/clip-gold.png") center / contain no-repeat; filter: drop-shadow(0 4px 3px rgba(0, 0, 0, .6)); pointer-events: none; }
 html.collage .about-page .id-photo figcaption { bottom: -3.6rem !important; font-family: "Caveat", cursive; color: #2b1d10 !important; font-size: 1.2rem; line-height: 1.05; white-space: normal !important; }
 html.collage .about-page .id-photo .id-name { font-family: "Caveat", cursive; font-weight: 600; font-size: 1.35rem; color: #7a1f1a !important; }
+
+/* ---------- Mobil + tablet menü (<992px): klipsli kâğıt etiketler ---------- */
+@media (max-width: 991.98px) {
+    html.collage body:not([data-page="home"]) .navbar { background: linear-gradient(rgba(20, 14, 8, .82), rgba(20, 14, 8, .5)) !important; border-bottom: 1px solid rgba(216, 180, 90, .3) !important; box-shadow: none !important; }
+    html.collage body:not([data-page="home"]) .navbar-brand span { font-family: "Allura", "Playfair Display", cursive !important; font-style: normal !important; font-weight: 400 !important; -webkit-text-stroke: 0 !important; color: #d8b45a !important; -webkit-text-fill-color: #d8b45a !important; text-shadow: 0 2px 10px rgba(0, 0, 0, .7) !important; }
+    html.collage body:not([data-page="home"]) .navbar > .container { flex-wrap: wrap !important; }
+    html.collage body:not([data-page="home"]) .navbar-collapse { flex-basis: 100%; width: 100%; }
+    /* hamburger: klipsli kâğıt etiket */
+    html.collage body:not([data-page="home"]) .navbar-toggler { position: relative; width: 52px; min-height: 48px; padding: 0 !important; border: 1px solid rgba(110, 84, 40, .5) !important; border-radius: 2px; box-shadow: 0 6px 12px rgba(0, 0, 0, .55) !important;
+        background: repeating-linear-gradient(transparent 0 22px, rgba(185, 165, 111, .3) 22px 23px), linear-gradient(#f4ebd3, #e6d8b3) !important; transform: rotate(1.5deg); }
+    html.collage body:not([data-page="home"]) .navbar-toggler::after { content: ""; position: absolute; left: 50%; top: -9px; width: 26px; height: 14px; margin-left: -13px; background: url("../images/lace/clip-wood.png") center / contain no-repeat; filter: drop-shadow(0 3px 2px rgba(0, 0, 0, .6)); pointer-events: none; }
+    html.collage body:not([data-page="home"]) .navbar-toggler:focus-visible { outline: 2px solid #f4ead2; outline-offset: 3px; box-shadow: 0 6px 12px rgba(0, 0, 0, .55) !important; }
+    html.collage body:not([data-page="home"]) .navbar-toggler-icon { filter: none !important; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3E%3Cpath stroke='%233a2a1b' stroke-linecap='round' stroke-width='2.4' d='M5 8h20M5 15h20M5 22h20'/%3E%3C/svg%3E") !important; }
+    /* açılan menü: üst üste klipsli etiketler, panel yok */
+    html.collage body:not([data-page="home"]) .navbar-collapse { background: none !important; border: 0 !important; box-shadow: none !important; border-radius: 0 !important; padding: 1.2rem .4rem 1.4rem !important; margin-top: .4rem; }
+    html.collage body:not([data-page="home"]) .navbar-collapse .navbar-nav { gap: 1.1rem !important; align-items: stretch !important; }
+    html.collage body:not([data-page="home"]) .navbar-collapse .nav-link { position: relative; display: flex; align-items: center; justify-content: center; min-height: 48px; padding: .6rem 1rem !important; border-radius: 2px; white-space: nowrap;
+        font-family: "Italiana", "Cormorant Garamond", serif !important; font-style: normal !important; font-weight: 400 !important; font-size: 1.2rem !important; letter-spacing: .08em !important; color: #3a2a1b !important;
+        background: repeating-linear-gradient(transparent 0 22px, rgba(185, 165, 111, .3) 22px 23px), linear-gradient(#f4ebd3, #e6d8b3) !important; box-shadow: 0 7px 12px rgba(0, 0, 0, .55); transform: rotate(-1deg); }
+    html.collage body:not([data-page="home"]) .navbar-collapse .nav-item:nth-child(even) .nav-link { transform: rotate(1deg); }
+    html.collage body:not([data-page="home"]) .navbar-collapse .nav-link::after { content: ""; position: absolute; left: 50%; top: -9px; width: 26px; height: 14px; margin-left: -13px; background: url("../images/lace/clip-wood.png") center / contain no-repeat; filter: drop-shadow(0 3px 2px rgba(0, 0, 0, .6)); pointer-events: none; }
+    html.collage body:not([data-page="home"]) .navbar-collapse .nav-link.active, html.collage body:not([data-page="home"]) .navbar-collapse .nav-link[aria-current] { color: #7a1f1a !important; text-decoration: underline wavy #c9a96e; text-underline-offset: 6px; text-decoration-thickness: 1.5px; }
+    html.collage body:not([data-page="home"]) .navbar-collapse .nav-link.active::before { display: none !important; }
+    html.collage body:not([data-page="home"]) .navbar-collapse .nav-link:focus-visible { outline: 2px solid #f4ead2; outline-offset: 3px; }
+    /* TR / EN: görünür ve en az 44x44 */
+    html.collage body:not([data-page="home"]) .navbar-collapse .lang-switch { display: flex; gap: .6rem; justify-content: center; }
+    html.collage body:not([data-page="home"]) .navbar-collapse .lang-switch button { min-width: 44px; min-height: 44px; font-family: "Italiana", serif; font-size: 1.1rem; letter-spacing: .08em; color: #f4ead2 !important; background: rgba(20, 14, 8, .55) !important; border: 1px solid rgba(216, 180, 90, .5) !important; border-radius: 2px; }
+    html.collage body:not([data-page="home"]) .navbar-collapse .lang-switch button.active { color: #d8b45a !important; border-color: #d8b45a !important; }
+}
+
+@media (min-width: 576px) and (max-width: 991.98px) { html.collage body:not([data-page="home"]) .navbar-collapse .navbar-nav { max-width: 420px; margin: 0 auto; } }
