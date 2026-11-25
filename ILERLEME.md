@@ -1,3 +1,10 @@
+## 2026-11-26 — Kalan işler turu
+- Dantel levha: blog yazıları ve Hakkımda uzun metin 9-dilim doily.png ile (mobilde 44px kenar); vesikalık dantel pencerede altın klipsle. Çakışan kurallar için `:not(#_):not(#_)` ile özgüllük artırıldı (letter-paper, cards-fix).
+- Mobil/tablet menü (<992px): klipsli kâğıt etiketler, hamburger etiketi, Esc + dışarı tıklama + odak dönüşü (js/menu.js), TR/EN 44px; `.navbar > .container` flex-wrap:nowrap (collage-fix) mobilde wrap'e çevrildi.
+- İletişim: altın klipsli form, klipsli Gönder etiketi, odak halkası ve doğrulama renkleri.
+- Denetim (title/description/h1/alt/taşma/konsol) 8 sayfada temiz.
+- Kalan: galeri/resume görselleri için dantel pencere, tüm sayfalarda kapanış ekran görüntüleri (teslim/ekran-goruntuleri/), main'e birleştirme (izin bekliyor).
+
 ## 2026-11-26 — Tek prompt turu (özet)
 - Yapıldı: mobil dokunmatik kaydırma kök nedeni (html.collage ↔ .collage çakışması), 2D yedek; zaman tüneli açılışı; ana sayfa altın çerçeveler; Projeler/Galeri müze duvarı + tek eser salonu (?p=); 3D cep saati (Three.js) ve detayda CSS 3D; self-host fontlar; ajanda ders programı; klipsli menü etiketleri; süreç paleti (renkler görünmüyordu, düzeltildi); blog görselleri klipsli kâğıt çerçeve.
 - Kararlar: Projeler/Galeri'de yatay kaydırmalı tek sıra duvar korundu (mobilde 1 tablo); yeşil zemin yerine koyu ceviz; menü etiketleri yalnız masaüstünde (≥992px).
