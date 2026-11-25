@@ -6,3 +6,6 @@ references/
 # Geçici test dosyaları, ekran görüntüleri, indirmeler ve inceleme sayfası (yayınlanmaz)
 .scratch/
 inceleme/
+
+# Teslim paketi (zip ve rapor) git'e girmez
+teslim/

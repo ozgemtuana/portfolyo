@@ -720,12 +720,31 @@ window.SITE_CONTENT = {
         },
         {
             "title": {
+                "tr": "Boşalan Cadde",
+                "en": "The Emptied Street"
+            },
+            "tag": {
+                "tr": "Proje 5 · Image Stack",
+                "en": "Project 5 · Image Stack"
+            },
+            "desc": {
+                "tr": "Antalya'da bir üst geçitten aynı açıyla çektiğim 20 gece fotoğrafını Photoshop'ta yığına yükleyip Ortanca (Median) yığın moduyla birleştirdim; geçen arabalar kayboldu, cadde boş kaldı.",
+                "en": "I stacked 20 night photos taken from the same spot on an Antalya overpass and merged them with Photoshop's Median stack mode; the passing cars disappeared and the street was left empty."
+            },
+            "image": "images/projects/proje5-image-stack.jpg",
+            "art": "",
+            "link": "",
+            "featured": true,
+            "scene": "frame"
+        },
+        {
+            "title": {
                 "tr": "Zizi Beach Web Arayüzü",
                 "en": "Zizi Beach Web Interface"
             },
             "tag": {
-                "tr": "Proje 5 · Web Arayüzü",
-                "en": "Project 5 · Web Interface"
+                "tr": "Proje 6 · Web Arayüzü",
+                "en": "Project 6 · Web Interface"
             },
             "desc": {
                 "tr": "zizibeach.com sitesinin arayüzünü 960 Grid System şablonu üzerinde Photoshop'ta yeniden tasarladım; Layer Comps ile 3 farklı yerleşim hazırladım.",
