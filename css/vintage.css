@@ -240,3 +240,9 @@ h1 .text-gradient em { -webkit-text-fill-color: #ead9b0; }
     .dive-caps { bottom: 5.2rem; width: calc(100vw - 2.5rem); }
     .dive-cap-t { font-size: clamp(1.5rem, 7.4vw, 2.2rem); letter-spacing: .05em; overflow-wrap: anywhere; }
 }
+
+/* Altın çerçeve vurgusu (js/dive.js): tablonun üstünde, yazıların altında */
+.dive-frame { position: absolute; left: 0; top: 0; pointer-events: none; will-change: transform; }
+.dive-frame img { display: block; max-width: none; opacity: 0; transform: scale(1.08); transition: opacity .4s ease, transform .4s ease; }
+.dive-frame.is-on img { opacity: 1; transform: none; transition-duration: .7s; transition-timing-function: cubic-bezier(.22, .61, .36, 1); }
+@media (prefers-reduced-motion: reduce) { .dive-frame img, .dive-frame.is-on img { transform: none; transition-duration: .3s; } }

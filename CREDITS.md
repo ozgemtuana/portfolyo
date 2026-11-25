@@ -51,3 +51,4 @@
 
 ## İlham kaynakları
 - uberdesigner.ai — "The School of Athens" ve "Course of Empire" şablonları (tablonun içine dalış, zoom durakları, mini harita, otomatik oynatma fikirleri). Kod veya görsel kopyalanmadı; fikirler bu tasarıma uyarlandı.
+- Altın çerçeve görselleri: kullanıcının sağladığı web kaynakları, eğitim projesi için kullanıldı.

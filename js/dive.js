@@ -275,14 +275,51 @@ void main() {
         // Durak: tablo içi oransal merkez (u, v) ve ekrana sığacak kutu (w, h)
         const pan = (u, v, w, h) => ({ c: [u, v * HR], s: containX(w, h * HR) });
         const rob = (u, v, w, h) => ({ c: [R[0] + u * R[2], R[1] + v * R[3]], s: containX(w * R[2], h * R[3]) });
+        /* ---------- Altın çerçeve vurgusu: 1–2 belli başlı durakta ayrıntının tam etrafı ----------
+           Kutu: ayrıntının en dar anlamlı kısmı (merkez c ve boyut w, h; tablo oranı). Çerçevenin iç boşluğu kutuyu
+           pay bırakarak (dikdörtgende %20, ovalde %48) tamamen içine alır; zoom çerçeveye ve kutuya göre ayarlanır. */
+        const FR = {
+            1: { shape: "portrait", sp: "pan", c: [0.5795, 0.7268], w: 0.044, h: 0.056 },   // Musa: yüz ve omuzlar
+            2: { shape: "oval", sp: "pan", c: [0.439, 0.7973], w: 0.0676, h: 0.0481 },      // Koleksiyoncular: yüzler
+            3: { shape: "portrait", sp: "rob", c: [0.2504, 0.6444], w: 0.1207, h: 0.109, k: 0.85 },  // Aziz Petrus kubbesi
+            6: { shape: "portrait", sp: "cole", c: [0.706, 0.28], w: 0.152, h: 0.24 }        // Yıkık kule: tepe ve gövdenin üstü
+        };
+        let FJ = null;
+        const frameFit = (d) => {
+            const m = FJ && FJ[d.shape]; if (!m) return null;
+            const sw = window.innerWidth, sh = window.innerHeight;
+            const A = (m.inner.w * m.width) / (m.inner.h * m.height);
+            let iw = sw * (sw < 600 ? 0.44 : 0.24) * (d.k || 1), ih = iw / A;
+            if (ih > sh * 0.42 * (d.k || 1)) { ih = sh * 0.42 * (d.k || 1); iw = ih * A; }
+            let fw = iw / m.inner.w;
+            if (fw > m.width * 1.5) { fw = m.width * 1.5; iw = fw * m.inner.w; ih = iw / A; }
+            return { m, iw, ih, fw, mg: m.shape === "ellipse" ? 1.48 : 1.2, sw, sh };
+        };
+        // Çerçeveli durağın görünümü (pan/rob) ya da Cole yakınlığı
+        const framedView = (d) => {
+            const f = frameFit(d); if (!f) return null;
+            if (d.sp === "cole") {
+                const A = COLE_A, r = sa(), base = r > A ? [1, A / r] : [r / A, 1];
+                const sp0 = Math.max(d.w * f.mg * f.sw / f.iw, (d.h * f.mg * f.sh / f.ih) * (base[0] / base[1]));
+                return { z: Math.max(1, base[0] / sp0) };
+            }
+            const bw = d.sp === "pan" ? d.w : d.w * R[2], bh = d.sp === "pan" ? d.h * HR : d.h * R[3];
+            const z = Math.min(f.iw / (bw * f.mg), f.ih / (bh * f.mg));
+            const c = d.sp === "pan" ? [d.c[0], d.c[1] * HR] : [R[0] + d.c[0] * R[2], R[1] + d.c[1] * R[3]];
+            return { c, s: f.sw / z };
+        };
         // P (0–1) → görünüm. Aynı görünüm iki kez yazılınca kamera o detayda bekler.
         let K = [];
         const buildKeys = () => {
             const K0 = { c: [0.5, HR / 2], s: coverX(1, HR) };
-            const S1 = pan(0.43, 0.40, 0.30, 0.30), S2 = pan(0.575, 0.77, 0.13, 0.17), S3 = pan(0.44, 0.86, 0.22, 0.22);
+            const S1 = pan(0.43, 0.40, 0.30, 0.30); let S2 = pan(0.575, 0.77, 0.13, 0.17), S3 = pan(0.44, 0.86, 0.22, 0.22);
             const K1 = { c: center(F), s: containX(F[2], F[3]) * 1.75 }, K2 = { c: center(F), s: coverX(F[2], F[3]) };
-            const R1 = rob(0.26, 0.67, 0.35, 0.16), R2 = rob(0.70, 0.56, 0.30, 0.20), R3 = rob(0.55, 0.82, 0.60, 0.20);
+            let R1 = rob(0.26, 0.67, 0.35, 0.16); const R2 = rob(0.70, 0.56, 0.30, 0.20), R3 = rob(0.55, 0.82, 0.60, 0.20);
+            const fv = (i, v) => { const f = FR[i] && framedView(FR[i]); return f && f.s ? f : v; };
+            S2 = fv(1, S2); S3 = fv(2, S3); R1 = fv(3, R1);
             const K3 = { c: center(O), s: coverX(O[2], O[3]) * 1.04 };
+            const fc = FR[6] && framedView(FR[6]);
+            if (fc) { CK[2][1] = CK[3][1] = FR[6].c; CK[2][2] = CK[3][2] = fc.z; }
             K = [[0, K0], [0.04, K0], [0.10, S1], [0.14, S1], [0.20, S2], [0.24, S2], [0.30, S3], [0.34, S3],
                 [0.41, K1], [0.49, K2], [0.57, R1], [0.61, R1], [0.66, R2], [0.69, R2], [0.74, R3], [0.77, R3], [0.83, K3]];
         };
@@ -352,8 +389,50 @@ void main() {
         const labels = () => document.querySelectorAll("[data-dive-label]");
         const heroCopy = () => document.querySelector(".hero .container");
         const MAPS = [S + "panini-2048.webp", S + "robert-2048.webp", S + "cole-1280.webp"];
+        /* ---------- Çerçeve katmanı: tablonun üstünde, yazıların altında; yalnız transform/opacity ---------- */
+        const fEl = document.createElement("div");
+        fEl.className = "dive-frame";
+        fEl.innerHTML = '<img alt="" decoding="async">';
+        wrap.appendChild(fEl);
+        const fImg = fEl.querySelector("img");
+        let fIdx = -1, fTok = 0, lastV = null, lastC = null;
+        // Kutunun ekrandaki merkezine, iç boşluğun merkezi oturacak biçimde yerleştir
+        const placeFrame = () => {
+            const d = FR[fIdx], f = d && frameFit(d); if (!f || !lastV) return;
+            const sw = f.sw, sh = f.sh; let X, Y;
+            if (d.sp === "cole") {
+                const r = coleRect(lastC);
+                X = (d.c[0] - r[0]) / r[2] * sw; Y = (d.c[1] - r[1]) / r[3] * sh;
+            } else {
+                const bc = d.sp === "pan" ? [d.c[0], d.c[1] * HR] : [R[0] + d.c[0] * R[2], R[1] + d.c[1] * R[3]];
+                const hh = lastV.s / sa();
+                X = (bc[0] - (lastV.c[0] - lastV.s / 2)) / lastV.s * sw; Y = (bc[1] - (lastV.c[1] - hh / 2)) / hh * sh;
+            }
+            const fh = f.fw * f.m.height / f.m.width;
+            fImg.style.width = f.fw.toFixed(1) + "px";
+            const x = X - (f.m.inner.x + f.m.inner.w / 2) * f.fw, y = Y - (f.m.inner.y + f.m.inner.h / 2) * fh;
+            fEl.style.transform = `translate3d(${x.toFixed(1)}px, ${y.toFixed(1)}px, 0)`;
+        };
+        const setFrame = (ci) => {
+            const tok = ++fTok;
+            fEl.classList.remove("is-on"); fIdx = -1;
+            if (!FR[ci] || !FJ) return;
+            setTimeout(() => {   // önceki çerçeve solarken (≈400 ms) kamera yeni ayrıntıya kayar; yenisi sonra gelir
+                if (tok !== fTok) return;
+                fIdx = ci; fImg.src = "images/frames/" + FJ[FR[ci].shape].file; placeFrame();
+                requestAnimationFrame(() => fEl.classList.add("is-on"));
+            }, 420);
+        };
+        // Çerçeve görselleri: sayfa hazır olunca, boştayken yüklenir
+        const loadFrames = () => fetch("images/frames/frames.json").then((r) => r.json()).then((j) => {
+            FJ = j; new Set(Object.values(FR).map((d) => d.shape)).forEach((k) => { new Image().src = "images/frames/" + j[k].file; });
+            buildKeys(); dirty = true;
+        }).catch(() => {});
+        setTimeout(() => (window.requestIdleCallback ? requestIdleCallback(loadFrames) : loadFrames()), 1500);
+
         let cap = -2;
         function applyStage(P, v, c) {
+            lastV = v; lastC = c; if (fIdx >= 0) placeFrame();
             // Etiket, mürekkep geçişi tablonun yarısını kapladığı anda ya da karanlığın en koyu anında değişir
             const s = uniforms.uB1.value < 0.5 ? 0 : P < SWITCH ? 1 : 2;
             const map = document.querySelector("[data-dive-map]");
@@ -365,7 +444,7 @@ void main() {
             // Durak başlığı: tutma aralığına girerken belirir, çıkarken kaybolur
             const ci = STOPS.findIndex(([a, b]) => P > a - 0.012 && P < b + 0.012);
             if (ci !== cap) {
-                cap = ci;
+                cap = ci; setFrame(ci);
                 document.querySelectorAll("[data-cap]").forEach((el) => el.classList.toggle("is-on", +el.dataset.cap === ci));
             }
             // İlerleme göstergesi "II / IX": geçilen durak sayısı
