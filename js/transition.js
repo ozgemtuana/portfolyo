@@ -79,6 +79,8 @@
        Perde kararır → saat zincirinin ucundan sallanır (sönümlenen sarkaç) → içerik arkada
        değişir → saat yukarı çekilip kaybolur. Yalnız transform/opacity; Web Animations API ile
        (Site.destroyPage gsap.globalTimeline.clear() yaptığı için GSAP burada kullanılmaz). */
+    // Ortak saat bileşeni: sayfa geçişi ve açılış (js/intro.js) aynı işaretlemeyi kullanır
+    window.PocketWatch = { html: '<div class="pw-hang"><div class="pw-swing"><img src="images/transition/pocket-watch.png" alt="" decoding="async"></div></div>' };
     const watch = (function () {
         let pw = null, hang = null, swing = null;
         const wait = (ms) => new Promise((r) => setTimeout(r, ms));
@@ -97,8 +99,7 @@
             pw = document.createElement("div");
             pw.className = "pw";
             pw.setAttribute("aria-hidden", "true");
-            pw.innerHTML = '<div class="pw-veil"></div><div class="pw-rings"><i></i><i></i><i></i></div>' +
-                '<div class="pw-hang"><div class="pw-swing"><img src="images/transition/pocket-watch.png" alt="" decoding="async"></div></div>';
+            pw.innerHTML = '<div class="pw-veil"></div><div class="pw-rings"><i></i><i></i><i></i></div>' + window.PocketWatch.html;
             document.body.appendChild(pw);
             hang = pw.querySelector(".pw-hang");
         };
@@ -145,6 +146,14 @@
         pages: PAGES
     };
 
+    // Açılış (js/intro.js): yalnız ilk girişte; perde üstünde açılır, yükleme arkada sürer.
+    // Hareket azaltılmışsa da gösterilir (tünel durağan, sade geçiş).
+    if (window.Intro && root.classList.contains("first-visit")) {
+        window.Intro.play().then(markReady);
+        requestAnimationFrame(() => hide());
+        return;
+    }
+
     // GSAP yok / hareket azaltılmış: açılış perdesi hemen kalkar; geçişte yalnız kararma/açılma
     if (!hasGSAP || reduceMotion) {
         hide();
@@ -152,19 +161,10 @@
         return;
     }
 
-    /* ---------- Zarf (js/envelope.js): yalnız ilk girişteki açılış davetiyesi ---------- */
-    if (window.Envelope) {
-        const E = window.Envelope;
-        const isFirst = root.classList.contains("first-visit");
-        if (isFirst) {
-            // Zarf perdenin üstünde açılır; yükleme arkada sessizce sürer
-            E.intro().then(markReady);
-            requestAnimationFrame(() => hide());
-        } else {
-            // Doğrudan açılış / yenileme: perde kısa bir solmayla kalkar
-            gsap.to(el, { opacity: 0, duration: 0.45, delay: 0.1, ease: "power1.out", onComplete: () => { hide(); el.style.opacity = ""; } });
-            setTimeout(markReady, 250);
-        }
+    /* ---------- Ana sayfa (açılış yok): perde kısa bir solmayla kalkar ---------- */
+    if (window.Intro) {
+        gsap.to(el, { opacity: 0, duration: 0.45, delay: 0.1, ease: "power1.out", onComplete: () => { hide(); el.style.opacity = ""; } });
+        setTimeout(markReady, 250);
         return;
     }
 
@@ -315,33 +315,12 @@
             // Damga basılır: hafif büyüyüp yerine oturur
             .fromTo(lilyEl, { scale: 1.12 }, { scale: 1, duration: 0.45, ease: "back.out(2.2)", transformOrigin: "50% 50%" }, ">")
             .to(bcountWrap, { opacity: 0, y: 10, duration: 0.35, ease: "power2.in" }, ">0.15")
-            .to(page === "home" && window.Intro ? bcountWrap : bloom, { opacity: 0, scale: page === "home" && window.Intro ? 1 : 1.08, duration: 0.5, ease: "power2.in" }, "<0.25")
+            .to(bloom, { opacity: 0, scale: 1.08, duration: 0.5, ease: "power2.in" }, "<0.25")
             .add(() => el.classList.add("is-named"));
-        if (page === "home" && window.Intro) {
-            // Ana sayfa: mühür basılınca "Gir" butonu; basınca müze kapıları açılır (js/intro.js)
-            tl.add(() => {
-                const btn = document.createElement("button");
-                btn.type = "button";
-                btn.className = "pt-enter";
-                btn.textContent = lang() === "en" ? "Enter" : "Gir";
-                bloom.appendChild(btn);
-                gsap.fromTo(btn, { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" });
-                btn.focus({ preventScroll: true });
-                btn.addEventListener("click", () => {
-                    btn.disabled = true;
-                    const p = window.Intro.play();
-                    // kapı sahnesi perdenin üstünde açılır; perde arkada sessizce kalkar
-                    setTimeout(() => { hide(); bloom.remove(); }, 600);
-                    p.then(markReady);
-                }, { once: true });
-            }, ">-0.2");
-            current = tl;
-        } else {
-            textIn(tl, ">-0.15");
-            tl.add(buildReveal(false), "+=0.12");
-            tl.add(() => bloom.remove());
-            current = tl;
-        }
+        textIn(tl, ">-0.15");
+        tl.add(buildReveal(false), "+=0.12");
+        tl.add(() => bloom.remove());
+        current = tl;
     } else {
         // Doğrudan açılış / yenileme: kısa başlık + açılış
         setText(info(page), words().now);

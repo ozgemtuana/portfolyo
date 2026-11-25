@@ -47,7 +47,7 @@
         cur = document.createElement("div");
         cur.className = "brush-cursor";
         cur.setAttribute("aria-hidden", "true");
-        cur.innerHTML = `<img src="public/assets/real/brush.png" alt="" onerror="this.remove()">` +
+        cur.innerHTML =
             // Geçici fırça: ahşap sap, pirinç bilezik, kıl uç (uç sol altta = imleç noktası)
             `<svg viewBox="0 0 120 120"><defs><linearGradient id="bw" x1="0" x2="1"><stop offset="0" stop-color="#5a3a1e"/><stop offset=".5" stop-color="#8a5a30"/><stop offset="1" stop-color="#4a2e16"/></linearGradient>` +
             `<linearGradient id="bf" x1="0" x2="1"><stop offset="0" stop-color="#8d7448"/><stop offset=".5" stop-color="#e9d39b"/><stop offset="1" stop-color="#7a6238"/></linearGradient></defs>` +

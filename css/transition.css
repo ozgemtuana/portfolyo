@@ -137,31 +137,6 @@ html.first-visit .pt:not(.is-named) .pt-word-in { visibility: hidden; }
 html.first-visit .pt-count { display: none; }
 .pt-content { z-index: 1; }
 
-/* --- Ana sayfa açılışı: "Gir" butonu ve müze kapıları (js/intro.js) --- */
-.pt-enter {
-    pointer-events: auto; margin-top: clamp(.4rem, 2vh, 1.2rem); min-width: 9rem; min-height: 48px; padding: .7rem 2.4rem;
-    font-family: var(--font-display); font-weight: 400; font-size: 1.05rem; letter-spacing: .42em; text-indent: .42em; text-transform: uppercase;
-    color: #ecd9a8; background: transparent; border: 1px solid rgba(201, 169, 110, .7); border-radius: 0; cursor: pointer;
-    transition: background .4s, color .4s, letter-spacing .4s;
-}
-.pt-enter:hover, .pt-enter:focus-visible { background: rgba(201, 169, 110, .14); color: #fff3d6; letter-spacing: .5em; outline: none; }
-.intro { position: fixed; inset: 0; z-index: 400; overflow: hidden; background: #0f0a06; perspective: 1700px; }
-.intro-hall { position: absolute; background-size: cover; background-position: center; will-change: transform; }
-.intro-front { position: absolute; inset: 0; will-change: transform, opacity; }
-.intro-wall { position: absolute; inset: 0; background: linear-gradient(rgba(20, 6, 6, .35), rgba(10, 4, 3, .55)), url("../images/scenes/damask.jpg") center top / 520px auto; }
-.intro-wall::after { content: ""; position: absolute; inset: 0; background: radial-gradient(ellipse 60% 70% at 50% 55%, transparent 30%, rgba(8, 4, 2, .75)); }
-.intro-door { position: absolute; left: 50%; bottom: 0; height: min(96vh, 96svh, 170vw); aspect-ratio: 1989 / 3630; transform: translateX(-50%); transform-style: preserve-3d; }
-.intro-frame { position: absolute; inset: 0; width: 100%; height: 100%; filter: drop-shadow(0 0 40px rgba(0, 0, 0, .6)); }
-.intro-leaf { position: absolute; top: 6.336%; height: 90.083%; width: 39.718%; transform-style: preserve-3d; }
-.intro-leaf img { width: 100%; height: 100%; display: block; box-shadow: 0 0 30px rgba(0, 0, 0, .5); }
-.intro-leaf--l { left: 10.558%; transform-origin: 0 50%; }
-.intro-leaf--r { left: 50.276%; transform-origin: 100% 50%; }
-.intro-skip {
-    position: absolute; right: clamp(1rem, 3vw, 2rem); bottom: clamp(1rem, 3vw, 2rem); min-height: 44px; padding: .5rem 1.2rem;
-    font-family: var(--font-body); font-size: .72rem; letter-spacing: .24em; text-transform: uppercase;
-    color: rgba(236, 217, 168, .85); background: rgba(15, 10, 6, .4); border: 1px solid rgba(201, 169, 110, .45); cursor: pointer;
-}
-
 /* --- Sayfa geçişi: hipnozcunun cep saati (mantık: js/transition.js) --- */
 .pw { position: fixed; inset: 0; z-index: 2000; visibility: hidden; pointer-events: none; overflow: hidden; }
 .pw.is-on { visibility: visible; pointer-events: all; cursor: progress; }

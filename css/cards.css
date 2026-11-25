@@ -63,6 +63,8 @@ body[data-page="projects"] h1 ~ .eyebrow, body[data-page="projects"] .eyebrow[da
     filter: drop-shadow(0 18px 20px rgba(10, 6, 2, .5)) drop-shadow(0 2px 3px rgba(10, 6, 2, .3));
 }
 
+.skills-panel, .col-lg-5 .card.rounded-4:first-child, .proc-card--wide { position: relative; }
+
 /* (b) Yırtık kenarlı krem kart */
 .int-card:nth-child(even), .proc-card:nth-child(4n+2), .proc-card:nth-child(4n+3), .list-card:nth-of-type(even),
 .timeline .card.rounded-4, .edu-list, .pagenav .pn-prev, .pf-card, .col-lg-5 .card.rounded-4, .flow-card, .mini-card {
@@ -76,13 +78,6 @@ body[data-page="projects"] h1 ~ .eyebrow, body[data-page="projects"] .eyebrow[da
 .timeline .card.rounded-4:nth-of-type(odd) { transform: rotate(-.5deg); }
 .timeline .card.rounded-4:nth-of-type(even) { transform: rotate(.4deg); }
 
-/* (c) Altın mandallı kart: mandal görseli gelince görünür (yoksa hiçbir şey çizilmez) */
-.skills-panel, .col-lg-5 .card.rounded-4:first-child, .proc-card--wide { position: relative; }
-.skills-panel::before, .col-lg-5 .card.rounded-4:first-child::before, .proc-card--wide::before {
-    content: ""; position: absolute; z-index: 3; top: calc(-1 * var(--lace-w) - 26px); left: 50%; width: 92px; height: 80px; transform: translateX(-50%) rotate(-2deg);
-    background: url("../public/assets/real/bulldog-clip-gold.png") center / contain no-repeat; pointer-events: none;
-}
-.col-lg-5 .card.rounded-4:first-child::before { top: -30px; }
 
 /* İç kutular (tarih kutusu, ders kutusu): dolu kutu yok, ince mürekkep çizgisi */
 .inner-box, .timeline .inner-box { background: none !important; border: 0 !important; border-left: 1px solid rgba(46, 36, 24, .45) !important; border-radius: 0 !important; padding: .2rem 0 .2rem 1rem !important; box-shadow: none !important; }

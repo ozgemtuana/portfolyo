@@ -1,0 +1,46 @@
+/* ==========================================================================
+   Açılış: zaman tüneli + cep saati (mantık: js/intro.js; saat bileşeni: js/transition.js, css/transition.css)
+   ========================================================================== */
+
+/* Sayfa yüklenirken (açılış gelmeden önce) perde koyu kahve */
+html.js .pt { background: #140c07; }
+html.js .pt .pt-svg, html.js .pt .pt-content, html.js .pt .pt-bloom { display: none !important; }
+
+.intro { position: fixed; inset: 0; z-index: 2000; overflow: hidden; background: radial-gradient(ellipse 80% 75% at 50% 45%, #2a1a0e 0%, #1a100a 55%, #0b0604 100%); color: #f3ead6; }
+.intro-zoom { position: absolute; inset: 0; transform-origin: 50% 50%; will-change: transform; }
+.intro-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 1.2s ease; filter: contrast(1.08) saturate(.9); }
+.intro-video.is-on { opacity: 1; }
+/* Sıcak kahve vinyet: kenarlar koyu, düşük çözünürlüğü gizler */
+.intro-vignette { position: absolute; inset: 0; pointer-events: none;
+    background: linear-gradient(to top, rgba(14, 7, 3, .78) 0, rgba(14, 7, 3, 0) 42%), radial-gradient(ellipse 70% 65% at 50% 45%, rgba(40, 22, 10, 0) 25%, rgba(24, 12, 5, .55) 70%, rgba(10, 5, 2, .92) 100%), linear-gradient(rgba(60, 34, 14, .22), rgba(60, 34, 14, .22)); }
+.intro-grain { position: absolute; inset: 0; pointer-events: none; opacity: .22; mix-blend-mode: overlay;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' seed='5'/%3E%3CfeColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 .9 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+/* Büyük Galeri (Hubert Robert) ve altın ışık: dalıştan sonra görünür */
+.intro-hall { position: absolute; inset: 0; background: center / cover no-repeat; opacity: 0; will-change: transform, opacity; }
+.intro-light { position: absolute; inset: 0; opacity: 0; pointer-events: none; will-change: opacity;
+    background: radial-gradient(circle at 50% 50%, #fff6d8 0%, #f3d28a 38%, #c9a96e 78%, #9a7a3e 100%); }
+
+/* Saat: ortak bileşen (.pw-hang/.pw-swing, css/transition.css) açılışta sahnede durur */
+.intro .pw-hang { display: block; top: 0; height: min(60vh, 640px); }
+@media (max-width: 575.98px) { .intro .pw-hang { height: 46vh; } }
+
+/* Alt yazılar */
+.intro-copy { position: absolute; left: 0; right: 0; bottom: clamp(2.4rem, 8vh, 5rem); z-index: 3; display: grid; justify-items: center; gap: .15rem; text-align: center; opacity: 0;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, .55), 0 0 22px rgba(20, 10, 4, .6); }
+.intro-over { margin: 0; font-family: var(--font-display); font-variant: small-caps; text-transform: lowercase; letter-spacing: .22em; font-size: clamp(1.05rem, 1.6vw, 1.4rem); }
+.intro-name { margin: 0 0 .7rem; font-family: var(--font-calli); font-size: clamp(2.6rem, 6.4vw, 5.2rem); line-height: 1.05; }
+.intro-name span { font-family: var(--font-display); font-style: italic; font-size: .78em; }
+/* "Gir": kâğıt etiket (hap değil) */
+.intro-enter { min-height: 48px; min-width: 8.5rem; padding: .55rem 2rem; cursor: pointer; border: 1px solid rgba(90, 60, 30, .5); border-radius: 2px; transform: rotate(-1.5deg);
+    font-family: var(--font-display); font-variant: small-caps; text-transform: lowercase; font-size: 1.3rem; letter-spacing: .24em; text-indent: .24em; color: #3b2514; text-shadow: none;
+    background: linear-gradient(rgba(246, 236, 212, .72), rgba(232, 214, 178, .78)), url("../images/textures/paper-aged.jpg") center / 420px, #ead9b6;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, .5), inset 0 0 0 3px rgba(246, 236, 212, .55); transition: transform .35s ease, box-shadow .35s ease; }
+.intro-enter:hover, .intro-enter:focus-visible { transform: rotate(0deg) translateY(-2px); box-shadow: 0 10px 22px rgba(0, 0, 0, .55), inset 0 0 0 3px rgba(246, 236, 212, .55); outline: none; }
+.intro-enter:disabled { cursor: default; }
+.intro-skip { position: absolute; right: clamp(1rem, 3vw, 2rem); bottom: clamp(1rem, 3vw, 2rem); z-index: 3; min-height: 44px; padding: .5rem 1rem; cursor: pointer;
+    font-family: var(--font-body); font-size: .72rem; letter-spacing: .24em; text-transform: uppercase; color: rgba(243, 234, 214, .8); background: none; border: 0; border-bottom: 1px solid rgba(243, 234, 214, .4); }
+.intro-skip:hover, .intro-skip:focus-visible { color: #fff; outline: none; }
+@media (max-width: 575.98px) {
+    .intro-copy { bottom: 4.4rem; }
+    .intro-name { font-size: clamp(2.3rem, 12vw, 3.2rem); }
+}
