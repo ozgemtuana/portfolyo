@@ -42,3 +42,20 @@ html.collage .shot, html.collage .post--brand .shot, html.collage .post--fashion
 html.collage .shot::before { content: ""; position: absolute; left: 50%; top: -11px; z-index: 2; width: 34px; height: 18px; margin-left: -17px; background: url("../images/lace/clip-gold.png") center / contain no-repeat; filter: drop-shadow(0 3px 2px rgba(0, 0, 0, .6)); }
 html.collage .shot img { object-fit: contain; background: rgba(58, 42, 27, .08); }
 html.collage .shot figcaption { font-family: "Caveat", cursive; font-size: 1.25rem; color: #4a2f1c; }
+
+/* ---------- Dantel makale levhası (9-dilim): blog yazıları ve Hakkımda uzun metin ---------- */
+html.collage body .post:not(#_):not(#_), html.collage body .about-text:not(#_):not(#_) { border: 80px solid transparent !important; border-image: url("../images/lace/doily.png") 118 fill / 80px round !important; border-radius: 0 !important; background: #efe6cf padding-box !important; box-shadow: none !important; overflow: visible !important;
+    padding: 0 6px 3rem !important; color: #33241a; filter: drop-shadow(0 18px 22px rgba(0, 0, 0, .7)); }
+html.collage body .post:not(#_):not(#_) { margin-left: -14px; margin-right: -14px; }
+@media (max-width: 767.98px) {
+    html.collage body .post:not(#_):not(#_), html.collage body .about-text:not(#_):not(#_) { border-width: 44px !important; border-image-width: 44px !important; padding: 0 !important; }
+    html.collage body .post:not(#_):not(#_) { margin-left: -6px; margin-right: -6px; }
+}
+
+/* ---------- Vesikalık: dantel örtü penceresinde, altın klipsle ---------- */
+html.collage .about-page .id-photo { position: relative; float: right; display: block; width: 150px !important; aspect-ratio: 654 / 954; height: auto; padding: 0 !important; margin: .2rem -.6rem 2.6rem 1.4rem !important;
+    background: url("../images/lace/doily.png") center / 100% 100% no-repeat !important; border: 0 !important; box-shadow: none !important; transform: rotate(2deg); filter: drop-shadow(0 8px 10px rgba(0, 0, 0, .45)); }
+html.collage .about-page .id-photo img { position: absolute !important; left: 15.2%; top: 12%; width: 70.2% !important; height: 79% !important; aspect-ratio: auto; object-fit: cover; object-position: 50% 30%; border: 0 !important; filter: none; box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .25); }
+html.collage .about-page .id-photo::before { content: ""; position: absolute; left: 50%; top: -5.5%; z-index: 3; width: 36%; height: 8%; transform: translateX(-50%); background: url("../images/lace/clip-gold.png") center / contain no-repeat; filter: drop-shadow(0 4px 3px rgba(0, 0, 0, .6)); pointer-events: none; }
+html.collage .about-page .id-photo figcaption { bottom: -3.6rem !important; font-family: "Caveat", cursive; color: #2b1d10 !important; font-size: 1.2rem; line-height: 1.05; white-space: normal !important; }
+html.collage .about-page .id-photo .id-name { font-family: "Caveat", cursive; font-weight: 600; font-size: 1.35rem; color: #7a1f1a !important; }
