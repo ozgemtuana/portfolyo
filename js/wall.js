@@ -93,24 +93,32 @@ window.Wall = (function () {
         const item = kind === "gallery" ? SITE.gallery[i] : SITE.projects[i];
         return { kind, n: i + 1, item, slug: a.dataset.slug };
     };
+    const WALLS = ["#7a1420", "#1f3a2a", "#1b2a4a", "#584208", "#3d2616"];
+    const STAND = `<svg viewBox="0 0 400 110" preserveAspectRatio="xMidYMax meet" aria-hidden="true"><defs><linearGradient id="brs" x1="0" x2="1"><stop offset="0" stop-color="#7a5a1c"/><stop offset=".45" stop-color="#f0d48a"/><stop offset="1" stop-color="#6b4e16"/></linearGradient></defs>` +
+        `<path d="M48 22 Q200 92 352 22" fill="none" stroke="#8a1c2a" stroke-width="7" stroke-linecap="round"/><path d="M48 22 Q200 92 352 22" fill="none" stroke="#d9b45a" stroke-width="1.5" stroke-dasharray="2 6" stroke-linecap="round" opacity=".7"/>` +
+        [48, 352].map((x) => `<g><ellipse cx="${x}" cy="104" rx="26" ry="6" fill="url(#brs)"/><rect x="${x - 4}" y="22" width="8" height="82" fill="url(#brs)"/><circle cx="${x}" cy="18" r="9" fill="url(#brs)"/></g>`).join("") + `</svg>`;
     function fill(a) {
         const { kind, n, item } = dataOf(a);
-        const gal = kind === "gallery";
+        const gal = kind === "gallery", L = lang();
+        det.style.setProperty("--dw", WALLS[cur % WALLS.length]);
         const img = det.querySelector(".wall-pic img"), frame = det.querySelector(".wall-frame");
-        const src = item.detailImage || item.image;
-        img.src = src;
+        img.src = item.detailImage || item.image;
         img.alt = tt(gal ? `g.${n}.alt` : `p.${n}.t`);
         const done = () => setShape(frame, img);
         if (img.complete && img.naturalWidth) done(); else img.onload = done;
-        const info = det.querySelector(".wall-info");
+        const title = tt(gal ? `g.${n}.place` : `p.${n}.t`);
+        const tag = gal ? tt("nav.gallery") : tt(`p.${n}.tag`);
+        // Metin: içerikteki "detailText" (TR/EN), yoksa mevcut açıklama
+        const dt = item.detailText && (item.detailText[L] || item.detailText.tr);
+        const paras = Array.isArray(dt) && dt.length ? dt : [tt(gal ? `g.${n}.cap` : `p.${n}.d`)];
         const link = !gal && item.link ? item.link : "";
-        const ext = /^https?:/i.test(link);
-        info.innerHTML = gal
-            ? `<small>${esc(tt(`g.${n}.place`))}</small><h2>${esc(tt(`g.${n}.place`))}</h2><p>${esc(tt(`g.${n}.cap`))}</p>`
-            : `<small>${esc(tt(`p.${n}.tag`))}</small><h2>${esc(tt(`p.${n}.t`))}</h2><p>${esc(tt(`p.${n}.d`))}</p>` +
-              (item.rights ? `<p class="p-rights">${esc(tt("p.rights"))}</p>` : "") +
-              (link ? `<a class="btn btn-outline-dark sc-link" href="${esc(link)}"${ext ? ' target="_blank" rel="noopener"' : ""}>${esc(tt("projects.view"))}</a>` : "");
-        det.setAttribute("aria-label", tt(gal ? `g.${n}.place` : `p.${n}.t`));
+        det.querySelector(".wd-title").textContent = title;
+        det.querySelector(".wd-tag").textContent = tag;
+        det.querySelector(".wd-body").innerHTML = paras.map((t) => `<p>${esc(t)}</p>`).join("") +
+            (!gal && item.rights ? `<p class="p-rights">${esc(tt("p.rights"))}</p>` : "") +
+            (link ? `<a class="wd-btn" href="${esc(link)}"${/^https?:/i.test(link) ? ' target="_blank" rel="noopener"' : ""}>${esc(tt("projects.view"))}</a>` : "");
+        det.querySelector(".wd-plate").innerHTML = `<b>${esc(title)}</b>` + (tag ? `<span>${esc(tag)}</span>` : "");
+        det.setAttribute("aria-label", title);
         det.querySelector(".wall-nav--prev").hidden = cur <= 0;
         det.querySelector(".wall-nav--next").hidden = cur >= arts.length - 1;
         meta(a);
@@ -155,8 +163,12 @@ window.Wall = (function () {
         saveMeta();
         det = document.createElement("div");
         det.className = "wall-detail"; det.setAttribute("role", "dialog"); det.setAttribute("aria-modal", "true");
-        det.innerHTML = `<div class="wall-detail-bg"></div><div class="wall-detail-in"><span class="wall-frame wall-frame--landscape"><span class="wall-shadow"></span><span class="wall-pic"><img alt="" decoding="async"></span><img class="wall-fr" src="${FRAMES.landscape}" alt="" aria-hidden="true"><span class="wall-glint"></span></span><div class="wall-info"></div></div>` +
-            `<button type="button" class="wall-x" aria-label="${esc(tt("cta.close") || (lang() === "en" ? "Close" : "Kapat"))}">&times;</button>` +
+        det.innerHTML = `<div class="wd-room"></div><div class="wall-detail-in">` +
+            `<header class="wd-head wd-fade"><h2 class="wd-title"></h2><i class="wd-rule"></i></header>` +
+            `<div class="wd-stage"><p class="wd-tag wd-fade"></p><div class="wd-hang"><span class="wall-frame wall-frame--landscape"><span class="wall-shadow"></span><span class="wall-pic"><img alt="" decoding="async"></span><img class="wall-fr" src="${FRAMES.landscape}" alt="" aria-hidden="true"><span class="wall-glint"></span></span><div class="wd-plate wd-fade"></div></div><div class="wd-stand wd-fade">${STAND}</div></div>` +
+            `<div class="wd-body wd-fade"></div></div>` +
+            `<button type="button" class="wall-back">${lang() === "en" ? "Back to the wall" : "Duvara dön"}</button>` +
+            `<button type="button" class="wall-x" aria-label="${lang() === "en" ? "Close" : "Kapat"}">&times;</button>` +
             `<button type="button" class="wall-nav wall-nav--prev" aria-label="${lang() === "en" ? "Previous" : "Önceki"}">&larr;</button><button type="button" class="wall-nav wall-nav--next" aria-label="${lang() === "en" ? "Next" : "Sonraki"}">&rarr;</button>`;
         document.body.appendChild(det);
         document.documentElement.style.overflow = "hidden";
@@ -164,20 +176,22 @@ window.Wall = (function () {
         fill(a);
         if (push) history.pushState({ wall: i }, "", root.dataset.page + "?p=" + a.dataset.slug);
         det.querySelector(".wall-x").addEventListener("click", () => close(true));
+        det.querySelector(".wall-back").addEventListener("click", () => close(true));
         det.querySelector(".wall-nav--prev").addEventListener("click", () => step(-1));
         det.querySelector(".wall-nav--next").addEventListener("click", () => step(1));
-        const frame = det.querySelector(".wall-frame"), bg = det.querySelector(".wall-detail-bg"), info = det.querySelector(".wall-info");
+        const frame = det.querySelector(".wall-frame"), bg = det.querySelector(".wd-room"), info = det.querySelectorAll(".wd-fade");
         const src = a.querySelector(".wall-frame");
         const fin = () => { det.classList.add("is-ready"); det.querySelector(".wall-x").focus({ preventScroll: true }); };
         if (instant || reduce()) {
-            bg.style.opacity = 1; info.style.opacity = 1; fin();
+            bg.style.opacity = 1; info.forEach((e) => (e.style.opacity = 1)); fin();
         } else {
             const from = src.getBoundingClientRect();
             src.style.visibility = "hidden";
             requestAnimationFrame(() => {
                 bg.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 700, easing: "ease", fill: "both" });
                 flip(frame, from, 700);
-                info.animate([{ opacity: 0, transform: "translateY(12px)" }, { opacity: 1, transform: "none" }], { duration: 500, delay: 450, easing: "ease-out", fill: "both" }).finished.then(fin, fin);
+                const anims = [...info].map((e) => { e.style.opacity = ""; return e.animate([{ opacity: 0, transform: "translateY(12px)" }, { opacity: 1, transform: "none" }], { duration: 500, delay: 450, easing: "ease-out", fill: "both" }); });
+                Promise.all(anims.map((x) => x.finished)).then(fin, fin);
             });
         }
     }
@@ -211,9 +225,9 @@ window.Wall = (function () {
         };
         if (!animate || reduce() || !a) return done();
         const frame = d.querySelector(".wall-frame"), r = a.querySelector(".wall-frame").getBoundingClientRect();
-        d.querySelectorAll(".wall-x,.wall-nav,.wall-info").forEach((e) => (e.style.opacity = 0));
+        d.querySelectorAll(".wall-x,.wall-nav,.wall-back,.wd-fade").forEach((e) => (e.style.opacity = 0));
         flip(frame, r, 550, true);
-        d.querySelector(".wall-detail-bg").animate([{ opacity: 1 }, { opacity: 0 }], { duration: 550, fill: "both" }).finished.then(done, done);
+        d.querySelector(".wd-room").animate([{ opacity: 1 }, { opacity: 0 }], { duration: 550, fill: "both" }).finished.then(done, done);
     }
 
     // Adres çubuğu / geri tuşu

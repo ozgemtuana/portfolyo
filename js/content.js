@@ -655,6 +655,7 @@ window.SITE_CONTENT = {
             },
             "image": "images/projects/vanilla-cola.jpg",
             "detailImage": "",
+            "detailText": {"tr": ["Vanilla Coca-Cola için bir ürün tanıtım görseli hazırladım. Sahnede akışkan çizgiler ve ürünün altında bir yansıma var.", "Bu, Grafik Animasyon dersinde hazırladığım işlerden biri. Ürünü öne çıkaran sade bir sahne kurmayı ve yansımayla derinlik vermeyi denedim."], "en": ["I made a product promotion visual for Vanilla Coca-Cola. The scene has flowing lines and a reflection beneath the product.", "It is one of the pieces I made in the Graphic Animation course. I tried building a clean stage that puts the product first and adding depth with a reflection."]},
             "art": "",
             "link": "",
             "featured": true,
@@ -675,6 +676,7 @@ window.SITE_CONTENT = {
             },
             "image": "images/projects/history-brush.jpg",
             "detailImage": "",
+            "detailText": {"tr": ["Photoshop'un History Brush aracıyla siyah-beyaz bir sahnede yalnızca tek karakteri renkli bıraktım.", "Dikkati tek bir noktaya toplamak için renk ile renksizlik arasındaki karşıtlıktan yararlandım. Bu bir ders çalışması; karakter hakları Marvel'a aittir."], "en": ["With Photoshop's History Brush I left only one character in colour on a black-and-white scene.", "I used the contrast between colour and no colour to draw attention to a single point. This is a coursework piece; the character rights belong to Marvel."]},
             "art": "",
             "link": "",
             "rights": "marvel",
@@ -696,6 +698,7 @@ window.SITE_CONTENT = {
             },
             "image": "images/projects/proje3.jpg",
             "detailImage": "",
+            "detailText": {"tr": ["Photoshop'ta siyah çizgilerden oluşan bir çizimi baştan sona renklendirdim. Çizgi roman havasını koruyan kırmızı tonlar kullandım.", "Karakterin çevresine parlayan bir enerji efekti ekledim. Bu bir ders çalışması; karakter hakları Marvel'a aittir."], "en": ["In Photoshop I coloured a black line drawing from start to finish, using reds that keep the comic-book feel.", "I added a glowing energy effect around the character. This is a coursework piece; the character rights belong to Marvel."]},
             "art": "",
             "link": "",
             "rights": "marvel",
@@ -717,6 +720,7 @@ window.SITE_CONTENT = {
             },
             "image": "images/projects/proje4-gunes-sistemi.jpg",
             "detailImage": "",
+            "detailText": {"tr": ["Photoshop Smart Object özelliğiyle bir güneş sistemi hazırladım. Gezegenleri akıllı nesne olarak yerleştirdim.", "Yörüngeleri çizdim ve sahneyi yıldızlı bir arka planla tamamladım. Akıllı nesneler sayesinde gezegenleri sonradan da düzenleyebildim."], "en": ["I built a solar system with Photoshop's Smart Object feature. The planets are placed as smart objects.", "I drew the orbits and finished the scene with a starry background. Smart objects let me edit the planets again later."]},
             "art": "",
             "link": "",
             "featured": true,
@@ -737,6 +741,7 @@ window.SITE_CONTENT = {
             },
             "image": "images/projects/proje5-image-stack.jpg",
             "detailImage": "",
+            "detailText": {"tr": ["Antalya'da bir üst geçitten aynı açıyla 20 gece fotoğrafı çektim.", "Bunları Photoshop'ta yığına yükleyip Ortanca (Median) yığın moduyla birleştirdim. Geçen arabalar kayboldu ve cadde boş kaldı; böylece aynı karelerin ortak kısmını seçmeyi öğrendim."], "en": ["I took 20 night photos from the same angle on an overpass in Antalya.", "I loaded them into a Photoshop stack and merged them with the Median stack mode. The passing cars disappeared and the street was left empty; I learned how to keep what the frames have in common."]},
             "art": "",
             "link": "",
             "featured": true,
@@ -757,6 +762,7 @@ window.SITE_CONTENT = {
             },
             "image": "images/projects/proje6-web-arayuzu.jpg",
             "detailImage": "",
+            "detailText": {"tr": ["zizibeach.com sitesinin arayüzünü Photoshop'ta yeniden tasarladım. Çalışmayı 960 Grid System şablonu üzerinde kurdum.", "Layer Comps ile üç farklı yerleşim hazırladım. Böylece aynı tasarımın alternatiflerini tek dosyada karşılaştırabildim."], "en": ["I redesigned the interface of zizibeach.com in Photoshop, building it on the 960 Grid System template.", "With Layer Comps I prepared three different layouts, so I could compare alternatives of the same design in a single file."]},
             "art": "",
             "link": "",
             "featured": true,
@@ -1732,6 +1738,7 @@ window.SITE_CONTENT = {
         {
             "image": "images/gallery/side.jpg",
             "detailImage": "",
+            "detailText": {"tr": ["Gün batımında, Side'deki antik sütunların önünde taş bir duvara oturdum. Tarihin içinde yürümek bana hep ilham verir."], "en": ["At sunset I sat on a stone wall in front of the ancient columns in Side. Walking through history always inspires me."]},
             "place": {
                 "tr": "Side, Antalya",
                 "en": "Side, Antalya"
@@ -1748,6 +1755,7 @@ window.SITE_CONTENT = {
         {
             "image": "images/gallery/dogum-gunu.jpg",
             "detailImage": "",
+            "detailText": {"tr": ["Doğum günü pastasındaki mumları üflemeden hemen önceki an: gözler kapalı, bir dilek tutuluyor."], "en": ["The moment just before blowing out the birthday candles: eyes closed, making a wish."]},
             "place": {
                 "tr": "Doğum günü",
                 "en": "Birthday"
@@ -1764,6 +1772,7 @@ window.SITE_CONTENT = {
         {
             "image": "images/gallery/kaleici.jpg",
             "detailImage": "",
+            "detailText": {"tr": ["Kaleiçi'nin taş sokaklarında akşam yürüyüşü. Çini süslemeli taş bir kapının önünde durup yukarı baktım; her kapının bir hikâyesi var."], "en": ["An evening walk through the stone streets of Kaleiçi. I stopped in front of a stone doorway with tile decoration and looked up; every door has a story."]},
             "place": {
                 "tr": "Kaleiçi, Antalya",
                 "en": "Kaleiçi, Antalya"
@@ -1780,6 +1789,7 @@ window.SITE_CONTENT = {
         {
             "image": "images/gallery/istanbul.jpg",
             "detailImage": "",
+            "detailText": {"tr": ["İstanbul'da tarihi bir binanın duvarına yaslanıp yukarı baktığım bir kare. Sokaklar ve binalar arasında kendime yer bulduğum anlardan biri."], "en": ["A frame of me leaning on the wall of a historic building in Istanbul, looking up. One of those moments of finding my place between streets and buildings."]},
             "place": {
                 "tr": "İstanbul",
                 "en": "Istanbul"
@@ -1796,6 +1806,7 @@ window.SITE_CONTENT = {
         {
             "image": "images/gallery/spor.jpg",
             "detailImage": "",
+            "detailText": {"tr": ["Spor salonunun soyunma odasında aynadan çekilmiş bir kare. Spor benim için günün ritmi: disiplin ve enerji."], "en": ["A mirror shot in the gym's changing room. Sport is the rhythm of my day: discipline and energy."]},
             "place": {
                 "tr": "Spor",
                 "en": "Sport"
