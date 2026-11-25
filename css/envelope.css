@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Zarf: açılış davetiyesi ve sayfa geçişleri (js/envelope.js, references/26)
+   Zarf: açılış davetiyesi (js/envelope.js, references/26)
    Kadife/keten dokusu: gerçek fotoğraf (public/assets/real/envelope-green-velvet.jpg) yoksa
    SVG gürültü + ince dokuma çizgileriyle üretilir. Dantel: Met dantel kâğıdı (CC0).
    ========================================================================== */
@@ -21,18 +21,12 @@ html.js .pt { background: var(--env-green); }
 html.js .pt .pt-svg, html.js .pt .pt-content, html.js .pt .pt-bloom { display: none !important; }
 
 .env-stage { position: fixed; inset: 0; z-index: 2000; display: grid; place-items: center; overflow: hidden; perspective: 1600px; }
-.env-stage--intro { background: radial-gradient(ellipse at 50% 55%, #3f4428, #262916 75%); }.env-stage--tx { background: radial-gradient(ellipse at 50% 55%, rgba(28, 24, 16, .55), rgba(16, 13, 8, .82)); pointer-events: all; }
+.env-stage--intro { background: radial-gradient(ellipse at 50% 55%, #3f4428, #262916 75%); }
 
 /* ---------- Zarf ---------- */
 .env { --apex: 58%; position: relative; transform-style: preserve-3d; }
 .env--full { position: absolute; inset: 0; width: 100%; height: 100%; cursor: pointer; }
-.env--mini { --apex: 54%; width: min(560px, 82vw); aspect-ratio: 3 / 2; }
-/* Kapak bükülürken üstünden geçen ışık (kâğıt/kadife parlaması) */
-.env-flap-shine { position: absolute; inset: 0; opacity: 0; pointer-events: none; z-index: 1;
-    background: linear-gradient(170deg, rgba(255, 250, 230, 0) 20%, rgba(255, 250, 230, .55) 48%, rgba(255, 250, 230, 0) 72%); mix-blend-mode: soft-light; }
-.env--mini .env-pocket::after { background: radial-gradient(ellipse 80% 70% at 40% 30%, rgba(255, 248, 225, .12), transparent 60%), radial-gradient(ellipse 70% 60% at 50% 60%, transparent 40%, rgba(10, 8, 4, .38)); }
 .env--full::before { content: ""; position: absolute; inset: 4% 2% -3%; z-index: 0; background: rgba(0, 0, 0, .6); filter: blur(30px); }
-.env--mini::before { content: ""; position: absolute; inset: 6% 3% -4%; z-index: 0; background: rgba(0, 0, 0, .55); filter: blur(18px); border-radius: 8px; }
 .env > * { position: absolute; }
 .env-liner { inset: 0; clip-path: polygon(0 0, 100% 0, 50% var(--apex)); background:
     linear-gradient(rgba(0, 0, 0, .28), rgba(0, 0, 0, .05) 70%), var(--velvet-noise), linear-gradient(#e9dfc8, #dacdaf); z-index: 1; }
@@ -49,15 +43,12 @@ html.js .pt .pt-svg, html.js .pt .pt-content, html.js .pt .pt-bloom { display: n
     filter: drop-shadow(0 4px 4px rgba(0, 0, 0, .35)); pointer-events: none; }
 .env-lace.l { left: 0; transform-origin: 0 0; }
 .env-lace.r { right: 0; transform-origin: 100% 0; }
-.env--mini .env-lace { height: 24px; }
 /* Kartın içi: dantel kenarlı krem kart */
 .env-card { left: 50%; top: 18%; width: 62%; height: 72%; margin-left: -31%; z-index: 2; transform-origin: 50% 40%; }
 .env-card-in { position: absolute; inset: 0; border: clamp(14px, 2.4vw, 30px) solid transparent; border-image: url("../images/textures/lace-border.webp") 150 / clamp(14px, 2.4vw, 30px) round;
     background: linear-gradient(rgba(246, 239, 224, .62), rgba(238, 228, 206, .62)) padding-box, url("../images/textures/paper-aged.jpg") center / 600px padding-box, #efe5d1; background-clip: padding-box; }
-.env--mini .env-card-in { border-width: 8px; border-image-width: 8px; }
 /* Mühür */
 .env-seal { left: 50%; top: var(--apex); z-index: 5; width: clamp(110px, 13vw, 168px); aspect-ratio: 240 / 300; transform: translate(-50%, -50%); }
-.env--mini .env-seal { width: 64px; }
 .env-seal-real { position: absolute; inset: -6%; width: 112%; height: 112%; object-fit: contain; z-index: 2; }
 .env-half { position: absolute; inset: 0; }
 .env-half svg { width: 100%; height: 100%; display: block; overflow: visible; }
@@ -66,14 +57,6 @@ html.js .pt .pt-svg, html.js .pt .pt-content, html.js .pt .pt-bloom { display: n
 .env-crumbs { position: absolute; left: 50%; top: 50%; width: 0; height: 0; }
 .env-crumbs i { position: absolute; left: 0; top: 0; border-radius: 40% 60% 45% 55%; background: linear-gradient(135deg, #fffdf6, #d9d1bf); box-shadow: 0 1px 2px rgba(0, 0, 0, .3); opacity: 0; }
 
-/* Varyantlar */
-.env--cream .env-pocket { background: var(--env-cream); }
-.env--cream .env-flap-front { background: var(--env-cream); }
-.env--kraft .env-pocket, .env--kraft .env-flap-front { background: var(--env-kraft); }
-.env--kraft .env-lace { display: none; }
-.env--white .env-pocket, .env--white .env-flap-front { background: var(--env-white); }
-.env--white .env-lace { background: radial-gradient(circle at 50% 0, #f7f3ea 62%, transparent 64%) 0 0 / 14px 100% repeat-x; filter: drop-shadow(0 2px 2px rgba(0, 0, 0, .25)); height: 9px; }
-.env--white .env-pocket::after, .env--cream .env-pocket::after { background: radial-gradient(ellipse 70% 60% at 50% 60%, transparent 50%, rgba(60, 40, 20, .2)); }
 
 /* ---------- Açılış yazıları ---------- */
 .env-copy { position: absolute; left: 50%; top: calc(58% * .42); transform: translate(-50%, -50%); z-index: 6; text-align: center; pointer-events: none; color: #f3ead6;

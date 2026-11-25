@@ -1,12 +1,9 @@
 /* ==========================================================================
-   Zarf: açılış davetiyesi ve sayfa geçişleri (references/26)
+   Zarf: açılış davetiyesi (references/26). Sayfa geçişi artık cep saati: js/transition.js
    - Açılış (ilk giriş): ekranı dolduran zeytin yeşili kadife zarf, kapakta krem dantel şerit,
      ortada krem oval kabartma mühür (zambak + TD). "Davetiyeyi aç"a tıklayınca / kaydırınca:
      mühür çatlar ve kırıntılar saçılır → kapak 3D açılır → dantel kenarlı kart kayarak çıkar →
      kart büyüyüp ekranı doldurur → sayfa (Panini galerisi) belirir. Yükleme arkada sessizce sürer.
-   - Sayfa geçişi (≤1,2 sn): küçük zarf kayarak gelir, kapak kapanır, mühür basılır (leave);
-     yeni sayfada mühür çatlar, kapak açılır, kart büyüyüp sayfa çıkar (reveal).
-     Sayfaya göre zarf: yeşil kadife (genel), krem dantelli (Hakkımda), kahve (Projeler), beyaz dalgalı (İletişim).
    - Gerçek görseller (public/assets/real/envelope-green-velvet.jpg, wax-seal-cream-oval.png) varsa onlar kullanılır;
      yoksa kadife dokusu ve mühür kodla üretilir.
    ========================================================================== */
@@ -19,8 +16,6 @@
         tr: { over: "Bir portfolyo", open: "Davetiyeyi aç" },
         en: { over: "A portfolio", open: "Open the invitation" }
     };
-    const VARIANT = { about: "cream", projects: "kraft", contact: "white" };
-    const variantOf = (key) => VARIANT[key] || "green";
 
     /* ---------- Mühür (SVG): düzensiz mum kenarı, kabartma oval halka, zambak ve TD ---------- */
     let sid = 0;
@@ -48,14 +43,14 @@
     /* ---------- Zarf DOM'u ---------- */
     function buildEnvelope(variant, full) {
         const env = document.createElement("div");
-        env.className = `env env--${variant} ${full ? "env--full" : "env--mini"}`;
+        env.className = `env env--${variant} ${full ? "env--full" : ""}`;
         env.setAttribute("aria-hidden", "true");
         const seal = sealSVG();
         env.innerHTML =
             `<div class="env-liner"></div>` +
             `<div class="env-card"><div class="env-card-in"></div></div>` +
             `<div class="env-pocket"><i class="env-folds"></i></div>` +
-            `<div class="env-flap"><div class="env-flap-front"><i class="env-flap-shine"></i></div><div class="env-flap-back"></div><i class="env-lace l"></i><i class="env-lace r"></i></div>` +
+            `<div class="env-flap"><div class="env-flap-front"></div><div class="env-flap-back"></div><i class="env-lace l"></i><i class="env-lace r"></i></div>` +
             `<div class="env-seal"><img class="env-seal-real" src="public/assets/real/wax-seal-cream-oval.png" alt="" onerror="this.remove()">` +
                 `<div class="env-half l">${seal}</div><div class="env-half r">${seal}</div><div class="env-crumbs"></div></div>`;
         return env;
@@ -155,65 +150,5 @@
         });
     }
 
-    /* ---------- Sayfa geçişi ---------- */
-    let stage = null;
-    function stageFor(key) {
-        if (stage) stage.remove();
-        stage = document.createElement("div");
-        stage.className = "env-stage env-stage--tx";
-        const env = buildEnvelope(variantOf(key), false);
-        stage.appendChild(env);
-        document.body.appendChild(stage);
-        layout(env);
-        return env;
-    }
-    // Ayrılış: arka plan kararır, küçük zarf (kapağı açık, içinde kart) kayarak gelir, kapak kapanır, mühür basılır
-    function leave(key) {
-        return new Promise((resolve) => {
-            if (reduce || !hasGSAP) return resolve();
-            const env = stageFor(key), q = (s) => env.querySelector(s);
-            gsap.set(q(".env-flap"), { rotateX: 178, zIndex: 1 });
-            gsap.set(q(".env-seal"), { opacity: 0, scale: 1.7 });
-            gsap.set(q(".env-card"), { yPercent: -24, rotate: -2 });
-            const tl = gsap.timeline();
-            if (innerWidth < 768) tl.timeScale(1.25);
-            // Zarf hafif bir yay çizerek masaya süzülür, kart içine kayar, kapak kâğıt gibi bükülerek kapanır ve oturur, mühür basılır
-            tl.fromTo(stage, { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power1.out" }, 0)
-                .fromTo(env, { yPercent: 55, xPercent: -6, rotate: -7, opacity: 0 }, { yPercent: 0, xPercent: 0, rotate: -1.2, opacity: 1, duration: 0.42, ease: "power3.out" }, 0)
-                .to(q(".env-card"), { yPercent: 0, rotate: 0, duration: 0.26, ease: "power2.inOut" }, 0.14)
-                .set(q(".env-flap"), { zIndex: 4 }, 0.36)
-                .to(q(".env-flap"), { keyframes: [{ rotateX: 96, skewX: -3, scaleY: 0.93, duration: 0.14, ease: "power1.in" }, { rotateX: -6, skewX: 1, scaleY: 1.02, duration: 0.14, ease: "power2.out" }, { rotateX: 0, skewX: 0, scaleY: 1, duration: 0.08, ease: "sine.out" }] }, 0.22)
-                .to(q(".env-flap-shine"), { keyframes: [{ opacity: 0.55, duration: 0.14 }, { opacity: 0, duration: 0.16 }] }, 0.22)
-                .to(q(".env-seal"), { keyframes: [{ opacity: 1, scale: 0.92, duration: 0.08, ease: "power2.in" }, { scale: 1, duration: 0.08, ease: "back.out(3)" }] }, 0.5)
-                .call(resolve, null, 0.62);
-        });
-    }
-    // Varış: mühür çatlar, kapak açılır, kart çıkıp ekranı doldurur, yeni sayfa görünür
-    function reveal(key) {
-        return new Promise((resolve) => {
-            if (reduce || !hasGSAP) { if (stage) stage.remove(); return resolve(); }
-            const env = stage && stage.querySelector(".env") ? stage.querySelector(".env") : stageFor(key);
-            if (!stage.style.opacity) gsap.set(stage, { opacity: 1 });
-            const q = (s) => env.querySelector(s);
-            if (!q(".env-seal").style.opacity) { gsap.set(q(".env-flap"), { rotateX: 0, zIndex: 4 }); gsap.set(q(".env-seal"), { opacity: 1 }); }
-            const bits = crumbs(env, 6);
-            const tl = gsap.timeline({ onComplete: () => { if (stage) { stage.remove(); stage = null; } } });
-            tl.timeScale(innerWidth < 768 ? 1.4 : 1.15);   // toplam geçiş ~1,3 sn, telefonda ~1 sn
-            // Katmanlı akış: önce mühür çatlar → kapak kâğıt gibi bükülerek açılır → kart hafifçe yükselip döner → tek hareketle büyüyüp ekranı doldurur → yeni sayfa
-            tl.to(q(".env-half.l"), { x: -12, y: 10, rotate: -22, opacity: 0, duration: 0.26, ease: "power2.in" }, 0)
-                .to(q(".env-half.r"), { x: 12, y: 11, rotate: 20, opacity: 0, duration: 0.26, ease: "power2.in" }, 0.02);
-            bits.forEach((b, i) => tl.fromTo(b, { opacity: 1 }, { x: (i - 2.5) * 16, y: 30 + Math.random() * 22, rotate: Math.random() * 200, opacity: 0, duration: 0.42, ease: "power2.out" }, 0.03));
-            tl.to(q(".env-flap"), { keyframes: [{ rotateX: 70, skewX: -3, scaleY: 0.94, duration: 0.16, ease: "power1.in" }, { rotateX: 186, skewX: 1.5, scaleY: 1, duration: 0.18, ease: "power2.out" }, { rotateX: 178, skewX: 0, duration: 0.12, ease: "sine.inOut" }] }, 0.14)
-                .to(q(".env-flap-shine"), { keyframes: [{ opacity: 0.6, duration: 0.16 }, { opacity: 0, duration: 0.2 }] }, 0.14)
-                .set(q(".env-flap"), { zIndex: 1 }, 0.3)
-                .to(q(".env-card"), { yPercent: -58, rotate: 2.5, duration: 0.3, ease: "power2.out" }, 0.32)
-                .set(q(".env-card"), { zIndex: 6 }, 0.5)
-                .to(q(".env-card"), { scale: 5.2, yPercent: -32, rotate: 0, duration: 0.34, ease: "power3.inOut" }, 0.5)
-                .to([q(".env-pocket"), q(".env-flap"), q(".env-liner")], { opacity: 0, duration: 0.22, ease: "power1.in" }, 0.56)
-                .call(resolve, null, 0.6)
-                .to(stage, { opacity: 0, duration: 0.24, ease: "power1.inOut" }, 0.66);
-        });
-    }
-
-    window.Envelope = { intro, leave, reveal, variantOf };
+    window.Envelope = { intro };
 })();

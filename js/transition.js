@@ -75,20 +75,87 @@
 
     if (!el) { markReady(); return; }
 
-    // GSAP yok / hareket azaltılmış: perdeyi kaldır, bağlantılar normal çalışsın
+    /* ---------- Sayfa geçişi: hipnozcunun sallanan cep saati ----------
+       Perde kararır → saat zincirinin ucundan sallanır (sönümlenen sarkaç) → içerik arkada
+       değişir → saat yukarı çekilip kaybolur. Yalnız transform/opacity; Web Animations API ile
+       (Site.destroyPage gsap.globalTimeline.clear() yaptığı için GSAP burada kullanılmaz). */
+    const watch = (function () {
+        let pw = null, hang = null, swing = null;
+        const wait = (ms) => new Promise((r) => setTimeout(r, ms));
+        const HANG = "translateX(-50%)";
+        // Sarkaç: ±28° → -18° → 9° → -3° → 0 (her yön değişiminde ease-in-out)
+        const SWING = [
+            { transform: "rotate(0deg)", offset: 0, easing: "cubic-bezier(.2,.6,.4,1)" },
+            { transform: "rotate(28deg)", offset: 0.1786, easing: "cubic-bezier(.45,.05,.55,.95)" },
+            { transform: "rotate(-18deg)", offset: 0.4643, easing: "cubic-bezier(.45,.05,.55,.95)" },
+            { transform: "rotate(9deg)", offset: 0.6964, easing: "cubic-bezier(.45,.05,.55,.95)" },
+            { transform: "rotate(-3deg)", offset: 0.875, easing: "cubic-bezier(.45,.05,.55,.95)" },
+            { transform: "rotate(0deg)", offset: 1 }
+        ];
+        const build = () => {
+            if (pw) return;
+            pw = document.createElement("div");
+            pw.className = "pw";
+            pw.setAttribute("aria-hidden", "true");
+            pw.innerHTML = '<div class="pw-veil"></div><div class="pw-rings"><i></i><i></i><i></i></div>' +
+                '<div class="pw-hang"><div class="pw-swing"><img src="images/transition/pocket-watch.png" alt="" decoding="async"></div></div>';
+            document.body.appendChild(pw);
+            hang = pw.querySelector(".pw-hang");
+        };
+        const finish = () => {
+            pw.getAnimations({ subtree: true }).forEach((a) => a.cancel());
+            pw.classList.remove("is-on", "is-closed");
+            swing = null;
+        };
+        const leave = () => {
+            build();
+            pw.classList.add("is-on");
+            void pw.offsetWidth;
+            pw.classList.add("is-closed");
+            if (reduceMotion) return wait(260);
+            hang.animate([{ transform: HANG + " translateY(-105%)", opacity: 0 }, { transform: HANG, opacity: 1 }],
+                { duration: 350, easing: "cubic-bezier(.22,.61,.36,1)", fill: "forwards" });
+            swing = pw.querySelector(".pw-swing").animate(SWING, { duration: 1120, delay: 100, fill: "forwards" });
+            return wait(420); // perde tamamen kapalı, saat sallanırken içerik değişir
+        };
+        const reveal = () => new Promise((resolve) => {
+            if (!pw) return resolve();
+            const open = () => {
+                pw.classList.remove("is-closed");
+                if (reduceMotion) { setTimeout(resolve, 100); setTimeout(finish, 320); return; }
+                hang.animate([{ transform: HANG, opacity: 1 }, { transform: HANG + " translateY(-28%)", opacity: 0 }],
+                    { duration: 400, easing: "cubic-bezier(.5,0,.75,0)", fill: "forwards" }).finished.then(finish, finish);
+                setTimeout(resolve, 120); // hero girişi perde açılırken başlasın
+            };
+            if (swing && swing.playState !== "finished") swing.finished.then(open, open); else open();
+        });
+        return { leave, reveal };
+    })();
+
+    window.Transition = {
+        leave(key) {
+            document.dispatchEvent(new CustomEvent("transition:start", { detail: { key } }));
+            return watch.leave();
+        },
+        reveal() {
+            const p = makeReady();
+            watch.reveal().then(markReady);
+            return p;
+        },
+        pages: PAGES
+    };
+
+    // GSAP yok / hareket azaltılmış: açılış perdesi hemen kalkar; geçişte yalnız kararma/açılma
     if (!hasGSAP || reduceMotion) {
         hide();
         markReady();
         return;
     }
 
-    /* ---------- Zarf (js/envelope.js): açılış davetiyesi ve sayfa geçişleri ----------
-       Eski sayaçlı mühür, "Gir" butonu, kapı ve sıvı perde yerine geçer. */
+    /* ---------- Zarf (js/envelope.js): yalnız ilk girişteki açılış davetiyesi ---------- */
     if (window.Envelope) {
         const E = window.Envelope;
         const isFirst = root.classList.contains("first-visit");
-        const outgoingEls = () => document.querySelectorAll("main > :not(nav), .site-footer, .navbar");
-        const pageInfo = (key, fb) => { const p = PAGES[key]; return { page: key, name: p ? tr(p.key, p.fb) : fb || "—" }; };
         if (isFirst) {
             // Zarf perdenin üstünde açılır; yükleme arkada sessizce sürer
             E.intro().then(markReady);
@@ -98,19 +165,6 @@
             gsap.to(el, { opacity: 0, duration: 0.45, delay: 0.1, ease: "power1.out", onComplete: () => { hide(); el.style.opacity = ""; } });
             setTimeout(markReady, 250);
         }
-        window.Transition = {
-            leave(key) {
-                document.dispatchEvent(new CustomEvent("transition:start", { detail: { key } }));
-                gsap.to(outgoingEls(), { opacity: 0.25, y: -30, duration: 0.45, ease: "power2.in" });
-                return E.leave(key);
-            },
-            reveal(key) {
-                const p = makeReady();
-                E.reveal(key).then(markReady);
-                return p;
-            },
-            info: pageInfo, pages: PAGES
-        };
         return;
     }
 
