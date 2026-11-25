@@ -420,6 +420,40 @@ function renderContent(site) {
             `</a>`).join("");
     }
 
+    // Müze duvarı (Projeler ve Galeri): her tablo altın çerçevede asılı; davranış js/wall.js (veri: js/content.js > projects / gallery)
+    if ((el = box("wall"))) {
+        const kind = el.dataset.wall === "gallery" ? "gallery" : "projects";
+        const page = kind === "gallery" ? "galeri.html" : "projects.html";
+        const list = kind === "gallery"
+            ? (site.gallery || []).map((g, i) => ({ i, img: g.image, slug: `foto-${i + 1}`, t: `g.${i + 1}.place`, tag: "", alt: `g.${i + 1}.alt` }))
+            : site.projects.map((p, i) => ({ i, img: p.image, slug: `proje-${i + 1}`, t: `p.${i + 1}.t`, tag: `p.${i + 1}.tag`, alt: `p.${i + 1}.t` })).filter((x) => x.img);
+        el.dataset.kind = kind;
+        el.dataset.page = page;
+        el.innerHTML =
+            `<div class="wall-room" aria-hidden="true"><i class="wall-cornice"></i><i class="wall-base"></i><i class="wall-floor"></i></div>` +
+            `<div class="wall-track" data-lenis-prevent>` +
+                list.map((x, n) =>
+                    `<a class="wall-art" href="${page}?p=${x.slug}" data-no-pjax data-cursor="view" data-i="${x.i}" data-slug="${x.slug}">` +
+                        `<span class="wall-frame wall-frame--landscape"><span class="wall-shadow"></span>` +
+                            `<span class="wall-pic"><img src="${escAttr(x.img)}" alt="" data-i18n-alt="${x.alt}" ${n < 2 ? "" : 'loading="lazy" '}decoding="async"></span>` +
+                            `<img class="wall-fr" src="images/frames/frame-landscape.png" alt="" aria-hidden="true" decoding="async"><span class="wall-glint"></span></span>` +
+                        `<span class="wall-plate"><h2 data-i18n="${x.t}"></h2>${x.tag ? `<small data-i18n="${x.tag}"></small>` : ""}</span>` +
+                    `</a>`).join("") +
+            `</div>`;
+        // Görseli olmayan projeler (kişisel portfolyo, sosyal medya) duvarın altında metin etiketi olarak kalır
+        const more = kind === "projects" ? site.projects.map((p, i) => ({ p, i })).filter((x) => !x.p.image) : [];
+        if (more.length) {
+            const nxt = el.nextElementSibling;
+            const ul = document.createElement("div");
+            ul.className = "wall-more container px-5";
+            ul.innerHTML = more.map(({ p, i }) =>
+                `<article class="wall-label"><small data-i18n="p.${i + 1}.tag"></small><h2 data-i18n="p.${i + 1}.t"></h2><p data-i18n="p.${i + 1}.d"></p>` +
+                (p.scene === "portfolio" && site.portfolio ? `<ul>${site.portfolio.sections.map((_, k) => `<li><b data-i18n="pf.${k + 1}.title"></b> <span data-i18n="pf.${k + 1}.body"></span></li>`).join("")}</ul>` : "") +
+                (projectHref(p) ? `<a class="btn btn-outline-dark sc-link"${linkAttrs(projectHref(p))} data-i18n="projects.view"></a>` : "") + `</article>`).join("");
+            if (!(nxt && nxt.classList.contains("wall-more"))) el.insertAdjacentElement("afterend", ul); else nxt.replaceWith(ul);
+        }
+    }
+
     // Galeri: fotoğraf + yer + kısa açıklama (js/content.js > gallery)
     if ((el = box("gallery"))) {
         el.innerHTML = (site.gallery || []).map((g, i) =>

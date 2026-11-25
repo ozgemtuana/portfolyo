@@ -654,6 +654,7 @@ window.SITE_CONTENT = {
                 "en": "A product promotion visual for Vanilla Coca-Cola: flowing lines and a reflective stage."
             },
             "image": "images/projects/vanilla-cola.jpg",
+            "detailImage": "",
             "art": "",
             "link": "",
             "featured": true,
@@ -673,6 +674,7 @@ window.SITE_CONTENT = {
                 "en": "A Photoshop History Brush piece that brings one character to life in colour on a black-and-white scene."
             },
             "image": "images/projects/history-brush.jpg",
+            "detailImage": "",
             "art": "",
             "link": "",
             "rights": "marvel",
@@ -693,6 +695,7 @@ window.SITE_CONTENT = {
                 "en": "A comic-style piece where I coloured a black line drawing in Photoshop: deep reds and a glowing energy effect."
             },
             "image": "images/projects/proje3.jpg",
+            "detailImage": "",
             "art": "",
             "link": "",
             "rights": "marvel",
@@ -713,6 +716,7 @@ window.SITE_CONTENT = {
                 "en": "A solar system built with Photoshop Smart Objects: planets placed as smart objects, finished with orbits and a starry background."
             },
             "image": "images/projects/proje4-gunes-sistemi.jpg",
+            "detailImage": "",
             "art": "",
             "link": "",
             "featured": true,
@@ -732,6 +736,7 @@ window.SITE_CONTENT = {
                 "en": "I stacked 20 night photos taken from the same spot on an Antalya overpass and merged them with Photoshop's Median stack mode; the passing cars disappeared and the street was left empty."
             },
             "image": "images/projects/proje5-image-stack.jpg",
+            "detailImage": "",
             "art": "",
             "link": "",
             "featured": true,
@@ -751,6 +756,7 @@ window.SITE_CONTENT = {
                 "en": "I redesigned the zizibeach.com interface in Photoshop on the 960 Grid System template and prepared 3 layouts with Layer Comps."
             },
             "image": "images/projects/proje6-web-arayuzu.jpg",
+            "detailImage": "",
             "art": "",
             "link": "",
             "featured": true,
@@ -1725,6 +1731,7 @@ window.SITE_CONTENT = {
     "gallery": [
         {
             "image": "images/gallery/side.jpg",
+            "detailImage": "",
             "place": {
                 "tr": "Side, Antalya",
                 "en": "Side, Antalya"
@@ -1740,6 +1747,7 @@ window.SITE_CONTENT = {
         },
         {
             "image": "images/gallery/dogum-gunu.jpg",
+            "detailImage": "",
             "place": {
                 "tr": "Doğum günü",
                 "en": "Birthday"
@@ -1755,6 +1763,7 @@ window.SITE_CONTENT = {
         },
         {
             "image": "images/gallery/kaleici.jpg",
+            "detailImage": "",
             "place": {
                 "tr": "Kaleiçi, Antalya",
                 "en": "Kaleiçi, Antalya"
@@ -1770,6 +1779,7 @@ window.SITE_CONTENT = {
         },
         {
             "image": "images/gallery/istanbul.jpg",
+            "detailImage": "",
             "place": {
                 "tr": "İstanbul",
                 "en": "Istanbul"
@@ -1785,6 +1795,7 @@ window.SITE_CONTENT = {
         },
         {
             "image": "images/gallery/spor.jpg",
+            "detailImage": "",
             "place": {
                 "tr": "Spor",
                 "en": "Sport"
