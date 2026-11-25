@@ -331,7 +331,7 @@ function renderContent(site) {
             const tint = (code) => { let h = 0; for (const ch of String(code)) h = (h * 31 + ch.charCodeAt(0)) >>> 0; return "t" + (h % 5); };
             const kind = (k) => (["teori", "uygulama", "karma", "uzaktan"].includes(k) ? k : "teori");
             const card = (x) =>
-                `<article class="course ${tint(x.c.code)}" data-day="${x.d}" data-start="${x.s}" data-end="${x.e}" style="--row: ${Math.floor((x.s - first) / 60) + 2}; --span: ${Math.max(1, Math.round((x.e - x.s + 10) / 60))}; --col: ${x.d + 1}">` +
+                `<article class="course ${tint(x.c.code)}" data-code="${escAttr(x.c.code || "")}" data-day="${x.d}" data-start="${x.s}" data-end="${x.e}" style="--row: ${Math.floor((x.s - first) / 60) + 2}; --span: ${Math.max(1, Math.round((x.e - x.s + 10) / 60))}; --col: ${x.d + 1}">` +
                     `<div class="course-top"><span class="course-code">${escAttr(x.c.code || "")}</span><span class="course-time">${escAttr(x.c.start)}–${escAttr(x.c.end)}</span></div>` +
                     `<h4 class="course-name" data-i18n="course.${x.i + 1}.name"></h4>` +
                     `<div class="course-meta">` +
