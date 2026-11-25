@@ -1,3 +1,8 @@
+## 2026-11-26 — Tek prompt turu (özet)
+- Yapıldı: mobil dokunmatik kaydırma kök nedeni (html.collage ↔ .collage çakışması), 2D yedek; zaman tüneli açılışı; ana sayfa altın çerçeveler; Projeler/Galeri müze duvarı + tek eser salonu (?p=); 3D cep saati (Three.js) ve detayda CSS 3D; self-host fontlar; ajanda ders programı; klipsli menü etiketleri; süreç paleti (renkler görünmüyordu, düzeltildi); blog görselleri klipsli kâğıt çerçeve.
+- Kararlar: Projeler/Galeri'de yatay kaydırmalı tek sıra duvar korundu (mobilde 1 tablo); yeşil zemin yerine koyu ceviz; menü etiketleri yalnız masaüstünde (≥992px).
+- Kalan: dantel (doily.png) 9-dilim makale levhaları, mobil menü etiketleri, iletişim formu klipsi, kapanış ekran görüntüleri (teslim/ekran-goruntuleri/), canlı yayın (main'e birleştirme izin bekliyor).
+
 # İlerleme ve kararlar
 
 ## GİT VE SON KONTROL (2026-11-23 gece)
