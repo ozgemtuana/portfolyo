@@ -52,3 +52,7 @@
 ## İlham kaynakları
 - uberdesigner.ai — "The School of Athens" ve "Course of Empire" şablonları (tablonun içine dalış, zoom durakları, mini harita, otomatik oynatma fikirleri). Kod veya görsel kopyalanmadı; fikirler bu tasarıma uyarlandı.
 - Altın çerçeve görselleri: kullanıcının sağladığı web kaynakları, eğitim projesi için kullanıldı.
+- Fontlar (kendi sunucumuzdan, `fonts/`; hepsi SIL Open Font License 1.1, Google Fonts): Playfair Display ve Playfair Display SC (Claus Eggers Sørensen), Allura (TypeSETit), Cormorant Garamond (Christian Thalmann), Italiana (Santiago Orozco), Caveat (Impallari Type). Yalnızca latin ve latin-ext alt kümeleri.
+- Dantel ve klips görselleri (`images/lace/`): kullanıcının sağladığı web kaynakları, eğitim projesi için kullanıldı.
+- Zaman tüneli videosu (`images/intro/time-tunnel.*`): kullanıcının sağladığı kaynak, eğitim projesi için kullanıldı.
+
