@@ -90,3 +90,19 @@ html.collage .about-page .id-photo .id-name { font-family: "Caveat", cursive; fo
 }
 
 @media (min-width: 576px) and (max-width: 991.98px) { html.collage body:not([data-page="home"]) .navbar-collapse .navbar-nav { max-width: 420px; margin: 0 auto; } }
+
+/* ---------- İletişim formu: klipsli kâğıt, klipsli Gönder etiketi, odak halkası ---------- */
+html.collage body[data-page="contact"] #contactForm { position: relative; padding-top: .6rem; }
+html.collage body[data-page="contact"] #contactForm::before { content: ""; position: absolute; left: 50%; top: -3.1rem; z-index: 3; width: 64px; height: 34px; margin-left: -32px; background: url("../images/lace/clip-gold.png") center / contain no-repeat; filter: drop-shadow(0 4px 3px rgba(0, 0, 0, .55)); pointer-events: none; }
+html.collage body[data-page="contact"] .form-control:focus, html.collage body[data-page="contact"] .form-control:focus-visible { outline: 2px solid #7a1f1a !important; outline-offset: 3px; box-shadow: none !important; }
+html.collage body[data-page="contact"] .form-control.is-invalid, html.collage body[data-page="contact"] .was-validated .form-control:invalid { border-bottom-color: #a3201a !important; }
+html.collage body[data-page="contact"] .form-floating > label { color: #4a2f1c !important; font-family: "Italiana", "Cormorant Garamond", serif; font-size: 1.1rem !important; letter-spacing: .06em; }
+html.collage body[data-page="contact"] #submitButton:not(#_):not(#_) { position: relative; width: auto; justify-self: center; min-width: 11rem; min-height: 52px; padding: .7rem 2.4rem !important; margin: 1.6rem auto .4rem; border: 1px solid rgba(110, 84, 40, .55) !important; border-radius: 2px !important;
+    font-family: "Italiana", "Cormorant Garamond", serif !important; font-size: 1.25rem !important; letter-spacing: .14em !important; text-indent: .14em; text-transform: uppercase; color: #3a2a1b !important; text-shadow: none !important;
+    background: repeating-linear-gradient(transparent 0 24px, rgba(185, 165, 111, .3) 24px 25px), linear-gradient(#f4ebd3, #e6d8b3) !important; box-shadow: 0 8px 14px rgba(0, 0, 0, .5) !important; transform: rotate(-1.4deg); transition: transform .2s, box-shadow .2s; }
+html.collage body[data-page="contact"] #submitButton:not(#_):not(#_)::after { content: ""; position: absolute !important; left: 50% !important; top: -11px !important; display: block !important; width: 30px; height: 16px; margin-left: -15px; background: url("../images/lace/clip-wood.png") center / contain no-repeat; filter: drop-shadow(0 3px 2px rgba(0, 0, 0, .6)); border: 0; }
+html.collage body[data-page="contact"] #submitButton:not(#_):not(#_)::before { content: none !important; }
+html.collage body[data-page="contact"] #submitButton:not(#_):not(#_):hover { transform: rotate(0) translateY(-3px); box-shadow: 0 14px 20px rgba(0, 0, 0, .55) !important; }
+html.collage body[data-page="contact"] #submitButton:focus-visible { outline: 2px solid #7a1f1a; outline-offset: 4px; }
+html.collage body[data-page="contact"] #submitSuccessMessage div { color: #1f5a2a !important; }
+html.collage body[data-page="contact"] #submitErrorMessage div { color: #8a1a14 !important; }
