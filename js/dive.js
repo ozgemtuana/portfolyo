@@ -44,17 +44,21 @@
         wrap.appendChild(canvas);
         document.body.insertBefore(wrap, document.body.firstChild);
 
-        let renderer;
+        let renderer, fallback = false;
         try {
             renderer = new THREE.WebGLRenderer({ canvas, antialias: false, alpha: false, powerPreference: "high-performance" });
-        } catch (e) { root.classList.add("dive-fallback"); return; }
+        } catch (e) {
+            // WebGL yok: çizim yapmayan bir yedek; 2D yedek (CSS transform) aşağıda frame() içinde sürer
+            fallback = true; root.classList.add("dive-fallback");
+            renderer = { setSize() {}, setPixelRatio() {}, render() {}, capabilities: { getMaxAnisotropy: () => 1 }, getContext: () => ({ getParameter: () => 2048, MAX_TEXTURE_SIZE: 0 }) };
+        }
         const gl = renderer.getContext();
         const maxTex = gl.getParameter(gl.MAX_TEXTURE_SIZE);
         const small = Math.min(window.innerWidth, window.innerHeight) < 700 || maxTex < 8192;
         renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, small ? 1.25 : 1.5));
         // GPU bağlamı kaybolursa sekme çökmesin: düz görsele düş, geri gelince yeniden çiz
-        canvas.addEventListener("webglcontextlost", (e) => { e.preventDefault(); root.classList.add("dive-fallback"); }, false);
-        canvas.addEventListener("webglcontextrestored", () => { root.classList.remove("dive-fallback"); dirty = true; }, false);
+        canvas.addEventListener("webglcontextlost", (e) => { e.preventDefault(); fallback = true; root.classList.add("dive-fallback"); }, false);
+        canvas.addEventListener("webglcontextrestored", () => { fallback = false; wrap.style.transform = ""; root.classList.remove("dive-fallback"); dirty = true; }, false);
 
         const scene = new THREE.Scene();
         const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
@@ -480,6 +484,28 @@ void main() {
             }
         }
 
+        /* ---------- 2D yedek: WebGL yoksa tablo, kameranın baktığı yere CSS transform ile yakınlaşır ---------- */
+        let fbImg = "";
+        function fallbackView(v, c) {
+            const vw = window.innerWidth, vh = window.innerHeight;
+            const img = stage === 2 ? "cole-1280.webp" : stage === 1 ? "robert-2048.webp" : "panini-2048.webp";
+            if (img !== fbImg) { fbImg = img; wrap.style.backgroundImage = `url("${S}${img}")`; }
+            let k, tx, ty;
+            if (stage === 2) {                                   // Cole: tablonun kendi uzayı
+                const r = coleRect(c), Wi = Math.max(vw, vh * COLE_A), Hi = Wi / COLE_A;
+                k = vw / (r[2] * Wi); tx = -k * ((vw - Wi) / 2 + r[0] * Wi); ty = -k * ((vh - Hi) / 2 + r[1] * Hi);
+            } else if (stage === 1) {                            // Robert: kendi görseli, görünüm Robert uzayında
+                const x = (v.c[0] - v.s / 2 - R[0]) / R[2], hh = v.s / sa(), y = (v.c[1] - hh / 2 - R[1]) / R[3];
+                const A = R[2] / R[3], Wi = Math.max(vw, vh * A), Hi = Wi / A;
+                k = vw / ((v.s / R[2]) * Wi); tx = -k * ((vw - Wi) / 2 + x * Wi); ty = -k * ((vh - Hi) / 2 + y * Hi);
+            } else {                                             // Panini
+                const Wi = Math.max(vw, vh / HR), Hi = Wi * HR, hh = v.s / sa();
+                k = vw / (v.s * Wi); tx = -k * ((vw - Wi) / 2 + (v.c[0] - v.s / 2) * Wi); ty = -k * ((vh - Hi) / 2 + (v.c[1] - hh / 2) * Wi);
+            }
+            wrap.style.transformOrigin = "0 0";
+            wrap.style.transform = `translate3d(${tx.toFixed(1)}px, ${ty.toFixed(1)}px, 0) scale(${k.toFixed(4)})`;
+        }
+
         let fpsAcc = 0, fpsN = 0;
         window.__diveStats = () => ({ fps: fpsN ? Math.round(fpsN / fpsAcc) : 0, P: +P.toFixed(3), stage, maxTex, small });
         function frame(now) {
@@ -519,7 +545,7 @@ void main() {
                 }
             }
             applyStage(P, v, c);
-            renderer.render(scene, camera);
+            if (fallback) fallbackView(v, c); else renderer.render(scene, camera);
             dirty = false;
         }
         requestAnimationFrame(frame);
