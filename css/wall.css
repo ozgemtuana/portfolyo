@@ -84,7 +84,20 @@
 .wd-btn:hover, .wd-btn:focus-visible { background: rgba(212, 176, 104, .25); color: #fff; outline: none; }
 .wd-stage { grid-area: stage; grid-row: 1 / span 2; position: relative; display: grid; justify-items: center; align-content: start; padding-top: 1rem; }
 .wd-tag { margin: 0 0 1.2rem; font-family: var(--font-display); font-size: 17px; letter-spacing: .32em; text-transform: uppercase; color: var(--cream); }
-.wd-hang { position: relative; }
+.wd-hang { position: relative; perspective: 1400px; }
+/* Gerçek CSS 3D: eğilme (.wd-card) ve çevirme (.wd-flipper) ayrı katmanlarda */
+.wd-card { transform-style: preserve-3d; transform: rotateX(var(--tx, 0deg)) rotateY(var(--ty, 0deg)); transition: transform .18s ease-out; }
+.wd-flipper { position: relative; transform-style: preserve-3d; transition: transform .8s cubic-bezier(.22, .61, .36, 1); }
+.wd-flipper.is-flipped { transform: rotateY(180deg); }
+.wd-face { backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+.wd-back { position: absolute; inset: 0; transform: rotateY(180deg); display: grid; align-items: center; padding: 11% 12%; overflow: auto; color: #2b1d10;
+    background: linear-gradient(#f3e9cf, #e8dbb7); border: 1px solid rgba(110, 84, 40, .5); box-shadow: 0 10px 24px rgba(0, 0, 0, .5); }
+.wd-back h3 { margin: 0 0 .5rem; font-family: var(--font-display); font-size: 1.5rem; color: #7a1f1a; }
+.wd-back p { margin: 0 0 .6rem; font-family: var(--font-display); font-size: 17px; font-weight: 500; line-height: 1.45; color: #2b1d10; }
+.wd-flip { position: absolute; left: -1.2rem; bottom: -2.6rem; z-index: 2; min-height: 44px; padding: 0 1rem; cursor: pointer; font-family: var(--font-display); font-size: 17px; color: #3b2b17; background: linear-gradient(#f6efdd, #ebe0c6); border: 1px solid rgba(110, 84, 40, .5); box-shadow: 0 3px 8px rgba(0, 0, 0, .4); }
+.wd-flip:focus-visible { outline: 2px solid #f3e9d2; outline-offset: 3px; }
+@media (max-width: 767.98px) { .wd-flip { position: static; margin-top: .8rem; } .wd-back { padding: 8% 9%; } }
+@media (prefers-reduced-motion: reduce) { .wd-card, .wd-flipper { transition: none; } }
 .wall-detail .wall-frame { --H: min(54vh, 470px); height: auto; width: min(44vw, calc(var(--H) * var(--fa))); }
 .wall-detail .wall-frame:hover { transform: none; }
 /* Müze etiketi: tablonun sağ altında */

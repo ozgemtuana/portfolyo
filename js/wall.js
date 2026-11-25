@@ -117,6 +117,7 @@ window.Wall = (function () {
         det.querySelector(".wd-body").innerHTML = paras.map((t) => `<p>${esc(t)}</p>`).join("") +
             (!gal && item.rights ? `<p class="p-rights">${esc(tt("p.rights"))}</p>` : "") +
             (link ? `<a class="wd-btn" href="${esc(link)}"${/^https?:/i.test(link) ? ' target="_blank" rel="noopener"' : ""}>${esc(tt("projects.view"))}</a>` : "");
+        det.querySelector(".wd-back").innerHTML = `<div><h3>${esc(title)}</h3>${paras.map((t) => `<p>${esc(t)}</p>`).join("")}</div>`;
         det.querySelector(".wd-plate").innerHTML = `<b>${esc(title)}</b>` + (tag ? `<span>${esc(tag)}</span>` : "");
         det.setAttribute("aria-label", title);
         det.querySelector(".wall-nav--prev").hidden = cur <= 0;
@@ -165,7 +166,7 @@ window.Wall = (function () {
         det.className = "wall-detail"; det.setAttribute("role", "dialog"); det.setAttribute("aria-modal", "true");
         det.innerHTML = `<div class="wd-room"></div><div class="wall-detail-in">` +
             `<header class="wd-head wd-fade"><h2 class="wd-title"></h2><i class="wd-rule"></i></header>` +
-            `<div class="wd-stage"><p class="wd-tag wd-fade"></p><div class="wd-hang"><span class="wall-frame wall-frame--landscape"><span class="wall-shadow"></span><span class="wall-pic"><img alt="" decoding="async"></span><img class="wall-fr" src="${FRAMES.landscape}" alt="" aria-hidden="true"><span class="wall-glint"></span></span><div class="wd-plate wd-fade"></div></div><div class="wd-stand wd-fade">${STAND}</div></div>` +
+            `<div class="wd-stage"><p class="wd-tag wd-fade"></p><div class="wd-hang"><div class="wd-card"><div class="wd-flipper"><div class="wd-face wd-front"><span class="wall-frame wall-frame--landscape"><span class="wall-shadow"></span><span class="wall-pic"><img alt="" decoding="async"></span><img class="wall-fr" src="${FRAMES.landscape}" alt="" aria-hidden="true"><span class="wall-glint"></span></span></div><div class="wd-face wd-back"></div></div></div><div class="wd-plate wd-fade"></div><button type="button" class="wd-flip wd-fade" aria-pressed="false">${lang() === "en" ? "Flip" : "Çevir"}</button></div><div class="wd-stand wd-fade">${STAND}</div></div>` +
             `<div class="wd-body wd-fade"></div></div>` +
             `<button type="button" class="wall-back">${lang() === "en" ? "Back to the wall" : "Duvara dön"}</button>` +
             `<button type="button" class="wall-x" aria-label="${lang() === "en" ? "Close" : "Kapat"}">&times;</button>` +
@@ -177,6 +178,19 @@ window.Wall = (function () {
         if (push) history.pushState({ wall: i }, "", root.dataset.page + "?p=" + a.dataset.slug);
         det.querySelector(".wall-x").addEventListener("click", () => close(true));
         det.querySelector(".wall-back").addEventListener("click", () => close(true));
+        // CSS 3D: fare/dokunmaya göre hafif eğilme ve kart çevirme (ön: çerçeveli eser, arka: bilgi)
+        const card = det.querySelector(".wd-card"), flipper = det.querySelector(".wd-flipper"), flipBtn = det.querySelector(".wd-flip");
+        let flipped = false;
+        flipBtn.addEventListener("click", () => { flipped = !flipped; flipper.classList.toggle("is-flipped", flipped); flipBtn.setAttribute("aria-pressed", flipped); });
+        if (!reduce()) {
+            const tilt = (e) => {
+                const r = card.getBoundingClientRect();
+                const nx = Math.max(-1, Math.min(1, (e.clientX - (r.left + r.width / 2)) / (window.innerWidth / 2))), ny = Math.max(-1, Math.min(1, (e.clientY - (r.top + r.height / 2)) / (window.innerHeight / 2)));
+                card.style.setProperty("--ty", (nx * 9).toFixed(2) + "deg"); card.style.setProperty("--tx", (-ny * 6).toFixed(2) + "deg");
+            };
+            det.addEventListener("pointermove", tilt);
+            det.addEventListener("pointerleave", () => { card.style.setProperty("--ty", "0deg"); card.style.setProperty("--tx", "0deg"); });
+        }
         det.querySelector(".wall-nav--prev").addEventListener("click", () => step(-1));
         det.querySelector(".wall-nav--next").addEventListener("click", () => step(1));
         const frame = det.querySelector(".wall-frame"), bg = det.querySelector(".wd-room"), info = det.querySelectorAll(".wd-fade");
