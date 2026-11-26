@@ -217,7 +217,7 @@ html.collage .folder.mag .cut.pinned img { aspect-ratio: 4 / 5 !important; objec
 .mag-aside { grid-area: aside; align-self: center; display: grid; gap: .8rem; justify-items: start; padding-left: .4rem; min-width: 0; }
 html.collage [data-render="folders"] > div:nth-child(3) { grid-column: 1 / span 5 !important; }
 .swatches { display: grid; grid-template-columns: repeat(3, minmax(0, 34px)); gap: .4rem; transform: rotate(-3deg); }
-.swatches i { display: block; width: 34px; height: 44px; background: linear-gradient(rgba(255, 255, 255, .08), rgba(0, 0, 0, .12)), url("../images/textures/canvas-weave.jpg") center / 140px, var(--c); background-blend-mode: normal, multiply, normal;
+.swatches i { display: block; width: 34px; height: 44px; background: linear-gradient(rgba(255, 255, 255, .08), rgba(0, 0, 0, .12)), url("../images/scenes/canvas-weave.jpg") center / 140px, var(--c); background-blend-mode: normal, multiply, normal;
     clip-path: polygon(0 0, 100% 0, 100% 86%, 92% 100%, 84% 86%, 76% 100%, 68% 86%, 60% 100%, 52% 86%, 44% 100%, 36% 86%, 28% 100%, 20% 86%, 12% 100%, 4% 86%, 0 100%); box-shadow: 0 4px 8px rgba(0, 0, 0, .25); }
 .swatches i:nth-child(2) { transform: rotate(4deg) translateY(4px); }
 .mag-aside-note { font-family: var(--font-calli); font-size: 1.7rem; color: var(--ink-faded); transform: rotate(-4deg); }

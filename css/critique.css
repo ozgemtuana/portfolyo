@@ -294,3 +294,27 @@ html.collage body .folder.mag .folder-front:not(#_) { padding-right: 96px; }
     html.collage body .folder.mag .folder-front:not(#_) { padding-right: 70px; }
     html.collage body .folder.mag .folder-title:not(#_) { font-size: 1.9rem !important; }
 }
+
+/* ---------- Blog önizlemeleri: levhanın içinde kalır, ekrana sığar ---------- */
+html.collage .post :is(.post-body, .post-text, .post-split, .post-split > *, section, figure) { min-width: 0; }
+html.collage .post :is(.shot, .post-hero:not(.fashion-collage), .code-fig) { max-width: 100%; box-sizing: border-box; overflow: hidden; }
+html.collage .post :is(.shot, .post-hero:not(.fashion-collage)) img:not(#_), html.collage .post figure iframe {
+    display: block; width: 100%; max-width: 100%; height: auto; max-height: 70vh; object-fit: contain; margin-inline: auto; transform: none; min-width: 0; }
+/* Dikey görseller (hikâye/gönderi): ortalanmış, yükseklikle sınırlı, yanına boşluk bırakmaz */
+html.collage .post .shot--tall img:not(#_) { width: auto; max-height: 70vh; }
+@media (max-width: 767.98px) {
+    html.collage .post :is(.shot, .post-hero:not(.fashion-collage)) img:not(#_), html.collage .post figure iframe { max-height: 60vh; }
+}
+/* Görsel açıklamaları: Lora 16px, koyu mürekkep (krem kâğıtta ≥ 7:1), görselle aynı hizada */
+html.collage body .post figure > figcaption:not(#_):not(#_) { font-family: "Lora", Georgia, serif !important; font-size: 16px !important; line-height: 1.55; color: #2a1d0e !important; text-align: left; margin: .7rem 0 0; padding: 0; max-width: none; transform: none; }
+/* Kod blokları: yalnızca kod kendi içinde yatay kayar */
+html.collage .post pre { max-width: 100%; overflow-x: auto; }
+html.collage .post .code-fig:not(#_) { margin-left: 0 !important; margin-right: 0 !important; }
+/* Blog kolajı (Görsel 3.1): dört figür kutuya sığar, kesilmez */
+html.collage .post .collage:not(html) img { max-width: 26%; min-width: 0; object-fit: contain; object-position: 50% 100%; }
+@media (max-width: 575.98px) {
+    html.collage .post .collage:not(html) { flex-wrap: wrap; height: auto; gap: 1rem 0; padding: 1rem 0; }
+    html.collage .post .collage:not(html) img { height: 230px !important; max-width: 48%; margin: 0 !important; }
+}
+/* Lightbox: büyük hali ekrana sığar */
+.lb-fig img { max-width: min(100%, 92vw); max-height: min(88vh, calc(100dvh - 11rem)); }
