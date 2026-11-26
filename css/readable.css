@@ -1,0 +1,81 @@
+/* ==========================================================================
+   Okunabilirlik turu (en son yüklenir): düz kâğıt, tek yazı sistemi, eğimsiz metin kutuları,
+   sabit menü boşluğu, OYNAT düğmesi, kod bloğu. Eski lekeli kâğıt dokuları metin arkasından kalkar.
+   Yazı sistemi: gövde Lora, başlık Cormorant Garamond 600 / Playfair Display 600, etiket Cormorant SC,
+   kod IBM Plex Mono, el yazısı Caveat (≥20px), süs Allura (yalnız marka).
+   ========================================================================== */
+html.collage {
+    --paper-real: #F6EFDF; --paper-cream: #F6EFDF; --paper-white: #F6EFDF; --paper-ticket: #F6EFDF;
+    --ink-card: #231709; --ink-soft: #3d2e1c; --ink-brown: #231709; --ink-faded: #3d2e1c;
+    --font-body: "Lora", Georgia, "Times New Roman", serif;
+    --font-label: "Cormorant SC", "Lora", Georgia, serif;
+    --nav-h: 92px;
+    scroll-padding-top: calc(var(--nav-h) + 32px);
+}
+html.collage body { font-family: var(--font-body); }
+
+/* ---------- 1) Düz kâğıt, koyu mürekkep ---------- */
+html.collage body :is(.card, .glass, .int-card, .list-card, .proc-card, .skills-panel, .about-text, .hobby-intro, .edu-list, .sc-label, .pf-card, .flow-card, .mini-card, .sched-wrap, .bx, .obj, .typed-card, .services-glass, .post, .h-card.postcard, .cta-postcard):not(#_):not(#_) {
+    background-image: none !important; background-color: #F6EFDF !important; color: #231709 !important; transform: none !important; border-radius: 0 !important;
+}
+/* 9-dilim dantel levhalar kendi dolgusunu (doily) çizer; arkasındaki düz renk kalır */
+html.collage body :is(.post, .about-text):not(#_):not(#_) { background-color: #F6EFDF !important; }
+html.collage body :is(.card, .int-card, .list-card, .proc-card, .skills-panel, .hobby-intro, .edu-list, .sc-label, .pf-card, .flow-card, .mini-card, .sched-wrap, .bx, .typed-card) :is(h2, h3, h4, p, li, dd, dt, td, th, span, small, b, strong, label, a:not(.btn)):not(#_):not(#_) { color: #231709 !important; }
+html.collage body :is(.card, .int-card, .list-card, .proc-card, .skills-panel, .about-text, .hobby-intro, .edu-list, .sc-label, .pf-card, .post, .bx) :is(small, .text-muted, .int-meta, .list-note, .bx-cat, .bx-meta):not(#_):not(#_) { color: #43331f !important; }
+html.collage body .bx:not(#_):not(#_) { border: 1px solid rgba(35, 23, 9, .25) !important; box-shadow: 0 10px 20px rgba(10, 6, 2, .35) !important; }
+
+/* ---------- 2) Yazı sistemi ---------- */
+html.collage body :is(p, li, dd, td, th, blockquote, figcaption, label, .card-text, .post-text, .post-lede, .bx-ex):not(pre *):not(code):not(#_) { font-family: var(--font-body) !important; }
+html.collage body :is(.card, .glass, .int-card, .list-card, .proc-card, .skills-panel, .about-text, .hobby-intro, .edu-list, .sc-label, .pf-card, .flow-card, .mini-card, .post, .bx, .typed-card) :is(p, li, dd):not(#_):not(#_) { font-size: 1.1rem; line-height: 1.7; font-weight: 400; letter-spacing: 0; }
+html.collage body:not([data-page="home"]) :is(h1, h2, .h1, .h2, .display-2):not(#_) { font-family: "Cormorant Garamond", Georgia, serif; font-weight: 600; }
+html.collage body :is(h3, h4, .h3, .h4, .bx-title, .post-title ~ h3):not(#_) { font-family: var(--font-head); font-weight: 600; }
+html.collage body :is(.bx-no, .post-ghost, .proc-no, .idx):not(#_) { font-family: var(--font-head) !important; font-weight: 700; }
+html.collage body :is(.bx-cat, .bx-meta, .bx-go, .eyebrow, .sc-tag, .post-cat, .post-read, .course-kind, .int-meta, .pn-label, .pn-desc, .caption-label, .svc-chip, .pf-chip, .flow-step, .lang-switch button, .btn, .form-floating > label, .navbar .nav-link, .wall-plate small, .wd-tag, .wd-btn, .wall-back, .wall-flip, .wd-flip):not(#_) {
+    font-family: var(--font-label) !important; font-weight: 600 !important; font-style: normal; letter-spacing: .06em !important; font-size: max(.9rem, 14px); text-transform: none;
+}
+html.collage body :is(.bx-cat, .eyebrow, .sc-tag, .post-cat):not(#_) { text-transform: uppercase; }
+html.collage body .form-floating > label:not(#_) { font-size: 15px !important; }
+/* Kod: yalnız burada monospace */
+html.collage body :is(pre, pre code, code, kbd, samp, .code-bar span, .code-cap, .ai-n, .tuana-js):not(#_) { font-family: var(--font-mono, "IBM Plex Mono", ui-monospace, Menlo, monospace) !important; font-size: 14.5px; font-style: normal; letter-spacing: 0; }
+html.collage body pre:not(#_) { white-space: pre; overflow-x: auto; text-align: left; transform: none !important; line-height: 1.6; }
+html.collage body .post--tech :is(.post-meta, .post-by, .post-toc b, figcaption b):not(#_) { font-family: var(--font-label) !important; }
+html.collage body .p-rights:not(#_) { font-family: var(--font-body) !important; font-style: italic; font-size: .9rem !important; }
+/* El yazısı yalnız kısa notlarda ve ≥20px */
+html.collage body :is(.id-photo figcaption, .id-name, .caption-hand, .proc-hex):not(#_) { font-family: "Caveat", cursive !important; font-size: max(20px, 1.25rem); }
+
+/* ---------- 3) Koyu zeminde başlıklar: yarı saydam koyu şerit, krem yazı ---------- */
+html.collage body .pj-copy:not(#_) { position: relative; padding: 1.4rem 1.8rem; background: linear-gradient(90deg, rgba(15, 10, 6, .62) 0%, rgba(15, 10, 6, .5) 78%, rgba(15, 10, 6, 0) 100%); max-width: min(100%, 46rem); }
+html.collage body .pj-copy :is(h1, h2, p, .hero-sub, .eyebrow):not(#_) { color: #F7EFDC !important; font-weight: 500; text-shadow: 0 1px 6px rgba(0, 0, 0, .6); }
+html.collage body .pj-copy h1:not(#_) { font-weight: 600; }
+html.collage body .blog-note:not(#_) { color: #F7EFDC !important; font-size: 15px !important; font-weight: 500; letter-spacing: .02em; text-transform: none; opacity: 1; }
+
+/* ---------- 4) Metin kutuları düz ve hizalı (eğim yalnız fotoğraf ve etiketlerde) ---------- */
+html.collage body :is(.about-grid, .proc-grid, .row):not(#_) { align-items: stretch; }
+html.collage body :is(.card, .int-card, .list-card, .proc-card, .skills-panel, .hobby-intro, .edu-list, .sc-label):not(#_):not(#_) { box-shadow: 0 8px 22px rgba(0, 0, 0, .35) !important; }
+
+/* ---------- 5) Sabit menü altında içerik kesilmesin ---------- */
+html.collage body main > section:first-of-type, html.collage body main > .page-offset:first-of-type { scroll-margin-top: calc(var(--nav-h) + 32px); }
+html.collage body .page-offset:not(#_) { padding-top: calc(var(--nav-h) + 32px) !important; }
+html.collage body .eyebrow[data-i18n="gallery.eyebrow"], html.collage body .pj-copy .eyebrow { color: #F7EFDC !important; font-size: 14px !important; }
+
+/* ---------- 6) OYNAT: küçük yuvarlak ikon düğmesi, alt ortada; içeriği kapatmaz ---------- */
+html.collage body .autoplay:not(#_):not(#_) { left: 50% !important; right: auto !important; bottom: 14px !important; transform: translateX(-50%) !important; width: 48px; height: 48px; min-height: 48px; padding: 0 !important; border-radius: 50% !important; -webkit-mask: none !important; mask: none !important;
+    display: grid; place-items: center; background: rgba(20, 14, 8, .78) !important; border: 1px solid rgba(216, 180, 90, .65) !important; filter: none !important; box-shadow: 0 4px 12px rgba(0, 0, 0, .5); z-index: 60; }
+html.collage body .autoplay span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+html.collage body .autoplay i { background-color: #F7EFDC; }
+html.collage body .autoplay:focus-visible { outline: 2px solid #F7EFDC; outline-offset: 3px; }
+html.collage body main { padding-bottom: 72px; }
+@media (max-width: 575.98px) { html.collage body .autoplay:not(#_):not(#_) { display: none !important; } }
+
+/* ---------- Mobil ölçüler ---------- */
+@media (max-width: 575.98px) {
+    html.collage { --nav-h: 78px; }
+    html.collage body :is(.card, .glass, .int-card, .list-card, .proc-card, .skills-panel, .about-text, .hobby-intro, .edu-list, .sc-label, .pf-card, .flow-card, .mini-card, .post, .bx, .typed-card) :is(p, li, dd):not(#_):not(#_) { font-size: 1.03rem; }
+    html.collage body .pj-copy:not(#_) { padding: 1rem 1.1rem; }
+}
+@media (prefers-reduced-motion: reduce) { html.collage * { scroll-behavior: auto !important; } }
+
+/* Blog kartları: üçü aynı hizada, aynı düzen, italik yok */
+html.collage body .bx:not(#_):not(#_) { margin-top: 0 !important; margin-bottom: 0 !important; align-self: stretch; }
+html.collage body .bx :is(.bx-title, .bx-ex, .bx-cat):not(#_):not(#_) { font-style: normal !important; }
+html.collage body .bx-title:not(#_):not(#_) { font-size: clamp(1.35rem, 1.7vw, 1.5rem) !important; line-height: 1.25; }
