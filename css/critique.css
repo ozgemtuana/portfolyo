@@ -262,3 +262,35 @@ html.collage .svc-chip--ok { background: #4f5f33 !important; color: #fffaf0 !imp
 html.collage .svc-chip--grow { border-color: #7a5a22 !important; }
 html.collage .pn-label, html.collage .pn-desc, html.collage .pagenav a, html.collage .to-top { color: #3d2e1e !important; }
 html.collage .text-muted { color: #4a3b2a !important; }
+
+/* ---------- Look kartları: her figür sabit 3:5 kutuda, tamamı görünür, ortak taban çizgisi ----------
+   Kutu içinde üstte %6, altta %4 boşluk; figür object-fit: contain ile alta oturur. Üç kutu eşit genişlikte,
+   böylece figürler aynı yükseklik ölçeğinde durur. Kemerli kâğıt baskı kutunun içinde kalır. */
+html.collage body .folder.mag:not(#_):not(#_) { grid-template-columns: repeat(3, minmax(0, 1fr)); align-items: end; gap: 1.2rem .9rem; overflow: visible; }
+html.collage body .folder.mag.mag--duo:not(#_):not(#_) { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+html.collage body .folder.mag.mag--solo:not(#_):not(#_) { grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); }
+html.collage body .folder.mag .folder-papers .cut.pop:not(#_) { aspect-ratio: 3 / 5; width: 100% !important; align-self: end; overflow: hidden; }
+html.collage body .folder.mag .cut.pop img:not(#_) { position: absolute; left: 4%; right: 4%; top: 6%; bottom: 4%; width: 92% !important; height: 90% !important; max-width: none; max-height: none;
+    margin: 0; object-fit: contain !important; object-position: 50% 100%; }
+html.collage body .folder.mag .cut.pop::before { left: 8%; right: 8%; top: 22%; bottom: 3%; }
+@media (hover: hover) {
+    html.collage body .folder.mag .cut.pop:hover img:not(#_) { transform: translateY(-4px) scale(1.015); }
+}
+/* Tek figürlü Look: figür kutusu ve kumaş kartelası ayrı sütunlarda, çakışmaz */
+html.collage body .folder.mag.mag--solo .mag-aside { align-self: center; justify-self: start; }
+/* Fotoğraf baskıları (Look 05): sütuna sığar */
+html.collage body .folder.mag .cut.pinned:not(#_) { width: 100% !important; min-width: 0; }
+html.collage body .folder.mag .cut.pinned img:not(#_) { width: 100% !important; height: auto !important; max-width: 100%; }
+/* Mühür: kartın içinde, sağ alt köşede; başlık metni mührün altına girmez */
+html.collage body .folder.mag .mag-stamp:not(#_) { right: 12px; bottom: 12px; width: 84px; }
+html.collage body .folder.mag .folder-front:not(#_) { padding-right: 96px; }
+@media (max-width: 767.98px) {
+    /* magazine.css'teki 3. kartın "1 / span 5 !important" kuralı telefonda örtük sütunlar açıp kartları daraltıyordu */
+    html.collage [data-render="folders"] > div:not(#_) { grid-column: 1 / -1 !important; width: 100% !important; min-width: 0; }
+    html.collage body .folder.mag:not(#_):not(#_) { width: 100%; padding: 2.4rem 1rem 1.2rem !important; gap: 1rem .5rem; --rot: 0deg; }
+    html.collage body .folder.mag.mag--solo:not(#_):not(#_) { grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); }
+    html.collage body .folder.mag .cut .tape { width: 40px; height: 14px; }
+    html.collage body .folder.mag .mag-stamp:not(#_) { right: 8px; bottom: 8px; width: 64px; }
+    html.collage body .folder.mag .folder-front:not(#_) { padding-right: 70px; }
+    html.collage body .folder.mag .folder-title:not(#_) { font-size: 1.9rem !important; }
+}
