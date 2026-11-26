@@ -185,3 +185,27 @@ html.collage body .h-card-d:not(#_) { margin: .4rem 0 0; font-size: 1rem; line-h
 html.collage body .h-card .meta *:not(#_):not(#_) { text-shadow: none !important; }
 html.collage body .about-glass:not(#_):not(#_) { background: #F6EFDF !important; backdrop-filter: none !important; }
 html.collage body .home-about-h:not(#_):not(#_) { color: #F7EFDC !important; font-size: 1.25rem !important; letter-spacing: .12em !important; text-shadow: 0 2px 10px rgba(0, 0, 0, .75); padding: .4rem .8rem; background: rgba(15, 10, 6, .62); display: inline-block; }
+
+/* İletişim formu: 15px etiket, 48px+ alan, görünür kenarlık, altın odak, net hata/başarı */
+html.collage body[data-page="contact"] .form-floating > .form-control:not(#_):not(#_) { min-height: 56px; border: 0 !important; border-bottom: 2px solid rgba(35, 23, 9, .55) !important; background: rgba(255, 255, 255, .35) !important; color: #231709 !important; font-family: var(--font-body); font-size: 1.05rem; }
+html.collage body[data-page="contact"] .form-floating > textarea.form-control:not(#_):not(#_) { min-height: 10rem; }
+html.collage body[data-page="contact"] .form-control:focus:not(#_):not(#_) { outline: 3px solid #b8913f !important; outline-offset: 2px; background: rgba(255, 255, 255, .6) !important; }
+html.collage body[data-page="contact"] .form-control.is-invalid:not(#_):not(#_), html.collage body[data-page="contact"] .was-validated .form-control:invalid:not(#_):not(#_) { border-bottom-color: #9b1c14 !important; }
+html.collage body[data-page="contact"] .invalid-feedback:not(#_) { font-family: var(--font-body); font-size: 15px; color: #8a1a14 !important; }
+html.collage body[data-page="contact"] .form-text:not(#_) { font-size: 14px; color: #43331f !important; }
+html.collage body[data-page="contact"] #submitButton:not(#_):not(#_) { transform: none !important; }
+html.collage body[data-page="contact"] #submitSuccessMessage .text-success { color: #1f5a2a !important; }
+html.collage body .mail-fallback:not(#_) { margin: .5rem 0; font-size: 1rem; text-align: center; color: #231709 !important; }
+html.collage body .mail-fallback a { color: #7a1f1a !important; text-decoration: underline; }
+html.collage body .copy-msg:not(#_) { display: block; margin: .4rem auto 0; min-height: 44px; padding: .4rem 1.2rem; font-family: var(--font-label); font-weight: 600; font-size: 15px; color: #231709; background: #efe3c4; border: 1px solid rgba(35, 23, 9, .4); border-radius: 2px; cursor: pointer; }
+html.collage body .copy-msg:focus-visible { outline: 3px solid #b8913f; outline-offset: 2px; }
+/* İletişim yan kartları: aynı kâğıt, 28px ikon, 48px sosyal hedef */
+html.collage body[data-page="contact"] .col-lg-5 .card:not(#_):not(#_) { background: #F6EFDF !important; }
+html.collage body[data-page="contact"] .col-lg-5 .feature :is(svg, img, i) { width: 28px; height: 28px; font-size: 28px; }
+html.collage body[data-page="contact"] .col-lg-5 .card a[aria-label] { min-width: 48px; min-height: 48px; display: inline-flex; align-items: center; justify-content: center; }
+html.collage body[data-page="contact"] .invalid-feedback:not(#_):not(#_) { color: #8a1a14 !important; font-size: 15px !important; }
+html.collage body[data-page="contact"] .form-floating > label:not(#_):not(#_) { font-size: 15px !important; color: #3d2e1c !important; opacity: 1; }
+html.collage body[data-page="contact"] .form-floating > .form-control:focus ~ label:not(#_):not(#_), html.collage body[data-page="contact"] .form-floating > .form-control:not(:placeholder-shown) ~ label:not(#_):not(#_) { transform: scale(.88) translateY(-.6rem) translateX(.15rem); }
+html.collage body[data-page="contact"] #contactForm:not(#_)::before { top: -5.2rem !important; }
+html.collage body[data-page="contact"] #submitErrorMessage div:not(#_):not(#_) { color: #8a1a14 !important; font-weight: 600; }
+html.collage body[data-page="contact"] .stamps-card:not(#_):not(#_) { padding: 1.4rem 1.6rem !important; }
