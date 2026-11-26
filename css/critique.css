@@ -326,5 +326,16 @@ html.collage body [data-render="hobbyfolders"] .folder-papers .cut img:not(#_) {
     border: 0 !important; padding: 0 !important; background: none !important; box-shadow: none !important; }
 html.collage body [data-render="hobbyfolders"] .folder-papers:not(#_) { align-items: end; }
 
+/* ---------- Lighthouse kontrast bulguları ---------- */
+/* Tablo üstündeki büyük çağrı: krem yazı + koyu gölge (çevresindeki başlıklarla aynı) */
+html.collage body a.cta-big:not(#_), html.collage body a.cta-big:not(#_) em { color: #F6EFDF !important; -webkit-text-fill-color: #F6EFDF; text-shadow: 0 1px 2px rgba(15, 9, 4, .9), 0 0 18px rgba(15, 9, 4, .7) !important; }
+/* Blog: krem kâğıt üstünde soluk kalan metin içi bağlantılar */
+html.collage body .post .post-text p a:not(.btn):not(#_) { color: #6a3a12 !important; -webkit-text-fill-color: #6a3a12; }
+html.collage body .post .ad-copy span:not(#_) { color: #46521f !important; }
+/* Koyu yeşil çağrı bandı: krem yazı */
+html.collage body .post .cta-band:not(.cta-band--fashion) p:not(#_) { color: #F6EFDF !important; }
+/* Moda yazısı başlığındaki vurgu: koyu bordo, gölgesiz */
+html.collage body .post .post-head h2 em:not(#_) { color: #7a2e24 !important; -webkit-text-fill-color: #7a2e24; text-shadow: none !important; }
+
 /* Lightbox: büyük hali ekrana sığar */
 .lb-fig img { max-width: min(100%, 92vw); max-height: min(88vh, calc(100dvh - 11rem)); }
