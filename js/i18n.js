@@ -154,7 +154,7 @@ function renderContent(site) {
         el.innerHTML = list.map(({ p, i }, n) =>
             `<a class="h-card"${linkAttrs(projectHref(p))} data-cursor="view" data-pi="${i}">` +
                 `<div class="thumb tilt">${projectArt(p)}<span class="glare"></span></div>` +
-                `<div class="meta"><div><h3 data-i18n="p.${i + 1}.t"></h3><small data-i18n="p.${i + 1}.tag"></small>${p.rights ? '<em class="p-rights" data-i18n="p.rights"></em>' : ""}</div><span class="idx">(${pad(n + 1)})</span></div>` +
+                `<div class="meta"><div><h3 data-i18n="p.${i + 1}.t"></h3><small data-i18n="p.${i + 1}.tag"></small><p class="h-card-d" data-i18n="p.${i + 1}.d"></p>${p.rights ? '<em class="p-rights" data-i18n="p.rights"></em>' : ""}</div><span class="idx">(${pad(n + 1)})</span></div>` +
             `</a>`).join("");
         setArtImages(el, site.projects);
     }

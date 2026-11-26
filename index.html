@@ -47,7 +47,7 @@
         <link href="css/wall.css?v=8" rel="stylesheet" />
         <link href="css/agenda.css?v=2" rel="stylesheet" />
         <link href="css/lace.css?v=14" rel="stylesheet" />
-        <link href="css/readable.css?v=12" rel="stylesheet" />
+        <link href="css/readable.css?v=15" rel="stylesheet" />
         <script>
             /* Geçiş sahnesi/yükleme ekranı için: JS var mı, ilk ziyaret mi? */
             document.documentElement.classList.add("js");
@@ -201,11 +201,12 @@
                 <div class="container px-5">
                     <div class="row gx-5">
                         <div class="col-lg-3 mb-4">
-                            <div class="eyebrow" data-reveal data-i18n="about.eyebrow">Hakkımda</div>
+                            <h2 class="eyebrow home-about-h" data-reveal data-i18n="about.eyebrow">Hakkımda</h2>
                         </div>
                         <div class="col-lg-9">
                             <div class="glass about-glass">
                                 <p class="statement mb-5" data-i18n="about.statement">Detaylara takıntılı biriyim.</p>
+                                <p class="home-about-p" data-i18n-html="aboutpage.intro.p1"></p>
                                 <!-- Sayaçlar js/content.js > stats listesinden basılır -->
                                 <div class="row g-4 mt-4" data-render="stats"></div>
                                 <a class="btn btn-outline-dark px-4 py-2 mt-5 magnetic" href="hakkimda.html"><span data-i18n="about.more">Hakkımda daha fazlası</span> <i class="bi bi-arrow-right"></i></a>
@@ -354,7 +355,7 @@
         <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
         <script src="js/content.js?v=99"></script>
-        <script src="js/i18n.js?v=98"></script>
+        <script src="js/i18n.js?v=99"></script>
         <script src="js/intro.js?v=1"></script>
         <script src="js/transition.js?v=93"></script>
         <script src="js/main.js?v=92"></script>
