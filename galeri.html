@@ -52,7 +52,9 @@
             /* Geçiş sahnesi/yükleme ekranı için: JS var mı, ilk ziyaret mi? */
             document.documentElement.classList.add("js", "collage");
             addEventListener("load", function () { setTimeout(function () { document.documentElement.classList.add("pdive-done"); }, 3000); });
-            try { if (!sessionStorage.getItem("visited")) document.documentElement.classList.add("first-visit"); } catch (e) {}
+            var fv = /[?&]intro=1(&|$)/.test(location.search);
+            try { if (!sessionStorage.getItem("visited")) fv = true; } catch (e) { fv = true; }
+            if (fv) document.documentElement.classList.add("first-visit");
         </script>
     </head>
     <body id="top" class="d-flex flex-column h-100" data-page="gallery" data-title="meta.title.gallery" data-desc="meta.desc.gallery">
