@@ -478,6 +478,7 @@ function renderContent(site) {
                         `<span class="pn-desc" data-i18n="pagenav.desc.${next[0]}"></span>` +
                         `<span class="pn-arrow" aria-hidden="true"><i class="bi bi-arrow-right"></i></span>` +
                     `</a>` +
+                    `<div class="pn-count" aria-hidden="true">${cur + 1} / ${ORDER.length}</div>` +
                     `<a class="pn-prev" href="${prev[1]}">` +
                         `<span class="pn-label" data-i18n="pagenav.prev"></span>` +
                         `<span class="pn-title" data-i18n="${prev[2]}"></span>` +
