@@ -18,3 +18,8 @@ Site iki dillidir (TR/EN); dil, sağ üstteki düğmeyle değişir. Bütün içe
 - E-posta: ozgmtuana15@gmail.com
 - GitHub: https://github.com/ozgemtuana
 - Instagram: https://www.instagram.com/ozgemtuana/
+
+## Ayrıntılı bilgi
+- [llms-full.txt](https://ozgemtuana.github.io/portfolyo/llms-full.txt): kişi, eğitim, deneyim, yetenekler, projeler, blog özetleri, galeri ve ders programı düz metin olarak
+- Projeler ve galeri öğelerinin kendi adresleri vardır: projects.html?p=proje-1 … proje-6, galeri.html?p=foto-1 … foto-5
+- İngilizce sürüm: herhangi bir sayfaya ?lang=en eklenerek açılır

@@ -1,0 +1,157 @@
+/* ==========================================================================
+   Fiziksel objeler (aşama 3): dalıştan sonraki bölümler gerçek nesnelere döner
+   - Galeri önizlemesi: altın varaklı çerçevede asılı tablolar + pirinç müze plakası
+   - Sayaç kartı ve söz kartları: gerçek kabartma dantel kâğıt (Met Müzesi, CC0)
+   - Kayan bant: eski kâğıt şeritlere kaydırdıkça mürekkeple yazılan kelimeler
+   - Bootstrap ikonları: gravür üslubunda taranmış ikonlar (images/icons)
+   vintage.css'ten SONRA yüklenir.
+   ========================================================================== */
+
+/* ---------- Galeriden kareler: altın çerçeveli tablolar ---------- */
+.gp-grid { gap: clamp(1.2rem, 3vw, 2.6rem); align-items: start; perspective: 1400px; }
+.gp-item {
+    border-radius: 0; overflow: visible; aspect-ratio: auto;
+    border: clamp(20px, 3vw, 40px) solid transparent;
+    border-image: url("../images/textures/frame-gilt.webp") 125 / auto stretch;
+    background: #1d150c;
+    box-shadow: 0 30px 46px -12px rgba(8, 5, 2, .7), 0 6px 12px rgba(8, 5, 2, .35);
+    transform: rotateX(var(--tx, 0deg)) rotateY(var(--ty, 0deg));
+    transition: transform .6s var(--ease-out), box-shadow .6s var(--ease-out);
+}
+.gp-item:nth-child(2) { margin-top: clamp(1.5rem, 5vw, 4rem); }
+.gp-item .gp-canvas { position: relative; display: block; aspect-ratio: 3 / 4; overflow: hidden; }
+/* Fotoğraf tuval üzerinde: hafif sıcak vernik, tuval dokusu ve köşelerde koyulaşma */
+.gp-item img { filter: sepia(.14) saturate(.92) contrast(1.03); }
+.gp-item .gp-canvas::after {
+    content: ""; position: absolute; inset: 0; pointer-events: none;
+    background:
+        radial-gradient(ellipse at 50% 40%, transparent 55%, rgba(30, 18, 6, .45)),
+        url("../images/scenes/canvas-weave.jpg") center / 260px;
+    mix-blend-mode: multiply; opacity: .55;
+}
+/* Çerçeveye vuran ışık: fareyle kayar */
+.gp-item::after {
+    content: ""; position: absolute; inset: calc(-1 * clamp(18px, 2.6vw, 34px)); pointer-events: none;
+    background: radial-gradient(circle at var(--lx, 30%) var(--ly, 20%), rgba(255, 236, 190, .22), transparent 45%);
+    mix-blend-mode: screen;
+}
+.gp-item:hover { box-shadow: 0 44px 60px -14px rgba(8, 5, 2, .75), 0 8px 16px rgba(8, 5, 2, .35); }
+.gp-item:hover img { transform: scale(1.03); }
+/* Pirinç müze plakası */
+.gp-place {
+    left: 50%; bottom: auto; top: calc(100% + clamp(26px, 3.4vw, 46px)); transform: translateX(-50%);
+    white-space: nowrap; border-radius: 2px; padding: .45rem .95rem;
+    color: #2b1e10; text-shadow: 0 1px 0 rgba(255, 240, 200, .5);
+    background: linear-gradient(170deg, #e2c98f, #b48f52 45%, #d8bd82 70%, #9c7a44);
+    box-shadow: inset 0 0 0 1px rgba(80, 55, 20, .55), inset 0 1px 0 rgba(255, 245, 210, .6), 0 3px 6px rgba(0, 0, 0, .4);
+}
+.home-gallery .gp-grid { padding-bottom: 4.5rem; }
+@media (max-width: 767.98px) {
+    .gp-item:nth-child(2) { margin-top: 2.2rem; }
+    .gp-place { font-size: .55rem; letter-spacing: .12em; padding: .35rem .6rem; }
+}
+
+/* ---------- Dantel kâğıt kartlar (sayaç kartı, söz kartları) ---------- */
+.quote, .about-glass.about-glass {
+    --lace: clamp(34px, 5.2vw, 62px);
+    -webkit-mask: none !important; mask: none !important;
+    border: var(--lace) solid transparent !important;
+    border-image: url("../images/textures/lace-border.webp") 150 / var(--lace) round !important;
+    border-radius: 0 !important;
+    background: linear-gradient(rgba(244, 236, 219, .62), rgba(238, 228, 206, .62)), url("../images/textures/paper-aged.jpg") center / 900px, #f1e8d6 !important;
+    background-clip: padding-box !important;
+    filter: drop-shadow(0 18px 22px rgba(10, 6, 2, .45)) drop-shadow(0 2px 3px rgba(10, 6, 2, .3));
+    box-shadow: none !important;
+    color: #2e2418;
+}
+/* Dantel ile krem kâğıdın birleştiği yerde, orijinal karttaki gibi ince altın baskı çizgisi */
+.quote::after, .about-glass.about-glass::after {
+    content: ""; position: absolute; inset: 6px; border-radius: 0; pointer-events: none;
+    border: 1.5px solid rgba(150, 118, 62, .75); box-shadow: inset 0 0 0 3px rgba(241, 232, 214, .9), inset 0 0 0 4px rgba(150, 118, 62, .35);
+}
+.about-glass.about-glass { position: relative; }
+.quote { --q-ink: #2e2418; }
+.quote .quote-text, .quote .quote-by, .quote .quote-lily { color: #2e2418 !important; }
+.quote::before { mix-blend-mode: soft-light; opacity: .6; }
+
+/* ---------- Mürekkeple yazılan kelimeler (eski kâğıt şeritler) ---------- */
+.ink-band { position: relative; padding: clamp(2rem, 6vw, 4rem) 0; overflow: hidden; }
+.ink-strip {
+    position: relative; width: min(1180px, 94vw); margin: 0 auto;
+    display: flex; flex-wrap: wrap; align-items: baseline; justify-content: center; gap: .2em clamp(1.2rem, 4vw, 3.2rem);
+    padding: clamp(1.4rem, 3.4vw, 2.4rem) clamp(1.5rem, 5vw, 4rem);
+    background: linear-gradient(rgba(240, 230, 208, .55), rgba(232, 219, 192, .55)), url("../images/textures/paper-aged.jpg") center / 1000px, #ebdfc6;
+    -webkit-mask: url("../images/textures/deckle-wide.png") center / 100% 100% no-repeat; mask: url("../images/textures/deckle-wide.png") center / 100% 100% no-repeat;
+    filter: drop-shadow(0 14px 18px rgba(8, 5, 2, .5));
+    transform: rotate(-1.6deg);
+}
+.ink-strip + .ink-strip { margin-top: -.6rem; width: min(980px, 88vw); transform: rotate(1.2deg) translateX(4vw); }
+.ink-word {
+    --w: 0;
+    position: relative; display: inline-block; padding: 0 .08em;
+    font-family: var(--font-display); font-style: italic; font-weight: 400;
+    font-size: clamp(1.9rem, 4.6vw, 3.9rem); line-height: 1.15; color: #2a1d14;
+    clip-path: inset(-25% calc((1 - var(--w)) * 100%) -25% -4%);
+    /* ıslakken koyu ve parlak, kurudukça matlaşır */
+    text-shadow: 0 0 calc(var(--wet, 0) * 1px) rgba(10, 6, 2, .6);
+    transition: color 1.6s ease;
+}
+.ink-word.is-script { font-family: var(--font-calli); font-style: normal; font-size: clamp(2.3rem, 5.6vw, 4.8rem); line-height: 1; }
+.ink-word.is-wet { color: #120b06; --wet: 2.5; }
+.ink-dot { width: .42rem; height: .42rem; border-radius: 50%; background: #2a1d14; opacity: calc(var(--w, 0) * .85); align-self: center; }
+@media (prefers-reduced-motion: reduce) { .ink-word { --w: 1 !important; clip-path: none; } }
+
+/* ---------- Gravür ikonlar ---------- */
+:is(.bi-arrow-right, .bi-arrow-left, .bi-arrow-up, .bi-arrow-down, .bi-x-lg, .bi-plus-lg, .bi-envelope, .bi-telephone, .bi-geo-alt,
+    .bi-github, .bi-instagram, .bi-linkedin, .bi-clipboard, .bi-trophy, .bi-music-note-beamed, .bi-dribbble, .bi-stars, .bi-palette,
+    .bi-person, .bi-download, .bi-tools, .bi-bar-chart, .bi-translate, .bi-image) {
+    display: inline-block; width: 1.2em; height: 1.2em; vertical-align: -.22em;
+    background-color: currentColor;
+    -webkit-mask: var(--gi) center / contain no-repeat; mask: var(--gi) center / contain no-repeat;
+}
+:is(.bi-arrow-right, .bi-arrow-left, .bi-arrow-up, .bi-arrow-down) { width: 1.6em; }
+:is(.bi-arrow-right, .bi-arrow-left, .bi-arrow-up, .bi-arrow-down, .bi-x-lg, .bi-plus-lg, .bi-envelope, .bi-telephone, .bi-geo-alt,
+    .bi-github, .bi-instagram, .bi-linkedin, .bi-clipboard, .bi-trophy, .bi-music-note-beamed, .bi-dribbble, .bi-stars, .bi-palette,
+    .bi-person, .bi-download, .bi-tools, .bi-bar-chart, .bi-translate, .bi-image)::before { content: none !important; }
+.bi-arrow-right { --gi: url("../images/icons/arrow-right.svg"); }
+.bi-arrow-left { --gi: url("../images/icons/arrow-left.svg"); }
+.bi-arrow-up { --gi: url("../images/icons/arrow-up.svg"); }
+.bi-arrow-down { --gi: url("../images/icons/arrow-down.svg"); }
+.bi-x-lg { --gi: url("../images/icons/x-lg.svg"); }
+.bi-plus-lg { --gi: url("../images/icons/plus-lg.svg"); }
+.bi-envelope { --gi: url("../images/icons/envelope.svg"); }
+.bi-telephone { --gi: url("../images/icons/telephone.svg"); }
+.bi-geo-alt { --gi: url("../images/icons/geo-alt.svg"); }
+.bi-github { --gi: url("../images/icons/github.svg"); }
+.bi-instagram { --gi: url("../images/icons/instagram.svg"); }
+.bi-linkedin { --gi: url("../images/icons/linkedin.svg"); }
+.bi-clipboard { --gi: url("../images/icons/clipboard.svg"); }
+.bi-trophy { --gi: url("../images/icons/trophy.svg"); }
+.bi-music-note-beamed { --gi: url("../images/icons/music-note-beamed.svg"); }
+.bi-dribbble { --gi: url("../images/icons/dribbble.svg"); }
+.bi-stars { --gi: url("../images/icons/stars.svg"); }
+.bi-palette { --gi: url("../images/icons/palette.svg"); }
+.bi-person { --gi: url("../images/icons/person.svg"); }
+.bi-download { --gi: url("../images/icons/download.svg"); }
+.bi-tools { --gi: url("../images/icons/tools.svg"); }
+.bi-bar-chart { --gi: url("../images/icons/bar-chart.svg"); }
+.bi-translate { --gi: url("../images/icons/translate.svg"); }
+.bi-image { --gi: url("../images/icons/image.svg"); }
+/* İletişim / özgeçmiş ikon kutuları: renkli degrade yerine mühür gibi koyu zemin, gravür krem */
+.feature.bg-gradient-primary-to-secondary { background: radial-gradient(circle at 35% 30%, #5a4128, #2e2014) !important; color: #ecd9a8 !important; box-shadow: inset 0 0 0 1px rgba(201, 169, 110, .6); }
+.feature .bi { width: 1.5em; height: 1.5em; }
+@media (max-width: 767.98px) { .ink-dot { display: none; } .ink-strip { flex-direction: column; align-items: center; gap: .1em; } }
+
+/* ---------- Oynat / duraklat (js/autoplay.js) ---------- */
+.autoplay {
+    position: fixed; right: clamp(1rem, 4vw, 3rem); bottom: clamp(1rem, 5vh, 3rem); z-index: 130;
+    display: inline-flex; align-items: center; gap: .7rem; min-height: 44px; padding: .55rem 1.1rem .55rem .9rem;
+    font-family: var(--font-body); font-size: .7rem; letter-spacing: .24em; text-transform: uppercase; color: #ecd9a8;
+    background: rgba(14, 10, 6, .55); border: 1px solid rgba(201, 169, 110, .5); border-radius: 999px; cursor: pointer;
+    transition: background .3s, border-color .3s;
+}
+.autoplay:hover, .autoplay:focus-visible { background: rgba(14, 10, 6, .8); border-color: #d9bd83; outline: none; }
+.autoplay i { position: relative; width: 12px; height: 12px; }
+.autoplay i::before { content: ""; position: absolute; inset: 0; background: currentColor; clip-path: polygon(10% 0, 100% 50%, 10% 100%); }
+.autoplay.is-playing i::before { clip-path: polygon(0 0, 35% 0, 35% 100%, 0 100%, 0 0, 65% 0, 100% 0, 100% 100%, 65% 100%, 65% 0); }
+@media (max-width: 767.98px) { .autoplay span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); } .autoplay { padding: .55rem .95rem; } }

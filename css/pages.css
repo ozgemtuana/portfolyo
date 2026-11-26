@@ -1,0 +1,166 @@
+/* ==========================================================================
+   Kâğıt kolajı — Özgeçmiş, Blog, Galeri, Süreç, İletişim (js/decor.js sınıfları)
+   magazine.css'ten SONRA yüklenir. Tüm kâğıtlar gerçek kâğıt taramasından (paper-aged.jpg),
+   şekiller maskeyle kesilir; damgalar SVG.
+   ========================================================================== */
+
+/* Ortak sıfırlama: önceki dantel/yırtık/kutu kuralları bu objelerde geçersiz */
+html.collage body :is(.doc-tag, .doc-diploma, .doc-index, .letter-card, .polaroid, .print-old, .swatch-card, .type-card, .pinned-card, .steps-card, .check-card, .typed-card, .letter-form, .bizcard, .callcard, .addr-label, .stamps-card):not(#_) {
+    border: 0 !important; border-image: none !important; border-radius: 0 !important; box-shadow: none !important;
+    -webkit-mask: none !important; mask: none !important; filter: drop-shadow(0 2px 2px rgba(10, 6, 2, .3)) drop-shadow(0 18px 20px rgba(10, 6, 2, .42));
+    color: var(--ink-brown) !important;
+}
+html.collage :is(.doc-tag, .doc-diploma, .doc-index, .letter-card, .swatch-card, .type-card, .pinned-card, .steps-card, .check-card, .typed-card, .letter-form, .bizcard, .callcard, .addr-label, .stamps-card) :is(h2, h3, h4) { color: var(--ink-green) !important; }
+
+/* ================= ÖZGEÇMİŞ ================= */
+/* Deneyim: iple birbirine bağlı, tarih damgalı bagaj etiketleri */
+html.collage .timeline.strung { position: relative; padding-left: 0 !important; }
+html.collage .timeline.strung::before { content: ""; position: absolute; left: 2.1rem; top: 1rem; bottom: 1rem; width: 2px; z-index: 0;
+    background: repeating-linear-gradient(to bottom, rgba(222, 205, 168, .85) 0 7px, rgba(160, 130, 90, .85) 7px 9px); box-shadow: 1px 1px 2px rgba(0, 0, 0, .4); }
+html.collage .timeline .tl-fill { display: none !important; }
+html.collage body .doc-tag:not(#_) {
+    position: relative; margin-left: 0 !important; background: var(--paper-ticket) !important; padding: 0 !important; width: min(92%, 860px);
+    clip-path: polygon(3.4rem 0, 100% 0, 100% 100%, 3.4rem 100%, 0 calc(100% - 2.6rem), 0 2.6rem);
+}
+html.collage .timeline.strung .doc-tag:nth-child(odd) { margin-left: 4% !important; }
+html.collage .doc-tag .card-body { padding: 1.8rem 2.4rem 1.8rem 5rem !important; }
+.doc-hole { position: absolute; left: 1.45rem; top: 50%; width: 18px; height: 18px; margin-top: -9px; border-radius: 50%; background: rgba(12, 8, 4, .85); box-shadow: 0 0 0 4px rgba(236, 220, 186, .8); z-index: 2; }
+html.collage .doc-tag .inner-box { border-left: 0 !important; padding: 0 !important; }
+html.collage .doc-tag .inner-box .text-primary { font-family: var(--font-calli) !important; font-style: normal !important; font-size: 1.9rem !important; color: #7a2e24 !important; line-height: 1.1; }
+html.collage .doc-tag .inner-box .small.fw-bolder { font-family: "Special Elite", monospace; font-weight: 400 !important; font-size: .95rem; color: var(--ink-brown) !important; }
+html.collage .doc-tag .inner-box .text-muted { font-family: var(--font-display); font-style: italic; color: var(--ink-faded) !important; }
+html.collage .doc-tag .col-lg-8 { font-family: var(--font-display); font-size: 1.1rem; color: var(--ink-brown); }
+.doc-stamp { position: absolute; right: 1.2rem; top: -1rem; width: 82px; color: rgba(122, 46, 36, .55); transform: rotate(14deg); pointer-events: none; z-index: 3; }
+.doc-stamp svg { width: 100%; height: auto; display: block; }
+/* Eğitim: diploma */
+html.collage body .doc-diploma:not(#_) { background: var(--paper-cream) !important; padding: 0 !important; text-align: center;
+    box-shadow: inset 0 0 0 12px transparent, inset 0 0 0 13px rgba(47, 58, 40, .5), inset 0 0 0 17px transparent, inset 0 0 0 18px rgba(47, 58, 40, .3) !important; }
+html.collage .doc-diploma .card-body { padding: 2.6rem 3rem !important; }
+html.collage .doc-diploma .inner-box { border: 0 !important; padding: 0 !important; }
+html.collage .doc-diploma .inner-box .text-primary { font-family: var(--font-calli) !important; font-size: 1.7rem !important; color: var(--ink-faded) !important; }
+html.collage .doc-diploma .small.fw-bolder { font-family: var(--font-display); font-size: 1.6rem !important; font-weight: 500 !important; color: var(--ink-green) !important; }
+html.collage .doc-diploma .doc-stamp { top: auto; bottom: 1rem; right: 1.6rem; width: 70px; color: rgba(47, 58, 40, .55); }
+/* Yetenekler: fiş kartı (kırmızı üst çizgi, mavi satırlar) */
+html.collage body .doc-index:not(#_) { background:
+        linear-gradient(rgba(170, 70, 60, .55), rgba(170, 70, 60, .55)) 0 4.2rem / 100% 1px no-repeat,
+        repeating-linear-gradient(to bottom, transparent 0 2rem, rgba(70, 92, 120, .18) 2rem calc(2rem + 1px)) 0 4.3rem / 100% 100% no-repeat,
+        var(--paper-white) !important; border-radius: 4px !important; }
+html.collage .doc-index .skill-tag { font-family: var(--font-calli) !important; font-style: normal; font-size: 1.5rem !important; color: var(--ink-brown) !important; }
+html.collage .doc-index .feature, html.collage .doc-index .bi { color: var(--ink-green) !important; }
+
+/* ================= BLOG ================= */
+/* Yazı dizini: pullu mektup kartları */
+html.collage .blog-index { display: grid !important; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 2rem 1.6rem; filter: none !important; }
+html.collage body .letter-card:not(#_) { position: relative; background:
+        repeating-linear-gradient(to bottom, transparent 0 1.9rem, rgba(46, 36, 24, .16) 1.9rem calc(1.9rem + 1px)) 0 5rem / 100% 100% no-repeat,
+        var(--paper-white) !important; padding: 2rem 1.6rem 1.8rem !important; transform: rotate(var(--rot)); text-decoration: none !important; }
+html.collage body .letter-card:not(#_):nth-child(2) { margin-top: 2.4rem; background: linear-gradient(rgba(214, 196, 158, .45), rgba(214, 196, 158, .45)), var(--paper-cream) !important; }
+html.collage .letter-card * { color: var(--ink-brown) !important; }
+html.collage .letter-card .pc-stamp { right: 14px; top: 14px; width: 48px; height: 58px; }
+html.collage .letter-card .pc-post { width: 120px; right: 34px; top: 22px; }
+/* Yazılar: çizgili mektup kâğıdı */
+html.collage body .post.letter-paper:not(#_) { background:
+        linear-gradient(90deg, transparent 2.8rem, rgba(170, 70, 60, .3) 2.8rem calc(2.8rem + 1px), transparent calc(2.8rem + 1px)),
+        var(--paper-cream) !important; color: var(--ink-brown) !important; padding: clamp(2rem, 5vw, 4rem) clamp(1.6rem, 5vw, 4rem) clamp(2rem, 5vw, 4rem) clamp(3.6rem, 6vw, 5rem) !important;
+    border: 0 !important; border-radius: 0 !important; box-shadow: none !important; filter: drop-shadow(0 2px 2px rgba(10, 6, 2, .3)) drop-shadow(0 22px 24px rgba(10, 6, 2, .45));
+    -webkit-mask: url("../images/textures/deckle-mask.png") center / 100% 100% no-repeat; mask: url("../images/textures/deckle-mask.png") center / 100% 100% no-repeat; }
+html.collage .post.letter-paper :is(h2, h3) { color: var(--ink-green) !important; }
+html.collage .post.letter-paper :is(p, li, dd, dt, time, small, .post-lede, .post-by, .post-meta) { color: var(--ink-brown) !important; }
+html.collage .post.letter-paper .post-toc { background: none !important; border: 0 !important; }
+html.collage .post.letter-paper .post-toc a { color: var(--ink-faded) !important; font-family: var(--font-display); font-style: italic; }
+html.collage .post.letter-paper pre, html.collage .post.letter-paper code { font-family: "Special Elite", monospace !important; }
+html.collage .taped-print { position: relative; background: #f8f4ea !important; padding: 12px 12px 18px !important; transform: rotate(-1deg); box-shadow: 0 2px 2px rgba(10, 6, 2, .25), 0 14px 18px rgba(10, 6, 2, .3) !important; }
+html.collage .taped-print figcaption { font-family: var(--font-calli) !important; font-size: 1.4rem !important; color: var(--ink-faded) !important; text-align: center; }
+html.collage .blog-links a.ticket-link { background: var(--paper-ticket) !important; color: var(--ink-brown) !important; border: 0 !important; border-radius: 0 !important; box-shadow: none !important;
+    -webkit-mask: radial-gradient(circle 10px at 0 50%, #0000 96%, #000) left / 51% 100% no-repeat, radial-gradient(circle 10px at 100% 50%, #0000 96%, #000) right / 51% 100% no-repeat;
+    mask: radial-gradient(circle 10px at 0 50%, #0000 96%, #000) left / 51% 100% no-repeat, radial-gradient(circle 10px at 100% 50%, #0000 96%, #000) right / 51% 100% no-repeat; }
+html.collage .blog-links a.ticket-link * { color: var(--ink-brown) !important; }
+
+/* ================= GALERİ ================= */
+html.collage .gallery { display: grid !important; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 2.6rem 1.6rem; align-items: start; }
+html.collage .gallery > .g-item:nth-child(5n+1) { grid-column: 1 / span 5; }
+html.collage .gallery > .g-item:nth-child(5n+2) { grid-column: 7 / span 4; margin-top: 4rem; }
+html.collage .gallery > .g-item:nth-child(5n+3) { grid-column: 2 / span 4; margin-top: -1rem; }
+html.collage .gallery > .g-item:nth-child(5n+4) { grid-column: 6 / span 6; margin-top: 2rem; }
+html.collage .gallery > .g-item:nth-child(5n+5) { grid-column: 4 / span 5; }
+html.collage body .g-item.polaroid:not(#_) { background: #f8f4ea !important; padding: 14px 14px 18px !important; transform: rotate(var(--rot)); position: relative; }
+html.collage body .g-item.print-old:not(#_) { background: var(--paper-cream) !important; padding: 18px !important; transform: rotate(var(--rot)); position: relative;
+    -webkit-mask: radial-gradient(circle 5px at 50% 0, #0000 95%, #000) 0 0 / 14px 51% repeat-x, radial-gradient(circle 5px at 50% 100%, #0000 95%, #000) 0 100% / 14px 51% repeat-x !important;
+    mask: radial-gradient(circle 5px at 50% 0, #0000 95%, #000) 0 0 / 14px 51% repeat-x, radial-gradient(circle 5px at 50% 100%, #0000 95%, #000) 0 100% / 14px 51% repeat-x !important; }
+html.collage .g-item .g-photo { border-radius: 0 !important; overflow: hidden; box-shadow: none !important; }
+html.collage .g-item .g-photo img { border-radius: 0 !important; filter: sepia(.1) contrast(1.02); }
+html.collage .g-item.print-old .g-photo img { filter: sepia(.35) contrast(1.05) saturate(.85); }
+html.collage .g-item figcaption { padding: .8rem .2rem 0 !important; background: none !important; }
+html.collage .g-item .g-place { font-family: var(--font-calli) !important; font-size: 1.6rem !important; letter-spacing: 0 !important; text-transform: none !important; color: var(--ink-brown) !important; background: none !important; }
+html.collage .g-item .g-cap { font-family: var(--font-display) !important; font-style: italic; font-size: 1.02rem !important; color: var(--ink-faded) !important; }
+
+/* ================= SÜREÇ & İLHAM ================= */
+html.collage .proc-grid { gap: 2.6rem 1.8rem !important; filter: none !important; }
+html.collage body .proc-card.obj:not(#_) { transform: rotate(var(--rot)); padding: 2rem 2rem 2.2rem !important; }
+html.collage body .typed-card:not(#_) { background: var(--paper-white) !important; }
+html.collage .typed-card p { font-family: "Special Elite", monospace; font-size: .98rem; line-height: 1.7; color: var(--ink-brown) !important; }
+/* Moodboard: iğneyle tutturulmuş baskı listesi */
+html.collage body .pinned-card:not(#_) { background: linear-gradient(rgba(214, 196, 158, .5), rgba(214, 196, 158, .5)), var(--paper-cream) !important; }
+html.collage .pinned-card li::before { background: radial-gradient(circle at 35% 30%, #e6c78c, #8a5a24 70%) !important; border-radius: 50% !important; width: .8rem !important; height: .8rem !important; top: .8rem !important; filter: drop-shadow(1px 2px 1px rgba(0, 0, 0, .4)); transform: none !important; }
+/* Renk paleti: boya kartelası */
+html.collage body .swatch-card:not(#_) { background: var(--paper-white) !important; }
+html.collage .swatch-card .proc-sw { background: #fff !important; border: 0 !important; border-radius: 0 !important; padding: 6px 6px 8px !important; box-shadow: 0 2px 4px rgba(0, 0, 0, .25) !important; }
+html.collage .swatch-card .proc-sw:nth-child(odd) { transform: rotate(-2deg); }
+html.collage .swatch-card .proc-sw:nth-child(even) { transform: rotate(1.5deg); }
+html.collage .swatch-card .proc-chip { border-radius: 0 !important; }
+html.collage .swatch-card .proc-hex { font-family: "Special Elite", monospace !important; color: var(--ink-faded) !important; }
+/* Tipografi örnek kartı */
+html.collage body .type-card:not(#_) { background:
+        linear-gradient(rgba(47, 58, 40, .4), rgba(47, 58, 40, .4)) 2rem 4.4rem / calc(100% - 4rem) 1px no-repeat, var(--paper-cream) !important; }
+html.collage .type-card .proc-sample { font-family: var(--font-calli) !important; font-size: 1.9rem !important; color: var(--ink-brown) !important; border: 0 !important; background: none !important; }
+/* Araçlar: damgalı kontrol listesi */
+html.collage body .check-card:not(#_) { background: var(--paper-white) !important; }
+html.collage .check-card li::before { content: "✓" !important; background: none !important; color: #7a2e24 !important; font: 700 1.3rem var(--font-display) !important; top: .3rem !important; width: auto !important; height: auto !important; transform: rotate(calc(var(--tick) * 6deg - 6deg)) !important; filter: none !important; }
+html.collage body .steps-card:not(#_) { background: var(--paper-cream) !important; }
+
+/* ================= İLETİŞİM ================= */
+html.collage body .letter-form:not(#_) { background:
+        linear-gradient(90deg, transparent 2.8rem, rgba(170, 70, 60, .3) 2.8rem calc(2.8rem + 1px), transparent calc(2.8rem + 1px)),
+        var(--paper-cream) !important; padding-left: 1.4rem !important; transform: rotate(-.8deg); }
+html.collage .letter-form .card-body { padding-left: 3.6rem !important; }
+html.collage .letter-form .deco-sign { right: 2rem; bottom: 1.2rem; }
+html.collage body .bizcard:not(#_) { background: var(--paper-white) !important; border-radius: 3px !important; padding: 1.8rem 2rem !important; }
+html.collage body .callcard:not(#_) { background: var(--paper-cream) !important; padding: 1.6rem 2rem !important; position: relative; }
+html.collage .callcard .deco-stamp { position: absolute; right: .6rem; top: -1rem; width: 70px; color: rgba(122, 46, 36, .5); transform: rotate(12deg); }
+html.collage .callcard .deco-stamp svg { width: 100%; height: auto; display: block; }
+html.collage body .addr-label:not(#_) { background: var(--paper-kraft) !important; padding: 1.6rem 2rem !important; }
+html.collage .addr-label * { color: #24180c !important; }
+html.collage .addr-label::after { content: ""; position: absolute; inset: 10px; border: 1px dashed rgba(36, 24, 12, .5); pointer-events: none; }
+html.collage body .stamps-card:not(#_) { background: none !important; filter: none !important; padding: 0 !important; }
+html.collage .stamps-card .small { color: rgba(236, 217, 168, .8) !important; font-family: var(--font-display); font-style: italic; }
+html.collage .stamps-card a { display: inline-grid; place-items: center; width: 64px; height: 76px; background: var(--paper-white); color: var(--ink-green) !important;
+    -webkit-mask: radial-gradient(circle 3px at 50% 0, #0000 95%, #000) 0 0 / 8px 51% repeat-x, radial-gradient(circle 3px at 50% 100%, #0000 95%, #000) 0 100% / 8px 51% repeat-x;
+    mask: radial-gradient(circle 3px at 50% 0, #0000 95%, #000) 0 0 / 8px 51% repeat-x, radial-gradient(circle 3px at 50% 100%, #0000 95%, #000) 0 100% / 8px 51% repeat-x; }
+html.collage .stamps-card a:nth-child(odd) { transform: rotate(-4deg); }
+html.collage .stamps-card a:nth-child(even) { transform: rotate(3deg); }
+html.collage .stamps-card a .bi { width: 1.6em !important; height: 1.6em !important; }
+html.collage body :is(.bizcard, .callcard, .addr-label) .feature:not(#_) { background: none !important; box-shadow: none !important; color: var(--ink-green) !important; }
+html.collage body .addr-label .feature:not(#_) { color: #24180c !important; }
+
+/* ================= FIRÇA İMLEÇ (js/brush.js) ================= */
+html.brush-on, html.brush-on body, html.brush-on a, html.brush-on button, html.brush-on [role="button"], html.brush-on label { cursor: none !important; }
+html.brush-on input, html.brush-on textarea, html.brush-on select { cursor: text !important; }
+html.brush-on .cursor, html.brush-on .cursor-dot { display: none !important; }
+/* Fırçanın ucu (görselin sol alt köşesi) imlecin tam noktasıdır */
+.brush-cursor { position: fixed; left: 0; top: 0; z-index: 3000; width: 64px; height: 64px; margin: -52px 0 0 -12px; transform-origin: 12px 52px;
+    pointer-events: none; opacity: 0; transition: opacity .25s; filter: drop-shadow(2px 4px 4px rgba(0, 0, 0, .45)); }
+.brush-cursor img, .brush-cursor svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.brush-cursor img + svg { display: none; }
+.brush-label { position: fixed; left: 0; top: 0; z-index: 2999; pointer-events: none; opacity: 0; transition: opacity .3s;
+    padding: .35rem .7rem .4rem; background: var(--paper-white, #f6f1e4); color: #2e2418; font-family: var(--font-display); font-style: italic; font-size: .95rem;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, .35); clip-path: polygon(0 0, 100% 0, 100% 100%, 8% 100%, 0 82%); }
+.brush-label.is-on { opacity: 1; }
+
+/* ---------- Telefon ---------- */
+@media (max-width: 991.98px) {
+    html.collage .blog-index, html.collage .gallery { grid-template-columns: 1fr !important; }
+    html.collage .gallery > .g-item { grid-column: 1 / -1 !important; margin-top: 0 !important; }
+    html.collage body .letter-card:not(#_):nth-child(2) { margin-top: 0; }
+    html.collage body .doc-tag:not(#_), html.collage .timeline.strung .doc-tag:nth-child(odd) { width: 100%; margin-left: 0 !important; }
+    html.collage .doc-tag .card-body { padding: 1.4rem 1.4rem 1.4rem 4.2rem !important; }
+}

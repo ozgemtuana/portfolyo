@@ -1,0 +1,77 @@
+# Tuana Davarcı — ayrıntılı bilgi (llms-full)
+
+> Tuana Davarcı'nın kişisel portfolyosu: Akdeniz Üniversitesi Bilgisayar Programcılığı öğrencisi, grafik animasyon, web tasarım ve ürün tanıtımı.
+
+## Kişi
+- Ad: Tuana Davarcı
+- Konum: Muratpaşa, Antalya, TR
+- E-posta: ozgmtuana15@gmail.com
+- Telefon: 0552 311 07 00
+- GitHub: https://github.com/ozgemtuana
+- Instagram: https://www.instagram.com/ozgemtuana/
+- Site: https://ozgemtuana.github.io/portfolyo/
+
+## Eğitim
+- 2026 - Günümüz: Akdeniz Üniversitesi — Bilgisayar Programcılığı (Teknik Bilimler MYO · 1. sınıf)
+- 2026 - Devam ediyor: Anadolu Üniversitesi — Yapay Zekâ Destekli Kodlama (Açıköğretim)
+
+## Deneyim
+- Güncel: Instagram Sosyal Medya Yöneticisi, Serbest. Markaların Instagram hesapları için içerik planlıyor, paylaşımları hazırlıyor ve takipçi etkileşimini yönetiyorum.
+- Güncel: Web Tasarım & Ürün Tanıtımı, Serbest. Ürünler için tanıtım görselleri tasarlıyor, küçük işletmeler için responsive web sayfaları hazırlıyorum.
+- Güncel: Model, Serbest. 3 farklı podyum etkinliğinde model olarak yürüdüm; podyum yürüyüşü, sahne duruşu ve koreografi konusunda deneyim kazandım.
+- 2016 - 2021: Koro Sanatçısı, Devlet Opera ve Balesi. Beş yıl boyunca koroda yer aldım; Carmen ve La Bohème operalarında 6–7 temsilde sahneye çıktım. ENBE Orkestrası ile solo vokal performansı gerçekleştirdim.
+
+## Diller
+- Türkçe — Ana dil
+- İngilizce
+- Python — Programlama dili
+
+## Yetenekler
+- HTML5: %80
+- CSS3: %75
+- JavaScript: %45
+- Python: %60
+- Bootstrap: %70
+- Adobe Photoshop: %75
+- Instagram / sosyal medya yönetimi: %85
+- İçerik üretimi: %80
+- Ürün fotoğrafçılığı: %70
+- Microsoft Office: %75
+
+## Projeler (Grafik Animasyon dersi)
+- Vanilla Cola (Ürün Tanıtımı): Vanilla Coca-Cola için hazırladığım ürün tanıtım görseli: akışkan çizgiler ve yansımalı sahne. — https://ozgemtuana.github.io/portfolyo/projects.html?p=proje-1
+- History Brush (Photoshop): Photoshop History Brush tekniğiyle siyah-beyaz sahnede tek karakteri renkle öne çıkaran çalışma. — https://ozgemtuana.github.io/portfolyo/projects.html?p=proje-2
+- Scarlet Witch Renklendirme (Proje 3): Photoshop'ta siyah çizgi çizimini renklendirdiğim çizgi roman tarzı çalışma: kırmızı tonlar ve parlayan enerji efekti. — https://ozgemtuana.github.io/portfolyo/projects.html?p=proje-3
+- Güneş Sistemi (Proje 4 · Smart Object): Photoshop Smart Object ile hazırladığım güneş sistemi: gezegenler akıllı nesne olarak yerleştirildi, yörüngeler ve yıldızlı arka planla tamamlandı. — https://ozgemtuana.github.io/portfolyo/projects.html?p=proje-4
+- Boşalan Cadde (Proje 5 · Image Stack): Antalya'da bir üst geçitten aynı açıyla çektiğim 20 gece fotoğrafını Photoshop'ta yığına yükleyip Ortanca (Median) yığın moduyla birleştirdim; geçen arabalar kayboldu, cadde boş kaldı. — https://ozgemtuana.github.io/portfolyo/projects.html?p=proje-5
+- Zizi Beach Web Arayüzü (Proje 6 · Web Arayüzü): zizibeach.com sitesinin arayüzünü 960 Grid System şablonu üzerinde Photoshop'ta yeniden tasarladım; Layer Comps ile 3 farklı yerleşim hazırladım. — https://ozgemtuana.github.io/portfolyo/projects.html?p=proje-6
+- Kişisel Portfolyo (Web Tasarım): Bu sitenin kendisi: HTML5, CSS3, GSAP ve Three.js ile kaydırma animasyonları.
+- @ozgemtuana (Sosyal Medya): Instagram hesabım için içerik üretimi, çekim ve paylaşım planlaması.
+
+## Blog yazıları
+- Yapay Zekâ ile Dijital Dünyanın Geleceği (2026-10-26): Yapay zekâ artık bilim kurgu filmlerinde değil; telefonumuzda, tarayıcımızda ve kod editörümüzde. Bilgisayar programcılığı okuyan biri olarak onu hem güçlü bir yardımcı hem de dikkatle kullanılması gereken bir araç olarak görüyorum. Bu yazıda nasıl çalıştığını, nerede işe yaradığını ve nerede yanıldığını anlatıyorum.
+- Fikirden Dijital Vitrine: Markalar İnternette Nasıl Tanıtılır? (2026-10-26): Ürün ne kadar iyi olursa olsun, görülmeyen ürün satılmaz. Bu yazıda bir fikrin dijital bir vitrine dönüşme yolunu adım adım anlatıyor, ardından “Sakin Mum” adlı kurgusal bir marka için örnek bir tanıtım çalışması gösteriyorum.
+- Moda, Modellik ve Dijital Dünyada Kişisel Marka Oluşturmak (2026-10-26): Podyumda yürümek, kameranın önünde durmak ve bir ürünü anlatmak aynı iş değil; ama üçünün ortak noktası görünür olmak ve güven vermek. Üç podyum etkinliğinde yürümüş ve yıllarca sahnede bulunmuş biri olarak, şimdi kod öğrenirken bu iki dünyayı nasıl birleştirdiğimi anlatıyorum.
+  Tümü: https://ozgemtuana.github.io/portfolyo/blog.html
+
+## Galeri
+- Side, Antalya: Gün batımında antik sütunların arasında. Tarihin içinde yürümek bana hep ilham verir. — https://ozgemtuana.github.io/portfolyo/galeri.html?p=foto-1
+- Doğum günü: Mumları üflemeden hemen önce, dilek tutarken. — https://ozgemtuana.github.io/portfolyo/galeri.html?p=foto-2
+- Kaleiçi, Antalya: Kaleiçi'nin taş sokaklarında akşam yürüyüşü. Her kapının bir hikâyesi var. — https://ozgemtuana.github.io/portfolyo/galeri.html?p=foto-3
+- İstanbul: İstanbul sokaklarında, binaların arasında kendime yer bulurken. — https://ozgemtuana.github.io/portfolyo/galeri.html?p=foto-4
+- Spor: Spor benim için günün ritmi: disiplin ve enerji. — https://ozgemtuana.github.io/portfolyo/galeri.html?p=foto-5
+- Satranç turnuvası: Satranç turnuvasında ödül töreni; kürsüde madalyalar takılırken. — https://ozgemtuana.github.io/portfolyo/galeri.html?p=foto-6
+- Binicilik: Güneşli bir günde kum pistte binicilik. — https://ozgemtuana.github.io/portfolyo/galeri.html?p=foto-7
+- Carmen, opera sahnesi: Carmen operasının sonunda koroyla sahnede selamlama. — https://ozgemtuana.github.io/portfolyo/galeri.html?p=foto-8
+
+## Ders programı (Güz)
+- Pzt 13:30–17:20: MBIL 101 Programlamanın Temelleri (303 · Lab L23)
+- Sal 08:30–10:20: TDB 101 Türk Dili I (Sanal sınıf)
+- Sal 13:30–15:20: ATA 101 Atatürk İlkeleri ve İnkılap Tarihi I (Uzaktan eğitim dersliği 2)
+- Sal 15:30–17:20: YBD 121 İngilizce I (Uzaktan eğitim)
+- Çar 08:30–10:20: MYO 123 Fizik I (Z05)
+- Çar 10:30–12:20: MYO 131 Temel Matematik (Z03)
+- Çar 13:30–17:20: MBIL 103 Veri Tabanı I (303 · Lab L23)
+- Per 08:30–12:20: MBIL 105 Grafik Animasyon I (Lab L23 · 303)
+- Per 13:30–15:20: MBIL 113 Web Tasarımının Temelleri (303 · Lab L23)
+- Cum 13:30–15:20: MBIL 111 Ofis Yazılımları (303 · Lab L23)

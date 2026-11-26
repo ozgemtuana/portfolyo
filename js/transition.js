@@ -5,7 +5,7 @@
      sayfanın adı harf harf belirir. Perde tam kapalıyken içerik değiştirilir,
      ardından Transition.reveal() başlığı yukarı kaydırıp katmanları çeker.
      (Sayfa baştan yüklenmez; bu yüzden müzik ve 3D dünya kesilmez.)
-   - İlk ziyarette lilyum çiçeği 0→100 sayacıyla açılır.
+   - İlk ziyarette lilyum motifli altın mühür 0→100 sayacıyla basılır.
    main.js, hero girişini başlatmak için hazır sözünü (ready) bekler.
    GSAP yoksa veya hareket azaltılmışsa perde hemen kaldırılır.
    ========================================================================== */
@@ -75,10 +75,96 @@
 
     if (!el) { markReady(); return; }
 
-    // GSAP yok / hareket azaltılmış: perdeyi kaldır, bağlantılar normal çalışsın
+    /* ---------- Sayfa geçişi: hipnozcunun sallanan cep saati ----------
+       Perde kararır → saat zincirinin ucundan sallanır (sönümlenen sarkaç) → içerik arkada
+       değişir → saat yukarı çekilip kaybolur. Yalnız transform/opacity; Web Animations API ile
+       (Site.destroyPage gsap.globalTimeline.clear() yaptığı için GSAP burada kullanılmaz). */
+    // Ortak saat bileşeni: sayfa geçişi ve açılış (js/intro.js) aynı işaretlemeyi kullanır
+    window.PocketWatch = { html: '<div class="pw-hang"><div class="pw-swing"><img src="images/transition/pocket-watch.png" alt="" decoding="async"></div></div>' };
+    const watch = (function () {
+        let pw = null, hang = null, swing = null;
+        const wait = (ms) => new Promise((r) => setTimeout(r, ms));
+        const HANG = "translateX(-50%)";
+        // Sarkaç: ±28° → -18° → 9° → -3° → 0 (her yön değişiminde ease-in-out)
+        const SWING = [
+            { transform: "rotate(0deg)", offset: 0, easing: "cubic-bezier(.2,.6,.4,1)" },
+            { transform: "rotate(28deg)", offset: 0.1786, easing: "cubic-bezier(.45,.05,.55,.95)" },
+            { transform: "rotate(-18deg)", offset: 0.4643, easing: "cubic-bezier(.45,.05,.55,.95)" },
+            { transform: "rotate(9deg)", offset: 0.6964, easing: "cubic-bezier(.45,.05,.55,.95)" },
+            { transform: "rotate(-3deg)", offset: 0.875, easing: "cubic-bezier(.45,.05,.55,.95)" },
+            { transform: "rotate(0deg)", offset: 1 }
+        ];
+        const build = () => {
+            if (pw) return;
+            pw = document.createElement("div");
+            pw.className = "pw";
+            pw.setAttribute("aria-hidden", "true");
+            pw.innerHTML = '<div class="pw-veil"></div><div class="pw-rings"><i></i><i></i><i></i></div>' + window.PocketWatch.html;
+            document.body.appendChild(pw);
+            hang = pw.querySelector(".pw-hang");
+        };
+        const finish = () => {
+            pw.getAnimations({ subtree: true }).forEach((a) => a.cancel());
+            pw.classList.remove("is-on", "is-closed");
+            swing = null;
+        };
+        const leave = () => {
+            build();
+            pw.classList.add("is-on");
+            void pw.offsetWidth;
+            pw.classList.add("is-closed");
+            if (reduceMotion) return wait(260);
+            hang.animate([{ transform: HANG + " translateY(-105%)", opacity: 0 }, { transform: HANG, opacity: 1 }],
+                { duration: 350, easing: "cubic-bezier(.22,.61,.36,1)", fill: "forwards" });
+            swing = pw.querySelector(".pw-swing").animate(SWING, { duration: 1120, delay: 100, fill: "forwards" });
+            return wait(420); // perde tamamen kapalı, saat sallanırken içerik değişir
+        };
+        const reveal = () => new Promise((resolve) => {
+            if (!pw) return resolve();
+            const open = () => {
+                pw.classList.remove("is-closed");
+                if (reduceMotion) { setTimeout(resolve, 100); setTimeout(finish, 320); return; }
+                hang.animate([{ transform: HANG, opacity: 1 }, { transform: HANG + " translateY(-28%)", opacity: 0 }],
+                    { duration: 400, easing: "cubic-bezier(.5,0,.75,0)", fill: "forwards" }).finished.then(finish, finish);
+                setTimeout(resolve, 120); // hero girişi perde açılırken başlasın
+            };
+            if (swing && swing.playState !== "finished") swing.finished.then(open, open); else open();
+        });
+        return { leave, reveal };
+    })();
+
+    window.Transition = {
+        leave(key) {
+            document.dispatchEvent(new CustomEvent("transition:start", { detail: { key } }));
+            return watch.leave();
+        },
+        reveal() {
+            const p = makeReady();
+            watch.reveal().then(markReady);
+            return p;
+        },
+        pages: PAGES
+    };
+
+    // Açılış (js/intro.js): yalnız ilk girişte; perde üstünde açılır, yükleme arkada sürer.
+    // Hareket azaltılmışsa da gösterilir (tünel durağan, sade geçiş).
+    if (window.Intro && root.classList.contains("first-visit")) {
+        window.Intro.play().then(markReady);
+        requestAnimationFrame(() => hide());
+        return;
+    }
+
+    // GSAP yok / hareket azaltılmış: açılış perdesi hemen kalkar; geçişte yalnız kararma/açılma
     if (!hasGSAP || reduceMotion) {
         hide();
         markReady();
+        return;
+    }
+
+    /* ---------- Ana sayfa (açılış yok): perde kısa bir solmayla kalkar ---------- */
+    if (window.Intro) {
+        gsap.to(el, { opacity: 0, duration: 0.45, delay: 0.1, ease: "power1.out", onComplete: () => { hide(); el.style.opacity = ""; } });
+        setTimeout(markReady, 250);
         return;
     }
 
@@ -173,57 +259,50 @@
         hide();
         markReady();
     } else if (firstVisit) {
-        /* ---------- İlk ziyaret: açan lilyum + yüzde sayacı ---------- */
+        /* ---------- İlk ziyaret: dönen altın mühür + yüzde sayacı ---------- */
         setText(info(page), words().hello);
         el.classList.add("is-live");
         gsap.set(rule, { scaleX: 0 });
         gsap.set(wordIn, { yPercent: 110 });
         gsap.set(chars, { yPercent: 130 });
 
-        const NS = "http://www.w3.org/2000/svg";
         const bloom = document.createElement("div");
         bloom.className = "pt-bloom";
-        const petalD = "M0 0 C26 -10 36 -62 12 -98 C5 -106 -5 -106 -12 -98 C-36 -62 -26 -10 0 0 Z";
-        let petals = "";
-        for (let i = 0; i < 6; i++) {
-            petals += '<g class="lp" data-i="' + i + '"><path d="' + petalD + '" fill="url(#lilyPetal)"/>' +
-                '<path d="M0 -4 C3 -30 3 -56 1 -80" fill="none" stroke="#e4e08a" stroke-width="2.4" stroke-linecap="round" opacity=".75"/>' +
-                '<path d="M-6 -22 C-4 -42 -3 -58 -2 -72 M8 -22 C9 -40 8 -56 4 -74" fill="none" stroke="#b79a6c" stroke-width=".7" opacity=".45"/></g>';
+        // Tırtıllı mum kenarı: 26 dalga
+        let edge = "";
+        for (let i = 0; i <= 260; i++) {
+            const th = (i / 260) * Math.PI * 2, r = 92 + 4.2 * Math.sin(th * 26);
+            edge += (i ? "L" : "M") + (r * Math.cos(th)).toFixed(2) + " " + (r * Math.sin(th)).toFixed(2);
         }
-        let stamens = "";
-        [-52, -22, 8, 38, 68].forEach((deg, i) => {
-            stamens += '<g class="ls" transform="rotate(' + deg + ')"><path d="M0 0 L0 -' + (58 + (i % 2) * 10) + '" stroke="#ece59a" stroke-width="1.6" stroke-linecap="round"/>' +
-                '<ellipse cx="0" cy="-' + (62 + (i % 2) * 10) + '" rx="3.2" ry="7.5" fill="#5b3418"/></g>';
-        });
+        const ring = (lang() === "en" ? "TUANA DAVARCI · PORTFOLIO · " : "TUANA DAVARCI · PORTFOLYO · ").repeat(2);
+        const lily = "M0 46V6M0 6C-9 -8 -9 -26 0 -42 9 -26 9 -8 0 6zM0 6C-16 -2 -28 -14 -31 -30 -13 -26 -3 -14 0 6zM0 6C16 -2 28 -14 31 -30 13 -26 3 -14 0 6zM0 6C-20 8 -36 4 -44 -8 -24 -12 -8 -6 0 6zM0 6C20 8 36 4 44 -8 24 -12 8 -6 0 6z";
         bloom.innerHTML =
-            '<svg class="pt-lily" viewBox="-110 -110 220 220" focusable="false" aria-hidden="true">' +
-            '<defs><radialGradient id="lilyPetal" cx="0" cy="0" r="95" gradientUnits="userSpaceOnUse">' +
-            '<stop offset="0" stop-color="#eef0a8"/><stop offset=".28" stop-color="#f4e6c4"/>' +
-            '<stop offset=".7" stop-color="#e6cfa4"/><stop offset="1" stop-color="#d2b484"/></radialGradient></defs>' +
-            '<g class="lily-flower">' + petals + '<circle class="lc" r="7" fill="#eef0a8"/>' + stamens + '</g></svg>' +
+            '<svg class="pt-lily" viewBox="-140 -140 280 280" focusable="false" aria-hidden="true">' +
+            '<defs><radialGradient id="waxG" cx="-.25" cy="-.3" r="1"><stop offset="0" stop-color="#e2c98f"/><stop offset=".55" stop-color="#c9a96e"/><stop offset="1" stop-color="#8f6f3e"/></radialGradient>' +
+            '<path id="ringP" d="M0 -118A118 118 0 1 1 -.01 -118"/></defs>' +
+            '<g class="seal-ring"><text font-size="15" letter-spacing="5" fill="#c9a96e" font-family="Cormorant Garamond, serif"><textPath href="#ringP" startOffset="0">' + ring + '</textPath></text></g>' +
+            '<g class="seal-wax"><path d="' + edge + 'Z" fill="url(#waxG)"/>' +
+            '<circle r="74" fill="none" stroke="#7d5f33" stroke-width="2" opacity=".7"/><circle r="68" fill="none" stroke="#f1dcaa" stroke-width="1" opacity=".55"/>' +
+            '<g class="seal-emblem" transform="translate(0 4)"><path d="' + lily + '" fill="none" stroke="#6e5128" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" opacity=".85" transform="translate(1.5 2)"/>' +
+            '<path d="' + lily + '" fill="none" stroke="#f3e1b0" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></g></g></svg>' +
             '<div class="pt-bloom-count"><b>0</b><em>%</em></div>';
         el.appendChild(bloom);
-        const flower = bloom.querySelector(".lily-flower");
-        const lp = [...bloom.querySelectorAll(".lp")];
-        const ls = [...bloom.querySelectorAll(".ls")];
+        const wax = bloom.querySelector(".seal-wax");
+        const emblem = bloom.querySelector(".seal-emblem");
+        const ringG = bloom.querySelector(".seal-ring");
         const bcount = bloom.querySelector(".pt-bloom-count b");
         const bcountWrap = bloom.querySelector(".pt-bloom-count");
         const lilyEl = bloom.querySelector(".pt-lily");
 
-        // Her yaprak: tomurcuktan (dar açı, küçük) tam açılmaya
+        // Mum damlası gibi büyür; halka yazı döner; sayaç 100'e çıkınca mühür basılır
         const obj = { v: 0 };
         const render = () => {
             const e = obj.v / 100;
-            lp.forEach((p, i) => {
-                const open = Math.min(1, Math.max(0, e * 1.25 - i * 0.025));
-                const ang = i * 60 * (0.12 + 0.88 * open) + (i % 2 ? 6 : -4) * open;
-                const sc = 0.3 + 0.7 * open;
-                p.setAttribute("transform", "rotate(" + ang + ") scale(" + (0.55 + 0.45 * open) + " " + sc + ")");
-                p.style.opacity = Math.min(1, 0.25 + e * 2);
-            });
-            const sOpen = Math.max(0, (e - 0.55) / 0.45);
-            ls.forEach((s) => s.setAttribute("opacity", sOpen));
-            flower.setAttribute("transform", "rotate(" + (-18 + 18 * e) + ") scale(" + (0.82 + 0.18 * e) + ")");
+            wax.setAttribute("transform", "scale(" + (0.12 + 0.88 * Math.pow(e, 0.7)).toFixed(3) + ")");
+            wax.style.opacity = Math.min(1, e * 4);
+            emblem.setAttribute("opacity", Math.max(0, (e - 0.35) / 0.65));
+            ringG.setAttribute("transform", "rotate(" + (e * 300).toFixed(1) + ")");
+            ringG.style.opacity = Math.min(1, e * 3);
             bcount.textContent = Math.round(obj.v);
         };
         render();
@@ -233,9 +312,10 @@
             .fromTo(bloom, { opacity: 0 }, { opacity: 1, duration: 0.5, ease: "power2.out" }, 0)
             .to(obj, { v: 100, duration: 2.6, ease: "power2.inOut", onUpdate: render }, 0.1)
             .to(rule, { scaleX: 1, duration: 2.6, ease: "power2.inOut" }, 0.1)
-            .to(lilyEl, { y: -6, duration: 1.3, ease: "sine.inOut", yoyo: true, repeat: 1 }, 0.1)
-            .to(bcountWrap, { opacity: 0, y: 10, duration: 0.35, ease: "power2.in" }, ">0.05")
-            .to(bloom, { opacity: 0, scale: 1.12, duration: 0.5, ease: "power2.in" }, "<0.15")
+            // Damga basılır: hafif büyüyüp yerine oturur
+            .fromTo(lilyEl, { scale: 1.12 }, { scale: 1, duration: 0.45, ease: "back.out(2.2)", transformOrigin: "50% 50%" }, ">")
+            .to(bcountWrap, { opacity: 0, y: 10, duration: 0.35, ease: "power2.in" }, ">0.15")
+            .to(bloom, { opacity: 0, scale: 1.08, duration: 0.5, ease: "power2.in" }, "<0.25")
             .add(() => el.classList.add("is-named"));
         textIn(tl, ">-0.15");
         tl.add(buildReveal(false), "+=0.12");

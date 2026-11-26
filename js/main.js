@@ -81,6 +81,7 @@
         /* ---------- Lenis yumuşak kaydırma ---------- */
         if (typeof window.Lenis !== "undefined") {
             lenis = new Lenis({ duration: 1.2, smoothWheel: true });
+            window.__lenis = lenis;
             lenis.on("scroll", ScrollTrigger.update);
             gsap.ticker.add((time) => lenis.raf(time * 1000));
             gsap.ticker.lagSmoothing(0);
@@ -192,8 +193,10 @@
                 ok.classList.add("d-none");
                 err.classList.add("d-none");
                 form.classList.add("was-validated");
+                form.querySelectorAll("input, textarea").forEach((f) => f.setAttribute("aria-invalid", f.checkValidity() ? "false" : "true"));
                 if (!form.checkValidity()) {
                     err.classList.remove("d-none");
+                    const bad = form.querySelector(":invalid"); if (bad) bad.focus();
                     if (hasGSAP) gsap.fromTo(form, { x: -10 }, { x: 0, duration: 0.6, ease: "elastic.out(1, 0.3)" });
                     return;
                 }
@@ -203,6 +206,18 @@
                     "?subject=" + encodeURIComponent("Portfolyo — " + v("name")) +
                     "&body=" + encodeURIComponent(body);
                 ok.classList.remove("d-none");
+                // mailto açılmazsa: mesajı panoya kopyalama yedeği
+                const copy = document.getElementById("copyMessage");
+                if (copy) copy.onclick = () => {
+                    const done = () => { copy.textContent = document.documentElement.lang === "en" ? "Copied!" : "Kopyalandı!"; };
+                    if (navigator.clipboard) navigator.clipboard.writeText(PROFILE.email + "\n\n" + body).then(done, done); else done();
+                };
+            });
+            // Alan bazında doğrulama: dokunulan alan hemen kendi hatasını gösterir
+            form.querySelectorAll("input, textarea").forEach((f) => {
+                const sync = () => { f.setAttribute("aria-invalid", f.checkValidity() ? "false" : "true"); };
+                f.addEventListener("blur", () => { f.classList.toggle("is-invalid", !f.checkValidity()); sync(); });
+                f.addEventListener("input", () => { if (f.classList.contains("is-invalid") && f.checkValidity()) { f.classList.remove("is-invalid"); sync(); } });
             });
         }
 
@@ -380,7 +395,8 @@
 
         /* ---------- Yatay kayan proje bölümü (sabitlenir) ---------- */
         const hTrack = document.querySelector(".h-track");
-        if (hTrack) {
+        // Kartpostallar artık sabit, ortalı kolaj (ekrandan kesilmesin): yatay sabitleme yalnızca data-static yoksa
+        if (hTrack && !hTrack.hasAttribute("data-static")) {
             const dist = () => hTrack.scrollWidth - window.innerWidth;
             const hTween = gsap.to(hTrack, {
                 x: () => -dist(),

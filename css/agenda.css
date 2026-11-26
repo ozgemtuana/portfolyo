@@ -1,0 +1,17 @@
+/* ==========================================================================
+   Ders programı: spiral ciltli ajanda (işaretleme js/i18n.js > schedule, gerçek <table> korunur)
+   Halkalar, el yazısı ders kodları, "Web Tasarımının Temelleri" etrafında kırmızı daire, uzaktan derslerde ✎
+   ========================================================================== */
+.sched-wrap { position: relative; padding-top: 3.4rem !important; overflow: visible !important; }
+.sched-wrap::before { content: ""; position: absolute; left: 3%; right: 3%; top: -20px; height: 44px; z-index: 3; pointer-events: none;
+    background: radial-gradient(ellipse 6px 17px at 14px 50%, #cfcfcf 0 38%, #3b3b3b 62% 100%) 0 0 / 30px 44px repeat-x; filter: drop-shadow(0 5px 4px rgba(0, 0, 0, .55)); }
+.sched-wrap::after { content: ""; position: absolute; left: 3%; right: 3%; top: 4px; height: 3px; z-index: 2; pointer-events: none; background: rgba(60, 40, 20, .25); }
+.sched-table .course-code, .sched-table .course-time { font-family: "Caveat", "Cormorant Garamond", cursive !important; font-weight: 600; font-size: 1.15rem; letter-spacing: 0 !important; }
+.sched-table .course-name { font-family: "Playfair Display", Georgia, serif; font-style: italic; }
+.course-kind.k-uzaktan::after { content: " \270E"; font-family: "Caveat", cursive; color: #7a1f1a; }
+.course[data-code="MBIL 113"] { position: relative; }
+.course[data-code="MBIL 113"]::after { content: ""; position: absolute; inset: 2px 0; border: 2.5px solid #7a1f1a; border-radius: 46% 54% 50% 50% / 55% 45% 55% 45%; transform: rotate(-1.4deg); opacity: .8; pointer-events: none; }
+@media (max-width: 767.98px) { .sched-wrap { overflow-x: auto !important; } .sched-wrap::before { left: 2%; right: 2%; } }
+
+/* Yeşil zemin yok: sahne tablosunun arkasında (tuval yüklenirken ya da dışında kalan yerlerde) koyu ceviz */
+html body { background-color: #1c140c !important; }

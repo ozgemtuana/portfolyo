@@ -1,0 +1,35 @@
+/* ==========================================================================
+   Kart düzeltmeleri: eski kahverengi degrade kuralları yüksek özgüllüklüydü (:nth-of-type, >).
+   :not(#_) hilesiyle kâğıt zemin kesin olarak öne geçer. Ana sayfa "Öne çıkan projeler"
+   kartları da yapıştırılmış baskı olur; görseli olmayan projelerde CSS degrade yerine boş kâğıt + mühür.
+   ========================================================================== */
+html body :is(.list-card, .proc-card, .card, .int-card, .skills-panel, .about-text, .hobby-intro, .edu-list, .services-glass, .sc-label, .pf-card,
+    .pagenav .pn-next, .pagenav .pn-prev, .flow-card, .mini-card, .sched-wrap, .glass:not(.about-glass)):not(#_) {
+    background: var(--paper-real) !important;
+    color: var(--ink-card) !important;
+    --bone: var(--ink-card); --muted: var(--ink-soft); --tan: #8a5a35; --accent: #8a5a35; --sage: #5a6a38;
+    --border: rgba(46, 36, 24, .2); --glass-border: rgba(46, 36, 24, .2); --surface-2: transparent;
+}
+html body :is(.list-card, .proc-card, .card, .int-card, .skills-panel, .about-text, .hobby-intro, .edu-list, .services-glass, .sc-label, .pf-card, .flow-card, .mini-card, .glass:not(.about-glass)):not(#_) :is(h2, h3, h4, h5, p, li, span:not(.bi), div, td, th, small, b, strong, label, a:not(.btn)) {
+    color: inherit !important; text-shadow: none !important;
+}
+html body :is(.card, .int-card, .edu-list, .skills-panel, .glass):not(#_) :is(.text-muted, small, .int-meta, .course-meta) { color: var(--ink-soft) !important; }
+html body :is(.card, .int-card, .edu-list, .skills-panel, .glass):not(#_) .text-primary { color: #8a5a35 !important; }
+/* Kod kartı ve hero altı not kutusu kâğıda dönmesin */
+html body .code-card:not(#_), html body .hero-sub.glass:not(#_) { background: rgba(18, 14, 9, .82) !important; color: #efe6d2 !important; }
+html body .code-card:not(#_) * { color: inherit; }
+/* Kişisel yetkinlik halkaları kâğıt üstünde mürekkep */
+.skills-panel .ring-fg, .skills-panel circle.ring-fg { stroke: #6b4a2a !important; }
+.skills-panel .ring-txt, .skills-panel .ring b, .skills-panel .ring span { color: var(--ink-card) !important; fill: var(--ink-card) !important; }
+
+/* Ana sayfa: öne çıkan projeler yapıştırılmış baskı */
+.h-card .thumb { border-radius: 0 !important; overflow: hidden; padding: clamp(10px, 1.4vw, 16px); background: var(--paper-real) !important;
+    -webkit-mask: url("../images/textures/deckle-mask.png") center / 100% 100% no-repeat; mask: url("../images/textures/deckle-mask.png") center / 100% 100% no-repeat; box-shadow: none !important; }
+.h-track { filter: drop-shadow(0 16px 16px rgba(10, 6, 2, .45)); }
+.h-card .thumb .art-img { border-radius: 0 !important; }
+.h-card .thumb .glare { display: none !important; }
+.h-card .thumb :is(.art-1, .art-2, .art-3, .art-4, .art-5, .art-6) { background: url("../images/textures/seal-wax.webp") center / 22% no-repeat, transparent !important; box-shadow: none !important; }
+.h-card .thumb :is(.art-1, .art-2, .art-3, .art-4, .art-5, .art-6)::before, .h-card .thumb :is(.art-1, .art-2, .art-3, .art-4, .art-5, .art-6)::after { display: none !important; }
+.h-card:nth-child(odd) .thumb { transform: rotate(-.8deg); }
+.h-card:nth-child(even) .thumb { transform: rotate(.6deg); }
+.project-tile .thumb :is(.art-1, .art-2, .art-3, .art-4, .art-5, .art-6) { background: var(--paper-real) !important; }

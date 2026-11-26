@@ -1,0 +1,240 @@
+/* ==========================================================================
+   Okunabilirlik turu (en son yüklenir): düz kâğıt, tek yazı sistemi, eğimsiz metin kutuları,
+   sabit menü boşluğu, OYNAT düğmesi, kod bloğu. Eski lekeli kâğıt dokuları metin arkasından kalkar.
+   Yazı sistemi: gövde Lora, başlık Cormorant Garamond 600 / Playfair Display 600, etiket Cormorant SC,
+   kod IBM Plex Mono, el yazısı Caveat (≥20px), süs Allura (yalnız marka).
+   ========================================================================== */
+html.collage {
+    --paper-real: #F6EFDF; --paper-cream: #F6EFDF; --paper-white: #F6EFDF; --paper-ticket: #F6EFDF;
+    --ink-card: #231709; --ink-soft: #3d2e1c; --ink-brown: #231709; --ink-faded: #3d2e1c;
+    --font-body: "Lora", Georgia, "Times New Roman", serif;
+    --font-label: "Cormorant SC", "Lora", Georgia, serif;
+    --nav-h: 92px;
+    scroll-padding-top: calc(var(--nav-h) + 32px);
+}
+html.collage body { font-family: var(--font-body); }
+
+/* ---------- 1) Düz kâğıt, koyu mürekkep ---------- */
+html.collage body :is(.card, .glass, .int-card, .list-card, .proc-card, .skills-panel, .about-text, .hobby-intro, .edu-list, .sc-label, .pf-card, .flow-card, .mini-card, .sched-wrap, .bx, .typed-card, .services-glass, .post, .h-card.postcard, .cta-postcard, .obj:not(.folder)):not(#_):not(#_) {
+    background-image: none !important; background-color: #F6EFDF !important; color: #231709 !important; transform: none !important; border-radius: 0 !important;
+}
+/* 9-dilim dantel levhalar kendi dolgusunu (doily) çizer; arkasındaki düz renk kalır */
+html.collage body :is(.post, .about-text):not(#_):not(#_) { background-color: #F6EFDF !important; }
+html.collage body :is(.card, .int-card, .list-card, .proc-card, .skills-panel, .hobby-intro, .edu-list, .sc-label, .pf-card, .flow-card, .mini-card, .sched-wrap, .bx, .typed-card) :is(h2, h3, h4, p, li, dd, dt, td, th, span, small, b, strong, label, a:not(.btn)):not(#_):not(#_) { color: #231709 !important; }
+html.collage body :is(.card, .int-card, .list-card, .proc-card, .skills-panel, .about-text, .hobby-intro, .edu-list, .sc-label, .pf-card, .post, .bx) :is(small, .text-muted, .int-meta, .list-note, .bx-cat, .bx-meta):not(#_):not(#_) { color: #43331f !important; }
+html.collage body .bx:not(#_):not(#_) { border: 1px solid rgba(35, 23, 9, .25) !important; box-shadow: 0 10px 20px rgba(10, 6, 2, .35) !important; }
+
+/* ---------- 2) Yazı sistemi ---------- */
+html.collage body :is(p, li, dd, td, th, blockquote, figcaption, label, .card-text, .post-text, .post-lede, .bx-ex):not(pre *):not(code):not(#_) { font-family: var(--font-body) !important; }
+html.collage body :is(.card, .glass, .int-card, .list-card, .proc-card, .skills-panel, .about-text, .hobby-intro, .edu-list, .sc-label, .pf-card, .flow-card, .mini-card, .post, .bx, .typed-card) :is(p, li, dd):not(#_):not(#_) { font-size: 1.1rem; line-height: 1.7; font-weight: 400; letter-spacing: 0; }
+html.collage body:not([data-page="home"]) :is(h1, h2, .h1, .h2, .display-2):not(#_) { font-family: "Cormorant Garamond", Georgia, serif; font-weight: 600; }
+html.collage body :is(h3, h4, .h3, .h4, .bx-title, .post-title ~ h3):not(#_) { font-family: var(--font-head); font-weight: 600; }
+html.collage body :is(.bx-no, .post-ghost, .proc-no, .idx):not(#_) { font-family: var(--font-head) !important; font-weight: 700; }
+html.collage body :is(.bx-cat, .bx-meta, .bx-go, .eyebrow, .sc-tag, .post-cat, .post-read, .course-kind, .int-meta, .pn-label, .pn-desc, .caption-label, .svc-chip, .pf-chip, .flow-step, .lang-switch button, .btn, .form-floating > label, .navbar .nav-link, .wall-plate small, .wd-tag, .wd-btn, .wall-back, .wall-flip, .wd-flip):not(#_) {
+    font-family: var(--font-label) !important; font-weight: 600 !important; font-style: normal; letter-spacing: .06em !important; font-size: max(.9rem, 14px); text-transform: none;
+}
+html.collage body :is(.bx-cat, .eyebrow, .sc-tag, .post-cat):not(#_) { text-transform: uppercase; }
+html.collage body .form-floating > label:not(#_) { font-size: 15px !important; }
+/* Kod: yalnız burada monospace */
+html.collage body :is(pre, pre code, code, kbd, samp, .code-bar span, .code-cap, .ai-n, .tuana-js):not(#_) { font-family: var(--font-mono, "IBM Plex Mono", ui-monospace, Menlo, monospace) !important; font-size: 14.5px; font-style: normal; letter-spacing: 0; }
+html.collage body pre:not(#_) { white-space: pre; overflow-x: auto; text-align: left; transform: none !important; line-height: 1.6; }
+html.collage body .post--tech :is(.post-meta, .post-by, .post-toc b, figcaption b):not(#_) { font-family: var(--font-label) !important; }
+html.collage body .p-rights:not(#_) { font-family: var(--font-body) !important; font-style: italic; font-size: .9rem !important; }
+/* El yazısı yalnız kısa notlarda ve ≥20px */
+html.collage body :is(.id-photo figcaption, .id-name, .caption-hand, .proc-hex):not(#_) { font-family: "Caveat", cursive !important; font-size: max(20px, 1.25rem); }
+
+/* ---------- 3) Koyu zeminde başlıklar: yarı saydam koyu şerit, krem yazı ---------- */
+html.collage body .pj-copy:not(#_) { position: relative; padding: 1.4rem 1.8rem; background: linear-gradient(90deg, rgba(15, 10, 6, .62) 0%, rgba(15, 10, 6, .5) 78%, rgba(15, 10, 6, 0) 100%); max-width: min(100%, 46rem); }
+html.collage body .pj-copy :is(h1, h2, p, .hero-sub, .eyebrow):not(#_) { color: #F7EFDC !important; font-weight: 500; text-shadow: 0 1px 6px rgba(0, 0, 0, .6); }
+html.collage body .pj-copy h1:not(#_) { font-weight: 600; }
+html.collage body .blog-note:not(#_) { color: #F7EFDC !important; font-size: 15px !important; font-weight: 500; letter-spacing: .02em; text-transform: none; opacity: 1; }
+
+/* ---------- 4) Metin kutuları düz ve hizalı (eğim yalnız fotoğraf ve etiketlerde) ---------- */
+html.collage body :is(.about-grid, .proc-grid, .row):not(#_) { align-items: stretch; }
+html.collage body :is(.card, .int-card, .list-card, .proc-card, .skills-panel, .hobby-intro, .edu-list, .sc-label):not(#_):not(#_) { box-shadow: 0 8px 22px rgba(0, 0, 0, .35) !important; }
+
+/* ---------- 5) Sabit menü altında içerik kesilmesin ---------- */
+html.collage body main > section:first-of-type, html.collage body main > .page-offset:first-of-type { scroll-margin-top: calc(var(--nav-h) + 32px); }
+html.collage body .page-offset:not(#_) { padding-top: calc(var(--nav-h) + 32px) !important; }
+html.collage body .eyebrow[data-i18n="gallery.eyebrow"], html.collage body .pj-copy .eyebrow { color: #F7EFDC !important; font-size: 14px !important; }
+
+/* ---------- 6) OYNAT: küçük yuvarlak ikon düğmesi, alt ortada; içeriği kapatmaz ---------- */
+html.collage body .autoplay:not(#_):not(#_) { left: 50% !important; right: auto !important; bottom: 14px !important; transform: translateX(-50%) !important; width: 48px; height: 48px; min-height: 48px; padding: 0 !important; border-radius: 50% !important; -webkit-mask: none !important; mask: none !important;
+    display: grid; place-items: center; background: rgba(20, 14, 8, .78) !important; border: 1px solid rgba(216, 180, 90, .65) !important; filter: none !important; box-shadow: 0 4px 12px rgba(0, 0, 0, .5); z-index: 60; }
+html.collage body .autoplay span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+html.collage body .autoplay i { background-color: #F7EFDC; }
+html.collage body .autoplay:focus-visible { outline: 2px solid #F7EFDC; outline-offset: 3px; }
+html.collage body main { padding-bottom: 72px; }
+@media (max-width: 575.98px) { html.collage body .autoplay:not(#_):not(#_) { display: none !important; } }
+
+/* ---------- Mobil ölçüler ---------- */
+@media (max-width: 575.98px) {
+    html.collage { --nav-h: 78px; }
+    html.collage body :is(.card, .glass, .int-card, .list-card, .proc-card, .skills-panel, .about-text, .hobby-intro, .edu-list, .sc-label, .pf-card, .flow-card, .mini-card, .post, .bx, .typed-card) :is(p, li, dd):not(#_):not(#_) { font-size: 1.03rem; }
+    html.collage body .pj-copy:not(#_) { padding: 1rem 1.1rem; }
+}
+@media (prefers-reduced-motion: reduce) { html.collage * { scroll-behavior: auto !important; } }
+
+/* Blog kartları: üçü aynı hizada, aynı düzen, italik yok */
+html.collage body .bx:not(#_):not(#_) { margin-top: 0 !important; margin-bottom: 0 !important; align-self: stretch; }
+html.collage body .bx :is(.bx-title, .bx-ex, .bx-cat):not(#_):not(#_) { font-style: normal !important; }
+html.collage body .bx-title:not(#_):not(#_) { font-size: clamp(1.35rem, 1.7vw, 1.5rem) !important; line-height: 1.25; }
+
+/* ---------- Kişisel fotoğraf: kesilmiş kâğıt (dantel pencere ve klips kalktı) ---------- */
+html.collage body .about-page .id-photo:not(#_):not(#_) { position: relative; float: right; display: block; width: 150px !important; height: auto; aspect-ratio: auto; padding: 13px 13px 10px !important; margin: .2rem -.4rem 1.6rem 1.2rem !important;
+    background: none !important; border: 0 !important; box-shadow: none !important; transform: rotate(1.2deg) !important; filter: drop-shadow(0 8px 22px rgba(0, 0, 0, .35)); }
+html.collage body .about-page .id-photo:not(#_):not(#_)::before { content: ""; position: absolute; inset: 0; left: 0; top: 0; width: auto; height: auto; transform: none; z-index: 0; background: #F3E8D0; filter: none;
+    -webkit-mask: url("../images/textures/deckle-mask.png") center / 100% 100% no-repeat; mask: url("../images/textures/deckle-mask.png") center / 100% 100% no-repeat; pointer-events: none; }
+html.collage body .about-page .id-photo:not(#_):not(#_) img { position: relative !important; left: auto; top: auto; z-index: 1; display: block; width: 100% !important; height: auto !important; aspect-ratio: 591 / 709; object-fit: cover; object-position: 50% 25%; border: 0 !important; box-shadow: none; filter: none; }
+html.collage body .about-page .id-photo:not(#_):not(#_) figcaption { position: relative !important; bottom: auto !important; z-index: 1; margin-top: .3rem; text-align: center; color: #231709 !important; line-height: 1.05; white-space: normal !important; }
+html.collage body .about-page .id-photo .id-name { font-size: 1.3rem; color: #7a1f1a !important; }
+
+/* ---------- Sayfa altı "sonraki sayfa": koyu ceviz, altın çizgi, mühürlü sayfa numarası (geometrik şekiller kalktı) ---------- */
+html.collage body .pagenav:not(#_) { position: relative; margin-top: 3rem; padding: 3.2rem 0 2.2rem; background: linear-gradient(#2a1c10, #1c140c) !important; border-top: 1px solid rgba(216, 180, 90, .6); }
+html.collage body .pagenav:not(#_)::before, html.collage body .pagenav:not(#_)::after, html.collage body .pn-grid::before, html.collage body .pn-grid::after,
+html.collage body .pn-next::before, html.collage body .pn-next::after, html.collage body .pn-prev::before, html.collage body .pn-prev::after { content: none !important; display: none !important; }
+html.collage body .pn-grid:not(#_) { display: grid !important; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 1.5rem 2rem; }
+html.collage body .pagenav :is(.pn-next, .pn-prev):not(#_):not(#_) { position: relative; display: grid !important; gap: .25rem; min-height: 48px; padding: .6rem 0 !important; background: none !important; border: 0 !important; border-image: none !important; box-shadow: none !important;
+    -webkit-mask: none !important; mask: none !important; transform: none !important; text-decoration: none; color: #F7EFDC !important; }
+html.collage body .pagenav .pn-prev:not(#_):not(#_) { grid-column: 1; justify-items: start; text-align: left; }
+html.collage body .pagenav .pn-count { grid-column: 2; grid-row: 1; width: 84px; height: 84px; display: grid; place-items: center; font-family: var(--font-head); font-weight: 700; font-size: .95rem; color: #F7EFDC; text-shadow: 0 1px 3px rgba(0, 0, 0, .7);
+    background: url("../images/textures/seal-wax.webp") center / contain no-repeat; filter: drop-shadow(0 4px 6px rgba(0, 0, 0, .55)); }
+html.collage body .pagenav .pn-next:not(#_):not(#_) { grid-column: 3; grid-row: 1; justify-items: end; text-align: right; }
+html.collage body .pagenav .pn-label:not(#_):not(#_) { font-family: var(--font-script) !important; font-size: clamp(1.7rem, 3vw, 2.3rem) !important; font-weight: 400 !important; letter-spacing: 0 !important; text-transform: none !important; color: #D8B45A !important; text-shadow: 0 2px 8px rgba(0, 0, 0, .6); }
+html.collage body .pagenav .pn-title:not(#_):not(#_) { position: relative; font-family: var(--font-head) !important; font-weight: 700 !important; font-style: normal !important; font-size: clamp(2rem, 4.6vw, 3.4rem) !important; line-height: 1.1; color: #F7EFDC !important; text-shadow: none; }
+html.collage body .pagenav .pn-prev .pn-title:not(#_):not(#_) { font-size: clamp(1.4rem, 2.6vw, 2rem) !important; opacity: .92; }
+html.collage body .pagenav .pn-title:not(#_)::after { content: ""; display: block; height: 2px; width: 28%; margin-top: .3rem; background: #D8B45A; transition: width .35s ease; }
+html.collage body .pagenav .pn-next .pn-title::after { margin-left: auto; }
+html.collage body .pagenav :is(.pn-next, .pn-prev):hover .pn-title::after, html.collage body .pagenav :is(.pn-next, .pn-prev):focus-visible .pn-title::after { width: 100%; }
+html.collage body .pagenav .pn-desc:not(#_):not(#_) { font-family: var(--font-body) !important; font-size: 1rem !important; color: #E9DDBF !important; }
+html.collage body .pagenav .pn-arrow:not(#_) { position: static; display: inline-block; color: #D8B45A !important; font-size: 1.6rem; transition: transform .3s ease; }
+html.collage body .pagenav .pn-arrow i { color: #D8B45A !important; }
+html.collage body .pagenav .pn-next:hover .pn-arrow { transform: translateX(8px); }
+html.collage body .pagenav .pn-prev:hover .pn-arrow { transform: translateX(-8px); }
+html.collage body .pagenav :is(.pn-next, .pn-prev):focus-visible { outline: 2px solid #D8B45A; outline-offset: 6px; }
+html.collage body .pagenav .pn-all:not(#_) { margin-top: 2.2rem; display: flex; flex-wrap: wrap; gap: .4rem 1.2rem; justify-content: center; border-top: 1px solid rgba(216, 180, 90, .25); padding-top: 1.4rem; }
+html.collage body .pagenav .pn-all :is(span, a):not(#_) { font-family: var(--font-label) !important; font-size: 15px !important; font-weight: 600; color: #F7EFDC !important; min-height: 44px; display: inline-flex; align-items: center; text-shadow: none; }
+html.collage body .pagenav .pn-all a.is-here { color: #D8B45A !important; text-decoration: underline; text-underline-offset: 5px; }
+@media (max-width: 767.98px) {
+    html.collage body .pn-grid:not(#_) { grid-template-columns: 1fr; text-align: center; }
+    html.collage body .pagenav .pn-next:not(#_):not(#_) { grid-column: 1; grid-row: 1; justify-items: center; text-align: center; }
+    html.collage body .pagenav .pn-count { grid-column: 1; grid-row: 2; justify-self: center; }
+    html.collage body .pagenav .pn-prev:not(#_):not(#_) { grid-column: 1; grid-row: 3; justify-items: center; text-align: center; }
+    html.collage body .pagenav .pn-next .pn-title::after { margin-left: auto; margin-right: auto; }
+    html.collage body .pagenav .pn-title:not(#_)::after { margin-left: auto; margin-right: auto; }
+}
+
+/* sayfa altı: ok ve "tüm sayfalar" bağlantıları */
+html.collage body .pagenav :is(.pn-next, .pn-prev):not(#_):not(#_) { margin: 0 !important; width: auto; align-self: center; }
+html.collage body .pagenav .pn-prev:not(#_):not(#_) { justify-self: start; padding-left: 3.4rem !important; }
+html.collage body .pagenav .pn-next:not(#_):not(#_) { justify-self: end; padding-right: 3.4rem !important; }
+html.collage body .pagenav .pn-arrow:not(#_) { position: absolute !important; top: 50%; width: 2.6rem; height: 1.2rem; margin-top: -.6rem; font-size: 0; transition: transform .3s ease; background: no-repeat center / contain; }
+html.collage body .pagenav .pn-arrow i { display: none !important; }
+html.collage body .pagenav .pn-next .pn-arrow:not(#_) { right: 0; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 52 24' fill='none' stroke='%23D8B45A' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M2 12h46M38 3l10 9-10 9'/%3E%3C/svg%3E") !important; background-repeat: no-repeat !important; background-position: center !important; background-size: contain !important; }
+html.collage body .pagenav .pn-prev .pn-arrow:not(#_) { left: 0; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 52 24' fill='none' stroke='%23D8B45A' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M50 12H4M14 3L4 12l10 9'/%3E%3C/svg%3E") !important; background-repeat: no-repeat !important; background-position: center !important; background-size: contain !important; }
+html.collage body .pagenav .pn-all a:not(#_):not(#_) { background: none !important; border: 0 !important; border-image: none !important; box-shadow: none !important; -webkit-mask: none !important; mask: none !important; clip-path: none !important; transform: none !important; padding: 0 .3rem !important; border-radius: 0 !important; color: #F7EFDC !important; text-decoration: none; }
+html.collage body .pagenav .pn-all a:not(#_):not(#_):hover { text-decoration: underline; text-decoration-color: #D8B45A; text-underline-offset: 6px; }
+html.collage body .pagenav .pn-all a.is-here:not(#_):not(#_) { color: #D8B45A !important; }
+html.collage body .pagenav .pn-all span:not(#_) { font-style: normal !important; text-transform: uppercase; letter-spacing: .1em; color: #D8B45A !important; }
+@media (max-width: 767.98px) {
+    html.collage body .pagenav :is(.pn-next, .pn-prev):not(#_):not(#_) { justify-self: center; padding: .6rem 3.4rem !important; }
+}
+html.collage body .pagenav .pn-arrow:not(#_):not(#_) { display: block !important; opacity: 1 !important; visibility: visible !important; color: transparent !important; }
+html.collage body .site-footer:not(#_) { padding-bottom: 72px; }
+html.collage body { padding-bottom: 72px; }
+
+/* ---------- Projeler ve Galeri duvarı: koyu bordo damask, tam genişlik, okunur etiketler ---------- */
+html.collage body .wall { --H: min(46vh, 400px, 54vw); height: clamp(620px, 86vh, 800px); }
+html.collage body .wall-room::before { background:
+    radial-gradient(ellipse 70% 90% at 50% 38%, rgba(255, 214, 160, .14), transparent 70%),
+    radial-gradient(circle at 50% 50%, rgba(255, 214, 160, .13) 0 7px, transparent 8px) 0 0 / 64px 96px,
+    radial-gradient(ellipse 12px 26px at 50% 50%, rgba(255, 214, 160, .1) 0 60%, transparent 62%) 32px 48px / 64px 96px,
+    linear-gradient(45deg, rgba(0, 0, 0, .14) 25%, transparent 25% 75%, rgba(0, 0, 0, .14) 75%) 0 0 / 64px 64px,
+    linear-gradient(#5a1a26, #3d1019); }
+html.collage body .wall-cornice { background: linear-gradient(#6b3a2a 0 28%, #3a1d14 28% 33%, #5a2f22 33% 62%, #26130d 62% 67%, #44231a 67% 100%); box-shadow: 0 8px 14px rgba(0, 0, 0, .5); }
+html.collage body .wall-base { background: linear-gradient(#5a2f22 0 14%, #3a1d14 14% 18%, #4a2519 18% 78%, #1f0f09 78% 100%); }
+html.collage body .wall-floor { background:
+    linear-gradient(rgba(0, 0, 0, .6), rgba(0, 0, 0, 0) 30%),
+    repeating-linear-gradient(90deg, transparent 0 109px, rgba(20, 8, 2, .55) 109px 110px),
+    repeating-linear-gradient(0deg, transparent 0 41px, rgba(20, 8, 2, .3) 41px 42px),
+    repeating-linear-gradient(90deg, #7a4a24 0 110px, #6a3e1d 110px 220px, #84532a 220px 330px, #704220 330px 440px); }
+html.collage body .wall-plate small { font-size: 15px; color: #43331f; }
+html.collage body .wall-plate h2 { font-family: var(--font-head); font-weight: 600; font-size: 1.1rem; }
+html.collage body .wall-plate { background: #F6EFDF; border-radius: 0; }
+/* Sayfa üstü: başlık bandı daha yüksek ve menünün altında güvenli */
+html.collage body[data-page="projects"] .page-offset:not(#_) { min-height: 38vh; display: flex; align-items: flex-end; }
+html.collage body:is([data-page="projects"], [data-page="gallery"]) .page-offset > .container { width: 100%; }
+html.collage body:is([data-page="projects"], [data-page="gallery"]) .page-offset :is(h1, .hero-sub, .eyebrow):not(#_) { color: #F7EFDC !important; text-shadow: 0 2px 10px rgba(0, 0, 0, .7); }
+html.collage body:is([data-page="projects"], [data-page="gallery"]) .page-offset .container > div:not(.wall) { background: linear-gradient(90deg, rgba(15, 10, 6, .62), rgba(15, 10, 6, .45) 80%, rgba(15, 10, 6, 0)); padding: 1.2rem 1.6rem; max-width: 46rem; }
+/* Galeri'de duvar .container içinde: tam genişliğe yay */
+html.collage body .container > .wall { width: 100vw; margin-left: calc(50% - 50vw); }
+@media (max-width: 575.98px) {
+    html.collage body .wall { --H: min(64vw, 300px); height: 560px; }
+    html.collage body .wall-track { padding-top: 5rem; }
+}
+
+/* İletişim: bölüm başlıkları (h2) */
+html.collage body .contact-h:not(#_) { font-family: "Cormorant Garamond", Georgia, serif; font-weight: 600; font-size: clamp(1.6rem, 2.6vw, 2rem); color: #231709 !important; margin: 0 0 1rem; }
+html.collage body .contact-h--dark:not(#_) { color: #F7EFDC !important; text-shadow: 0 2px 10px rgba(0, 0, 0, .7); }
+html.collage body .contact-h--sm:not(#_) { font-size: 1.25rem; }
+
+/* Ana sayfa: Hakkımda özeti ve proje kartı açıklaması */
+html.collage body .home-about-h:not(#_) { font-size: 1rem; margin: 0; }
+html.collage body .home-about-p:not(#_) { font-size: 1.1rem; line-height: 1.7; max-width: 62ch; margin: -1.5rem 0 1rem; }
+html.collage body .h-card-d:not(#_) { margin: .4rem 0 0; font-size: 1rem; line-height: 1.55; color: #231709 !important; max-width: 46ch; }
+html.collage body .h-card .meta *:not(#_):not(#_) { text-shadow: none !important; }
+html.collage body .about-glass:not(#_):not(#_) { background: #F6EFDF !important; backdrop-filter: none !important; }
+html.collage body .home-about-h:not(#_):not(#_) { color: #F7EFDC !important; font-size: 1.25rem !important; letter-spacing: .12em !important; text-shadow: 0 2px 10px rgba(0, 0, 0, .75); padding: .4rem .8rem; background: rgba(15, 10, 6, .62); display: inline-block; }
+
+/* İletişim formu: 15px etiket, 48px+ alan, görünür kenarlık, altın odak, net hata/başarı */
+html.collage body[data-page="contact"] .form-floating > .form-control:not(#_):not(#_) { min-height: 56px; border: 0 !important; border-bottom: 2px solid rgba(35, 23, 9, .55) !important; background: rgba(255, 255, 255, .35) !important; color: #231709 !important; font-family: var(--font-body); font-size: 1.05rem; }
+html.collage body[data-page="contact"] .form-floating > textarea.form-control:not(#_):not(#_) { min-height: 10rem; }
+html.collage body[data-page="contact"] .form-control:focus:not(#_):not(#_) { outline: 3px solid #b8913f !important; outline-offset: 2px; background: rgba(255, 255, 255, .6) !important; }
+html.collage body[data-page="contact"] .form-control.is-invalid:not(#_):not(#_), html.collage body[data-page="contact"] .was-validated .form-control:invalid:not(#_):not(#_) { border-bottom-color: #9b1c14 !important; }
+html.collage body[data-page="contact"] .invalid-feedback:not(#_) { font-family: var(--font-body); font-size: 15px; color: #8a1a14 !important; }
+html.collage body[data-page="contact"] .form-text:not(#_) { font-size: 14px; color: #43331f !important; }
+html.collage body[data-page="contact"] #submitButton:not(#_):not(#_) { transform: none !important; }
+html.collage body[data-page="contact"] #submitSuccessMessage .text-success { color: #1f5a2a !important; }
+html.collage body .mail-fallback:not(#_) { margin: .5rem 0; font-size: 1rem; text-align: center; color: #231709 !important; }
+html.collage body .mail-fallback a { color: #7a1f1a !important; text-decoration: underline; }
+html.collage body .copy-msg:not(#_) { display: block; margin: .4rem auto 0; min-height: 44px; padding: .4rem 1.2rem; font-family: var(--font-label); font-weight: 600; font-size: 15px; color: #231709; background: #efe3c4; border: 1px solid rgba(35, 23, 9, .4); border-radius: 2px; cursor: pointer; }
+html.collage body .copy-msg:focus-visible { outline: 3px solid #b8913f; outline-offset: 2px; }
+/* İletişim yan kartları: aynı kâğıt, 28px ikon, 48px sosyal hedef */
+html.collage body[data-page="contact"] .col-lg-5 .card:not(#_):not(#_) { background: #F6EFDF !important; }
+html.collage body[data-page="contact"] .col-lg-5 .feature :is(svg, img, i) { width: 28px; height: 28px; font-size: 28px; }
+html.collage body[data-page="contact"] .col-lg-5 .card a[aria-label] { min-width: 48px; min-height: 48px; display: inline-flex; align-items: center; justify-content: center; }
+html.collage body[data-page="contact"] .invalid-feedback:not(#_):not(#_) { color: #8a1a14 !important; font-size: 15px !important; }
+html.collage body[data-page="contact"] .form-floating > label:not(#_):not(#_) { font-size: 15px !important; color: #3d2e1c !important; opacity: 1; }
+html.collage body[data-page="contact"] .form-floating > .form-control:focus ~ label:not(#_):not(#_), html.collage body[data-page="contact"] .form-floating > .form-control:not(:placeholder-shown) ~ label:not(#_):not(#_) { transform: scale(.88) translateY(-.6rem) translateX(.15rem); }
+html.collage body[data-page="contact"] #contactForm:not(#_)::before { top: -5.2rem !important; }
+html.collage body[data-page="contact"] #submitErrorMessage div:not(#_):not(#_) { color: #8a1a14 !important; font-weight: 600; }
+html.collage body[data-page="contact"] .stamps-card:not(#_):not(#_) { padding: 1.4rem 1.6rem !important; }
+
+/* ---------- impeccable (critique, craft-floor) bulguları: tarayıcı yüzeyleri, odak, ölçü ---------- */
+html.collage { scrollbar-color: #b8913f #1c140c; caret-color: #7a1f1a; accent-color: #7a1f1a; }
+html.collage ::selection { background: rgba(184, 145, 63, .35); color: inherit; }
+html.collage ::-webkit-scrollbar { width: 12px; height: 12px; }
+html.collage ::-webkit-scrollbar-track { background: #1c140c; }
+html.collage ::-webkit-scrollbar-thumb { background: #8a6a2e; border: 3px solid #1c140c; border-radius: 6px; }
+html.collage body :is(a, button, [tabindex], summary, input, select, textarea):focus-visible:not(#_) { outline: 3px solid #d8b45a; outline-offset: 3px; }
+html.collage body :is(.post-text, .about-text, .proc-card, .list-card) > p:not(#_):not(#_) { max-width: 70ch; }
+html.collage body :is(a):not(.btn):not(.nav-link) { text-underline-offset: .2em; }
+html.collage body table { font-variant-numeric: tabular-nums; }
+
+/* Koyu yeşil örnek gönderi kutusu: krem yazı */
+html.collage body .caption-box :is(p, span, .caption-label, .hash):not(#_):not(#_) { color: #F7EFDC !important; }
+html.collage body .folder.mag .folder-meta:not(#_):not(#_) { color: #43331f !important; text-shadow: none !important; font-family: var(--font-label) !important; font-size: 15px !important; letter-spacing: .08em; }
+
+/* Lightbox (js/lightbox.js) */
+.lb { position: fixed; inset: 0; z-index: 3000; display: grid; place-items: center; padding: clamp(1rem, 4vw, 3rem); background: rgba(12, 8, 4, .92); }
+.lb-fig { margin: 0; display: grid; gap: .8rem; justify-items: center; max-width: min(1400px, 100%); }
+.lb-fig img { max-width: 100%; max-height: calc(100dvh - 13rem); width: auto; height: auto; object-fit: contain; background: #F6EFDF; padding: 8px; box-shadow: 0 12px 40px rgba(0, 0, 0, .6); }
+.lb-cap { max-width: 70ch; max-height: 7rem; overflow: auto; color: #F7EFDC; font-family: var(--font-body); font-size: 1rem; line-height: 1.55; text-align: center; }
+.lb button { position: fixed; width: 52px; height: 52px; display: grid; place-items: center; font-size: 1.6rem; color: #F7EFDC; background: rgba(20, 14, 8, .8); border: 1px solid rgba(216, 180, 90, .6); border-radius: 50%; cursor: pointer; }
+.lb button:focus-visible { outline: 3px solid #d8b45a; outline-offset: 3px; }
+.lb-x { top: max(1rem, env(safe-area-inset-top)); right: max(1rem, env(safe-area-inset-right)); }
+.lb-prev { left: max(1rem, env(safe-area-inset-left)); top: 50%; margin-top: -26px; }
+.lb-next { right: max(1rem, env(safe-area-inset-right)); top: 50%; margin-top: -26px; }
+.lb button[hidden] { display: none; }
+@media (max-width: 575.98px) { .lb-prev, .lb-next { top: auto; bottom: max(1rem, env(safe-area-inset-bottom)); margin-top: 0; } }
+html.collage .shot img { cursor: zoom-in; }

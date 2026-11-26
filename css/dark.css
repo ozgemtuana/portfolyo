@@ -1484,11 +1484,12 @@ figcaption b { display: inline-block; margin-right: .6rem; padding: .18rem .6rem
 .post--fashion .study-note { background: rgba(201,165,129, .14); border-left-color: #c9a581; }
 .post--fashion .path li::before { color: #c9a581; }
 .fashion-collage { background: linear-gradient(165deg, #e6d3b4, #c9a581 55%, #b79468); border-radius: 28px; }
-.collage { position: relative; display: flex; align-items: flex-end; justify-content: center; height: clamp(300px, 54vw, 640px); padding: 0 2%; overflow: hidden; }
-.collage::before { content: ""; position: absolute; left: 50%; top: 50%; width: min(78%, 520px); aspect-ratio: 1; transform: translate(-50%, -48%); border-radius: 50%; background: rgba(248,243,230, .5); }
-.collage img { position: relative; display: block; width: auto; margin: 0 -1.2%; filter: drop-shadow(10px 22px 22px rgba(58,38,22, .38)); transition: transform .8s var(--ease-out); }
-.collage img:hover { transform: translateY(-14px) rotate(0deg) !important; }
-.collage .c1 { height: 78%; transform: rotate(-3deg); } .collage .c2 { height: 70%; transform: rotate(2deg); } .collage .c3 { height: 94%; z-index: 2; } .collage .c4 { height: 86%; transform: rotate(3deg); }
+/* html.collage (site sınıfı) ile karışmasın: html'e overflow:hidden ve sabit yükseklik veriyor, dokunmatik kaydırmayı kilitliyordu */
+.collage:not(html) { position: relative; display: flex; align-items: flex-end; justify-content: center; height: clamp(300px, 54vw, 640px); padding: 0 2%; overflow: hidden; }
+.collage:not(html)::before { content: ""; position: absolute; left: 50%; top: 50%; width: min(78%, 520px); aspect-ratio: 1; transform: translate(-50%, -48%); border-radius: 50%; background: rgba(248,243,230, .5); }
+.collage:not(html) img { position: relative; display: block; width: auto; margin: 0 -1.2%; filter: drop-shadow(10px 22px 22px rgba(58,38,22, .38)); transition: transform .8s var(--ease-out); }
+.collage:not(html) img:hover { transform: translateY(-14px) rotate(0deg) !important; }
+.collage:not(html) .c1 { height: 78%; transform: rotate(-3deg); } .collage:not(html) .c2 { height: 70%; transform: rotate(2deg); } .collage:not(html) .c3 { height: 94%; z-index: 2; } .collage:not(html) .c4 { height: 86%; transform: rotate(3deg); }
 .fashion-collage figcaption { color: #3a2616; background: rgba(248,243,230, .55); border-top-color: rgba(58,38,22, .2); }
 .portfolio-fig { margin: 1.8rem 0; border-radius: 24px; overflow: hidden; background: #f4efe2; color: #2f3a22; }
 .portfolio-fig figcaption { color: #3a2616; background: rgba(58,38,22, .06); border-top: 1px solid rgba(58,38,22, .15); }
@@ -1531,7 +1532,7 @@ figcaption b { display: inline-block; margin-right: .6rem; padding: .18rem .6rem
 @media (max-width: 575.98px) {
     .blog-links { grid-template-columns: 1fr; }
     .post { padding: 1.2rem 1rem 1.6rem; border-radius: 22px; }
-    .collage img { margin: 0 -3%; }
+    .collage:not(html) img { margin: 0 -3%; }
 }
 @media (prefers-reduced-motion: reduce) { .bx, .shot img, .collage img, .blog-links a { transition: none; } }
 

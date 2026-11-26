@@ -1,0 +1,138 @@
+/* ==========================================================================
+   Müze duvarı (Projeler ve Galeri) — mantık: js/wall.js, işaretleme: js/i18n.js (data-render="wall")
+   Açık gri duvar + alçı silme + süpürgelik + parke zemin tamamen CSS; tablolar altın çerçevede, tek sırada.
+   Animasyonlar yalnız transform/opacity.
+   ========================================================================== */
+.wall { --H: min(46vh, 400px, 54vw); --wall-a: #dcd8cf; --wall-b: #c8c3b8; position: relative; width: 100%; height: clamp(560px, 84vh, 780px); overflow: hidden; }
+
+/* ---------- Oda: duvar, silme, süpürgelik, zemin (sabit) ---------- */
+.wall-room { position: absolute; inset: 0; pointer-events: none; }
+.wall-room::before { content: ""; position: absolute; inset: 0 0 28% 0;
+    background:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2' seed='7'/%3E%3CfeColorMatrix values='0 0 0 0 .35  0 0 0 0 .32  0 0 0 0 .26  0 0 0 .09 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"),
+        radial-gradient(ellipse 70% 90% at 50% 40%, rgba(255, 252, 244, .55), transparent 70%),
+        linear-gradient(var(--wall-a), var(--wall-b)); }
+.wall-cornice { position: absolute; left: 0; right: 0; top: 0; height: 7%; min-height: 34px;
+    background: linear-gradient(#f1eee7 0 28%, #cfcabe 28% 33%, #ebe8e0 33% 62%, #b9b4a8 62% 67%, #d6d2c7 67% 100%); box-shadow: 0 8px 14px rgba(40, 32, 20, .28); }
+.wall-base { position: absolute; left: 0; right: 0; bottom: 28%; height: 5.5%; min-height: 26px;
+    background: linear-gradient(#e9e6de 0 14%, #cdc8bc 14% 18%, #e2dfd6 18% 78%, #a9a498 78% 100%); box-shadow: 0 -2px 8px rgba(40, 32, 20, .18); transform: translateY(100%); }
+.wall-floor { position: absolute; left: 0; right: 0; bottom: 0; height: calc(28% - 5.5%);
+    background:
+        linear-gradient(rgba(40, 20, 6, .5), rgba(40, 20, 6, 0) 22%),
+        radial-gradient(ellipse 80% 120% at 50% 0%, rgba(255, 224, 170, .35), transparent 65%),
+        repeating-linear-gradient(90deg, transparent 0 109px, rgba(58, 30, 10, .4) 109px 110px),
+        repeating-linear-gradient(0deg, transparent 0 41px, rgba(58, 30, 10, .22) 41px 42px),
+        repeating-linear-gradient(90deg, #c98d4b 0 110px, #b9793a 110px 220px, #d29a58 220px 330px, #be8142 330px 440px); }
+
+/* ---------- Tablo sırası ---------- */
+.wall-track { position: absolute; inset: 0; display: flex; align-items: flex-start; gap: clamp(2.5rem, 7vw, 6rem); overflow-x: auto; overflow-y: hidden; scroll-snap-type: x mandatory;
+    padding: clamp(5.5rem, 15%, 9rem) 12vw 0; scrollbar-width: none; -webkit-overflow-scrolling: touch; overscroll-behavior-x: contain; cursor: grab; }
+.wall-track::-webkit-scrollbar { display: none; }
+.wall-track.is-drag { scroll-snap-type: none; cursor: grabbing; }
+.wall-track.is-drag .wall-art { pointer-events: none; }
+.wall-art { flex: 0 0 auto; scroll-snap-align: center; display: grid; justify-items: center; gap: 1.1rem; text-decoration: none; color: inherit; cursor: pointer; will-change: transform; -webkit-user-drag: none; user-select: none; }
+.wall-art:focus-visible { outline: none; }
+.wall-art:focus-visible .wall-frame { outline: 2px solid #7a5a2a; outline-offset: 10px; }
+
+.wall-frame { --fa: 1.527; --ix: .1234; --iy: .1869; --iw: .7573; --ih: .6374; position: relative; display: block; height: var(--H); aspect-ratio: var(--fa); transition: transform .5s cubic-bezier(.22, .61, .36, 1); transform-origin: 50% 50%; }
+.wall-frame--portrait { --fa: 0.804; --ix: .181; --iy: .1437; --iw: .6334; --ih: .7108; }
+.wall-frame--square { --fa: 0.948; --ix: .1772; --iy: .1691; --iw: .6516; --ih: .6685; }
+.wall-pic { position: absolute; left: calc(var(--ix) * 100%); top: calc(var(--iy) * 100%); width: calc(var(--iw) * 100%); height: calc(var(--ih) * 100%); overflow: hidden; background: #2a2118; }
+.wall-pic img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.wall-fr { position: absolute; inset: 0; width: 100%; height: 100%; max-width: none; pointer-events: none; }
+/* Asılı tablonun duvardaki gölgesi (küçük + büyük; hover'da büyük olan açılır) */
+.wall-shadow { position: absolute; inset: 4% 3% 0; z-index: -1; border-radius: 6px; box-shadow: 10px 18px 22px rgba(40, 28, 14, .38); }
+.wall-shadow::after { content: ""; position: absolute; inset: 0; border-radius: 6px; box-shadow: 18px 34px 46px rgba(30, 20, 8, .5); opacity: 0; transition: opacity .5s ease; }
+.wall-glint { position: absolute; inset: 0; pointer-events: none; opacity: 0; transition: opacity .5s ease; background: radial-gradient(ellipse 60% 45% at 30% 12%, rgba(255, 244, 200, .5), transparent 70%); mix-blend-mode: screen; }
+.wall-art:hover .wall-frame, .wall-art:focus-visible .wall-frame { transform: scale(1.03); }
+.wall-art:hover .wall-shadow::after, .wall-art:focus-visible .wall-shadow::after, .wall-art:hover .wall-glint, .wall-art:focus-visible .wall-glint { opacity: 1; }
+
+/* Müze etiketi */
+.wall-plate { display: grid; gap: .1rem; max-width: min(78vw, 24rem); padding: .5rem 1.2rem .6rem; text-align: center; color: #3b2b17;
+    background: linear-gradient(#f6efdd, #ebe0c6); border: 1px solid rgba(110, 84, 40, .4); box-shadow: 0 3px 8px rgba(40, 28, 14, .3); }
+.wall-plate h2 { margin: 0; font-family: var(--font-display); font-size: 1.05rem; font-weight: 600; line-height: 1.25; letter-spacing: .02em; }
+.wall-plate small { font-family: var(--font-body); font-size: .72rem; letter-spacing: .1em; text-transform: uppercase; color: #6e5428; }
+
+/* Görseli olmayan projeler: duvarın altında metin etiketleri */
+.wall-more { display: grid; gap: 1.5rem; padding-top: 2.5rem; padding-bottom: 1rem; }
+.wall-label { max-width: 46rem; }
+.wall-label small { font-size: .74rem; letter-spacing: .14em; text-transform: uppercase; opacity: .75; }
+.wall-label h2 { font-size: 1.6rem; margin: .2rem 0 .5rem; }
+.wall-label ul { padding-left: 1.1rem; }
+
+/* ---------- Detay: "tek eser salonu" ---------- */
+.wall-detail { --dw: #7a1420; --cream: #f3e9d2; position: fixed; inset: 0; z-index: 1500; overflow-y: auto; overscroll-behavior: contain; color: var(--cream); }
+.wd-room { position: fixed; inset: 0; opacity: 0; pointer-events: none;
+    background: radial-gradient(ellipse 70% 70% at 50% 38%, rgba(255, 255, 255, .13), transparent 70%), radial-gradient(ellipse 120% 100% at 50% 40%, transparent 45%, rgba(0, 0, 0, .45)), var(--dw); }
+.wd-room::before { content: ""; position: absolute; left: 0; right: 0; bottom: 22%; height: 3.2rem; transform: translateY(100%);
+    background: linear-gradient(color-mix(in srgb, var(--dw) 55%, #fff 8%) 0 12%, color-mix(in srgb, var(--dw) 62%, #000) 12% 100%); box-shadow: 0 -3px 10px rgba(0, 0, 0, .35); }
+.wd-room::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: calc(22% - 3.2rem); min-height: 60px; top: auto;
+    background:
+        linear-gradient(rgba(0, 0, 0, .55), rgba(0, 0, 0, 0) 40%),
+        linear-gradient(135deg, #8f5a26 25%, transparent 25%) -20px 0 / 40px 40px, linear-gradient(225deg, #8f5a26 25%, transparent 25%) -20px 0 / 40px 40px,
+        linear-gradient(315deg, #8f5a26 25%, transparent 25%) 0 0 / 40px 40px, linear-gradient(45deg, #8f5a26 25%, #b97d3a 25%) 0 0 / 40px 40px; }
+.wall-detail-in { position: relative; min-height: 100%; display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); grid-template-areas: "head stage" "body stage"; grid-template-rows: auto 1fr; column-gap: clamp(2rem, 5vw, 5rem);
+    padding: clamp(5rem, 11vh, 7rem) clamp(4rem, 7vw, 7rem) 24vh; }
+.wd-head { grid-area: head; align-self: end; }
+.wd-title { margin: 0; font-family: var(--font-display); font-weight: 600; font-size: clamp(40px, 5vw, 80px); line-height: 1.02; letter-spacing: -.01em; color: var(--cream); }
+.wd-rule { display: block; width: min(100%, 22rem); height: 1px; margin: 1.4rem 0 1.6rem; background: linear-gradient(90deg, #d4b068, rgba(212, 176, 104, .15)); }
+.wd-body { grid-area: body; align-self: start; max-width: 38ch; }
+.wd-body p { margin: 0 0 1.1rem; font-family: var(--font-display); font-size: 20px; font-weight: 500; line-height: 1.6; color: var(--cream); }
+.wd-body .p-rights { font-style: italic; font-size: 17px; }
+.wd-btn { display: inline-block; margin-top: .6rem; padding: .7rem 1.7rem; min-height: 48px; font-family: var(--font-display); font-size: 18px; font-variant: small-caps; letter-spacing: .14em; color: var(--cream); text-decoration: none;
+    border-top: 1px solid #d4b068; border-bottom: 1px solid #d4b068; background: rgba(212, 176, 104, .1); }
+.wd-btn:hover, .wd-btn:focus-visible { background: rgba(212, 176, 104, .25); color: #fff; outline: none; }
+.wd-stage { grid-area: stage; grid-row: 1 / span 2; position: relative; display: grid; justify-items: center; align-content: start; padding-top: 1rem; }
+.wd-tag { margin: 0 0 1.2rem; font-family: var(--font-display); font-size: 17px; letter-spacing: .32em; text-transform: uppercase; color: var(--cream); }
+.wd-hang { position: relative; perspective: 1400px; }
+/* Gerçek CSS 3D: eğilme (.wd-card) ve çevirme (.wd-flipper) ayrı katmanlarda */
+.wd-card { transform-style: preserve-3d; transform: rotateX(var(--tx, 0deg)) rotateY(var(--ty, 0deg)); transition: transform .18s ease-out; }
+.wd-flipper { position: relative; transform-style: preserve-3d; transition: transform .8s cubic-bezier(.22, .61, .36, 1); }
+.wd-flipper.is-flipped { transform: rotateY(180deg); }
+.wd-face { backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+.wd-back { position: absolute; inset: 0; transform: rotateY(180deg); display: grid; align-items: center; padding: 11% 12%; overflow: auto; color: #2b1d10;
+    background: linear-gradient(#f3e9cf, #e8dbb7); border: 1px solid rgba(110, 84, 40, .5); box-shadow: 0 10px 24px rgba(0, 0, 0, .5); }
+.wd-back h3 { margin: 0 0 .5rem; font-family: var(--font-display); font-size: 1.5rem; color: #7a1f1a; }
+.wd-back p { margin: 0 0 .6rem; font-family: var(--font-display); font-size: 17px; font-weight: 500; line-height: 1.45; color: #2b1d10; }
+.wd-flip { position: absolute; left: -1.2rem; bottom: -2.6rem; z-index: 2; min-height: 44px; padding: 0 1rem; cursor: pointer; font-family: var(--font-display); font-size: 17px; color: #3b2b17; background: linear-gradient(#f6efdd, #ebe0c6); border: 1px solid rgba(110, 84, 40, .5); box-shadow: 0 3px 8px rgba(0, 0, 0, .4); }
+.wd-flip:focus-visible { outline: 2px solid #f3e9d2; outline-offset: 3px; }
+@media (max-width: 767.98px) { .wd-flip { position: static; margin-top: .8rem; } .wd-back { padding: 8% 9%; } }
+@media (prefers-reduced-motion: reduce) { .wd-card, .wd-flipper { transition: none; } }
+.wall-detail .wall-frame { --H: min(54vh, 470px); height: auto; width: min(44vw, calc(var(--H) * var(--fa))); }
+.wall-detail .wall-frame:hover { transform: none; }
+/* Müze etiketi: tablonun sağ altında */
+.wd-plate { position: absolute; right: -2.2rem; bottom: -2.6rem; z-index: 2; max-width: 15rem; padding: .6rem .9rem .7rem; color: #2f2414; background: linear-gradient(#f6efdd, #ebe0c6); border: 1px solid rgba(110, 84, 40, .5); box-shadow: 0 4px 10px rgba(0, 0, 0, .45); }
+.wd-plate b { display: block; font-family: var(--font-display); font-size: 17px; line-height: 1.25; }
+.wd-plate span { display: block; font-family: var(--font-display); font-size: 15px; line-height: 1.35; color: #5a4220; }
+/* Yerde iki pirinç ayaklık ve kordon */
+.wd-stand { position: relative; width: min(100%, 26rem); height: 7rem; margin-top: 2.2rem; }
+.wd-stand svg { display: block; width: 100%; height: 100%; overflow: visible; }
+.wall-info { opacity: 1; }
+.wd-fade { opacity: 0; }
+.wall-x, .wall-nav, .wall-back { position: fixed; z-index: 3; display: grid; place-items: center; cursor: pointer; opacity: 0; color: #3b2b17; background: linear-gradient(#f6efdd, #ebe0c6); border: 1px solid rgba(110, 84, 40, .5); border-radius: 2px; box-shadow: 0 3px 8px rgba(0, 0, 0, .4); }
+.wall-x, .wall-nav { width: 48px; height: 48px; font-size: 1.5rem; line-height: 1; }
+.wall-x { top: clamp(.8rem, 3vh, 1.6rem); right: clamp(.8rem, 3vw, 1.6rem); }
+.wall-back { top: clamp(.8rem, 3vh, 1.6rem); left: clamp(.8rem, 3vw, 1.6rem); min-height: 48px; padding: 0 1.1rem; font-family: var(--font-display); font-size: 17px; letter-spacing: .08em; }
+.wall-nav { top: 50%; margin-top: -24px; }
+.wall-nav--prev { left: clamp(.6rem, 2vw, 1.4rem); }
+.wall-nav--next { right: clamp(.6rem, 2vw, 1.4rem); }
+.wall-x:focus-visible, .wall-nav:focus-visible, .wall-back:focus-visible { outline: 2px solid #f3e9d2; outline-offset: 3px; }
+.wall-detail.is-ready .wall-x, .wall-detail.is-ready .wall-nav, .wall-detail.is-ready .wall-back { opacity: 1; transition: opacity .4s ease; }
+.wall-detail.is-ready .wall-nav[hidden] { display: none; }
+
+@media (max-width: 767.98px) {
+    .wall { height: clamp(520px, 80vh, 700px); }
+    .wall-track { gap: 1.5rem; padding-left: 8vw; padding-right: 8vw; }
+    .wall-detail-in { grid-template-columns: minmax(0, 1fr); grid-template-areas: "head" "stage" "body"; grid-template-rows: auto; padding: 4.8rem 1.4rem 6rem; row-gap: 1.2rem; }
+    .wd-head { align-self: start; }
+    .wd-rule { margin: 1rem 0 0; }
+    .wd-stage { grid-row: auto; }
+    .wall-detail .wall-frame { --H: min(40vh, 300px); width: min(88vw, calc(var(--H) * var(--fa))); }
+    .wd-plate { position: static; margin-top: 1rem; max-width: none; }
+    .wd-stand { height: 5rem; margin-top: 1.2rem; }
+    .wd-room::before, .wd-room::after { display: none; }
+    .wall-nav { top: auto; bottom: 1rem; margin-top: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .wall-frame, .wall-shadow::after, .wall-glint { transition: none; }
+}

@@ -136,3 +136,21 @@ html.first-visit .pt:not(.is-named) .pt-word-in { visibility: hidden; }
 .pt-bloom-count em { font-family: var(--font-script); font-style: italic; font-size: .5em; color: var(--accent); margin-left: .12em; vertical-align: .6em; }
 html.first-visit .pt-count { display: none; }
 .pt-content { z-index: 1; }
+
+/* --- Sayfa geçişi: hipnozcunun cep saati (mantık: js/transition.js) --- */
+.pw { position: fixed; inset: 0; z-index: 2000; visibility: hidden; pointer-events: none; overflow: hidden; }
+.pw.is-on { visibility: visible; pointer-events: all; cursor: progress; }
+.pw-veil, .pw-rings { position: absolute; inset: 0; opacity: 0; transition: opacity .35s ease; }
+.pw:not(.is-closed) .pw-veil, .pw:not(.is-closed) .pw-rings { transition-duration: .4s; }
+.pw.is-closed .pw-veil, .pw.is-closed .pw-rings { opacity: 1; }
+.pw-veil { background: radial-gradient(ellipse 75% 70% at 50% 45%, #2a1a0e 0%, #1a100a 55%, #0b0604 100%); }
+.pw-rings i { position: absolute; left: 50%; top: 56%; border-radius: 50%; border: 1px dashed rgba(201, 169, 110, .16); margin: calc(var(--d) / -2) 0 0 calc(var(--d) / -2); width: var(--d); height: var(--d); animation: pwSpin 18s linear infinite; }
+.pw-rings i:nth-child(1) { --d: 36vmin; }
+.pw-rings i:nth-child(2) { --d: 58vmin; border-style: dotted; animation-duration: 26s; animation-direction: reverse; }
+.pw-rings i:nth-child(3) { --d: 82vmin; animation-duration: 38s; }
+@keyframes pwSpin { to { transform: rotate(360deg); } }
+.pw-hang { position: absolute; left: 50%; top: 0; height: 60vh; max-height: 100%; opacity: 0; transform: translateX(-50%); will-change: transform, opacity; }
+.pw-swing { height: 100%; transform-origin: 50% 0; will-change: transform; }
+.pw-swing img { display: block; height: 100%; width: auto; filter: drop-shadow(0 0 14px rgba(214, 170, 90, .3)); }
+@media (max-width: 575.98px) { .pw-hang { height: 45vh; } }
+@media (prefers-reduced-motion: reduce) { .pw-rings, .pw-hang { display: none; } }

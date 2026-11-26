@@ -74,6 +74,9 @@ function buildDictionaries(site) {
             d[`p.${i + 1}.tag`] = pick(p.tag);
             d[`p.${i + 1}.d`] = pick(p.desc);
         });
+        ((site.portfolio && site.portfolio.sections) || []).forEach((x, i) => {
+            ["tab", "title", "body"].forEach((f) => (d[`pf.${i + 1}.${f}`] = pick(x[f])));
+        });
         site.experience.forEach((x, i) => {
             ["date", "role", "company", "desc"].forEach((f) => (d[`exp.${i + 1}.${f}`] = pick(x[f])));
         });
@@ -89,7 +92,7 @@ function buildDictionaries(site) {
             d[`g.${i + 1}.cap`] = pick(g.caption);
             d[`g.${i + 1}.place`] = pick(g.place);
         });
-        site.courses.forEach((c, i) => (d[`course.${i + 1}.name`] = pick(c.name)));
+        site.courses.forEach((c, i) => { d[`course.${i + 1}.name`] = pick(c.name); d[`course.${i + 1}.room`] = pick(c.room); });
         site.softSkills.forEach((s, i) => (d[`soft.${i + 1}`] = pick(s.name)));
         // Deri dosyalar: podyum/işler ("folder.N") ve hobi albümü ("hfolder.N")
         [["folder", site.folders], ["hfolder", site.hobbyFolders]].forEach(([pre, list]) => list.forEach((f, i) => {
@@ -151,9 +154,64 @@ function renderContent(site) {
         el.innerHTML = list.map(({ p, i }, n) =>
             `<a class="h-card"${linkAttrs(projectHref(p))} data-cursor="view" data-pi="${i}">` +
                 `<div class="thumb tilt">${projectArt(p)}<span class="glare"></span></div>` +
-                `<div class="meta"><div><h3 data-i18n="p.${i + 1}.t"></h3><small data-i18n="p.${i + 1}.tag"></small></div><span class="idx">(${pad(n + 1)})</span></div>` +
+                `<div class="meta"><div><h3 data-i18n="p.${i + 1}.t"></h3><small data-i18n="p.${i + 1}.tag"></small><p class="h-card-d" data-i18n="p.${i + 1}.d"></p>${p.rights ? '<em class="p-rights" data-i18n="p.rights"></em>' : ""}</div><span class="idx">(${pad(n + 1)})</span></div>` +
             `</a>`).join("");
         setArtImages(el, site.projects);
+    }
+
+    // Projeler sayfası: her proje kendi açılış sahnesinde (anahtar deliği → portfolyo → kubbe, çerçeve, mektup...)
+    if ((el = box("projectscenes"))) {
+        const list = site.projects.map((p, i) => ({ p, i }));
+        const pfs = list.filter((x) => x.p.scene === "portfolio");
+        const rest = list.filter((x) => x.p.scene && !["portfolio", "card"].includes(x.p.scene));
+        const cards = list.filter((x) => !x.p.scene || x.p.scene === "card");
+        const link = (p, key) => (projectHref(p) ? `<a class="btn btn-outline-dark sc-link"${linkAttrs(projectHref(p))} data-i18n="${key}"></a>` : "");
+        const label = ({ p, i }) =>
+            `<div class="sc-label">` +
+                `<div class="sc-tag" data-i18n="p.${i + 1}.tag"></div>` +
+                `<h2 data-i18n="p.${i + 1}.t"></h2>` +
+                `<p data-i18n="p.${i + 1}.d"></p>` +
+                (p.rights ? '<p class="p-rights" data-i18n="p.rights"></p>' : "") + link(p, "projects.view") +
+            `</div>`;
+        const art = ({ p, i }) => `<figure class="scene-art"><img src="${escAttr(p.image)}" alt="" data-i18n-alt="p.${i + 1}.t" loading="lazy" decoding="async"></figure>`;
+        const props = {
+            cloche: (x) => `<div class="prop prop-cloche"><div class="pc-glow"></div><div class="pc-plate"></div>${art(x)}<div class="pc-dome"><i></i></div></div>`,
+            frame: (x) => `<div class="prop prop-frame"><span class="pfr-cord"></span><div class="pfr-frame">${art(x)}</div></div>`,
+            letter: (x) => `<div class="prop prop-letter"><div class="pl-back"></div><div class="pl-paper">${art(x)}</div><div class="pl-front"></div><div class="pl-flap"></div><div class="pl-seal"><i class="l"></i><i class="r"></i></div></div>`,
+            jewel: (x) => `<div class="prop prop-jewel"><div class="pj-glow"></div><div class="pj-back"></div>${art(x)}<div class="pj-front"></div><div class="pj-lid"></div></div>`,
+            album: (x) => `<div class="prop prop-album"><div class="pa-page">${art(x)}</div><div class="pa-cover"><b></b></div></div>`
+        };
+        const kh = `<svg class="kh-cover" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">` +
+            `<defs><mask id="khMask"><rect width="100" height="100" fill="#fff"/><path fill="#000" d="M50 33a7.2 7.2 0 0 1 3.6 13.4L57 64H43l3.4-17.6A7.2 7.2 0 0 1 50 33z"/></mask></defs>` +
+            `<rect width="100" height="100" fill="#0a0704" mask="url(#khMask)"/>` +
+            `<path fill="none" stroke="#c9a96e" stroke-width=".35" opacity=".7" d="M50 33a7.2 7.2 0 0 1 3.6 13.4L57 64H43l3.4-17.6A7.2 7.2 0 0 1 50 33z"/></svg>`;
+        const portfolio = pfs.map((x) =>
+            `<section class="scene scene--portfolio" data-scene="portfolio" aria-labelledby="sc-pf">` +
+                `<div class="scene-stage">` +
+                    `<div class="pf-intro">${label(x).replace("<h2", '<h2 id="sc-pf"')}</div>` +
+                    `<div class="pf" data-pf>` +
+                        `<div class="pf-book">` +
+                            `<div class="pf-inside"><div class="pf-cards">` +
+                                (site.portfolio ? site.portfolio.sections : []).map((_, k) =>
+                                    `<article class="pf-card" data-k="${k}"><h3 data-i18n="pf.${k + 1}.title"></h3><p data-i18n="pf.${k + 1}.body"></p></article>`).join("") +
+                            `</div></div>` +
+                            `<div class="pf-cover"><div class="pf-front"><span class="pf-script" data-i18n="pf.cover.script"></span><span class="pf-title" data-i18n="pf.cover.title"></span></div><div class="pf-back"></div></div>` +
+                            `<div class="pf-tabs" role="group" data-i18n-aria="pf.tabs">` +
+                                (site.portfolio ? site.portfolio.sections : []).map((_, k) =>
+                                    `<button type="button" class="pf-tab" data-k="${k}" data-i18n="pf.${k + 1}.tab"></button>`).join("") +
+                            `</div>` +
+                        `</div>` +
+                    `</div>` + kh +
+                    `<p class="kh-hint" data-i18n="scenes.hint"></p>` +
+                `</div>` +
+            `</section>`).join("");
+        const scenes = rest.map((x, n) =>
+            `<section class="scene scene--${x.p.scene} ${n % 2 ? "is-flip" : ""}" data-scene="${x.p.scene}" aria-labelledby="sc-${x.i}">` +
+                `<div class="scene-stage"><div class="scene-prop">${props[x.p.scene](x)}</div>${label(x).replace("<h2", `<h2 id="sc-${x.i}"`)}</div>` +
+            `</section>`).join("");
+        const plain = cards.map((x) =>
+            `<section class="scene scene--card" data-scene="card" aria-labelledby="sc-${x.i}"><div class="scene-stage">${label(x).replace("<h2", `<h2 id="sc-${x.i}"`)}</div></section>`).join("");
+        el.innerHTML = portfolio + scenes + plain;
     }
 
     // Projeler sayfası: tüm projeler
@@ -209,7 +267,7 @@ function renderContent(site) {
     if ((el = box("skillbars"))) {
         el.innerHTML = site.skillBars.map((s, i) => {
             const w = Math.max(0, Math.min(100, parseInt(s.percent, 10) || 0));
-            return `<div class="col-md-6"><div class="d-flex justify-content-between small mb-2"><span data-i18n="bar.${i + 1}"></span><span class="text-muted">${w}%</span></div><div class="skill-bar"><i style="--w: ${w}%"></i></div></div>`;
+            return `<div class="col-md-6"><div class="d-flex justify-content-between small mb-2"><span data-i18n="bar.${i + 1}"></span><span class="text-muted">${w}%</span></div><div class="skill-bar" role="meter" aria-label="" data-i18n-aria="bar.${i + 1}" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${w}" aria-valuetext="${w}%"><i style="--w: ${w}%"></i></div></div>`;
         }).join("");
     }
     if ((el = box("languages"))) {
@@ -273,27 +331,42 @@ function renderContent(site) {
             const tint = (code) => { let h = 0; for (const ch of String(code)) h = (h * 31 + ch.charCodeAt(0)) >>> 0; return "t" + (h % 5); };
             const kind = (k) => (["teori", "uygulama", "karma", "uzaktan"].includes(k) ? k : "teori");
             const card = (x) =>
-                `<article class="course ${tint(x.c.code)}" data-day="${x.d}" data-start="${x.s}" data-end="${x.e}" style="--row: ${Math.floor((x.s - first) / 60) + 2}; --span: ${Math.max(1, Math.round((x.e - x.s + 10) / 60))}; --col: ${x.d + 1}">` +
+                `<article class="course ${tint(x.c.code)}" data-code="${escAttr(x.c.code || "")}" data-day="${x.d}" data-start="${x.s}" data-end="${x.e}" style="--row: ${Math.floor((x.s - first) / 60) + 2}; --span: ${Math.max(1, Math.round((x.e - x.s + 10) / 60))}; --col: ${x.d + 1}">` +
                     `<div class="course-top"><span class="course-code">${escAttr(x.c.code || "")}</span><span class="course-time">${escAttr(x.c.start)}–${escAttr(x.c.end)}</span></div>` +
                     `<h4 class="course-name" data-i18n="course.${x.i + 1}.name"></h4>` +
                     `<div class="course-meta">` +
-                        (x.c.room ? `<span><i class="bi bi-geo-alt"></i>${escAttr(x.c.room)}</span>` : "") +
+                        (x.c.room ? `<span><i class="bi bi-geo-alt"></i><span data-i18n="course.${x.i + 1}.room"></span></span>` : "") +
                         (x.c.teacher ? `<span><i class="bi bi-person"></i>${escAttr(x.c.teacher)}</span>` : "") +
                     `</div>` +
                     `<span class="course-kind k-${kind(x.c.kind)}" data-i18n="schedule.kind.${kind(x.c.kind)}"></span>` +
                     `<span class="course-now" data-i18n="schedule.now"></span>` +
                 `</article>`;
-            let grid = `<div class="sched-grid" style="--rows: ${rows}">` +
-                `<div class="sg-head sg-corner" data-i18n="schedule.time"></div>` +
-                [1, 2, 3, 4, 5].map((d) => `<div class="sg-head" data-day="${d}" style="--col: ${d + 1}"><span data-i18n="schedule.day${d}"></span><small data-i18n="schedule.today"></small></div>`).join("");
+            // Gerçek <table>: üst satırda günler (th), solda saatler (th), dersler rowspan'li hücreler (td)
+            const spanOf = (x) => Math.max(1, Math.round((x.e - x.s + 10) / 60));
+            const covered = {}; // "satır:gün" → önceki bir dersin rowspan'i tarafından kapatılmış hücre
+            let grid = `<table class="sched-table"><caption class="visually-hidden" data-i18n="schedule.title.plain"></caption>` +
+                `<thead><tr><th scope="col" class="sgt-corner" data-i18n="schedule.time"></th>` +
+                [1, 2, 3, 4, 5].map((d) => `<th scope="col" class="sgt-head" data-day="${d}"><span data-i18n="schedule.day${d}"></span><small data-i18n="schedule.today"></small></th>`).join("") +
+                `</tr></thead><tbody>`;
             for (let r = 0; r < rows; r++) {
                 const t = first + r * 60;
                 const busy = courses.some((x) => x.s < t + 50 && x.e > t);
-                grid += `<div class="sg-time" style="--row: ${r + 2}">${hhmm(t)}</div>` +
-                    (busy ? "" : `<div class="sg-free" style="--row: ${r + 2}" data-i18n="schedule.lunch"></div>`);
-                for (let d = 1; d <= 5; d++) grid += `<div class="sg-cell" data-day="${d}" style="--row: ${r + 2}; --col: ${d + 1}"></div>`;
+                grid += `<tr><th scope="row" class="sgt-time">${hhmm(t)}</th>`;
+                if (!busy) {
+                    grid += `<td class="sgt-free" colspan="5" data-i18n="schedule.lunch"></td></tr>`;
+                    continue;
+                }
+                for (let d = 1; d <= 5; d++) {
+                    if (covered[r + ":" + d]) continue;
+                    const x = courses.find((c) => c.d === d && Math.floor((c.s - first) / 60) === r);
+                    if (!x) { grid += `<td class="sgt-cell" data-day="${d}"></td>`; continue; }
+                    const sp = spanOf(x);
+                    for (let k = 1; k < sp; k++) covered[(r + k) + ":" + d] = true;
+                    grid += `<td class="sgt-cell sgt-has" data-day="${d}" rowspan="${sp}">${card(x).replace('class="course ', 'class="course ' + (sp === 1 ? "is-short " : ""))}</td>`;
+                }
+                grid += `</tr>`;
             }
-            grid += courses.map(card).join("") + `</div>`;
+            grid += `</tbody></table>`;
             const list = `<div class="sched-list">` + [1, 2, 3, 4, 5].map((d) => {
                 const day = courses.filter((x) => x.d === d);
                 if (!day.length) return "";
@@ -321,7 +394,7 @@ function renderContent(site) {
     if ((el = box("softskills"))) {
         el.innerHTML = site.softSkills.map((s, i) => {
             const v = Math.max(0, Math.min(100, parseInt(s.percent, 10) || 0));
-            return `<div class="ring" style="--p: ${v}" role="img" aria-label="${v}%">` +
+            return `<div class="ring" style="--p: ${v}" role="meter" aria-label="" data-i18n-aria="soft.${i + 1}" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${v}" aria-valuetext="${v}%">` +
                 `<svg viewBox="0 0 120 120" aria-hidden="true"><circle class="ring-bg" cx="60" cy="60" r="52" /><circle class="ring-fg" cx="60" cy="60" r="52" pathLength="100" /></svg>` +
                 `<b>${v}<small>%</small></b><span data-i18n="soft.${i + 1}"></span>` +
             `</div>`;
@@ -342,9 +415,43 @@ function renderContent(site) {
     if ((el = box("gallerypreview"))) {
         el.innerHTML = (site.gallery || []).slice(0, 3).map((g, i) =>
             `<a class="gp-item" href="galeri.html" data-reveal data-delay="${["0.0", "0.1", "0.2"][i]}" data-cursor="view">` +
-                `<img src="${g.image}" alt="" data-i18n-alt="g.${i + 1}.alt" loading="lazy" decoding="async">` +
+                `<span class="gp-canvas"><img src="${g.image}" alt="" data-i18n-alt="g.${i + 1}.alt" loading="lazy" decoding="async"></span>` +
                 `<span class="gp-place" data-i18n="g.${i + 1}.place"></span>` +
             `</a>`).join("");
+    }
+
+    // Müze duvarı (Projeler ve Galeri): her tablo altın çerçevede asılı; davranış js/wall.js (veri: js/content.js > projects / gallery)
+    if ((el = box("wall"))) {
+        const kind = el.dataset.wall === "gallery" ? "gallery" : "projects";
+        const page = kind === "gallery" ? "galeri.html" : "projects.html";
+        const list = kind === "gallery"
+            ? (site.gallery || []).map((g, i) => ({ i, img: g.image, slug: `foto-${i + 1}`, t: `g.${i + 1}.place`, tag: "", alt: `g.${i + 1}.alt` }))
+            : site.projects.map((p, i) => ({ i, img: p.image, slug: `proje-${i + 1}`, t: `p.${i + 1}.t`, tag: `p.${i + 1}.tag`, alt: `p.${i + 1}.t` })).filter((x) => x.img);
+        el.dataset.kind = kind;
+        el.dataset.page = page;
+        el.innerHTML =
+            `<div class="wall-room" aria-hidden="true"><i class="wall-cornice"></i><i class="wall-base"></i><i class="wall-floor"></i></div>` +
+            `<div class="wall-track" data-lenis-prevent>` +
+                list.map((x, n) =>
+                    `<a class="wall-art" href="${page}?p=${x.slug}" data-no-pjax data-cursor="view" data-i="${x.i}" data-slug="${x.slug}">` +
+                        `<span class="wall-frame wall-frame--landscape"><span class="wall-shadow"></span>` +
+                            `<span class="wall-pic"><img src="${escAttr(x.img)}" alt="" data-i18n-alt="${x.alt}" ${n < 2 ? "" : 'loading="lazy" '}decoding="async"></span>` +
+                            `<img class="wall-fr" src="images/frames/frame-landscape.png" alt="" aria-hidden="true" decoding="async"><span class="wall-glint"></span></span>` +
+                        `<span class="wall-plate"><h2 data-i18n="${x.t}"></h2>${x.tag ? `<small data-i18n="${x.tag}"></small>` : ""}</span>` +
+                    `</a>`).join("") +
+            `</div>`;
+        // Görseli olmayan projeler (kişisel portfolyo, sosyal medya) duvarın altında metin etiketi olarak kalır
+        const more = kind === "projects" ? site.projects.map((p, i) => ({ p, i })).filter((x) => !x.p.image) : [];
+        if (more.length) {
+            const nxt = el.nextElementSibling;
+            const ul = document.createElement("div");
+            ul.className = "wall-more container px-5";
+            ul.innerHTML = more.map(({ p, i }) =>
+                `<article class="wall-label"><small data-i18n="p.${i + 1}.tag"></small><h2 data-i18n="p.${i + 1}.t"></h2><p data-i18n="p.${i + 1}.d"></p>` +
+                (p.scene === "portfolio" && site.portfolio ? `<ul>${site.portfolio.sections.map((_, k) => `<li><b data-i18n="pf.${k + 1}.title"></b> <span data-i18n="pf.${k + 1}.body"></span></li>`).join("")}</ul>` : "") +
+                (projectHref(p) ? `<a class="btn btn-outline-dark sc-link"${linkAttrs(projectHref(p))} data-i18n="projects.view"></a>` : "") + `</article>`).join("");
+            if (!(nxt && nxt.classList.contains("wall-more"))) el.insertAdjacentElement("afterend", ul); else nxt.replaceWith(ul);
+        }
     }
 
     // Galeri: fotoğraf + yer + kısa açıklama (js/content.js > gallery)
@@ -371,6 +478,7 @@ function renderContent(site) {
                         `<span class="pn-desc" data-i18n="pagenav.desc.${next[0]}"></span>` +
                         `<span class="pn-arrow" aria-hidden="true"><i class="bi bi-arrow-right"></i></span>` +
                     `</a>` +
+                    `<div class="pn-count" aria-hidden="true">${cur + 1} / ${ORDER.length}</div>` +
                     `<a class="pn-prev" href="${prev[1]}">` +
                         `<span class="pn-label" data-i18n="pagenav.prev"></span>` +
                         `<span class="pn-title" data-i18n="${prev[2]}"></span>` +
@@ -399,6 +507,11 @@ function renderContent(site) {
 
 /* ---------- Dil ---------- */
 function getLang() {
+    // Adresteki ?lang=en / ?lang=tr önce gelir (hreflang bağlantıları ve paylaşılan linkler için); seçim hatırlanır
+    try {
+        const q = new URLSearchParams(location.search).get("lang");
+        if (q && I18N[q]) { try { localStorage.setItem(LANG_KEY, q); } catch (e) { /* yoksay */ } return q; }
+    } catch (e) { /* eski tarayıcı */ }
     try {
         const saved = localStorage.getItem(LANG_KEY);
         if (saved && I18N[saved]) return saved;

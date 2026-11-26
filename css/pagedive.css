@@ -1,0 +1,30 @@
+/* ==========================================================================
+   Sayfa dalışları (js/pagedive.js): ana sayfadaki dalışın diğer sayfalardaki karşılığı.
+   Durak başlıkları, mini harita ve müze etiketi vintage.css'teki .dive-* stillerini kullanır.
+   ========================================================================== */
+.pdive-bg { position: fixed; inset: 0; z-index: -2; pointer-events: none; display: none; background: #17130e; }
+.pdive-bg canvas { display: block; width: 100%; height: 100%; }
+html.pdive-on .pdive-bg { display: block; }
+html.pdive-on .page-bg, html.pdive-fallback .pdive-bg { display: none; }
+html.dive-on .pdive-bg { display: none; }
+
+/* Yapışkan sahne: başlık tablonun üstünde, kaydırma kamerayı durak durak ilerletir */
+.pjourney { position: relative; }
+.pjourney > .pj-hero { position: sticky; top: 0; height: 100vh; height: 100svh; min-height: 0; overflow: hidden; display: flex; align-items: center; padding: 0; }
+.pj-copy { position: relative; z-index: 1; will-change: opacity, transform; padding-top: 4rem; }
+.pj-copy > * { max-width: 46rem; }
+.pj-copy .hero-sub { background: none; padding-left: 0; }
+html.pdive-on .pj-hero::before { content: ""; position: absolute; inset: 0; pointer-events: none; opacity: var(--hero-f, 1);
+    background:
+        radial-gradient(ellipse 52% 46% at 24% 52%, rgba(34, 20, 9, .62), rgba(34, 20, 9, .38) 45%, transparent 78%),
+        linear-gradient(90deg, rgba(30, 18, 8, .42), rgba(30, 18, 8, .12) 48%, transparent 70%); }
+/* Başlığı taşınan sayfa bölümünün üst boşluğu küçülür */
+html.pdive-on .pjourney + .page-offset { padding-top: 2rem !important; margin-top: 0 !important; }
+.dive-map.is-tall { width: clamp(70px, 7.5vw, 116px); }
+@media (max-width: 767.98px) {
+    html.pdive-on .pj-hero::before { background: radial-gradient(ellipse 95% 55% at 40% 50%, rgba(34, 20, 9, .66), rgba(34, 20, 9, .36) 55%, transparent 85%); }
+    .pj-copy { padding-top: 6rem; }
+    .dive-map.is-tall { width: 60px; }
+}
+/* Dalış kurulana kadar içerik gizli (js/pagedive.js pdive-done ekler); hiç kurulmazsa yükleme+3 sn sonra açılır */
+html.js:not(.pdive-done) body:not([data-page="home"]) main { visibility: hidden; }

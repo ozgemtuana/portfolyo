@@ -88,6 +88,7 @@ window.Router = (function () {
             // 1) eski sayfanın kayıtlarını temizle
             if (window.Site) window.Site.destroyPage();
             if (window.Folders) window.Folders.destroy();
+            if (window.Scenes) window.Scenes.destroy();
             if (window.BlogPage) window.BlogPage.destroy();
 
             // 2) içeriği değiştir, adresi güncelle, en üste dön
@@ -99,6 +100,7 @@ window.Router = (function () {
             // 3) yeni içeriği kur
             if (window.I18N_refresh) window.I18N_refresh();      // listeleri bas, dili uygula
             if (window.Folders) window.Folders.init();
+            if (window.Scenes) window.Scenes.init();
             if (window.BlogPage) window.BlogPage.init();
             if (window.World) window.World.setPage(document.body.dataset.page);
             const ready = window.Transition ? window.Transition.reveal(key, name) : Promise.resolve();

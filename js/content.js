@@ -23,10 +23,10 @@ window.SITE_CONTENT = {
     },
     "text": {
         "tr": {
-            "meta.title.home": "Ana Sayfa — {name}",
-            "meta.title.resume": "Özgeçmiş — {name}",
-            "meta.title.projects": "Projeler — {name}",
-            "meta.title.contact": "İletişim — {name}",
+            "meta.title.home": "{name} — Web Tasarım ve Grafik Animasyon Portfolyosu",
+            "meta.title.resume": "Özgeçmiş: Eğitim, Deneyim ve Yetenekler — {name}",
+            "meta.title.projects": "Projeler: Grafik Animasyon Çalışmaları — {name}",
+            "meta.title.contact": "İletişim: Proje ve İş Birliği İçin Yaz — {name}",
             "nav.home": "Ana Sayfa",
             "nav.resume": "Özgeçmiş",
             "nav.projects": "Projeler",
@@ -58,6 +58,7 @@ window.SITE_CONTENT = {
             "work.eyebrow": "Seçili İşler",
             "work.title": "Öne çıkan <em>projeler</em>",
             "work.all": "Tüm projeler",
+            "p.rights": "Ders çalışması · karakter hakları Marvel'a aittir",
             "services.eyebrow": "Neler yapıyorum",
             "services.1.t": "Web Tasarım",
             "services.1.d": "HTML5, CSS3 ve JavaScript ile modern, responsive siteler.",
@@ -113,8 +114,19 @@ window.SITE_CONTENT = {
             "contact.tel": "Telefon",
             "contact.loc": "Konum",
             "contact.social": "Sosyal",
+            "contact.h.form": "Mesaj gönder",
+            "contact.err.name": "Adını yazar mısın?",
+            "contact.err.email": "Geçerli bir e-posta adresi yaz (ör. ad@ornek.com).",
+            "contact.err.message": "Mesaj alanı boş kalmasın.",
+            "contact.hint.phone": "İsteğe bağlı.",
+            "contact.fallback": "E-posta uygulaman açılmadıysa mesajını kopyalayıp şu adrese gönderebilirsin:",
+            "contact.copy": "Mesajı kopyala",
+            "contact.copied": "Kopyalandı!",
+            "contact.noscript": "Form için JavaScript gerekiyor. Doğrudan e-posta gönder:",
+            "contact.h.info": "İletişim bilgileri",
             "schedule.eyebrow": "Bu dönem",
             "schedule.title": "Ders <em>programım</em>",
+            "schedule.title.plain": "Haftalık ders programı",
             "schedule.term": "2026–2027 Güz · Bilgisayar Programcılığı",
             "schedule.time": "Saat",
             "schedule.day1": "Pazartesi",
@@ -130,7 +142,7 @@ window.SITE_CONTENT = {
             "schedule.today": "Bugün",
             "schedule.lunch": "Öğle arası",
             "nav.about": "Hakkımda",
-            "meta.title.about": "Hakkımda — {name}",
+            "meta.title.about": "Hakkımda: Bilgisayar Programcılığı Öğrencisi — {name}",
             "about.more": "Hakkımda daha fazlası",
             "aboutpage.title": "Ben <em>kimim?</em>",
             "aboutpage.sub": "Kod yazan, sahneye çıkan ve satranç tahtasında strateji kuran biri.",
@@ -178,7 +190,7 @@ window.SITE_CONTENT = {
             "aboutpage.hobbies.sub": "Satranç turnuvalarından opera sahnesine, binicilikten kulis anlarına… Deri dosyayı aç, fotoğrafları tek tek gez.",
             "aboutpage.hobbies.click": "Tıkla ve görselleri gör",
             "nav.blog": "Blog",
-            "meta.title.blog": "Blog — {name}",
+            "meta.title.blog": "Blog: Yapay Zekâ, Tanıtım ve Kişisel Marka — {name}",
             "blog.eyebrow": "Yazılar ve notlar",
             "blog.title": "Blog",
             "blog.sub": "Teknolojiyi öğrenirken, markalar için tasarlarken ve podyumda yürürken öğrendiklerim: üç uzun yazı.",
@@ -204,21 +216,21 @@ window.SITE_CONTENT = {
             "aboutpage.photo.cap": "Bilgisayar Programcılığı · Akdeniz Üniversitesi",
             "contact.addr": "Adres",
             "nav.gallery": "Galeri",
-            "meta.title.gallery": "Galeri — {name}",
+            "meta.title.gallery": "Galeri: Seyahatten ve Hayattan Kareler — {name}",
             "gallery.eyebrow": "Kareler",
             "gallery.title": "Galeri",
             "gallery.sub": "Beni en çok yansıttığını düşündüğüm fotoğraflar.",
             "nav.process": "Süreç",
-            "meta.title.process": "Süreç & İlham — {name}",
+            "meta.title.process": "Süreç & İlham: Sitenin Tasarım Süreci — {name}",
             "pagenav.desc.process": "Konsept, ilham, renkler, fontlar ve kullandığım araçlar.",
             "meta.desc.home": "Tuana Davarcı'nın kişisel portfolyosu: Akdeniz Üniversitesi Bilgisayar Programcılığı öğrencisi, grafik animasyon, web tasarım ve ürün tanıtımı.",
-            "meta.desc.about": "Tuana Davarcı kimdir? Vesikalık, özgeçmiş, ders programı, ilgi alanları ve yeteneklerin yüzdeleri.",
-            "meta.desc.resume": "Tuana Davarcı'nın eğitimi, deneyimi, dilleri ve kullandığı araçlar.",
+            "meta.desc.about": "Tuana Davarcı kimdir? Vesikalık, kısa özgeçmiş, ders programı tablosu, ilgi alanları, hobiler ve yüzdeli yetenek çubukları tek sayfada.",
+            "meta.desc.resume": "Tuana Davarcı'nın özgeçmişi: Akdeniz Üniversitesi Bilgisayar Programcılığı eğitimi, deneyimleri, dilleri ve kullandığı tasarım ve kod araçları.",
             "meta.desc.projects": "Grafik Animasyon dersinde hazırlanan çalışmalar: ürün tanıtımı, Photoshop renklendirme, Smart Object ve web arayüzü tasarımı.",
-            "meta.desc.blog": "Yapay zekâ, dijital tanıtım ve kişisel marka üzerine üç blog yazısı, ekran görüntüleriyle.",
-            "meta.desc.gallery": "Tuana Davarcı'yı en çok yansıtan fotoğraflar ve kısa açıklamaları.",
-            "meta.desc.process": "Sitenin konsepti, ilham kaynakları, renk paleti, fontları, kullanılan araçlar ve yapım süreci.",
-            "meta.desc.contact": "Tuana Davarcı ile iletişim: adres, telefon ve iletişim formu.",
+            "meta.desc.blog": "Yapay zekâ, dijital tanıtım ve kişisel marka üzerine üç blog yazısı: ekran görüntüleri, çalışan örnekler ve kısa açıklamalarla anlatım.",
+            "meta.desc.gallery": "Tuana Davarcı'yı en çok yansıtan fotoğraflar: Side, Kaleiçi, İstanbul, doğum günü ve spor salonundan kareler, kısa açıklamalarıyla.",
+            "meta.desc.process": "Bu sitenin nasıl yapıldığı: konsept, ilham kaynakları, renk paleti, yazı tipleri, kullanılan araçlar, Claude Code skill'leri ve yapım süreci.",
+            "meta.desc.contact": "Tuana Davarcı ile iletişim: Muratpaşa, Antalya adresi, telefon, e-posta ve proje ya da iş birliği için doldurabileceğin iletişim formu.",
             "process.eyebrow": "Perde arkası",
             "process.title": "Süreç & <em>ilham</em>",
             "process.sub": "Bu sitenin nasıl düşünüldüğü, nelerden ilham aldığı ve hangi araçlarla yapıldığı.",
@@ -245,12 +257,12 @@ window.SITE_CONTENT = {
             "process.sw.3": "Adaçayı",
             "process.sw.4": "Ahşap",
             "process.sw.5": "Ceviz",
-            "process.sw.6": "Toprak",
+            "process.sw.6": "Eski kâğıt",
             "process.sw.7": "Krem",
             "process.sw.8": "Altın",
             "process.type.title": "Tipografi",
-            "process.type.display": "Başlıklar: Cormorant, ince ve yüksek kontrastlı serif; vurgu için italiği.",
-            "process.type.body": "Metin ve etiketler: DM Sans, okunaklı ve sade.",
+            "process.type.display": "Başlıklar: Cormorant Garamond, ince ve yüksek kontrastlı serif; sayfa başlıklarının üstündeki küçük başlıkta Pinyon Script (kaligrafi).",
+            "process.type.body": "Metin ve etiketler: Jost, okunaklı ve sade.",
             "process.type.sample": "Merak, her tasarımın ilk fırça darbesidir.",
             "process.tools.title": "Kullanılan araçlar ve teknolojiler",
             "process.tool.1": "Visual Studio Code: kod editörü",
@@ -260,13 +272,16 @@ window.SITE_CONTENT = {
             "process.tool.5": "Three.js: arka plandaki 3D orman dünyası",
             "process.tool.6": "GSAP + ScrollTrigger: kaydırmaya bağlı animasyonlar",
             "process.tool.7": "Lenis: yumuşak kaydırma",
-            "process.tool.8": "Google Fonts: Cormorant ve DM Sans",
+            "process.tool.8": "Google Fonts: Cormorant Garamond, Jost ve Pinyon Script",
             "process.tool.9": "Playwright: sayfaları farklı ekran boyutlarında otomatik test etmek için",
             "process.tool.10": "GitHub ve GitHub Pages: sürüm takibi ve yayın",
             "process.tool.11": "Pinterest: ilham ve moodboard",
             "process.skill.title": "Claude Code skill'leri",
-            "process.skill.body": "Bu projede harici bir tasarım skill'i (ör. impeccable) yüklemedim. Bunun yerine projeye özel skill dosyaları yazdım; her biri .claude/skills/ klasöründe bir SKILL.md olarak duruyor:",
-            "process.skill.1": "seo-geo-bilingual: iki dilli metin, meta etiketleri, JSON-LD, sitemap ve llms.txt düzeni.",
+            "process.skill.body": "Skill'ler .claude/skills/ klasöründe duruyor. Resmî kaynaklardan yüklenenlerin içeriğini yüklemeden önce okudum. Gerçekten uyguladıklarım:",
+            "process.skill.1": "seo-geo-bilingual: iki dilli metin, 50–60 karakterlik başlıklar ve 120–155 karakterlik açıklamalar, JSON-LD (Person, WebSite, BlogPosting, ContactPoint), sitemap dil alternatifleri, llms.txt ve llms-full.txt.",
+            "process.skill.2": "frontend-design (Anthropic): tasarım planını (renk, font, yerleşim) yazıp brief'e göre gözden geçirme süreci.",
+            "process.skill.3": "impeccable: critique ve craft-floor yönergeleriyle okunabilirlik turu yapıldı (düz kâğıt, tek yazı sistemi, odak halkaları, kaydırma çubuğu ve seçim renkleri, satır ölçüsü). Skill'in kendi indirilen aracı projede yok; değerlendirme elle yapıldı.",
+            "process.skill.4": "GSAP ve Three.js sitede kullanılıyor (sayfa animasyonları, tablonun içine dalış WebGL sahnesi); ilgili gsap-* ve threejs-* skill'leri projede yüklü ve başvuru kaynağı olarak duruyor.",
             "process.steps.title": "Süreç",
             "process.step.1": "İlham toplama: Pinterest'te panolar oluşturdum.",
             "process.step.2": "Moodboard: renk, doku ve duyguyu seçtim.",
@@ -275,6 +290,36 @@ window.SITE_CONTENT = {
             "process.step.5": "Kodlama: sayfalar, iki dil, form, galeri ve blog.",
             "process.step.6": "Test: telefon, tablet ve masaüstünde denedim.",
             "process.step.7": "Teslim: klasörü zip'leyip yayınladım.",
+            "dive.0.artist": "Giovanni Paolo Panini",
+            "dive.0.title": "Modern Roma Manzaraları Galerisi",
+            "dive.0.meta": "1759 · Louvre Müzesi · yağlı boya",
+            "dive.1.artist": "Hubert Robert",
+            "dive.1.title": "Kemerli Manzara ve Aziz Petrus Kubbesi",
+            "dive.1.meta": "18. yüzyıl · Ermitaj Müzesi · yağlı boya",
+            "dive.2.artist": "Thomas Cole",
+            "dive.2.title": "Yıkık Kuleli İtalyan Kıyısı",
+            "dive.2.meta": "1838 · National Gallery of Art · yağlı boya",
+            "cap.0.t": "Tonoz ve ışıklık",
+            "cap.0.q": "Panini hayal ürünü bir galeri kurar; ışık, kemerlerin arasından süzülür.",
+            "cap.1.t": "Musa",
+            "cap.1.q": "Michelangelo'nun Musa heykeli, tabloların arasında bir başyapıt daha.",
+            "cap.2.t": "Koleksiyoncular",
+            "cap.2.q": "Ortadaki beyefendiler eserleri inceliyor: sanat, sohbetle büyür.",
+            "cap.3.t": "Aziz Petrus Kubbesi",
+            "cap.3.q": "Kemerin ardında, sıcak akşam ışığında Roma'nın en tanıdık silueti.",
+            "cap.4.t": "Nişteki heykel",
+            "cap.4.q": "Hubert Robert'e “harabelerin Robert'i” denirdi; yıkık taş bile onda sahne olur.",
+            "cap.5.t": "Merdivendeki gezginler",
+            "cap.5.q": "Küçük figürler, taşın ne kadar büyük ve eski olduğunu hissettirir.",
+            "cap.6.t": "Yıkık kule",
+            "cap.6.q": "Zaman geçer, iz kalır: sarmaşık kuleyi sarar ama kule ayakta.",
+            "cap.7.t": "Çoban ve sürüsü",
+            "cap.7.q": "Harabenin yanında hayat sakin sakin sürer.",
+            "cap.8.t": "Denizde ışık",
+            "cap.8.q": "Ufuktaki güneş, sakin denize altın bir yol çizer.",
+            "ui.play": "Oynat",
+            "ui.pause": "Duraklat",
+            "ui.map": "Tablodaki konum",
             "pagenav.desc.gallery": "Beni en çok yansıtan fotoğraflar ve kısa notlar.",
             "aboutpage.lists.eyebrow": "Kısaca",
             "aboutpage.lists.title": "Listelerle <em>ben</em>",
@@ -289,13 +334,17 @@ window.SITE_CONTENT = {
             "aboutpage.lists.int5": "Podyum ve modellik",
             "home.gallery.eyebrow": "Kareler",
             "home.gallery.title": "Galeriden <em>kareler</em>",
-            "home.gallery.all": "Tüm galeri"
+            "home.gallery.all": "Tüm galeri",
+            "pf.cover.script": "Seçili işler",
+            "pf.cover.title": "Portfolyo",
+            "scenes.hint": "Anahtar deliğinden geçmek için kaydır",
+            "pf.tabs": "Portfolyo bölümleri"
         },
         "en": {
-            "meta.title.home": "Home — {name}",
-            "meta.title.resume": "Resume — {name}",
-            "meta.title.projects": "Projects — {name}",
-            "meta.title.contact": "Contact — {name}",
+            "meta.title.home": "{name} — Web Design & Graphic Animation Portfolio",
+            "meta.title.resume": "Resume: Education, Experience and Skills — {name}",
+            "meta.title.projects": "Projects: Graphic Animation Coursework — {name}",
+            "meta.title.contact": "Contact: Get in Touch for Projects — {name}",
             "nav.home": "Home",
             "nav.resume": "Resume",
             "nav.projects": "Projects",
@@ -327,6 +376,7 @@ window.SITE_CONTENT = {
             "work.eyebrow": "Selected work",
             "work.title": "Featured <em>projects</em>",
             "work.all": "All projects",
+            "p.rights": "Coursework · characters © Marvel",
             "services.eyebrow": "What I do",
             "services.1.t": "Web Design",
             "services.1.d": "Modern, responsive websites with HTML5, CSS3 and JavaScript.",
@@ -382,8 +432,19 @@ window.SITE_CONTENT = {
             "contact.tel": "Phone",
             "contact.loc": "Location",
             "contact.social": "Social",
+            "contact.h.form": "Send a message",
+            "contact.err.name": "Please write your name.",
+            "contact.err.email": "Please enter a valid email address (e.g. name@example.com).",
+            "contact.err.message": "Please don't leave the message empty.",
+            "contact.hint.phone": "Optional.",
+            "contact.fallback": "If your email app didn't open, copy your message and send it to:",
+            "contact.copy": "Copy message",
+            "contact.copied": "Copied!",
+            "contact.noscript": "The form needs JavaScript. Email directly:",
+            "contact.h.info": "Contact details",
             "schedule.eyebrow": "This term",
             "schedule.title": "My class <em>schedule</em>",
+            "schedule.title.plain": "Weekly class schedule",
             "schedule.term": "Fall 2026–2027 · Computer Programming",
             "schedule.time": "Time",
             "schedule.day1": "Monday",
@@ -399,7 +460,7 @@ window.SITE_CONTENT = {
             "schedule.today": "Today",
             "schedule.lunch": "Lunch break",
             "nav.about": "About",
-            "meta.title.about": "About — {name}",
+            "meta.title.about": "About: Computer Programming Student — {name}",
             "about.more": "More about me",
             "aboutpage.title": "Who <em>am I?</em>",
             "aboutpage.sub": "Someone who writes code, takes the stage and builds strategies on the chessboard.",
@@ -447,7 +508,7 @@ window.SITE_CONTENT = {
             "aboutpage.hobbies.sub": "From chess tournaments to the opera stage, from horse riding to backstage moments… Open the leather folder and flip through the photos.",
             "aboutpage.hobbies.click": "Click and see the photos",
             "nav.blog": "Blog",
-            "meta.title.blog": "Blog — {name}",
+            "meta.title.blog": "Blog: AI, Digital Promotion and Branding — {name}",
             "blog.eyebrow": "Posts & notes",
             "blog.title": "Blog",
             "blog.sub": "What I learn while studying technology, designing for brands and walking the runway: three long reads.",
@@ -473,21 +534,21 @@ window.SITE_CONTENT = {
             "aboutpage.photo.cap": "Computer Programming · Akdeniz University",
             "contact.addr": "Address",
             "nav.gallery": "Gallery",
-            "meta.title.gallery": "Gallery — {name}",
+            "meta.title.gallery": "Gallery: Moments from Travel and Daily Life — {name}",
             "gallery.eyebrow": "Frames",
             "gallery.title": "Gallery",
             "gallery.sub": "The photos I think reflect me best.",
             "nav.process": "Process",
-            "meta.title.process": "Process & Inspiration — {name}",
+            "meta.title.process": "Process: How This Portfolio Was Designed — {name}",
             "pagenav.desc.process": "Concept, inspiration, colours, fonts and the tools I used.",
             "meta.desc.home": "Personal portfolio of Tuana Davarcı: computer programming student at Akdeniz University, working in graphic animation, web design and product promotion.",
-            "meta.desc.about": "Who is Tuana Davarcı? Portrait, short bio, class schedule, interests and skill percentages.",
-            "meta.desc.resume": "Education, experience, languages and tools of Tuana Davarcı.",
-            "meta.desc.projects": "Work from the Graphic Animation course: product promotion, Photoshop colouring, Smart Objects and web interface design.",
-            "meta.desc.blog": "Three blog posts on AI, digital promotion and personal branding, with screenshots.",
-            "meta.desc.gallery": "The photographs that reflect Tuana Davarcı best, with short captions.",
-            "meta.desc.process": "The concept, inspiration, colour palette, fonts, tools and building process behind this site.",
-            "meta.desc.contact": "Contact Tuana Davarcı: address, phone and contact form.",
+            "meta.desc.about": "Who is Tuana Davarcı? Portrait, short bio, class schedule table, interests, hobbies and skill bars with percentages, all on one page.",
+            "meta.desc.resume": "Resume of Tuana Davarcı: Computer Programming at Akdeniz University, experience, languages, and the design and coding tools used every day.",
+            "meta.desc.projects": "Work from the Graphic Animation course: product promotion, Photoshop colouring, Smart Objects, image stacking and web interface design.",
+            "meta.desc.blog": "Three blog posts on AI, digital promotion and personal branding, explained with screenshots, working examples and short notes.",
+            "meta.desc.gallery": "Photographs that reflect Tuana Davarcı best: moments from Side, Kaleiçi, Istanbul, a birthday and the gym, each with a short caption.",
+            "meta.desc.process": "How this site was made: concept, inspiration, colour palette, typefaces, tools, the Claude Code skills used and the building process.",
+            "meta.desc.contact": "Contact Tuana Davarcı: address in Muratpaşa, Antalya, phone, email and a contact form for new projects or collaboration ideas.",
             "process.eyebrow": "Behind the scenes",
             "process.title": "Process &amp; <em>inspiration</em>",
             "process.sub": "How this site was imagined, what inspired it and which tools built it.",
@@ -514,28 +575,31 @@ window.SITE_CONTENT = {
             "process.sw.3": "Sage",
             "process.sw.4": "Wood",
             "process.sw.5": "Walnut",
-            "process.sw.6": "Earth",
+            "process.sw.6": "Aged paper",
             "process.sw.7": "Cream",
             "process.sw.8": "Gold",
             "process.type.title": "Typography",
-            "process.type.display": "Headings: Cormorant, a fine high-contrast serif; its italic for emphasis.",
-            "process.type.body": "Body text and labels: DM Sans, clear and plain.",
+            "process.type.display": "Headings: Cormorant Garamond, a fine high-contrast serif; Pinyon Script (calligraphy) for the small line above each page title.",
+            "process.type.body": "Body text and labels: Jost, clear and plain.",
             "process.type.sample": "Curiosity is the first brushstroke of every design.",
             "process.tools.title": "Tools and technologies",
             "process.tool.1": "Visual Studio Code: code editor",
             "process.tool.2": "Claude Code: AI-assisted coding, used for writing pages, animations and tests",
             "process.tool.3": "HTML5 / CSS3 / JavaScript: the foundation; a multi-page build with no framework",
-            "process.tool.4": "Bootstrap 5 ve Start Bootstrap “Personal” şablonu: grid and base components (template source in kaynak.txt)",
+            "process.tool.4": "Bootstrap 5 and the Start Bootstrap “Personal” template: grid and base components (template source in kaynak.txt)",
             "process.tool.5": "Three.js: the 3D forest world in the background",
             "process.tool.6": "GSAP + ScrollTrigger: scroll-driven animation",
             "process.tool.7": "Lenis: smooth scrolling",
-            "process.tool.8": "Google Fonts: Cormorant and DM Sans",
+            "process.tool.8": "Google Fonts: Cormorant Garamond, Jost and Pinyon Script",
             "process.tool.9": "Playwright: automated page testing across screen sizes",
             "process.tool.10": "GitHub ve GitHub Pages: version control and hosting",
             "process.tool.11": "Pinterest: inspiration and moodboard",
             "process.skill.title": "Claude Code skills",
-            "process.skill.body": "I did not install an external design skill (such as impeccable) for this project. Instead I wrote project-specific skills; each lives in .claude/skills/ as a SKILL.md:",
-            "process.skill.1": "seo-geo-bilingual: bilingual text, meta tags, JSON-LD, sitemap and llms.txt conventions.",
+            "process.skill.body": "The skills live in .claude/skills/. For those installed from official sources I read the contents before installing. The ones I actually applied:",
+            "process.skill.1": "seo-geo-bilingual: bilingual text, 50–60 character titles and 120–155 character descriptions, JSON-LD (Person, WebSite, BlogPosting, ContactPoint), sitemap language alternates, llms.txt and llms-full.txt.",
+            "process.skill.2": "frontend-design (Anthropic): the process of writing a design plan (colour, type, layout) and reviewing it against the brief.",
+            "process.skill.3": "impeccable: a readability pass was made with its critique and craft-floor guidance (plain paper, one type system, focus rings, scrollbar and selection colours, line length). The skill's own downloadable tool is not in the project; the review was done by hand.",
+            "process.skill.4": "GSAP and Three.js are used on the site (page animations, the WebGL dive into the paintings); the matching gsap-* and threejs-* skills are installed in the project as reference.",
             "process.steps.title": "Process",
             "process.step.1": "Gathering inspiration: I built Pinterest boards.",
             "process.step.2": "Moodboard: I chose colour, texture and mood.",
@@ -544,6 +608,36 @@ window.SITE_CONTENT = {
             "process.step.5": "Coding: pages, two languages, form, gallery and blog.",
             "process.step.6": "Testing: I tried it on phone, tablet and desktop.",
             "process.step.7": "Delivery: zipped the folder and published the site.",
+            "dive.0.artist": "Giovanni Paolo Panini",
+            "dive.0.title": "Picture Gallery with Views of Modern Rome",
+            "dive.0.meta": "1759 · Musée du Louvre · oil on canvas",
+            "dive.1.artist": "Hubert Robert",
+            "dive.1.title": "Landscape with an Arch and the Dome of St Peter's",
+            "dive.1.meta": "18th century · Hermitage Museum · oil on canvas",
+            "dive.2.artist": "Thomas Cole",
+            "dive.2.title": "Italian Coast Scene with Ruined Tower",
+            "dive.2.meta": "1838 · National Gallery of Art · oil on canvas",
+            "cap.0.t": "The vault and skylight",
+            "cap.0.q": "Panini builds an imaginary gallery; light pours in between the arches.",
+            "cap.1.t": "Moses",
+            "cap.1.q": "Michelangelo's Moses, one more masterpiece among the paintings.",
+            "cap.2.t": "The collectors",
+            "cap.2.q": "The gentlemen at the centre study the works: art grows through conversation.",
+            "cap.3.t": "St Peter's dome",
+            "cap.3.q": "Beyond the arch, Rome's most familiar silhouette in warm evening light.",
+            "cap.4.t": "The statue in the niche",
+            "cap.4.q": "Hubert Robert was called “Robert of the Ruins”; even broken stone becomes a stage.",
+            "cap.5.t": "Travellers on the steps",
+            "cap.5.q": "Tiny figures make you feel how vast and old the stone is.",
+            "cap.6.t": "The ruined tower",
+            "cap.6.q": "Time passes, the mark remains: ivy wraps the tower, yet it still stands.",
+            "cap.7.t": "The shepherd and his flock",
+            "cap.7.q": "Beside the ruin, life goes on quietly.",
+            "cap.8.t": "Light on the sea",
+            "cap.8.q": "The low sun draws a golden path across the calm sea.",
+            "ui.play": "Play",
+            "ui.pause": "Pause",
+            "ui.map": "Position in the painting",
             "pagenav.desc.gallery": "The photos that reflect me best, with short notes.",
             "aboutpage.lists.eyebrow": "In short",
             "aboutpage.lists.title": "Me in <em>lists</em>",
@@ -558,7 +652,11 @@ window.SITE_CONTENT = {
             "aboutpage.lists.int5": "Runway and modelling",
             "home.gallery.eyebrow": "Frames",
             "home.gallery.title": "Frames from the <em>gallery</em>",
-            "home.gallery.all": "Full gallery"
+            "home.gallery.all": "Full gallery",
+            "pf.cover.script": "Selected work",
+            "pf.cover.title": "Portfolio",
+            "scenes.hint": "Scroll to pass through the keyhole",
+            "pf.tabs": "Portfolio sections"
         }
     },
     "projects": [
@@ -576,9 +674,12 @@ window.SITE_CONTENT = {
                 "en": "A product promotion visual for Vanilla Coca-Cola: flowing lines and a reflective stage."
             },
             "image": "images/projects/vanilla-cola.jpg",
+            "detailImage": "",
+            "detailText": {"tr": ["Vanilla Coca-Cola için bir ürün tanıtım görseli hazırladım. Sahnede akışkan çizgiler ve ürünün altında bir yansıma var.", "Bu, Grafik Animasyon dersinde hazırladığım işlerden biri. Ürünü öne çıkaran sade bir sahne kurmayı ve yansımayla derinlik vermeyi denedim."], "en": ["I made a product promotion visual for Vanilla Coca-Cola. The scene has flowing lines and a reflection beneath the product.", "It is one of the pieces I made in the Graphic Animation course. I tried building a clean stage that puts the product first and adding depth with a reflection."]},
             "art": "",
             "link": "",
-            "featured": true
+            "featured": true,
+            "scene": "cloche"
         },
         {
             "title": {
@@ -594,9 +695,13 @@ window.SITE_CONTENT = {
                 "en": "A Photoshop History Brush piece that brings one character to life in colour on a black-and-white scene."
             },
             "image": "images/projects/history-brush.jpg",
+            "detailImage": "",
+            "detailText": {"tr": ["Photoshop'un History Brush aracıyla siyah-beyaz bir sahnede yalnızca tek karakteri renkli bıraktım.", "Dikkati tek bir noktaya toplamak için renk ile renksizlik arasındaki karşıtlıktan yararlandım. Bu bir ders çalışması; karakter hakları Marvel'a aittir."], "en": ["With Photoshop's History Brush I left only one character in colour on a black-and-white scene.", "I used the contrast between colour and no colour to draw attention to a single point. This is a coursework piece; the character rights belong to Marvel."]},
             "art": "",
             "link": "",
-            "featured": true
+            "rights": "marvel",
+            "featured": true,
+            "scene": "frame"
         },
         {
             "title": {
@@ -612,9 +717,13 @@ window.SITE_CONTENT = {
                 "en": "A comic-style piece where I coloured a black line drawing in Photoshop: deep reds and a glowing energy effect."
             },
             "image": "images/projects/proje3.jpg",
+            "detailImage": "",
+            "detailText": {"tr": ["Photoshop'ta siyah çizgilerden oluşan bir çizimi baştan sona renklendirdim. Çizgi roman havasını koruyan kırmızı tonlar kullandım.", "Karakterin çevresine parlayan bir enerji efekti ekledim. Bu bir ders çalışması; karakter hakları Marvel'a aittir."], "en": ["In Photoshop I coloured a black line drawing from start to finish, using reds that keep the comic-book feel.", "I added a glowing energy effect around the character. This is a coursework piece; the character rights belong to Marvel."]},
             "art": "",
             "link": "",
-            "featured": true
+            "rights": "marvel",
+            "featured": true,
+            "scene": "letter"
         },
         {
             "title": {
@@ -630,9 +739,33 @@ window.SITE_CONTENT = {
                 "en": "A solar system built with Photoshop Smart Objects: planets placed as smart objects, finished with orbits and a starry background."
             },
             "image": "images/projects/proje4-gunes-sistemi.jpg",
+            "detailImage": "",
+            "detailText": {"tr": ["Photoshop Smart Object özelliğiyle bir güneş sistemi hazırladım. Gezegenleri akıllı nesne olarak yerleştirdim.", "Yörüngeleri çizdim ve sahneyi yıldızlı bir arka planla tamamladım. Akıllı nesneler sayesinde gezegenleri sonradan da düzenleyebildim."], "en": ["I built a solar system with Photoshop's Smart Object feature. The planets are placed as smart objects.", "I drew the orbits and finished the scene with a starry background. Smart objects let me edit the planets again later."]},
             "art": "",
             "link": "",
-            "featured": true
+            "featured": true,
+            "scene": "jewel"
+        },
+        {
+            "title": {
+                "tr": "Boşalan Cadde",
+                "en": "The Emptied Street"
+            },
+            "tag": {
+                "tr": "Proje 5 · Image Stack",
+                "en": "Project 5 · Image Stack"
+            },
+            "desc": {
+                "tr": "Antalya'da bir üst geçitten aynı açıyla çektiğim 20 gece fotoğrafını Photoshop'ta yığına yükleyip Ortanca (Median) yığın moduyla birleştirdim; geçen arabalar kayboldu, cadde boş kaldı.",
+                "en": "I stacked 20 night photos taken from the same spot on an Antalya overpass and merged them with Photoshop's Median stack mode; the passing cars disappeared and the street was left empty."
+            },
+            "image": "images/projects/proje5-image-stack.jpg",
+            "detailImage": "",
+            "detailText": {"tr": ["Antalya'da bir üst geçitten aynı açıyla 20 gece fotoğrafı çektim.", "Bunları Photoshop'ta yığına yükleyip Ortanca (Median) yığın moduyla birleştirdim. Geçen arabalar kayboldu ve cadde boş kaldı; böylece aynı karelerin ortak kısmını seçmeyi öğrendim."], "en": ["I took 20 night photos from the same angle on an overpass in Antalya.", "I loaded them into a Photoshop stack and merged them with the Median stack mode. The passing cars disappeared and the street was left empty; I learned how to keep what the frames have in common."]},
+            "art": "",
+            "link": "",
+            "featured": true,
+            "scene": "frame"
         },
         {
             "title": {
@@ -648,9 +781,12 @@ window.SITE_CONTENT = {
                 "en": "I redesigned the zizibeach.com interface in Photoshop on the 960 Grid System template and prepared 3 layouts with Layer Comps."
             },
             "image": "images/projects/proje6-web-arayuzu.jpg",
+            "detailImage": "",
+            "detailText": {"tr": ["zizibeach.com sitesinin arayüzünü Photoshop'ta yeniden tasarladım. Çalışmayı 960 Grid System şablonu üzerinde kurdum.", "Layer Comps ile üç farklı yerleşim hazırladım. Böylece aynı tasarımın alternatiflerini tek dosyada karşılaştırabildim."], "en": ["I redesigned the interface of zizibeach.com in Photoshop, building it on the 960 Grid System template.", "With Layer Comps I prepared three different layouts, so I could compare alternatives of the same design in a single file."]},
             "art": "",
             "link": "",
-            "featured": true
+            "featured": true,
+            "scene": "album"
         },
         {
             "title": {
@@ -668,7 +804,8 @@ window.SITE_CONTENT = {
             "image": "",
             "art": "art-3",
             "link": "index.html",
-            "featured": true
+            "featured": true,
+            "scene": "portfolio"
         },
         {
             "title": {
@@ -686,7 +823,8 @@ window.SITE_CONTENT = {
             "image": "",
             "art": "art-4",
             "link": "https://www.instagram.com/ozgemtuana/",
-            "featured": true
+            "featured": true,
+            "scene": "card"
         }
     ],
     "experience": [
@@ -840,11 +978,11 @@ window.SITE_CONTENT = {
         },
         {
             "tr": "İçerik Üretimi",
-            "en": "İçerik Üretimi"
+            "en": "Content Creation"
         },
         {
             "tr": "Ürün Fotoğrafçılığı",
-            "en": "Ürün Fotoğrafçılığı"
+            "en": "Product Photography"
         }
     ],
     "skillBars": [
@@ -1000,7 +1138,7 @@ window.SITE_CONTENT = {
             "leather": "kahve",
             "items": [
                 {
-                    "src": "images/runway/altin-etek.png",
+                    "src": "images/runway/clean/altin-etek.png",
                     "alt": {
                         "tr": "Altın saten elbiseyle podyumda",
                         "en": "On the runway in a gold satin dress"
@@ -1011,7 +1149,7 @@ window.SITE_CONTENT = {
                     "wide": false
                 },
                 {
-                    "src": "images/runway/altin-on.png",
+                    "src": "images/runway/clean/altin-on.png",
                     "alt": {
                         "tr": "Altın saten elbise, önden",
                         "en": "Gold satin dress, front view"
@@ -1022,7 +1160,7 @@ window.SITE_CONTENT = {
                     "wide": false
                 },
                 {
-                    "src": "images/runway/altin-yuruyus.png",
+                    "src": "images/runway/clean/altin-yuruyus.png",
                     "alt": {
                         "tr": "Altın saten elbiseyle yürüyüş",
                         "en": "Walking in the gold satin dress"
@@ -1074,7 +1212,7 @@ window.SITE_CONTENT = {
             "leather": "kahve",
             "items": [
                 {
-                    "src": "images/runway/siyah-podyum.png",
+                    "src": "images/runway/clean/siyah-podyum.png",
                     "alt": {
                         "tr": "Siyah kombinle podyumda",
                         "en": "On the runway in a black outfit"
@@ -1085,7 +1223,7 @@ window.SITE_CONTENT = {
                     "wide": false
                 },
                 {
-                    "src": "images/runway/siyah-kemer.png",
+                    "src": "images/runway/clean/siyah-kemer.png",
                     "alt": {
                         "tr": "Siyah kemer detaylı kombin",
                         "en": "Black outfit with belt details"
@@ -1096,7 +1234,7 @@ window.SITE_CONTENT = {
                     "wide": false
                 },
                 {
-                    "src": "images/runway/siyah-elbise.png",
+                    "src": "images/runway/clean/siyah-elbise.png",
                     "alt": {
                         "tr": "Siyah elbise ve uzun eldivenler",
                         "en": "Black dress with opera gloves"
@@ -1148,7 +1286,7 @@ window.SITE_CONTENT = {
             "leather": "bordo",
             "items": [
                 {
-                    "src": "images/runway/pembe-elbise.png",
+                    "src": "images/runway/clean/pembe-elbise.png",
                     "alt": {
                         "tr": "Pembe uzun elbiseyle podyumda yürüyüş",
                         "en": "Walking the runway in a long pink dress"
@@ -1200,7 +1338,7 @@ window.SITE_CONTENT = {
             "leather": "siyah",
             "items": [
                 {
-                    "src": "images/runway/beyaz-inci.png",
+                    "src": "images/runway/clean/beyaz-inci.png",
                     "alt": {
                         "tr": "İnci işlemeli beyaz elbiseyle kuliste",
                         "en": "Backstage in a pearl-studded white dress"
@@ -1211,7 +1349,7 @@ window.SITE_CONTENT = {
                     "wide": false
                 },
                 {
-                    "src": "images/runway/beyaz-sapka.png",
+                    "src": "images/runway/clean/beyaz-sapka.png",
                     "alt": {
                         "tr": "Şapka ve inci işlemeli tülle kulis",
                         "en": "Backstage in a hat and pearl-studded tulle"
@@ -1222,7 +1360,7 @@ window.SITE_CONTENT = {
                     "wide": false
                 },
                 {
-                    "src": "images/runway/beyaz-galeri.png",
+                    "src": "images/runway/clean/beyaz-galeri.png",
                     "alt": {
                         "tr": "Sanat galerisinde, inci işlemeli tül ve şapkayla",
                         "en": "In an art gallery, wearing pearl tulle and a hat"
@@ -1233,7 +1371,7 @@ window.SITE_CONTENT = {
                     "wide": false
                 },
                 {
-                    "src": "images/runway/beyaz-defile.png",
+                    "src": "images/runway/clean/beyaz-defile.png",
                     "alt": {
                         "tr": "Defile yürüyüşü, beyaz koleksiyon",
                         "en": "Runway walk, white collection"
@@ -1332,7 +1470,10 @@ window.SITE_CONTENT = {
                 "tr": "Türk Dili I",
                 "en": "Turkish Language I"
             },
-            "room": "Sanal sınıf",
+            "room": {
+                "tr": "Sanal sınıf",
+                "en": "Virtual classroom"
+            },
             "teacher": "Öğr. Gör. Talha Tunç",
             "kind": "uzaktan"
         },
@@ -1345,7 +1486,10 @@ window.SITE_CONTENT = {
                 "tr": "Atatürk İlkeleri ve İnkılap Tarihi I",
                 "en": "Principles of Atatürk & History of Turkish Revolution I"
             },
-            "room": "Uzaktan eğitim dersliği 2",
+            "room": {
+                "tr": "Uzaktan eğitim dersliği 2",
+                "en": "Distance learning room 2"
+            },
             "teacher": "Öğr. Gör. Dr. Koray Ergin",
             "kind": "uzaktan"
         },
@@ -1358,7 +1502,10 @@ window.SITE_CONTENT = {
                 "tr": "İngilizce I",
                 "en": "English I"
             },
-            "room": "Uzaktan eğitim",
+            "room": {
+                "tr": "Uzaktan eğitim",
+                "en": "Distance learning"
+            },
             "teacher": "Öğr. Gör. Bengü Şahin Kimyon",
             "kind": "uzaktan"
         },
@@ -1619,6 +1766,8 @@ window.SITE_CONTENT = {
     "gallery": [
         {
             "image": "images/gallery/side.jpg",
+            "detailImage": "",
+            "detailText": {"tr": ["Gün batımında, Side'deki antik sütunların önünde taş bir duvara oturdum. Tarihin içinde yürümek bana hep ilham verir."], "en": ["At sunset I sat on a stone wall in front of the ancient columns in Side. Walking through history always inspires me."]},
             "place": {
                 "tr": "Side, Antalya",
                 "en": "Side, Antalya"
@@ -1634,6 +1783,8 @@ window.SITE_CONTENT = {
         },
         {
             "image": "images/gallery/dogum-gunu.jpg",
+            "detailImage": "",
+            "detailText": {"tr": ["Doğum günü pastasındaki mumları üflemeden hemen önceki an: gözler kapalı, bir dilek tutuluyor."], "en": ["The moment just before blowing out the birthday candles: eyes closed, making a wish."]},
             "place": {
                 "tr": "Doğum günü",
                 "en": "Birthday"
@@ -1649,6 +1800,8 @@ window.SITE_CONTENT = {
         },
         {
             "image": "images/gallery/kaleici.jpg",
+            "detailImage": "",
+            "detailText": {"tr": ["Kaleiçi'nin taş sokaklarında akşam yürüyüşü. Çini süslemeli taş bir kapının önünde durup yukarı baktım; her kapının bir hikâyesi var."], "en": ["An evening walk through the stone streets of Kaleiçi. I stopped in front of a stone doorway with tile decoration and looked up; every door has a story."]},
             "place": {
                 "tr": "Kaleiçi, Antalya",
                 "en": "Kaleiçi, Antalya"
@@ -1664,6 +1817,8 @@ window.SITE_CONTENT = {
         },
         {
             "image": "images/gallery/istanbul.jpg",
+            "detailImage": "",
+            "detailText": {"tr": ["İstanbul'da tarihi bir binanın duvarına yaslanıp yukarı baktığım bir kare. Sokaklar ve binalar arasında kendime yer bulduğum anlardan biri."], "en": ["A frame of me leaning on the wall of a historic building in Istanbul, looking up. One of those moments of finding my place between streets and buildings."]},
             "place": {
                 "tr": "İstanbul",
                 "en": "Istanbul"
@@ -1679,6 +1834,8 @@ window.SITE_CONTENT = {
         },
         {
             "image": "images/gallery/spor.jpg",
+            "detailImage": "",
+            "detailText": {"tr": ["Spor salonunun soyunma odasında aynadan çekilmiş bir kare. Spor benim için günün ritmi: disiplin ve enerji."], "en": ["A mirror shot in the gym's changing room. Sport is the rhythm of my day: discipline and energy."]},
             "place": {
                 "tr": "Spor",
                 "en": "Sport"
@@ -1691,6 +1848,138 @@ window.SITE_CONTENT = {
                 "tr": "Spor benim için günün ritmi: disiplin ve enerji.",
                 "en": "Sport sets my daily rhythm: discipline and energy."
             }
+        },
+        {
+            "image": "images/hobbies/satranc-podyum.jpg",
+            "detailImage": "",
+            "place": {
+                "tr": "Satranç turnuvası",
+                "en": "Chess tournament"
+            },
+            "alt": {
+                "tr": "Satranç turnuvasının ödül töreni: madalyalı çocuklar derece kürsüsünde, arkada Türk bayrağı",
+                "en": "Award ceremony at a chess tournament: children with medals on the podium, a Turkish flag behind them"
+            },
+            "caption": {
+                "tr": "Satranç turnuvasında ödül töreni; kürsüde madalyalar takılırken.",
+                "en": "The award ceremony at a chess tournament, as the medals are handed out on the podium."
+            },
+            "detailText": {
+                "tr": [
+                    "Satranç turnuvasının ödül töreni. Kürsüde madalyalar takılırken salonda alkışlar yükseliyor; tahtada geçen saatlerin en güzel anı."
+                ],
+                "en": [
+                    "The award ceremony of a chess tournament. Applause fills the hall as the medals go on; the best moment after hours at the board."
+                ]
+            }
+        },
+        {
+            "image": "images/hobbies/binicilik.jpg",
+            "detailImage": "",
+            "place": {
+                "tr": "Binicilik",
+                "en": "Horse riding"
+            },
+            "alt": {
+                "tr": "Tuana, güneşli bir günde kum pistte doru bir atın üzerinde ilerliyor",
+                "en": "Tuana riding a bay horse on a sand arena on a sunny day"
+            },
+            "caption": {
+                "tr": "Güneşli bir günde kum pistte binicilik.",
+                "en": "Horse riding on a sand arena on a sunny day."
+            },
+            "detailText": {
+                "tr": [
+                    "Güneşli bir günde kum pistte binicilik. Atla aynı ritmi yakalamak sabır ve denge istiyor."
+                ],
+                "en": [
+                    "Horse riding on a sand arena on a sunny day. Finding the same rhythm as the horse takes patience and balance."
+                ]
+            }
+        },
+        {
+            "image": "images/hobbies/sahne-carmen.jpg",
+            "detailImage": "",
+            "place": {
+                "tr": "Carmen, opera sahnesi",
+                "en": "Carmen, on the opera stage"
+            },
+            "alt": {
+                "tr": "Carmen operasının sonunda kostümlü koro ve oyuncular sahnede seyirciyi selamlıyor",
+                "en": "At the end of the opera Carmen, the costumed choir and cast greet the audience on stage"
+            },
+            "caption": {
+                "tr": "Carmen operasının sonunda koroyla sahnede selamlama.",
+                "en": "Taking a bow with the choir at the end of Carmen."
+            },
+            "detailText": {
+                "tr": [
+                    "Carmen operasının sonunda koroyla birlikte seyirciyi selamlıyoruz. Devlet Opera ve Balesi korosunda geçen yıllardan bir kare."
+                ],
+                "en": [
+                    "Taking a bow with the choir at the end of Carmen. A frame from my years in the State Opera and Ballet choir."
+                ]
+            }
         }
-    ]
+    ],
+    "portfolio": {
+        "sections": [
+            {
+                "tab": {
+                    "tr": "Tasarım",
+                    "en": "Design"
+                },
+                "title": {
+                    "tr": "Orman ve lilyum dünyası",
+                    "en": "A forest and lily world"
+                },
+                "body": {
+                    "tr": "Zeytin yeşili, ahşap kahvesi ve krem tonları; vurgu olarak mat altın. Her sayfa aynı dünyanın başka bir köşesi.",
+                    "en": "Olive green, wood brown and cream, with matte gold as the accent. Every page is another corner of the same world."
+                }
+            },
+            {
+                "tab": {
+                    "tr": "Teknoloji",
+                    "en": "Tech"
+                },
+                "title": {
+                    "tr": "Framework'süz, elle yazıldı",
+                    "en": "Hand-written, no framework"
+                },
+                "body": {
+                    "tr": "HTML5, CSS3 ve JavaScript. Arka plandaki 3D dünya Three.js ile, kaydırma animasyonları GSAP ile yapıldı.",
+                    "en": "HTML5, CSS3 and JavaScript. The 3D background uses Three.js and the scroll animations use GSAP."
+                }
+            },
+            {
+                "tab": {
+                    "tr": "Sayfalar",
+                    "en": "Pages"
+                },
+                "title": {
+                    "tr": "Sekiz sayfa, iki dil",
+                    "en": "Eight pages, two languages"
+                },
+                "body": {
+                    "tr": "Türkçe ve İngilizce. Sayfalar arası geçişte site yeniden yüklenmez; menü, geri tuşu ve doğrudan bağlantılar çalışır.",
+                    "en": "Turkish and English. Moving between pages does not reload the site; the menu, back button and direct links all work."
+                }
+            },
+            {
+                "tab": {
+                    "tr": "Erişim",
+                    "en": "Access"
+                },
+                "title": {
+                    "tr": "Herkes için okunur",
+                    "en": "Readable for everyone"
+                },
+                "body": {
+                    "tr": "Her sayfada tek ana başlık, görsel açıklamaları, klavyeyle gezinme ve azaltılmış hareket desteği.",
+                    "en": "One main heading per page, image descriptions, keyboard navigation and reduced-motion support."
+                }
+            }
+        ]
+    }
 };
