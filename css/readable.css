@@ -209,3 +209,14 @@ html.collage body[data-page="contact"] .form-floating > .form-control:focus ~ la
 html.collage body[data-page="contact"] #contactForm:not(#_)::before { top: -5.2rem !important; }
 html.collage body[data-page="contact"] #submitErrorMessage div:not(#_):not(#_) { color: #8a1a14 !important; font-weight: 600; }
 html.collage body[data-page="contact"] .stamps-card:not(#_):not(#_) { padding: 1.4rem 1.6rem !important; }
+
+/* ---------- impeccable (critique, craft-floor) bulguları: tarayıcı yüzeyleri, odak, ölçü ---------- */
+html.collage { scrollbar-color: #b8913f #1c140c; caret-color: #7a1f1a; accent-color: #7a1f1a; }
+html.collage ::selection { background: rgba(184, 145, 63, .35); color: inherit; }
+html.collage ::-webkit-scrollbar { width: 12px; height: 12px; }
+html.collage ::-webkit-scrollbar-track { background: #1c140c; }
+html.collage ::-webkit-scrollbar-thumb { background: #8a6a2e; border: 3px solid #1c140c; border-radius: 6px; }
+html.collage body :is(a, button, [tabindex], summary, input, select, textarea):focus-visible:not(#_) { outline: 3px solid #d8b45a; outline-offset: 3px; }
+html.collage body :is(.post-text, .about-text, .proc-card, .list-card) > p:not(#_):not(#_) { max-width: 70ch; }
+html.collage body :is(a):not(.btn):not(.nav-link) { text-underline-offset: .2em; }
+html.collage body table { font-variant-numeric: tabular-nums; }
