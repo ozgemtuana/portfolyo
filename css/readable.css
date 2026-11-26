@@ -142,3 +142,33 @@ html.collage body .pagenav .pn-all span:not(#_) { font-style: normal !important;
 html.collage body .pagenav .pn-arrow:not(#_):not(#_) { display: block !important; opacity: 1 !important; visibility: visible !important; color: transparent !important; }
 html.collage body .site-footer:not(#_) { padding-bottom: 72px; }
 html.collage body { padding-bottom: 72px; }
+
+/* ---------- Projeler ve Galeri duvarı: koyu bordo damask, tam genişlik, okunur etiketler ---------- */
+html.collage body .wall { --H: min(46vh, 400px, 54vw); height: clamp(620px, 86vh, 800px); }
+html.collage body .wall-room::before { background:
+    radial-gradient(ellipse 70% 90% at 50% 38%, rgba(255, 214, 160, .14), transparent 70%),
+    radial-gradient(circle at 50% 50%, rgba(255, 214, 160, .13) 0 7px, transparent 8px) 0 0 / 64px 96px,
+    radial-gradient(ellipse 12px 26px at 50% 50%, rgba(255, 214, 160, .1) 0 60%, transparent 62%) 32px 48px / 64px 96px,
+    linear-gradient(45deg, rgba(0, 0, 0, .14) 25%, transparent 25% 75%, rgba(0, 0, 0, .14) 75%) 0 0 / 64px 64px,
+    linear-gradient(#5a1a26, #3d1019); }
+html.collage body .wall-cornice { background: linear-gradient(#6b3a2a 0 28%, #3a1d14 28% 33%, #5a2f22 33% 62%, #26130d 62% 67%, #44231a 67% 100%); box-shadow: 0 8px 14px rgba(0, 0, 0, .5); }
+html.collage body .wall-base { background: linear-gradient(#5a2f22 0 14%, #3a1d14 14% 18%, #4a2519 18% 78%, #1f0f09 78% 100%); }
+html.collage body .wall-floor { background:
+    linear-gradient(rgba(0, 0, 0, .6), rgba(0, 0, 0, 0) 30%),
+    repeating-linear-gradient(90deg, transparent 0 109px, rgba(20, 8, 2, .55) 109px 110px),
+    repeating-linear-gradient(0deg, transparent 0 41px, rgba(20, 8, 2, .3) 41px 42px),
+    repeating-linear-gradient(90deg, #7a4a24 0 110px, #6a3e1d 110px 220px, #84532a 220px 330px, #704220 330px 440px); }
+html.collage body .wall-plate small { font-size: 15px; color: #43331f; }
+html.collage body .wall-plate h2 { font-family: var(--font-head); font-weight: 600; font-size: 1.1rem; }
+html.collage body .wall-plate { background: #F6EFDF; border-radius: 0; }
+/* Sayfa üstü: başlık bandı daha yüksek ve menünün altında güvenli */
+html.collage body[data-page="projects"] .page-offset:not(#_) { min-height: 38vh; display: flex; align-items: flex-end; }
+html.collage body:is([data-page="projects"], [data-page="gallery"]) .page-offset > .container { width: 100%; }
+html.collage body:is([data-page="projects"], [data-page="gallery"]) .page-offset :is(h1, .hero-sub, .eyebrow):not(#_) { color: #F7EFDC !important; text-shadow: 0 2px 10px rgba(0, 0, 0, .7); }
+html.collage body:is([data-page="projects"], [data-page="gallery"]) .page-offset .container > div:not(.wall) { background: linear-gradient(90deg, rgba(15, 10, 6, .62), rgba(15, 10, 6, .45) 80%, rgba(15, 10, 6, 0)); padding: 1.2rem 1.6rem; max-width: 46rem; }
+/* Galeri'de duvar .container içinde: tam genişliğe yay */
+html.collage body .container > .wall { width: 100vw; margin-left: calc(50% - 50vw); }
+@media (max-width: 575.98px) {
+    html.collage body .wall { --H: min(64vw, 300px); height: 560px; }
+    html.collage body .wall-track { padding-top: 5rem; }
+}
