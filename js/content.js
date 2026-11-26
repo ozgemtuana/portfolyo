@@ -586,7 +586,7 @@ window.SITE_CONTENT = {
             "process.tool.1": "Visual Studio Code: code editor",
             "process.tool.2": "Claude Code: AI-assisted coding, used for writing pages, animations and tests",
             "process.tool.3": "HTML5 / CSS3 / JavaScript: the foundation; a multi-page build with no framework",
-            "process.tool.4": "Bootstrap 5 ve Start Bootstrap “Personal” şablonu: grid and base components (template source in kaynak.txt)",
+            "process.tool.4": "Bootstrap 5 and the Start Bootstrap “Personal” template: grid and base components (template source in kaynak.txt)",
             "process.tool.5": "Three.js: the 3D forest world in the background",
             "process.tool.6": "GSAP + ScrollTrigger: scroll-driven animation",
             "process.tool.7": "Lenis: smooth scrolling",
@@ -978,11 +978,11 @@ window.SITE_CONTENT = {
         },
         {
             "tr": "İçerik Üretimi",
-            "en": "İçerik Üretimi"
+            "en": "Content Creation"
         },
         {
             "tr": "Ürün Fotoğrafçılığı",
-            "en": "Ürün Fotoğrafçılığı"
+            "en": "Product Photography"
         }
     ],
     "skillBars": [
@@ -1470,7 +1470,10 @@ window.SITE_CONTENT = {
                 "tr": "Türk Dili I",
                 "en": "Turkish Language I"
             },
-            "room": "Sanal sınıf",
+            "room": {
+                "tr": "Sanal sınıf",
+                "en": "Virtual classroom"
+            },
             "teacher": "Öğr. Gör. Talha Tunç",
             "kind": "uzaktan"
         },
@@ -1483,7 +1486,10 @@ window.SITE_CONTENT = {
                 "tr": "Atatürk İlkeleri ve İnkılap Tarihi I",
                 "en": "Principles of Atatürk & History of Turkish Revolution I"
             },
-            "room": "Uzaktan eğitim dersliği 2",
+            "room": {
+                "tr": "Uzaktan eğitim dersliği 2",
+                "en": "Distance learning room 2"
+            },
             "teacher": "Öğr. Gör. Dr. Koray Ergin",
             "kind": "uzaktan"
         },
@@ -1496,7 +1502,10 @@ window.SITE_CONTENT = {
                 "tr": "İngilizce I",
                 "en": "English I"
             },
-            "room": "Uzaktan eğitim",
+            "room": {
+                "tr": "Uzaktan eğitim",
+                "en": "Distance learning"
+            },
             "teacher": "Öğr. Gör. Bengü Şahin Kimyon",
             "kind": "uzaktan"
         },

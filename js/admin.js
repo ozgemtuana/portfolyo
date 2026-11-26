@@ -188,6 +188,8 @@
 
     // İki dilli alan: TR ve EN yan yana
     function biField(label, base, opts = {}) {
+        // Eski kayıtlarda düz metin olan alanı (ör. derslik) {tr, en} nesnesine çevir
+        try { const parts = base.split("|"); let o = state; for (let i = 0; i < parts.length - 1; i++) o = o[parts[i]]; const k = parts[parts.length - 1]; if (o && typeof o[k] === "string") o[k] = { tr: o[k], en: o[k] }; } catch (e) { /* yoksay */ }
         return `<div class="bi${opts.wide === false ? "" : " wide"}"><span class="field-label">${label}</span><div class="bi-row">` +
             `<label class="bi-col"><span class="lang">TR</span>${input(base + "|tr", opts)}</label>` +
             `<label class="bi-col"><span class="lang">EN</span>${input(base + "|en", opts)}</label>` +
@@ -234,7 +236,7 @@
         folders: () => ({ title: { tr: "Yeni <em>dosya</em>", en: "New <em>folder</em>" }, event: bi(), tabs: [bi(), bi(), bi()], notes: [bi(), bi(), bi()], leather: "kahve", items: [] }),
         folderItem: () => ({ src: "", alt: bi(), pos: "mid", rot: 0, kind: "cut", wide: false }),
         softSkills: () => ({ name: bi(), percent: 50 }),
-        courses: () => ({ day: 1, start: "08:30", end: "10:20", code: "", name: bi(), room: "", teacher: "", kind: "teori" })
+        courses: () => ({ day: 1, start: "08:30", end: "10:20", code: "", name: bi(), room: bi(), teacher: "", kind: "teori" })
     };
 
     /* ---------- Metin anahtarlarının grupları ---------- */
@@ -435,7 +437,7 @@
                             field("Ders kodu", b + "|code", { ph: "MBIL 101" }) +
                             select("Tür", b + "|kind", KINDS) +
                             biField("Ders adı", b + "|name") +
-                            field("Derslik", b + "|room", { ph: "303 · Lab L23" }) +
+                            biField("Derslik", b + "|room", { ph: "303 · Lab L23" }) +
                             field("Öğretim görevlisi", b + "|teacher", { ph: "Öğr. Gör. Ad Soyad" }) +
                         `</div></article>`;
                 }).join("") +

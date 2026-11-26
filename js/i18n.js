@@ -92,7 +92,7 @@ function buildDictionaries(site) {
             d[`g.${i + 1}.cap`] = pick(g.caption);
             d[`g.${i + 1}.place`] = pick(g.place);
         });
-        site.courses.forEach((c, i) => (d[`course.${i + 1}.name`] = pick(c.name)));
+        site.courses.forEach((c, i) => { d[`course.${i + 1}.name`] = pick(c.name); d[`course.${i + 1}.room`] = pick(c.room); });
         site.softSkills.forEach((s, i) => (d[`soft.${i + 1}`] = pick(s.name)));
         // Deri dosyalar: podyum/işler ("folder.N") ve hobi albümü ("hfolder.N")
         [["folder", site.folders], ["hfolder", site.hobbyFolders]].forEach(([pre, list]) => list.forEach((f, i) => {
@@ -335,7 +335,7 @@ function renderContent(site) {
                     `<div class="course-top"><span class="course-code">${escAttr(x.c.code || "")}</span><span class="course-time">${escAttr(x.c.start)}–${escAttr(x.c.end)}</span></div>` +
                     `<h4 class="course-name" data-i18n="course.${x.i + 1}.name"></h4>` +
                     `<div class="course-meta">` +
-                        (x.c.room ? `<span><i class="bi bi-geo-alt"></i>${escAttr(x.c.room)}</span>` : "") +
+                        (x.c.room ? `<span><i class="bi bi-geo-alt"></i><span data-i18n="course.${x.i + 1}.room"></span></span>` : "") +
                         (x.c.teacher ? `<span><i class="bi bi-person"></i>${escAttr(x.c.teacher)}</span>` : "") +
                     `</div>` +
                     `<span class="course-kind k-${kind(x.c.kind)}" data-i18n="schedule.kind.${kind(x.c.kind)}"></span>` +
