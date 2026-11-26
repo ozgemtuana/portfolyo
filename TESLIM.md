@@ -20,7 +20,8 @@ Sonra dosya adını `20261129027-WEB.zip` → `20261129027-WEB.pdf` olarak deği
 Kapak, vesikalık, öğrenci no, ad soyad, YouTube linki, alan adı/site adresi ve her sayfanın ekran görüntüsü.
 
 ## 3. Yayın
-- Şu an GitHub Pages: https://ozgemtuana.github.io/portfolyo/ (`main` dalına push edilince 1–2 dk'da yayına girer).
+- Canlı: https://tuanadavarci.com (Vercel, `main` dalına push edilince birkaç dakikada yayına girer). Vintage tasarım 2026-11-26'da `main`'e birleştirildi; önceki `main` `yedek-main-oncesi` etiketiyle saklı. Açılışı tekrar izlemek için: https://tuanadavarci.com/?intro=1
+- Eski adres (GitHub Pages): https://ozgemtuana.github.io/portfolyo/
 - İsteğe bağlı alan adı (Namecheap): GitHub deposunda Settings → Pages → Custom domain'e alan adını yaz, Namecheap'te `A` kayıtlarını GitHub Pages IP'lerine, `www` için `CNAME`'i `ozgemtuana.github.io`'ya yönlendir. Sonra `sitemap.xml`, `robots.txt`, `llms.txt` ve her sayfadaki `canonical`/`og:url` adreslerini yeni alan adıyla değiştir.
 - Alternatif hosting: Vercel — depoyu bağla, framework "Other", çıktı klasörü kök dizin.
 

@@ -32,7 +32,7 @@
 - Tırtıklı kenar maskesi ile toz/çizik katmanı bu proje için kodla üretildi.
 
 ## Kullanılan araçlar
-- Claude Code (Anthropic), Python (Pillow, NumPy, ONNX Runtime), Playwright (test), Wikimedia Commons API, ambientCG.
+- Claude Code (Anthropic), Python (Pillow, NumPy, ONNX Runtime), Playwright (test), Lighthouse (Google, Apache 2.0; erişilebilirlik/SEO/performans denetimi), Wikimedia Commons API, ambientCG.
 - Claude Code skill'leri: frontend-design, impeccable, greensock/gsap-skills, cloudai-x/threejs-skills, web3d-integration-patterns (freshtechbro/claudedesignskills).
 
 ## Sayfa tabloları ve dalış zincirleri (Wikimedia Commons; hepsi kamu malı ya da CC0)

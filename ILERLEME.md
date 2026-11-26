@@ -1,3 +1,12 @@
+## 2026-11-26 — Son tur (hata görüntüleri: references/hatalar/)
+- Look kartları (ana sayfa, No. V Podyum): her figür 3:5 kutuda, üst %6 / alt %4 pay, ortak taban, eşit ölçek; telefonda tam genişlik (magazine.css'teki `1 / span 5 !important` örtük sütun açıp kartı 245 px'e sıkıştırıyordu); Look 05 baskıları taşmıyor; mühür kart içinde. Temiz kesimler (images/runway/clean) zaten bütündü, yeniden işlenmedi.
+- Blog ön izlemeleri: kök neden `dark.css` `.collage img` kuralının `html.collage` yüzünden tüm görsellere uyması (doğal boyut 1554–1600 px → dantel dışına taşma, "Günün s…" kesilmesi). `.collage:not(html)` ile daraltıldı; görseller 70vh/60vh, contain; kolaj telefonda 2×2; figcaption Lora 16 px; lightbox 92vw/88vh. Kumaş kartelası dokusu 404'tü (yanlış klasör).
+- Hobi fotoğrafları kesilmiş kâğıt. Özgeçmiş/Süreç'te kişisel fotoğraf yok.
+- CLS 8 sayfada 0 (önce 0.94 / 1.66 / 1.02 / 0.51): `html.collage` head'de; dalış kurulana kadar içerik gizli + yedek zamanlayıcı.
+- `?intro=1` açılışı her zaman oynatır; depolama yoksa ilk ziyaret.
+- Lighthouse çalıştı (mobil): Erişilebilirlik 96–100, SEO 100, En iyi uygulamalar 100, Performans 48–58. Meter adları ve kontrast düzeltildi.
+- Ayrıntı ve tablolar: teslim/KONTROL-RAPORU.md. Canlı yayın durumu aşağıya eklenecek.
+
 ## 2026-11-26 — Tam puan turu
 - SEO/GEO (seo-geo-bilingual skill'i yüklendi): başlık 50–60, açıklama 120–155 karakter TR/EN; JSON-LD WebSite+Person her sayfada, BlogPosting×3, ItemList/CreativeWork, ContactPage+ContactPoint; sitemap xhtml:link; llms-full.txt.
 - İçerik: ana sayfa Hakkımda h2 + özet, proje kartlarına açıklama; galeri 8 fotoğraf (satranç, binicilik, Carmen); İletişim h2'leri ve form iyileştirmesi (mailto tabanlı).
