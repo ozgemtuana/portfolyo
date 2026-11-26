@@ -1823,6 +1823,78 @@ window.SITE_CONTENT = {
                 "tr": "Spor benim için günün ritmi: disiplin ve enerji.",
                 "en": "Sport sets my daily rhythm: discipline and energy."
             }
+        },
+        {
+            "image": "images/hobbies/satranc-podyum.jpg",
+            "detailImage": "",
+            "place": {
+                "tr": "Satranç turnuvası",
+                "en": "Chess tournament"
+            },
+            "alt": {
+                "tr": "Satranç turnuvasının ödül töreni: madalyalı çocuklar derece kürsüsünde, arkada Türk bayrağı",
+                "en": "Award ceremony at a chess tournament: children with medals on the podium, a Turkish flag behind them"
+            },
+            "caption": {
+                "tr": "Satranç turnuvasında ödül töreni; kürsüde madalyalar takılırken.",
+                "en": "The award ceremony at a chess tournament, as the medals are handed out on the podium."
+            },
+            "detailText": {
+                "tr": [
+                    "Satranç turnuvasının ödül töreni. Kürsüde madalyalar takılırken salonda alkışlar yükseliyor; tahtada geçen saatlerin en güzel anı."
+                ],
+                "en": [
+                    "The award ceremony of a chess tournament. Applause fills the hall as the medals go on; the best moment after hours at the board."
+                ]
+            }
+        },
+        {
+            "image": "images/hobbies/binicilik.jpg",
+            "detailImage": "",
+            "place": {
+                "tr": "Binicilik",
+                "en": "Horse riding"
+            },
+            "alt": {
+                "tr": "Tuana, güneşli bir günde kum pistte doru bir atın üzerinde ilerliyor",
+                "en": "Tuana riding a bay horse on a sand arena on a sunny day"
+            },
+            "caption": {
+                "tr": "Güneşli bir günde kum pistte binicilik.",
+                "en": "Horse riding on a sand arena on a sunny day."
+            },
+            "detailText": {
+                "tr": [
+                    "Güneşli bir günde kum pistte binicilik. Atla aynı ritmi yakalamak sabır ve denge istiyor."
+                ],
+                "en": [
+                    "Horse riding on a sand arena on a sunny day. Finding the same rhythm as the horse takes patience and balance."
+                ]
+            }
+        },
+        {
+            "image": "images/hobbies/sahne-carmen.jpg",
+            "detailImage": "",
+            "place": {
+                "tr": "Carmen, opera sahnesi",
+                "en": "Carmen, on the opera stage"
+            },
+            "alt": {
+                "tr": "Carmen operasının sonunda kostümlü koro ve oyuncular sahnede seyirciyi selamlıyor",
+                "en": "At the end of the opera Carmen, the costumed choir and cast greet the audience on stage"
+            },
+            "caption": {
+                "tr": "Carmen operasının sonunda koroyla sahnede selamlama.",
+                "en": "Taking a bow with the choir at the end of Carmen."
+            },
+            "detailText": {
+                "tr": [
+                    "Carmen operasının sonunda koroyla birlikte seyirciyi selamlıyoruz. Devlet Opera ve Balesi korosunda geçen yıllardan bir kare."
+                ],
+                "en": [
+                    "Taking a bow with the choir at the end of Carmen. A frame from my years in the State Opera and Ballet choir."
+                ]
+            }
         }
     ],
     "portfolio": {

@@ -60,6 +60,9 @@
 - Kaleiçi, Antalya: Kaleiçi'nin taş sokaklarında akşam yürüyüşü. Her kapının bir hikâyesi var. — https://ozgemtuana.github.io/portfolyo/galeri.html?p=foto-3
 - İstanbul: İstanbul sokaklarında, binaların arasında kendime yer bulurken. — https://ozgemtuana.github.io/portfolyo/galeri.html?p=foto-4
 - Spor: Spor benim için günün ritmi: disiplin ve enerji. — https://ozgemtuana.github.io/portfolyo/galeri.html?p=foto-5
+- Satranç turnuvası: Satranç turnuvasında ödül töreni; kürsüde madalyalar takılırken. — https://ozgemtuana.github.io/portfolyo/galeri.html?p=foto-6
+- Binicilik: Güneşli bir günde kum pistte binicilik. — https://ozgemtuana.github.io/portfolyo/galeri.html?p=foto-7
+- Carmen, opera sahnesi: Carmen operasının sonunda koroyla sahnede selamlama. — https://ozgemtuana.github.io/portfolyo/galeri.html?p=foto-8
 
 ## Ders programı (Güz)
 - Pzt 13:30–17:20: MBIL 101 Programlamanın Temelleri (303 · Lab L23)
