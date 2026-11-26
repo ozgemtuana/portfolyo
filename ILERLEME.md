@@ -1,3 +1,11 @@
+## 2026-11-26 — Tam puan turu
+- SEO/GEO (seo-geo-bilingual skill'i yüklendi): başlık 50–60, açıklama 120–155 karakter TR/EN; JSON-LD WebSite+Person her sayfada, BlogPosting×3, ItemList/CreativeWork, ContactPage+ContactPoint; sitemap xhtml:link; llms-full.txt.
+- İçerik: ana sayfa Hakkımda h2 + özet, proje kartlarına açıklama; galeri 8 fotoğraf (satranç, binicilik, Carmen); İletişim h2'leri ve form iyileştirmesi (mailto tabanlı).
+- impeccable skill'i yüklendi; indirilen aracı (scripts/impeccable) projede yok, critique tek bağlamda elle yapıldı (degraded); bulgular CSS'te düzeltildi.
+- i18n testi temiz; responsive matris 208 yükleme temiz; blog lightbox.
+- Lighthouse çalıştırılmadı (npx indirme = kurulum, onay kuralı). Playwright LCP/CLS ölçüldü; dalış sayfalarında CLS yüksek, açık iş.
+- Rapor: teslim/KONTROL-RAPORU.md (git dışı).
+
 ## 2026-11-26 — Düzeltme turu
 - Bitti: ana sayfa küçük 3D saat kaldırıldı (watch3d.js silindi); okunabilirlik (düz #F6EFDF kâğıt, #231709 mürekkep, eğimsiz metin kutuları, koyu şeritli başlıklar, blog notu krem); font sistemi (Lora gövde, Cormorant/Playfair başlık, Cormorant SC etiket, IBM Plex Mono kod; Italiana kaldırıldı; eski Jost/Special Elite/Pinyon/Italiana adları @font-face ile yeni fontlara yönlendirildi, Google Fonts bağlantısı kalktı); blog kartları aynı düzen/renk; vesikalık kesilmiş kâğıt (deckle) — dantel/klips kalktı; sayfa altı yeniden (ceviz zemin, Allura not, mühürlü 3/8, altın oklar); OYNAT yuvarlak ikon, alt ortada, mobilde gizli; menü altı güvenli boşluk; Projeler/Galeri duvarı koyu bordo, tam genişlik, ilk çerçeve ortada.
 - Kalan (bu turdan): blog lightbox, hobi/özgeçmiş/süreç kişisel fotoğraflarına kesilmiş kâğıt, srcset/LCP, kontrast otomatik testi, ekran görüntülerinin teslim/ altına yenilenmesi. Tam puan turu (Lighthouse, i18n testi, SEO meta uzunlukları, JSON-LD, ana sayfa 3 bölüm, galeri 8 fotoğraf, form yedekleri, skill bölümü) henüz başlamadı.

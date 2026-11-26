@@ -26,3 +26,12 @@ Kapak, vesikalık, öğrenci no, ad soyad, YouTube linki, alan adı/site adresi 
 
 ## 4. Kontrol listesi
 Her sayfada tek `<h1>`, kendi `title` ve `description`, TR/EN düğmesi, tek sayfa değil çok sayfa. Ayrıntı: `kaynak.txt`, `CREDITS.md`.
+
+## Zip'e girmemesi gerekenler (silinmedi)
+- `.scratch/` (test betikleri, ekran görüntüleri; ~970 MB), `teslim/` (zip ve rapor), `references/` (Pinterest referansları, yalnız yerel), `inceleme/`.
+- Kullanılmayan görseller: `images/scenes/arch.webp`, `images/scenes/arch-sm.webp`, `images/scenes/cole-fallback.jpg`, `images/textures/dust-scratches.png`, `images/textures/lace-strip.webp`, `images/textures/leather.jpg` (toplam ~0.7 MB).
+- Git'te izlenen proje boyutu ~64 MB (300 MB sınırının altında).
+
+## Kullanılan skill'ler
+seo-geo-bilingual, impeccable (elle critique + craft-floor), frontend-design (tasarım planı), gsap-* ve threejs-* / web3d-integration-patterns (yüklü, başvuru). Ayrıntı: CREDITS.md ve teslim/KONTROL-RAPORU.md.
+
