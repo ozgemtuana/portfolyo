@@ -15,7 +15,7 @@ html.collage {
 html.collage body { font-family: var(--font-body); }
 
 /* ---------- 1) Düz kâğıt, koyu mürekkep ---------- */
-html.collage body :is(.card, .glass, .int-card, .list-card, .proc-card, .skills-panel, .about-text, .hobby-intro, .edu-list, .sc-label, .pf-card, .flow-card, .mini-card, .sched-wrap, .bx, .obj, .typed-card, .services-glass, .post, .h-card.postcard, .cta-postcard):not(#_):not(#_) {
+html.collage body :is(.card, .glass, .int-card, .list-card, .proc-card, .skills-panel, .about-text, .hobby-intro, .edu-list, .sc-label, .pf-card, .flow-card, .mini-card, .sched-wrap, .bx, .typed-card, .services-glass, .post, .h-card.postcard, .cta-postcard, .obj:not(.folder)):not(#_):not(#_) {
     background-image: none !important; background-color: #F6EFDF !important; color: #231709 !important; transform: none !important; border-radius: 0 !important;
 }
 /* 9-dilim dantel levhalar kendi dolgusunu (doily) çizer; arkasındaki düz renk kalır */
@@ -220,3 +220,7 @@ html.collage body :is(a, button, [tabindex], summary, input, select, textarea):f
 html.collage body :is(.post-text, .about-text, .proc-card, .list-card) > p:not(#_):not(#_) { max-width: 70ch; }
 html.collage body :is(a):not(.btn):not(.nav-link) { text-underline-offset: .2em; }
 html.collage body table { font-variant-numeric: tabular-nums; }
+
+/* Koyu yeşil örnek gönderi kutusu: krem yazı */
+html.collage body .caption-box :is(p, span, .caption-label, .hash):not(#_):not(#_) { color: #F7EFDC !important; }
+html.collage body .folder.mag .folder-meta:not(#_):not(#_) { color: #43331f !important; text-shadow: none !important; font-family: var(--font-label) !important; font-size: 15px !important; letter-spacing: .08em; }
