@@ -224,3 +224,17 @@ html.collage body table { font-variant-numeric: tabular-nums; }
 /* Koyu yeşil örnek gönderi kutusu: krem yazı */
 html.collage body .caption-box :is(p, span, .caption-label, .hash):not(#_):not(#_) { color: #F7EFDC !important; }
 html.collage body .folder.mag .folder-meta:not(#_):not(#_) { color: #43331f !important; text-shadow: none !important; font-family: var(--font-label) !important; font-size: 15px !important; letter-spacing: .08em; }
+
+/* Lightbox (js/lightbox.js) */
+.lb { position: fixed; inset: 0; z-index: 3000; display: grid; place-items: center; padding: clamp(1rem, 4vw, 3rem); background: rgba(12, 8, 4, .92); }
+.lb-fig { margin: 0; display: grid; gap: .8rem; justify-items: center; max-width: min(1400px, 100%); }
+.lb-fig img { max-width: 100%; max-height: calc(100dvh - 13rem); width: auto; height: auto; object-fit: contain; background: #F6EFDF; padding: 8px; box-shadow: 0 12px 40px rgba(0, 0, 0, .6); }
+.lb-cap { max-width: 70ch; max-height: 7rem; overflow: auto; color: #F7EFDC; font-family: var(--font-body); font-size: 1rem; line-height: 1.55; text-align: center; }
+.lb button { position: fixed; width: 52px; height: 52px; display: grid; place-items: center; font-size: 1.6rem; color: #F7EFDC; background: rgba(20, 14, 8, .8); border: 1px solid rgba(216, 180, 90, .6); border-radius: 50%; cursor: pointer; }
+.lb button:focus-visible { outline: 3px solid #d8b45a; outline-offset: 3px; }
+.lb-x { top: max(1rem, env(safe-area-inset-top)); right: max(1rem, env(safe-area-inset-right)); }
+.lb-prev { left: max(1rem, env(safe-area-inset-left)); top: 50%; margin-top: -26px; }
+.lb-next { right: max(1rem, env(safe-area-inset-right)); top: 50%; margin-top: -26px; }
+.lb button[hidden] { display: none; }
+@media (max-width: 575.98px) { .lb-prev, .lb-next { top: auto; bottom: max(1rem, env(safe-area-inset-bottom)); margin-top: 0; } }
+html.collage .shot img { cursor: zoom-in; }

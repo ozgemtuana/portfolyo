@@ -55,4 +55,12 @@
 - Fontlar (kendi sunucumuzdan, `fonts/`; hepsi SIL Open Font License 1.1, Google Fonts): Playfair Display ve Playfair Display SC (Claus Eggers Sørensen), Allura (TypeSETit), Cormorant Garamond (Christian Thalmann), Italiana (Santiago Orozco), Caveat (Impallari Type). Yalnızca latin ve latin-ext alt kümeleri.
 - Dantel ve klips görselleri (`images/lace/`): kullanıcının sağladığı web kaynakları, eğitim projesi için kullanıldı.
 - Zaman tüneli videosu (`images/intro/time-tunnel.*`): kullanıcının sağladığı kaynak, eğitim projesi için kullanıldı.
+- Ek fontlar (kendi sunucumuzdan, `fonts/`; SIL Open Font License 1.1, Google Fonts): Lora (Cyreal; gövde metni), Cormorant SC (Christian Thalmann; küçük etiketler), IBM Plex Mono (IBM; kod blokları). Italiana kaldırıldı.
+- Galeriye eklenen fotoğraflar (`images/hobbies/satranc-podyum.jpg`, `binicilik.jpg`, `sahne-carmen.jpg`): kullanıcının kendi fotoğrafları.
+
+## Kullanılan Claude Code skill'leri
+- seo-geo-bilingual (proje içi): başlık/açıklama uzunlukları, JSON-LD (Person, WebSite, BlogPosting, ItemList/CreativeWork, ContactPoint), sitemap dil alternatifleri, llms.txt + llms-full.txt.
+- impeccable: critique ve craft-floor yönergeleriyle okunabilirlik turu (düz kâğıt, tek yazı sistemi, odak halkaları, seçim/kaydırma çubuğu renkleri, satır ölçüsü). Skill'in indirilen aracı projede olmadığı için değerlendirme elle yapıldı.
+- frontend-design: önceki aşamalarda tasarım yönü (renk, yazı, yerleşim) planlaması.
+- gsap-* ve threejs-* / web3d-integration-patterns: projede yüklü; GSAP sayfa animasyonlarında, Three.js tablonun içine dalış sahnesinde kullanılıyor (skill'ler başvuru kaynağı).
 
