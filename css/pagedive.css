@@ -26,3 +26,5 @@ html.pdive-on .pjourney + .page-offset { padding-top: 2rem !important; margin-to
     .pj-copy { padding-top: 6rem; }
     .dive-map.is-tall { width: 60px; }
 }
+/* Dalış kurulana kadar içerik gizli (js/pagedive.js pdive-done ekler); hiç kurulmazsa yükleme+3 sn sonra açılır */
+html.js:not(.pdive-done) body:not([data-page="home"]) main { visibility: hidden; }

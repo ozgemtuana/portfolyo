@@ -356,7 +356,11 @@ void main() {
     }
 
     /* ---------- Sayfa değişince ---------- */
+    // İçerik, dalış kurulana kadar CSS ile görünmez (html.js:not(.pdive-done) main); her çıkış yolunda açılır → CLS yok
     function sync() {
+        try { setup(); } finally { root.classList.add("pdive-done"); }
+    }
+    function setup() {
         const page = document.body.dataset.page;
         const next = window.PAGE_DIVES[page] || null;
         active = false;
