@@ -5,7 +5,9 @@
 - CLS 8 sayfada 0 (önce 0.94 / 1.66 / 1.02 / 0.51): `html.collage` head'de; dalış kurulana kadar içerik gizli + yedek zamanlayıcı.
 - `?intro=1` açılışı her zaman oynatır; depolama yoksa ilk ziyaret.
 - Lighthouse çalıştı (mobil): Erişilebilirlik 96–100, SEO 100, En iyi uygulamalar 100, Performans 48–58. Meter adları ve kontrast düzeltildi.
-- Ayrıntı ve tablolar: teslim/KONTROL-RAPORU.md. Canlı yayın durumu aşağıya eklenecek.
+- Ayrıntı ve tablolar: teslim/KONTROL-RAPORU.md.
+- Fontlar (Lora, Cormorant SC, IBM Plex Mono) git'te izlenmiyordu, eklendi. `git archive` ile dışa aktarılan kopya 8 sayfa × TR/EN'de 404'süz ve hatasız.
+- **ONAY BEKLİYOR (canlı yayın):** `yedek-main-oncesi` etiketi oluşturuldu ve push edildi. `git merge --no-ff vintage` izin sisteminde reddedildi, `main` değişmedi. Çakışma yok (merge-tree ile denendi). Kalan komutlar: `git checkout main && git merge --no-ff vintage && git push origin main && git checkout vintage`. Ardından canlı kontrol: `node .scratch/allpages.js https://tuanadavarci.com/` ve `node .scratch/looks.js canli https://tuanadavarci.com/`.
 
 ## 2026-11-26 — Tam puan turu
 - SEO/GEO (seo-geo-bilingual skill'i yüklendi): başlık 50–60, açıklama 120–155 karakter TR/EN; JSON-LD WebSite+Person her sayfada, BlogPosting×3, ItemList/CreativeWork, ContactPage+ContactPoint; sitemap xhtml:link; llms-full.txt.
