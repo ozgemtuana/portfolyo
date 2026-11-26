@@ -1,22 +1,136 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://ozgemtuana.github.io/portfolyo/</loc><lastmod>2026-11-22</lastmod></url>
-  <url><loc>https://ozgemtuana.github.io/portfolyo/hakkimda.html</loc><lastmod>2026-11-22</lastmod></url>
-  <url><loc>https://ozgemtuana.github.io/portfolyo/resume.html</loc><lastmod>2026-11-22</lastmod></url>
-  <url><loc>https://ozgemtuana.github.io/portfolyo/projects.html</loc><lastmod>2026-11-22</lastmod></url>
-  <url><loc>https://ozgemtuana.github.io/portfolyo/blog.html</loc><lastmod>2026-11-22</lastmod></url>
-  <url><loc>https://ozgemtuana.github.io/portfolyo/galeri.html</loc><lastmod>2026-11-22</lastmod></url>
-  <url><loc>https://ozgemtuana.github.io/portfolyo/surec.html</loc><lastmod>2026-11-22</lastmod></url>
-  <url><loc>https://ozgemtuana.github.io/portfolyo/contact.html</loc><lastmod>2026-11-22</lastmod></url>
-  <url><loc>https://ozgemtuana.github.io/portfolyo/projects.html?p=proje-1</loc><lastmod>2026-11-25</lastmod></url>
-  <url><loc>https://ozgemtuana.github.io/portfolyo/projects.html?p=proje-2</loc><lastmod>2026-11-25</lastmod></url>
-  <url><loc>https://ozgemtuana.github.io/portfolyo/projects.html?p=proje-3</loc><lastmod>2026-11-25</lastmod></url>
-  <url><loc>https://ozgemtuana.github.io/portfolyo/projects.html?p=proje-4</loc><lastmod>2026-11-25</lastmod></url>
-  <url><loc>https://ozgemtuana.github.io/portfolyo/projects.html?p=proje-5</loc><lastmod>2026-11-25</lastmod></url>
-  <url><loc>https://ozgemtuana.github.io/portfolyo/projects.html?p=proje-6</loc><lastmod>2026-11-25</lastmod></url>
-  <url><loc>https://ozgemtuana.github.io/portfolyo/galeri.html?p=foto-1</loc><lastmod>2026-11-25</lastmod></url>
-  <url><loc>https://ozgemtuana.github.io/portfolyo/galeri.html?p=foto-2</loc><lastmod>2026-11-25</lastmod></url>
-  <url><loc>https://ozgemtuana.github.io/portfolyo/galeri.html?p=foto-3</loc><lastmod>2026-11-25</lastmod></url>
-  <url><loc>https://ozgemtuana.github.io/portfolyo/galeri.html?p=foto-4</loc><lastmod>2026-11-25</lastmod></url>
-  <url><loc>https://ozgemtuana.github.io/portfolyo/galeri.html?p=foto-5</loc><lastmod>2026-11-25</lastmod></url>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://ozgemtuana.github.io/portfolyo/</loc>
+    <lastmod>2026-11-26</lastmod>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://ozgemtuana.github.io/portfolyo/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ozgemtuana.github.io/portfolyo/?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ozgemtuana.github.io/portfolyo/"/>
+  </url>
+  <url>
+    <loc>https://ozgemtuana.github.io/portfolyo/hakkimda.html</loc>
+    <lastmod>2026-11-26</lastmod>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://ozgemtuana.github.io/portfolyo/hakkimda.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ozgemtuana.github.io/portfolyo/hakkimda.html?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ozgemtuana.github.io/portfolyo/hakkimda.html"/>
+  </url>
+  <url>
+    <loc>https://ozgemtuana.github.io/portfolyo/resume.html</loc>
+    <lastmod>2026-11-26</lastmod>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://ozgemtuana.github.io/portfolyo/resume.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ozgemtuana.github.io/portfolyo/resume.html?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ozgemtuana.github.io/portfolyo/resume.html"/>
+  </url>
+  <url>
+    <loc>https://ozgemtuana.github.io/portfolyo/projects.html</loc>
+    <lastmod>2026-11-26</lastmod>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://ozgemtuana.github.io/portfolyo/projects.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ozgemtuana.github.io/portfolyo/projects.html?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ozgemtuana.github.io/portfolyo/projects.html"/>
+  </url>
+  <url>
+    <loc>https://ozgemtuana.github.io/portfolyo/blog.html</loc>
+    <lastmod>2026-11-26</lastmod>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://ozgemtuana.github.io/portfolyo/blog.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ozgemtuana.github.io/portfolyo/blog.html?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ozgemtuana.github.io/portfolyo/blog.html"/>
+  </url>
+  <url>
+    <loc>https://ozgemtuana.github.io/portfolyo/galeri.html</loc>
+    <lastmod>2026-11-26</lastmod>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://ozgemtuana.github.io/portfolyo/galeri.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ozgemtuana.github.io/portfolyo/galeri.html?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ozgemtuana.github.io/portfolyo/galeri.html"/>
+  </url>
+  <url>
+    <loc>https://ozgemtuana.github.io/portfolyo/surec.html</loc>
+    <lastmod>2026-11-26</lastmod>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://ozgemtuana.github.io/portfolyo/surec.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ozgemtuana.github.io/portfolyo/surec.html?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ozgemtuana.github.io/portfolyo/surec.html"/>
+  </url>
+  <url>
+    <loc>https://ozgemtuana.github.io/portfolyo/contact.html</loc>
+    <lastmod>2026-11-26</lastmod>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://ozgemtuana.github.io/portfolyo/contact.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ozgemtuana.github.io/portfolyo/contact.html?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ozgemtuana.github.io/portfolyo/contact.html"/>
+  </url>
+  <url>
+    <loc>https://ozgemtuana.github.io/portfolyo/projects.html?p=proje-1</loc>
+    <lastmod>2026-11-26</lastmod>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://ozgemtuana.github.io/portfolyo/projects.html?p=proje-1"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ozgemtuana.github.io/portfolyo/projects.html?p=proje-1&amp;lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ozgemtuana.github.io/portfolyo/projects.html?p=proje-1"/>
+  </url>
+  <url>
+    <loc>https://ozgemtuana.github.io/portfolyo/projects.html?p=proje-2</loc>
+    <lastmod>2026-11-26</lastmod>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://ozgemtuana.github.io/portfolyo/projects.html?p=proje-2"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ozgemtuana.github.io/portfolyo/projects.html?p=proje-2&amp;lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ozgemtuana.github.io/portfolyo/projects.html?p=proje-2"/>
+  </url>
+  <url>
+    <loc>https://ozgemtuana.github.io/portfolyo/projects.html?p=proje-3</loc>
+    <lastmod>2026-11-26</lastmod>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://ozgemtuana.github.io/portfolyo/projects.html?p=proje-3"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ozgemtuana.github.io/portfolyo/projects.html?p=proje-3&amp;lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ozgemtuana.github.io/portfolyo/projects.html?p=proje-3"/>
+  </url>
+  <url>
+    <loc>https://ozgemtuana.github.io/portfolyo/projects.html?p=proje-4</loc>
+    <lastmod>2026-11-26</lastmod>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://ozgemtuana.github.io/portfolyo/projects.html?p=proje-4"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ozgemtuana.github.io/portfolyo/projects.html?p=proje-4&amp;lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ozgemtuana.github.io/portfolyo/projects.html?p=proje-4"/>
+  </url>
+  <url>
+    <loc>https://ozgemtuana.github.io/portfolyo/projects.html?p=proje-5</loc>
+    <lastmod>2026-11-26</lastmod>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://ozgemtuana.github.io/portfolyo/projects.html?p=proje-5"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ozgemtuana.github.io/portfolyo/projects.html?p=proje-5&amp;lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ozgemtuana.github.io/portfolyo/projects.html?p=proje-5"/>
+  </url>
+  <url>
+    <loc>https://ozgemtuana.github.io/portfolyo/projects.html?p=proje-6</loc>
+    <lastmod>2026-11-26</lastmod>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://ozgemtuana.github.io/portfolyo/projects.html?p=proje-6"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ozgemtuana.github.io/portfolyo/projects.html?p=proje-6&amp;lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ozgemtuana.github.io/portfolyo/projects.html?p=proje-6"/>
+  </url>
+  <url>
+    <loc>https://ozgemtuana.github.io/portfolyo/galeri.html?p=foto-1</loc>
+    <lastmod>2026-11-26</lastmod>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://ozgemtuana.github.io/portfolyo/galeri.html?p=foto-1"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ozgemtuana.github.io/portfolyo/galeri.html?p=foto-1&amp;lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ozgemtuana.github.io/portfolyo/galeri.html?p=foto-1"/>
+  </url>
+  <url>
+    <loc>https://ozgemtuana.github.io/portfolyo/galeri.html?p=foto-2</loc>
+    <lastmod>2026-11-26</lastmod>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://ozgemtuana.github.io/portfolyo/galeri.html?p=foto-2"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ozgemtuana.github.io/portfolyo/galeri.html?p=foto-2&amp;lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ozgemtuana.github.io/portfolyo/galeri.html?p=foto-2"/>
+  </url>
+  <url>
+    <loc>https://ozgemtuana.github.io/portfolyo/galeri.html?p=foto-3</loc>
+    <lastmod>2026-11-26</lastmod>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://ozgemtuana.github.io/portfolyo/galeri.html?p=foto-3"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ozgemtuana.github.io/portfolyo/galeri.html?p=foto-3&amp;lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ozgemtuana.github.io/portfolyo/galeri.html?p=foto-3"/>
+  </url>
+  <url>
+    <loc>https://ozgemtuana.github.io/portfolyo/galeri.html?p=foto-4</loc>
+    <lastmod>2026-11-26</lastmod>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://ozgemtuana.github.io/portfolyo/galeri.html?p=foto-4"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ozgemtuana.github.io/portfolyo/galeri.html?p=foto-4&amp;lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ozgemtuana.github.io/portfolyo/galeri.html?p=foto-4"/>
+  </url>
+  <url>
+    <loc>https://ozgemtuana.github.io/portfolyo/galeri.html?p=foto-5</loc>
+    <lastmod>2026-11-26</lastmod>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://ozgemtuana.github.io/portfolyo/galeri.html?p=foto-5"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ozgemtuana.github.io/portfolyo/galeri.html?p=foto-5&amp;lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ozgemtuana.github.io/portfolyo/galeri.html?p=foto-5"/>
+  </url>
 </urlset>

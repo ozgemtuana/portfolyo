@@ -172,3 +172,8 @@ html.collage body .container > .wall { width: 100vw; margin-left: calc(50% - 50v
     html.collage body .wall { --H: min(64vw, 300px); height: 560px; }
     html.collage body .wall-track { padding-top: 5rem; }
 }
+
+/* İletişim: bölüm başlıkları (h2) */
+html.collage body .contact-h:not(#_) { font-family: "Cormorant Garamond", Georgia, serif; font-weight: 600; font-size: clamp(1.6rem, 2.6vw, 2rem); color: #231709 !important; margin: 0 0 1rem; }
+html.collage body .contact-h--dark:not(#_) { color: #F7EFDC !important; text-shadow: 0 2px 10px rgba(0, 0, 0, .7); }
+html.collage body .contact-h--sm:not(#_) { font-size: 1.25rem; }
