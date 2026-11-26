@@ -316,5 +316,15 @@ html.collage .post .collage:not(html) img { max-width: 26%; min-width: 0; object
     html.collage .post .collage:not(html) { flex-wrap: wrap; height: auto; gap: 1rem 0; padding: 1rem 0; }
     html.collage .post .collage:not(html) img { height: 230px !important; max-width: 48%; margin: 0 !important; }
 }
+/* ---------- Hobi fotoğrafları: vesikalıkla aynı kesilmiş kâğıt (deckle), klips/dantel yok ---------- */
+html.collage body [data-render="hobbyfolders"] .folder-papers .cut:not(#_) { padding: 12px !important; background: none !important; box-shadow: none !important;
+    transform: rotate(clamp(-1.2deg, calc(var(--r, 0deg) * .4), 1.2deg)) !important; filter: drop-shadow(0 6px 12px rgba(0, 0, 0, .32)); align-self: end; }
+html.collage body [data-render="hobbyfolders"] .folder-papers .cut:not(#_)::before { content: ""; position: absolute; inset: 0; z-index: 0; background: #F3E8D0;
+    -webkit-mask: url("../images/textures/deckle-mask.png") center / 100% 100% no-repeat; mask: url("../images/textures/deckle-mask.png") center / 100% 100% no-repeat; pointer-events: none; }
+/* Fotoğrafın tamamı görünür (kırpma yok), oranı korunur */
+html.collage body [data-render="hobbyfolders"] .folder-papers .cut img:not(#_) { position: relative; z-index: 1; width: 100%; height: auto; aspect-ratio: auto; object-fit: contain;
+    border: 0 !important; padding: 0 !important; background: none !important; box-shadow: none !important; }
+html.collage body [data-render="hobbyfolders"] .folder-papers:not(#_) { align-items: end; }
+
 /* Lightbox: büyük hali ekrana sığar */
 .lb-fig img { max-width: min(100%, 92vw); max-height: min(88vh, calc(100dvh - 11rem)); }
