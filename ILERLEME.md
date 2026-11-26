@@ -1,3 +1,7 @@
+## 2026-11-26 — Düzeltme turu
+- Bitti: ana sayfa küçük 3D saat kaldırıldı (watch3d.js silindi); okunabilirlik (düz #F6EFDF kâğıt, #231709 mürekkep, eğimsiz metin kutuları, koyu şeritli başlıklar, blog notu krem); font sistemi (Lora gövde, Cormorant/Playfair başlık, Cormorant SC etiket, IBM Plex Mono kod; Italiana kaldırıldı; eski Jost/Special Elite/Pinyon/Italiana adları @font-face ile yeni fontlara yönlendirildi, Google Fonts bağlantısı kalktı); blog kartları aynı düzen/renk; vesikalık kesilmiş kâğıt (deckle) — dantel/klips kalktı; sayfa altı yeniden (ceviz zemin, Allura not, mühürlü 3/8, altın oklar); OYNAT yuvarlak ikon, alt ortada, mobilde gizli; menü altı güvenli boşluk; Projeler/Galeri duvarı koyu bordo, tam genişlik, ilk çerçeve ortada.
+- Kalan (bu turdan): blog lightbox, hobi/özgeçmiş/süreç kişisel fotoğraflarına kesilmiş kâğıt, srcset/LCP, kontrast otomatik testi, ekran görüntülerinin teslim/ altına yenilenmesi. Tam puan turu (Lighthouse, i18n testi, SEO meta uzunlukları, JSON-LD, ana sayfa 3 bölüm, galeri 8 fotoğraf, form yedekleri, skill bölümü) henüz başlamadı.
+
 ## 2026-11-26 — Kalan işler turu
 - Dantel levha: blog yazıları ve Hakkımda uzun metin 9-dilim doily.png ile (mobilde 44px kenar); vesikalık dantel pencerede altın klipsle. Çakışan kurallar için `:not(#_):not(#_)` ile özgüllük artırıldı (letter-paper, cards-fix).
 - Mobil/tablet menü (<992px): klipsli kâğıt etiketler, hamburger etiketi, Esc + dışarı tıklama + odak dönüşü (js/menu.js), TR/EN 44px; `.navbar > .container` flex-wrap:nowrap (collage-fix) mobilde wrap'e çevrildi.
