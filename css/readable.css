@@ -79,3 +79,12 @@ html.collage body main { padding-bottom: 72px; }
 html.collage body .bx:not(#_):not(#_) { margin-top: 0 !important; margin-bottom: 0 !important; align-self: stretch; }
 html.collage body .bx :is(.bx-title, .bx-ex, .bx-cat):not(#_):not(#_) { font-style: normal !important; }
 html.collage body .bx-title:not(#_):not(#_) { font-size: clamp(1.35rem, 1.7vw, 1.5rem) !important; line-height: 1.25; }
+
+/* ---------- Kişisel fotoğraf: kesilmiş kâğıt (dantel pencere ve klips kalktı) ---------- */
+html.collage body .about-page .id-photo:not(#_):not(#_) { position: relative; float: right; display: block; width: 150px !important; height: auto; aspect-ratio: auto; padding: 13px 13px 10px !important; margin: .2rem -.4rem 1.6rem 1.2rem !important;
+    background: none !important; border: 0 !important; box-shadow: none !important; transform: rotate(1.2deg) !important; filter: drop-shadow(0 8px 22px rgba(0, 0, 0, .35)); }
+html.collage body .about-page .id-photo:not(#_):not(#_)::before { content: ""; position: absolute; inset: 0; left: 0; top: 0; width: auto; height: auto; transform: none; z-index: 0; background: #F3E8D0; filter: none;
+    -webkit-mask: url("../images/textures/deckle-mask.png") center / 100% 100% no-repeat; mask: url("../images/textures/deckle-mask.png") center / 100% 100% no-repeat; pointer-events: none; }
+html.collage body .about-page .id-photo:not(#_):not(#_) img { position: relative !important; left: auto; top: auto; z-index: 1; display: block; width: 100% !important; height: auto !important; aspect-ratio: 591 / 709; object-fit: cover; object-position: 50% 25%; border: 0 !important; box-shadow: none; filter: none; }
+html.collage body .about-page .id-photo:not(#_):not(#_) figcaption { position: relative !important; bottom: auto !important; z-index: 1; margin-top: .3rem; text-align: center; color: #231709 !important; line-height: 1.05; white-space: normal !important; }
+html.collage body .about-page .id-photo .id-name { font-size: 1.3rem; color: #7a1f1a !important; }
